@@ -20,22 +20,21 @@ export const TEAM_ROSTER: UserMention[] = [
   { id: 'coach-dc', name: 'Marcus Vance', role: 'COORDINATOR', position: 'Defensive Coordinator / LBs' },
   { id: 'coach-ol', name: 'Frank Reynolds', role: 'COACH', position: 'Offensive Line Coach' },
   
-  // 2025–2026 Active Varsity Athletes
-  { id: 'player-5', name: 'Lorenzo Barone', role: 'PLAYER', jerseyNumber: 5, position: 'WR / Returner (Sr, 2026)' },
-  { id: 'player-55', name: 'Jayden Williams', role: 'PLAYER', jerseyNumber: 55, position: 'DE / EDGE (Sr, 2026)' },
-  { id: 'player-8', name: 'Ari Miller', role: 'PLAYER', jerseyNumber: 8, position: 'TE / Flex WR (Sr, 2026)' },
-  { id: 'player-6', name: 'Joseph Gaston', role: 'PLAYER', jerseyNumber: 6, position: 'ATH (QB/WR/CB) (Sr, 2026)' },
-  { id: 'player-9', name: 'Griffin Brennan', role: 'PLAYER', jerseyNumber: 9, position: 'QB1 (Jr, 2027)' },
-  { id: 'player-22', name: 'Benjamin Perkins', role: 'PLAYER', jerseyNumber: 22, position: 'RB1 (So, 2028)' },
-  { id: 'player-70', name: 'Mason Kish', role: 'PLAYER', jerseyNumber: 70, position: 'DT1 (So, 2028)' },
-  { id: 'player-15', name: 'Jonathan Stizza', role: 'PLAYER', jerseyNumber: 15, position: 'FS1 (Jr, 2027)' },
-  { id: 'player-56', name: 'Nick Famularo', role: 'PLAYER', jerseyNumber: 56, position: 'G1 / LB (Jr, 2027)' },
-  { id: 'player-68', name: 'Michael Ogbutor', role: 'PLAYER', jerseyNumber: 68, position: 'OT1 (So, 2028)' },
+  // 2025–2026 MaxPreps & NJ.com Verified Varsity Athletes
+  { id: 'player-15', name: 'Freddy Melton', role: 'PLAYER', jerseyNumber: 15, position: 'QB (Sr, 2026)' },
+  { id: 'player-3', name: 'Jeremiah Davis', role: 'PLAYER', jerseyNumber: 3, position: 'RB / DB / KR (Sr, 2026)' },
+  { id: 'player-4', name: 'Cooper Allen', role: 'PLAYER', jerseyNumber: 4, position: 'TE / DE (Sr, 2026)' },
+  { id: 'player-70', name: 'Christian Velardi', role: 'PLAYER', jerseyNumber: 70, position: 'OT / DL (Sr, 2026)' },
+  { id: 'player-77', name: 'Reed Oliver', role: 'PLAYER', jerseyNumber: 77, position: 'DT / OL (Sr, 2026)' },
+  { id: 'player-5', name: 'Lorenzo Barone', role: 'PLAYER', jerseyNumber: 5, position: 'WR / PR (Sr, 2026)' },
+  { id: 'player-6', name: 'Joey Gaston', role: 'PLAYER', jerseyNumber: 6, position: 'QB / ATH (Sr, 2026)' },
+  { id: 'player-9', name: 'Griffin Brennan', role: 'PLAYER', jerseyNumber: 9, position: 'QB / OLB (Jr, 2027)' },
+  { id: 'player-14', name: 'JT Rulewich', role: 'PLAYER', jerseyNumber: 14, position: 'WR (So, 2028)' },
+  { id: 'player-22', name: 'Benjamin Perkins', role: 'PLAYER', jerseyNumber: 22, position: 'RB (So, 2028)' },
+  { id: 'player-72', name: 'Mason Kish', role: 'PLAYER', jerseyNumber: 72, position: 'DT (So, 2028)' },
+  { id: 'player-11', name: 'Jonathan Stizza', role: 'PLAYER', jerseyNumber: 11, position: 'FS / WR (Jr, 2027)' },
   { id: 'player-16', name: 'Griffin Suthammanont', role: 'PLAYER', jerseyNumber: 16, position: 'WR (Jr, 2027)' },
-  { id: 'player-19', name: 'Aaron (Jihoon) Lee', role: 'PLAYER', jerseyNumber: 19, position: 'CB (Jr, 2027)' },
-  { id: 'player-36', name: 'Mason McGovern', role: 'PLAYER', jerseyNumber: 36, position: 'MLB (So, 2028)' },
-  { id: 'player-32', name: 'Bryce Layade', role: 'PLAYER', jerseyNumber: 32, position: 'OLB (So, 2028)' },
-  { id: 'player-21', name: 'Ardanley Then', role: 'PLAYER', jerseyNumber: 21, position: 'CB (Jr, 2027)' },
+  { id: 'player-32', name: 'Bryce Layade', role: 'PLAYER', jerseyNumber: 32, position: 'LB (So, 2028)' },
 ];
 
 export const CURRENT_USER: UserMention = TEAM_ROSTER[0]; // Coach Mark Fabish
