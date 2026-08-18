@@ -1,841 +1,1182 @@
 // ============================================================================
-// GridironIQ — Peddie School Falcons Football (Official 2025–2026 MaxPreps & NJ.com Roster)
-// Complete 2025–2026 Verified Roster, Physicals, Stats, Strengths/Weaknesses & Recruiting Profiles
+// GridironIQ — 2025–2026 Peddie School Falcons Official Varsity Roster
+// Grounded on Official NJ.com High School Sports PDF & Athletic Records
+// Head Coach: Mark Fabish | Assistant Coaches: Ethan Kibrick, Deyvon Brooks, Chris Gonzalez
 // ============================================================================
 
 import { PlayerProfile } from '@/types/football';
 
 export const PEDDIE_PLAYERS: PlayerProfile[] = [
   // --------------------------------------------------------------------------
-  // #15 Freddy Melton — Quarterback (Senior, Class of 2026)
+  // #2 Kadin Huling — RB (Junior, Class of 2027)
   // --------------------------------------------------------------------------
   {
-    id: 'peddie-p15-melton',
-    name: 'Freddy Melton',
-    jerseyNumber: 15,
-    positions: ['QB'],
-    primaryPosition: 'QB',
-    classYear: '2026',
-    gradeLevel: 'Senior',
-    age: 18,
-    height: "6'3\"",
-    weight: "205 lbs",
-    hometown: 'Hightstown, NJ',
+    id: 'peddie-p2-huling',
+    name: 'Kadin Huling',
+    jerseyNumber: 2,
+    positions: ["RB", "LB"],
+    primaryPosition: 'RB',
+    classYear: '2027',
+    gradeLevel: 'Junior',
+    height: undefined,
     highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300&auto=format&fit=crop&q=80',
     strengths: [
-      'Multi-time MaxPreps Player of the Game winner who commanded the Peddie offense throughout 2025–2026',
-      'Live, accurate arm with excellent touch on deep vertical seams and boundary intermediate hole-shots',
-      'Advanced pre-snap recognition of pressure packages; gets the ball out in under 2.3 seconds against the blitz',
-      'Calm under pocket collapse; steps up through interior passing lanes effectively'
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
     ],
     weaknesses: [
-      'Resetting lower-half throwing base when forced to scramble left outside the pocket',
-      'Adding more velocity on off-platform cross-body throws'
+      'Continuing varsity technical development'
     ],
-    scoutingSummary: 'Senior starting quarterback for Coach Mark Fabish. Melton orchestrated Peddie\'s explosive 53-point outburst against St. Luke\'s and 40-point homecoming win against Hill School.',
-    radarMetrics: {
-      speed: 82,
-      strength: 90,
-      technique: 93,
-      footballIq: 95,
-      motor: 90,
-      versatility: 85,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      passingYards: 1980,
-      passingTds: 22,
-      interceptionsThrown: 5,
-      completionPct: 68.2,
-      qbr: 116.8,
-      rushingYards: 140,
-      rushingTds: 2,
-      avgEpaContribution: 2.10,
-    },
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Junior). Listed as #2 playing RB, LB.',
     recruitment: {
-      rating: '3_STAR',
-      status: 'MULTIPLE_OFFERS',
-      interestedColleges: ['Fordham', 'Holy Cross', 'Colgate', 'Monmouth', 'Bryant'],
-      offers: ['Fordham University', 'Monmouth University'],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-melton-2026',
-      gpa: 3.75,
-      benchPressMaxLbs: 255,
-      squatMaxLbs: 385,
-      fortyYardDashSec: 4.72,
-      verticalJumpInches: 33.0,
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
     },
-    keyFilmPlays: ['pb-play-1', 'pb-play-3', 'psl-play-1', 'ph-play-1'],
+    keyFilmPlays: [],
   },
-
   // --------------------------------------------------------------------------
-  // #3 Jeremiah Davis — Running Back / Returner / DB (Senior, Class of 2026)
+  // #3 Jeremiah Davis — RB (Senior, Class of 2026)
   // --------------------------------------------------------------------------
   {
     id: 'peddie-p3-davis',
     name: 'Jeremiah Davis',
     jerseyNumber: 3,
-    positions: ['RB', 'KR', 'PR', 'DB'],
+    positions: ["RB", "DB"],
     primaryPosition: 'RB',
     classYear: '2026',
     gradeLevel: 'Senior',
-    age: 18,
-    height: "5'11\"",
-    weight: "195 lbs",
-    hometown: 'Hightstown, NJ',
+    height: undefined,
     highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=300&auto=format&fit=crop&q=80',
     strengths: [
-      'National Football Foundation (Delaware Valley Chapter) Honoree and premier offensive weapon for Peddie',
-      'Recorded an electric 4-touchdown game in 2025–2026 (2 receiving, 1 rushing, 1 punt return touchdown)',
-      'Sub-4.50 speed with dynamic open-field vision and elite contact balance through arm tackles',
-      'Dual-threat receiving weapon out of the backfield on angle and wheel routes'
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
     ],
     weaknesses: [
-      'Pass protection square-up against 240 lb blitzing middle linebackers',
-      'Patience on slow-developing interior trap schemes'
+      'Continuing varsity technical development'
     ],
-    scoutingSummary: 'Marquee Senior athlete for the Falcons. Davis\'s versatile explosiveness as a runner, receiver, and returner makes him the most dangerous all-purpose player in the MAPL.',
-    radarMetrics: {
-      speed: 95,
-      strength: 88,
-      technique: 92,
-      footballIq: 94,
-      motor: 98,
-      versatility: 98,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      rushingYards: 940,
-      rushingAttempts: 142,
-      rushingTds: 12,
-      yardsPerCarry: 6.62,
-      receptions: 34,
-      receivingYards: 480,
-      receivingTds: 5,
-      avgEpaContribution: 2.35,
-    },
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Senior). Listed as #3 playing RB, DB.',
     recruitment: {
-      rating: '3_STAR',
-      status: 'MULTIPLE_OFFERS',
-      interestedColleges: ['Rutgers', 'Temple', 'Lafayette', 'Villanova', 'Delaware', 'Penn'],
-      offers: ['Lafayette College', 'Villanova University', 'Delaware'],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-davis-2026',
-      gpa: 3.68,
-      benchPressMaxLbs: 295,
-      squatMaxLbs: 455,
-      fortyYardDashSec: 4.48,
-      verticalJumpInches: 36.5,
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
     },
-    keyFilmPlays: ['pb-play-2', 'psl-play-2', 'ph-play-1'],
+    keyFilmPlays: [],
   },
-
   // --------------------------------------------------------------------------
-  // #4 Cooper Allen — Tight End / Defensive End (Postgraduate / Senior, Class of 2026)
+  // #4 Cooper Allen — TE (Senior, Class of 2026)
   // --------------------------------------------------------------------------
   {
     id: 'peddie-p4-allen',
     name: 'Cooper Allen',
     jerseyNumber: 4,
-    positions: ['TE', 'DE'],
+    positions: ["TE", "DL"],
     primaryPosition: 'TE',
     classYear: '2026',
     gradeLevel: 'Senior',
-    age: 18,
-    height: "6'4\"",
-    weight: "235 lbs",
-    hometown: 'Hightstown, NJ',
+    height: '6-3',
     highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=300&auto=format&fit=crop&q=80',
     strengths: [
-      'National Football Foundation Scholar-Athlete Honoree committed to Division 1 FCS Merrimack College',
-      'Prototypical 6\'4" frame with physical in-line blocking power and soft receiving hands in the seam',
-      'Relentless edge setter on defense who logged 7.5 sacks and 14 TFLs in 2025–2026'
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
     ],
     weaknesses: [
-      'Lateral change of direction against speedy perimeter slot cornerbacks'
+      'Continuing varsity technical development'
     ],
-    scoutingSummary: 'Dominant two-way Senior tight end and defensive end. Signed with Division 1 Merrimack College after anchoring Peddie on both sides of the ball.',
-    radarMetrics: {
-      speed: 86,
-      strength: 94,
-      technique: 92,
-      footballIq: 95,
-      motor: 97,
-      versatility: 95,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      receptions: 36,
-      receivingYards: 520,
-      receivingTds: 6,
-      yardsPerCatch: 14.4,
-      tacklesTotal: 48,
-      tacklesForLoss: 14.0,
-      sacks: 7.5,
-      avgEpaContribution: 2.05,
-    },
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Senior). Listed as #4 playing TE, DL.',
     recruitment: {
-      rating: '3_STAR',
+      rating: 'DEVELOPING',
       status: 'COMMITTED',
+      interestedColleges: [],
+      offers: [],
       committedCollege: 'Merrimack College (Division 1 FCS)',
-      interestedColleges: ['Merrimack', 'Holy Cross', 'Sacred Heart', 'Bryant', 'Maine'],
-      offers: ['Merrimack College', 'Sacred Heart University'],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-allen-2026',
-      gpa: 3.88,
-      benchPressMaxLbs: 315,
-      squatMaxLbs: 465,
-      fortyYardDashSec: 4.64,
-      verticalJumpInches: 34.0,
     },
-    keyFilmPlays: ['pb-play-3', 'pl-play-1'],
+    keyFilmPlays: [],
   },
-
   // --------------------------------------------------------------------------
-  // #70 Christian Velardi — Offensive Line / Defensive Line (Senior, Class of 2026)
-  // --------------------------------------------------------------------------
-  {
-    id: 'peddie-p70-velardi',
-    name: 'Christian Velardi',
-    jerseyNumber: 70,
-    positions: ['OL', 'DL', 'OT'],
-    primaryPosition: 'OT',
-    classYear: '2026',
-    gradeLevel: 'Senior',
-    age: 18,
-    height: "6'8\"",
-    weight: "310 lbs",
-    hometown: 'Hightstown, NJ',
-    highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=300&auto=format&fit=crop&q=80',
-    strengths: [
-      'Massive 6\'8", 310 lb anchor on the offensive and defensive lines; committed to Fordham University',
-      'Imposing drive blocker who dominates at the point of attack and sets a clean pocket for Freddy Melton',
-      'Exceptional pass protection kick-slide with heavy punch to neutralize outside speed rushers'
-    ],
-    weaknesses: [
-      'Pad level can rise on quick second-level inside twists'
-    ],
-    scoutingSummary: 'Senior offensive tackle stalwart and D1 commit. Velardi is the physical leader of the Peddie offensive line.',
-    radarMetrics: {
-      speed: 74,
-      strength: 97,
-      technique: 93,
-      footballIq: 92,
-      motor: 95,
-      versatility: 88,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      pancakeBlocks: 38,
-      sacksAllowed: 1,
-      tacklesTotal: 32,
-      tacklesForLoss: 8.5,
-      sacks: 3.0,
-      avgEpaContribution: 1.85,
-    },
-    recruitment: {
-      rating: '3_STAR',
-      status: 'COMMITTED',
-      committedCollege: 'Fordham University / West Chester',
-      interestedColleges: ['Fordham', 'West Chester', 'Monmouth', 'Stony Brook', 'Lafayette'],
-      offers: ['Fordham University', 'West Chester University'],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-velardi-2026',
-      gpa: 3.62,
-      benchPressMaxLbs: 365,
-      squatMaxLbs: 535,
-      fortyYardDashSec: 5.10,
-      verticalJumpInches: 28.5,
-    },
-    keyFilmPlays: ['pb-play-1', 'psl-play-2'],
-  },
-
-  // --------------------------------------------------------------------------
-  // #77 Reed Oliver — Defensive Line / Offensive Line (Senior, Class of 2026)
-  // --------------------------------------------------------------------------
-  {
-    id: 'peddie-p77-oliver',
-    name: 'Reed Oliver',
-    jerseyNumber: 77,
-    positions: ['DL', 'OL', 'DT'],
-    primaryPosition: 'DT',
-    classYear: '2026',
-    gradeLevel: 'Senior',
-    age: 18,
-    height: "6'3\"",
-    weight: "275 lbs",
-    hometown: 'Hightstown, NJ',
-    highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80',
-    strengths: [
-      'Second Team All-Prep New Jersey Honoree committed to Division 1 FCS Marist College',
-      'Immovable run-stopper with explosive first-step penetration in the A and B gaps',
-      'High-motor interior bull rusher who consistently collapsed opposing pockets'
-    ],
-    weaknesses: [
-      'Lateral redirection against wide perimeter stretch plays'
-    ],
-    scoutingSummary: 'All-Prep interior defensive lineman who anchored Peddie\'s front seven in 2025–2026 before signing with Marist College.',
-    radarMetrics: {
-      speed: 76,
-      strength: 96,
-      technique: 92,
-      footballIq: 91,
-      motor: 96,
-      versatility: 87,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      tacklesTotal: 52,
-      tacklesSolo: 34,
-      tacklesForLoss: 16.5,
-      sacks: 6.5,
-      forcedFumbles: 3,
-      avgEpaContribution: 1.90,
-    },
-    recruitment: {
-      rating: '3_STAR',
-      status: 'COMMITTED',
-      committedCollege: 'Marist College (Division 1 FCS)',
-      interestedColleges: ['Marist', 'Wagner', 'Sacred Heart', 'Bryant'],
-      offers: ['Marist College', 'Wagner College'],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-oliver-2026',
-      gpa: 3.70,
-      benchPressMaxLbs: 355,
-      squatMaxLbs: 525,
-      fortyYardDashSec: 4.98,
-      verticalJumpInches: 30.0,
-    },
-    keyFilmPlays: ['pb-play-5'],
-  },
-
-  // --------------------------------------------------------------------------
-  // #5 Lorenzo Barone — Wide Receiver / Returner (Senior, Class of 2026)
+  // #5 Lorenzo Barone — WR (Senior, Class of 2026)
   // --------------------------------------------------------------------------
   {
     id: 'peddie-p5-barone',
     name: 'Lorenzo Barone',
     jerseyNumber: 5,
-    positions: ['WR', 'KR', 'PR'],
+    positions: ["WR", "DB"],
     primaryPosition: 'WR',
     classYear: '2026',
     gradeLevel: 'Senior',
-    age: 18,
-    height: "5'11\"",
-    weight: "180 lbs",
-    hometown: 'Hightstown, NJ',
+    height: undefined,
     highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&auto=format&fit=crop&q=80',
     strengths: [
-      'Electrifying 4.45 40-yard speed and 22.1 mph tracked top velocity on Jet Sweeps and Fly motions',
-      'Elite route-running technician; creates instant separation on 90-degree cuts and dig routes',
-      'Sideline master with remarkable body control on boundary toe-taps'
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
     ],
     weaknesses: [
-      'Press coverage release against physical 6\'2"+ boundary cornerbacks'
+      'Continuing varsity technical development'
     ],
-    scoutingSummary: 'Senior wide receiver and motion weapon for Peddie. Barone\'s pre-snap motion forced defensive rotations on virtually every snap in 2025–2026.',
-    radarMetrics: {
-      speed: 96,
-      strength: 78,
-      technique: 94,
-      footballIq: 92,
-      motor: 95,
-      versatility: 94,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      receptions: 52,
-      receivingYards: 840,
-      receivingTds: 10,
-      yardsPerCatch: 16.1,
-      rushingYards: 180,
-      rushingTds: 3,
-      avgEpaContribution: 2.15,
-    },
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Senior). Listed as #5 playing WR, DB.',
     recruitment: {
-      rating: '3_STAR',
-      status: 'MULTIPLE_OFFERS',
-      interestedColleges: ['Dartmouth', 'Villanova', 'Columbia', 'Penn', 'Princeton'],
-      offers: ['Dartmouth College', 'Villanova University', 'Columbia University'],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-barone-2026',
-      gpa: 3.84,
-      benchPressMaxLbs: 235,
-      squatMaxLbs: 355,
-      fortyYardDashSec: 4.45,
-      verticalJumpInches: 37.0,
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
     },
-    keyFilmPlays: ['pb-play-1', 'pb-play-4', 'ph-play-1'],
+    keyFilmPlays: [],
   },
-
   // --------------------------------------------------------------------------
-  // #6 Joey Gaston — Quarterback / ATH (Senior, Class of 2026)
+  // #6 Joey Gaston — QB (Senior, Class of 2026)
   // --------------------------------------------------------------------------
   {
     id: 'peddie-p6-gaston',
     name: 'Joey Gaston',
     jerseyNumber: 6,
-    positions: ['QB', 'ATH', 'WR', 'CB'],
-    primaryPosition: 'ATH',
+    positions: ["QB"],
+    primaryPosition: 'QB',
     classYear: '2026',
     gradeLevel: 'Senior',
-    age: 18,
-    height: "6'1\"",
-    weight: "185 lbs",
-    hometown: 'Hightstown, NJ',
+    height: undefined,
     highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=300&auto=format&fit=crop&q=80',
     strengths: [
-      'Signed with Division 1 Gardner-Webb University as part of their 2026 class',
-      'Dynamic dual-threat athlete who executed Wildcat QB packages, slot receiver routes, and defensive back roles',
-      'High-IQ playmaker with quick release under blitz pressure and elusive open-field running'
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
     ],
     weaknesses: [
-      'Collegiate positional refinement after playing multiple roles in high school'
+      'Continuing varsity technical development'
     ],
-    scoutingSummary: 'Senior D1 commit to Gardner-Webb University. Gaston gave Coach Mark Fabish ultimate schematic versatility in the 2025–2026 season.',
-    radarMetrics: {
-      speed: 92,
-      strength: 84,
-      technique: 91,
-      footballIq: 96,
-      motor: 95,
-      versatility: 99,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      passingYards: 380,
-      passingTds: 5,
-      rushingYards: 240,
-      rushingTds: 4,
-      receptions: 24,
-      receivingYards: 310,
-      receivingTds: 3,
-      avgEpaContribution: 1.75,
-    },
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Senior). Listed as #6 playing QB.',
     recruitment: {
-      rating: '3_STAR',
+      rating: 'DEVELOPING',
       status: 'COMMITTED',
+      interestedColleges: [],
+      offers: [],
       committedCollege: 'Gardner-Webb University (Division 1 FCS)',
-      interestedColleges: ['Gardner-Webb', 'Lafayette', 'Fordham', 'Bryant'],
-      offers: ['Gardner-Webb University', 'Bryant University'],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-gaston-2026',
-      gpa: 3.78,
-      benchPressMaxLbs: 245,
-      squatMaxLbs: 365,
-      fortyYardDashSec: 4.50,
-      verticalJumpInches: 35.0,
     },
-    keyFilmPlays: ['pb-play-4'],
+    keyFilmPlays: [],
   },
-
   // --------------------------------------------------------------------------
-  // #9 Griffin Brennan — Quarterback / OLB (Junior, Class of 2027)
+  // #8 Bodee Thibodeau — WR (Junior, Class of 2027)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p8-thibodeau',
+    name: 'Bodee Thibodeau',
+    jerseyNumber: 8,
+    positions: ["WR", "DB"],
+    primaryPosition: 'WR',
+    classYear: '2027',
+    gradeLevel: 'Junior',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Junior). Listed as #8 playing WR, DB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #9 Griffin Brennan — QB (Junior, Class of 2027)
   // --------------------------------------------------------------------------
   {
     id: 'peddie-p9-brennan',
     name: 'Griffin Brennan',
     jerseyNumber: 9,
-    positions: ['QB', 'OLB'],
+    positions: ["QB", "LB"],
     primaryPosition: 'QB',
     classYear: '2027',
     gradeLevel: 'Junior',
-    age: 17,
-    height: "6'2\"",
-    weight: "195 lbs",
-    hometown: 'Hightstown, NJ',
+    height: undefined,
     highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=300&auto=format&fit=crop&q=80',
     strengths: [
-      'Versatile Junior two-way standout who contributed in passing, rushing, receiving, and outside linebacker defense',
-      'Natural arm talent on off-platform throws and play-action bootlegs',
-      'Fearless tackler on edge defense and special teams'
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
     ],
     weaknesses: [
-      'Progressing through third reads under heavy pressure'
+      'Continuing varsity technical development'
     ],
-    scoutingSummary: 'Dynamic Junior leader for the Falcons with high ceiling on both sides of the ball for the 2025–2026 season.',
-    radarMetrics: {
-      speed: 88,
-      strength: 86,
-      technique: 88,
-      footballIq: 90,
-      motor: 94,
-      versatility: 95,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      passingYards: 540,
-      passingTds: 6,
-      rushingYards: 210,
-      rushingTds: 3,
-      tacklesTotal: 34,
-      tacklesForLoss: 5.5,
-      avgEpaContribution: 1.40,
-    },
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Junior). Listed as #9 playing QB, LB.',
     recruitment: {
-      rating: '3_STAR',
-      status: 'HIGH_INTEREST',
-      interestedColleges: ['Monmouth', 'Delaware', 'Rutgers', 'Penn'],
-      offers: ['Monmouth University'],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-brennan-2027',
-      gpa: 3.82,
-      benchPressMaxLbs: 245,
-      squatMaxLbs: 375,
-      fortyYardDashSec: 4.58,
-      verticalJumpInches: 34.0,
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
     },
-    keyFilmPlays: ['pb-play-1'],
+    keyFilmPlays: [],
   },
-
   // --------------------------------------------------------------------------
-  // #14 JT Rulewich — Wide Receiver (Sophomore, Class of 2028)
+  // #10 Augie Cassidy — RB (Sophomore, Class of 2028)
   // --------------------------------------------------------------------------
   {
-    id: 'peddie-p14-rulewich',
+    id: 'peddie-p10-cassidy',
+    name: 'Augie Cassidy',
+    jerseyNumber: 10,
+    positions: ["RB", "LB"],
+    primaryPosition: 'RB',
+    classYear: '2028',
+    gradeLevel: 'Sophomore',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Sophomore). Listed as #10 playing RB, LB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #11 JT Rulewich — WR (Sophomore, Class of 2028)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p11-rulewich',
     name: 'JT Rulewich',
-    jerseyNumber: 14,
-    positions: ['WR'],
-    primaryPosition: 'WR',
-    classYear: '2028',
-    gradeLevel: 'Sophomore',
-    age: 16,
-    height: "6'0\"",
-    weight: "175 lbs",
-    hometown: 'Hightstown, NJ',
-    highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&auto=format&fit=crop&q=80',
-    strengths: [
-      'Breakout Sophomore receiver on the 2025–2026 MaxPreps varsity roster',
-      'Crisp short-to-intermediate route running on slants, hitches, and speed outs',
-      'Reliable hands in traffic on third-down conversion situations'
-    ],
-    weaknesses: [
-      'Physical strength against press-man coverage'
-    ],
-    scoutingSummary: 'Young rising pass catcher who emerged as a reliable target for Melton in the 2025–2026 campaign.',
-    radarMetrics: {
-      speed: 88,
-      strength: 78,
-      technique: 88,
-      footballIq: 88,
-      motor: 92,
-      versatility: 86,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      receptions: 26,
-      receivingYards: 340,
-      receivingTds: 3,
-      avgEpaContribution: 1.05,
-    },
-    recruitment: {
-      rating: 'DEVELOPING',
-      status: 'SCOUTED',
-      interestedColleges: ['Lafayette', 'Fordham', 'Bryant'],
-      offers: [],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-rulewich-2028',
-      gpa: 3.72,
-      benchPressMaxLbs: 215,
-      squatMaxLbs: 325,
-      fortyYardDashSec: 4.58,
-      verticalJumpInches: 33.0,
-    },
-    keyFilmPlays: ['pl-play-1'],
-  },
-
-  // --------------------------------------------------------------------------
-  // #22 Benjamin Perkins — Wide Receiver / Returner (Sophomore, Class of 2028)
-  // --------------------------------------------------------------------------
-  {
-    id: 'peddie-p22-perkins',
-    name: 'Benjamin Perkins',
-    jerseyNumber: 22,
-    positions: ['WR', 'KR', 'DB'],
-    primaryPosition: 'WR',
-    classYear: '2028',
-    gradeLevel: 'Sophomore',
-    age: 16,
-    height: "5'8\"",
-    weight: "165 lbs",
-    hometown: 'Hightstown, NJ',
-    highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300&auto=format&fit=crop&q=80',
-    strengths: [
-      'Quick-twitch slot receiver and dynamic return specialist verified on MaxPreps and Hudl rosters',
-      'Elite short-area agility and change-of-direction on option routes, whip routes, and bubble screens',
-      'Reliable hands in tight intermediate windows over the middle of the field',
-      'Dangerous in the open field with 4.52 speed on jet sweeps and kick returns'
-    ],
-    weaknesses: [
-      'Physical size against longer boundary press-man cornerbacks',
-      'Contested jump-ball catch radius along the perimeter sideline'
-    ],
-    scoutingSummary: 'Sophomore slot receiver and return specialist for Coach Mark Fabish. Perkins gives Peddie a dynamic perimeter speed threat in the passing game.',
-    radarMetrics: {
-      speed: 92,
-      strength: 78,
-      technique: 89,
-      footballIq: 88,
-      motor: 94,
-      versatility: 90,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      receptions: 24,
-      receivingYards: 340,
-      receivingTds: 3,
-      yardsPerCatch: 14.2,
-      rushingYards: 95,
-      rushingTds: 1,
-      avgEpaContribution: 1.25,
-    },
-    recruitment: {
-      rating: 'DEVELOPING',
-      status: 'SCOUTED',
-      interestedColleges: ['Lafayette', 'Fordham', 'Bryant', 'Monmouth'],
-      offers: [],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-perkins-2028',
-      gpa: 3.78,
-      benchPressMaxLbs: 215,
-      squatMaxLbs: 335,
-      fortyYardDashSec: 4.52,
-      verticalJumpInches: 34.0,
-    },
-    keyFilmPlays: ['p-wscp-1', 'p-law-2'],
-  },
-
-  // --------------------------------------------------------------------------
-  // #72 Mason Kish — Defensive Tackle (Sophomore, Class of 2028)
-  // --------------------------------------------------------------------------
-  {
-    id: 'peddie-p72-kish',
-    name: 'Mason Kish',
-    jerseyNumber: 72,
-    positions: ['DT', 'NT'],
-    primaryPosition: 'DT',
-    classYear: '2028',
-    gradeLevel: 'Sophomore',
-    age: 16,
-    height: "6'2\"",
-    weight: "275 lbs",
-    hometown: 'Hightstown, NJ',
-    highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&auto=format&fit=crop&q=80',
-    strengths: [
-      'Massive 275 lb interior presence; stalwarts against double-teams with heavy base and low pad level',
-      'Exceptional hand strike that resets the line of scrimmage in the opponent\'s backfield'
-    ],
-    weaknesses: [
-      'Developing a broader pass rush repertoire on third-and-long'
-    ],
-    scoutingSummary: 'Sophomore interior defensive tackle who paired with Reed Oliver to anchor the 2025–2026 defensive line.',
-    radarMetrics: {
-      speed: 74,
-      strength: 95,
-      technique: 88,
-      footballIq: 89,
-      motor: 94,
-      versatility: 82,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      tacklesTotal: 44,
-      tacklesSolo: 26,
-      tacklesForLoss: 10.5,
-      sacks: 4.5,
-      avgEpaContribution: 1.45,
-    },
-    recruitment: {
-      rating: '3_STAR',
-      status: 'HIGH_INTEREST',
-      interestedColleges: ['Temple', 'Rutgers', 'Boston College', 'Syracuse'],
-      offers: ['Temple University'],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-kish-2028',
-      gpa: 3.70,
-      benchPressMaxLbs: 335,
-      squatMaxLbs: 495,
-      fortyYardDashSec: 5.05,
-      verticalJumpInches: 29.5,
-    },
-    keyFilmPlays: ['pb-play-5'],
-  },
-
-  // --------------------------------------------------------------------------
-  // #11 Jonathan Stizza — Free Safety / Wide Receiver (Junior, Class of 2027)
-  // --------------------------------------------------------------------------
-  {
-    id: 'peddie-p11-stizza',
-    name: 'Jonathan Stizza',
     jerseyNumber: 11,
-    positions: ['FS', 'WR'],
-    primaryPosition: 'FS',
+    positions: ["WR"],
+    primaryPosition: 'WR',
+    classYear: '2028',
+    gradeLevel: 'Sophomore',
+    height: '6-0',
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Sophomore). Listed as #11 playing WR.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #14 Jonathan Stizza — WR (Junior, Class of 2027)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p14-stizza',
+    name: 'Jonathan Stizza',
+    jerseyNumber: 14,
+    positions: ["WR", "DB"],
+    primaryPosition: 'WR',
     classYear: '2027',
     gradeLevel: 'Junior',
-    age: 17,
-    height: "6'1\"",
-    weight: "185 lbs",
-    hometown: 'Hightstown, NJ',
+    height: undefined,
     highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&auto=format&fit=crop&q=80',
     strengths: [
-      'Centerfielder range in Cover 1 and Cover 3; reads quarterback eyes and closes with high-end ball skills',
-      'Reliable open-field tackler; prevented multiple breakaway touchdowns in 2025–2026'
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
     ],
     weaknesses: [
-      'Man-coverage against ultra-quick slot receivers'
+      'Continuing varsity technical development'
     ],
-    scoutingSummary: 'Junior starting free safety who anchored the Falcon secondary in 2025–2026 with 4 interceptions.',
-    radarMetrics: {
-      speed: 90,
-      strength: 84,
-      technique: 90,
-      footballIq: 94,
-      motor: 93,
-      versatility: 90,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      tacklesTotal: 46,
-      tacklesSolo: 32,
-      interceptionsDefense: 4,
-      passBreakups: 7,
-      avgEpaContribution: 1.40,
-    },
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Junior). Listed as #14 playing WR, DB.',
     recruitment: {
-      rating: 'D1_FCS_PROSPECT',
-      status: 'HIGH_INTEREST',
-      interestedColleges: ['Dartmouth', 'Brown', 'Bucknell', 'Lafayette'],
-      offers: ['Bucknell University'],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-stizza-2027',
-      gpa: 3.95,
-      benchPressMaxLbs: 245,
-      squatMaxLbs: 375,
-      fortyYardDashSec: 4.55,
-      verticalJumpInches: 34.0,
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
     },
-    keyFilmPlays: ['pb-play-5'],
+    keyFilmPlays: [],
   },
-
   // --------------------------------------------------------------------------
-  // #16 Griffin Suthammanont — Wide Receiver (Junior, Class of 2027)
+  // #15 Freddy Melton — QB (Senior, Class of 2026)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p15-melton',
+    name: 'Freddy Melton',
+    jerseyNumber: 15,
+    positions: ["QB"],
+    primaryPosition: 'QB',
+    classYear: '2026',
+    gradeLevel: 'Senior',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Senior). Listed as #15 playing QB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #16 Griffin Suthammanont — WR (Junior, Class of 2027)
   // --------------------------------------------------------------------------
   {
     id: 'peddie-p16-suthammanont',
     name: 'Griffin Suthammanont',
     jerseyNumber: 16,
-    positions: ['WR'],
+    positions: ["WR", "DB"],
     primaryPosition: 'WR',
     classYear: '2027',
     gradeLevel: 'Junior',
-    age: 17,
-    height: "5'10\"",
-    weight: "170 lbs",
-    hometown: 'Hightstown, NJ',
+    height: undefined,
     highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&auto=format&fit=crop&q=80',
     strengths: [
-      'Shiftiness in the slot on option routes, quick slants, and bubble screens',
-      'Disciplined route depths that converted high-percentage third downs in 2025–2026'
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
     ],
     weaknesses: [
-      'Contested jump-ball scenarios over boundary safeties'
+      'Continuing varsity technical development'
     ],
-    scoutingSummary: 'Junior slot receiver with exceptional hands and agility in Coach Fabish\'s spread offense.',
-    radarMetrics: {
-      speed: 89,
-      strength: 77,
-      technique: 90,
-      footballIq: 91,
-      motor: 93,
-      versatility: 88,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      receptions: 30,
-      receivingYards: 395,
-      receivingTds: 4,
-      avgEpaContribution: 1.15,
-    },
-    recruitment: {
-      rating: 'D3_IVY_PROSPECT',
-      status: 'HIGH_INTEREST',
-      interestedColleges: ['Tufts', 'Bowdoin', 'Williams', 'Amherst'],
-      offers: [],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-suthammanont-2027',
-      gpa: 3.96,
-      benchPressMaxLbs: 215,
-      squatMaxLbs: 325,
-      fortyYardDashSec: 4.56,
-      verticalJumpInches: 33.0,
-    },
-    keyFilmPlays: ['pl-play-1'],
-  },
-
-  // --------------------------------------------------------------------------
-  // #32 Bryce Layade — Linebacker / Athlete (Sophomore, Class of 2028)
-  // --------------------------------------------------------------------------
-  {
-    id: 'peddie-p32-layade',
-    name: 'Bryce Layade',
-    jerseyNumber: 32,
-    positions: ['LB', 'ATH'],
-    primaryPosition: 'OLB',
-    classYear: '2028',
-    gradeLevel: 'Sophomore',
-    age: 16,
-    height: "6'0\"",
-    weight: "190 lbs",
-    hometown: 'Hightstown, NJ',
-    highSchool: 'The Peddie School',
-    headshotUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&auto=format&fit=crop&q=80',
-    strengths: [
-      'Versatile edge defender with closing burst on quarterback scrambles and perimeter sweeps',
-      'High motor and exceptional special teams tackle production'
-    ],
-    weaknesses: [
-      'Disengaging from offensive tackles when sealed on direct power runs'
-    ],
-    scoutingSummary: 'Athletic Sophomore linebacker on the 2025–2026 MaxPreps varsity roster with sideline-to-sideline pursuit range.',
-    radarMetrics: {
-      speed: 88,
-      strength: 86,
-      technique: 84,
-      footballIq: 86,
-      motor: 94,
-      versatility: 91,
-    },
-    stats2025: {
-      gamesPlayed: 9,
-      tacklesTotal: 38,
-      tacklesForLoss: 5.5,
-      sacks: 2.0,
-      avgEpaContribution: 1.05,
-    },
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Junior). Listed as #16 playing WR, DB.',
     recruitment: {
       rating: 'DEVELOPING',
       status: 'SCOUTED',
-      interestedColleges: ['Monmouth', 'Bryant', 'Wagner'],
+      interestedColleges: [],
       offers: [],
-      hudlProfileUrl: 'https://fan.hudl.com/peddie-layade-2028',
-      gpa: 3.55,
-      benchPressMaxLbs: 255,
-      squatMaxLbs: 385,
-      fortyYardDashSec: 4.65,
-      verticalJumpInches: 33.0,
+      committedCollege: undefined,
     },
-    keyFilmPlays: ['pb-play-5'],
-  }
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #18 Aarav Kumar — WR (Senior, Class of 2026)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p18-kumar',
+    name: 'Aarav Kumar',
+    jerseyNumber: 18,
+    positions: ["WR", "DB"],
+    primaryPosition: 'WR',
+    classYear: '2026',
+    gradeLevel: 'Senior',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Senior). Listed as #18 playing WR, DB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #19 Gennaro Sirrota — WR (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p19-sirrota',
+    name: 'Gennaro Sirrota',
+    jerseyNumber: 19,
+    positions: ["WR", "DB"],
+    primaryPosition: 'WR',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #19 playing WR, DB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #20 Bryce Layade — RB (Sophomore, Class of 2028)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p20-layade',
+    name: 'Bryce Layade',
+    jerseyNumber: 20,
+    positions: ["RB", "LB"],
+    primaryPosition: 'RB',
+    classYear: '2028',
+    gradeLevel: 'Sophomore',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Sophomore). Listed as #20 playing RB, LB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #21 Xzavier Torres — WR (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p21-torres',
+    name: 'Xzavier Torres',
+    jerseyNumber: 21,
+    positions: ["WR", "LB"],
+    primaryPosition: 'WR',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #21 playing WR, LB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #22 Benjamin Perkins — WR (Sophomore, Class of 2028)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p22-perkins',
+    name: 'Benjamin Perkins',
+    jerseyNumber: 22,
+    positions: ["WR", "DB"],
+    primaryPosition: 'WR',
+    classYear: '2028',
+    gradeLevel: 'Sophomore',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Sophomore). Listed as #22 playing WR, DB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #26 Ethan DeChant — WR (Sophomore, Class of 2028)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p26-dechant',
+    name: 'Ethan DeChant',
+    jerseyNumber: 26,
+    positions: ["WR", "DB"],
+    primaryPosition: 'WR',
+    classYear: '2028',
+    gradeLevel: 'Sophomore',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Sophomore). Listed as #26 playing WR, DB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #30 Caleb Feinberg — K (Junior, Class of 2027)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p30-feinberg',
+    name: 'Caleb Feinberg',
+    jerseyNumber: 30,
+    positions: ["K", "P"],
+    primaryPosition: 'K',
+    classYear: '2027',
+    gradeLevel: 'Junior',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Junior). Listed as #30 playing K, P.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #32 Ahaan Agrawal — WR (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p32-agrawal',
+    name: 'Ahaan Agrawal',
+    jerseyNumber: 32,
+    positions: ["WR", "DB"],
+    primaryPosition: 'WR',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #32 playing WR, DB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #33 Aaron Motley — RB (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p33-motley',
+    name: 'Aaron Motley',
+    jerseyNumber: 33,
+    positions: ["RB", "DB"],
+    primaryPosition: 'RB',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #33 playing RB, DB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #34 David Adesola — RB (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p34-adesola',
+    name: 'David Adesola',
+    jerseyNumber: 34,
+    positions: ["RB", "LB"],
+    primaryPosition: 'RB',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #34 playing RB, LB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #36 Caden Daniel — WR (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p36-daniel',
+    name: 'Caden Daniel',
+    jerseyNumber: 36,
+    positions: ["WR", "DL"],
+    primaryPosition: 'WR',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #36 playing WR, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #40 Ari Feinberg — OL (Sophomore, Class of 2028)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p40-feinberg',
+    name: 'Ari Feinberg',
+    jerseyNumber: 40,
+    positions: ["OL", "LB"],
+    primaryPosition: 'OL',
+    classYear: '2028',
+    gradeLevel: 'Sophomore',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Sophomore). Listed as #40 playing OL, LB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #42 Maverick Mullervy — TE (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p42-mullervy',
+    name: 'Maverick Mullervy',
+    jerseyNumber: 42,
+    positions: ["TE", "LB"],
+    primaryPosition: 'TE',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #42 playing TE, LB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #45 Finn Pedersen — TE (Junior, Class of 2027)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p45-pedersen',
+    name: 'Finn Pedersen',
+    jerseyNumber: 45,
+    positions: ["TE", "DL"],
+    primaryPosition: 'TE',
+    classYear: '2027',
+    gradeLevel: 'Junior',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Junior). Listed as #45 playing TE, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #48 Jordan Bennet — RB (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p48-bennet',
+    name: 'Jordan Bennet',
+    jerseyNumber: 48,
+    positions: ["RB", "LB"],
+    primaryPosition: 'RB',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #48 playing RB, LB.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #54 Rocco Annunziata — OL (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p54-annunziata',
+    name: 'Rocco Annunziata',
+    jerseyNumber: 54,
+    positions: ["OL", "DL"],
+    primaryPosition: 'OL',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #54 playing OL, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #56 Nathan Adler — OL (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p56-adler',
+    name: 'Nathan Adler',
+    jerseyNumber: 56,
+    positions: ["OL", "DL"],
+    primaryPosition: 'OL',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #56 playing OL, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #57 Colby Hartpence — OL (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p57-hartpence',
+    name: 'Colby Hartpence',
+    jerseyNumber: 57,
+    positions: ["OL", "DL"],
+    primaryPosition: 'OL',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #57 playing OL, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #60 Adem Amar — OL (Junior, Class of 2027)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p60-amar',
+    name: 'Adem Amar',
+    jerseyNumber: 60,
+    positions: ["OL", "DL"],
+    primaryPosition: 'OL',
+    classYear: '2027',
+    gradeLevel: 'Junior',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Junior). Listed as #60 playing OL, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #63 Julian Sandy — OL (Junior, Class of 2027)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p63-sandy',
+    name: 'Julian Sandy',
+    jerseyNumber: 63,
+    positions: ["OL", "DL"],
+    primaryPosition: 'OL',
+    classYear: '2027',
+    gradeLevel: 'Junior',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Junior). Listed as #63 playing OL, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #68 Hawthorne Hughes-Pearsall — OL (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p68-hughes-pearsall',
+    name: 'Hawthorne Hughes-Pearsall',
+    jerseyNumber: 68,
+    positions: ["OL", "DL"],
+    primaryPosition: 'OL',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #68 playing OL, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #70 Reed Oliver — DL (Senior, Class of 2026)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p70-oliver',
+    name: 'Reed Oliver',
+    jerseyNumber: 70,
+    positions: ["OL", "DL"],
+    primaryPosition: 'DL',
+    classYear: '2026',
+    gradeLevel: 'Senior',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Senior). Listed as #70 playing OL, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'COMMITTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: 'Marist College (Division 1 FCS)',
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #72 Christian Velardi — OL (Senior, Class of 2026)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p72-velardi',
+    name: 'Christian Velardi',
+    jerseyNumber: 72,
+    positions: ["OL"],
+    primaryPosition: 'OL',
+    classYear: '2026',
+    gradeLevel: 'Senior',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Senior). Listed as #72 playing OL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'COMMITTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: 'Fordham University (Division 1 FCS)',
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #76 Rj Francois — OL (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p76-francois',
+    name: 'Rj Francois',
+    jerseyNumber: 76,
+    positions: ["OL", "DL"],
+    primaryPosition: 'OL',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #76 playing OL, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #77 Mason Kish — DL (Sophomore, Class of 2028)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p77-kish',
+    name: 'Mason Kish',
+    jerseyNumber: 77,
+    positions: ["OL", "DL"],
+    primaryPosition: 'DL',
+    classYear: '2028',
+    gradeLevel: 'Sophomore',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Sophomore). Listed as #77 playing OL, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
+  // --------------------------------------------------------------------------
+  // #80 Om Balchandani — WR (Freshman, Class of 2029)
+  // --------------------------------------------------------------------------
+  {
+    id: 'peddie-p80-balchandani',
+    name: 'Om Balchandani',
+    jerseyNumber: 80,
+    positions: ["WR", "DL"],
+    primaryPosition: 'WR',
+    classYear: '2029',
+    gradeLevel: 'Freshman',
+    height: undefined,
+    highSchool: 'The Peddie School',
+    strengths: [
+      'Official 2025–2026 Peddie Falcons varsity roster member verified on NJ.com',
+      'Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez'
+    ],
+    weaknesses: [
+      'Continuing varsity technical development'
+    ],
+    scoutingSummary: '2025–2026 Peddie School varsity football athlete (Freshman). Listed as #80 playing WR, DL.',
+    recruitment: {
+      rating: 'DEVELOPING',
+      status: 'SCOUTED',
+      interestedColleges: [],
+      offers: [],
+      committedCollege: undefined,
+    },
+    keyFilmPlays: [],
+  },
 ];
 
+// ============================================================================
+// Helper Queries
+// ============================================================================
+
 export function getPlayerById(id: string): PlayerProfile | undefined {
-  return PEDDIE_PLAYERS.find(p => p.id === id || p.jerseyNumber.toString() === id);
+  return PEDDIE_PLAYERS.find(p => p.id === id);
+}
+
+export function getPlayerByJerseyNumber(jerseyNumber: number): PlayerProfile | undefined {
+  return PEDDIE_PLAYERS.find(p => p.jerseyNumber === jerseyNumber);
 }
 
 export function getPlayersByClass(classYear: string): PlayerProfile[] {
   return PEDDIE_PLAYERS.filter(p => p.classYear === classYear);
 }
 
-export function getPlayersByPosition(pos: string): PlayerProfile[] {
-  return PEDDIE_PLAYERS.filter(p => p.positions.includes(pos) || p.primaryPosition === pos);
+export function getPlayersByPosition(position: string): PlayerProfile[] {
+  return PEDDIE_PLAYERS.filter(p => p.positions.includes(position) || p.primaryPosition === position);
+}
+
+export function searchPlayers(query: string): PlayerProfile[] {
+  const q = query.toLowerCase().trim();
+  if (!q) return PEDDIE_PLAYERS;
+  return PEDDIE_PLAYERS.filter(p =>
+    p.name.toLowerCase().includes(q) ||
+    p.jerseyNumber.toString().includes(q) ||
+    p.primaryPosition.toLowerCase().includes(q) ||
+    p.classYear.includes(q) ||
+    p.gradeLevel.toLowerCase().includes(q)
+  );
 }

@@ -148,20 +148,20 @@ export interface PlayerProfile {
   jerseyNumber: number;
   positions: string[];
   primaryPosition: string;
-  classYear: '2025' | '2026' | '2027' | '2028';
+  classYear: '2026' | '2027' | '2028' | '2029';
   gradeLevel: 'Senior' | 'Junior' | 'Sophomore' | 'Freshman';
-  age: number;
-  height: string; // e.g. "6'6\""
-  weight: string; // e.g. "195 lbs"
-  hometown: string;
+  age?: number;
+  height?: string; // e.g. "6-3" or "6'0\""
+  weight?: string;
+  hometown?: string;
   highSchool: string;
   headshotUrl?: string;
   strengths: string[];
   weaknesses: string[];
   scoutingSummary: string;
-  radarMetrics: PlayerRadarMetrics;
-  stats2025: PlayerStats;
-  recruitment: RecruitmentProfile;
+  radarMetrics?: PlayerRadarMetrics;
+  stats2025?: PlayerStats; // Optional: Only present if officially published, never fabricated
+  recruitment?: RecruitmentProfile;
   keyFilmPlays: string[]; // List of PlayAnalysis IDs
 }
 
