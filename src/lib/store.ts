@@ -87,6 +87,7 @@ interface GridironStore {
   activeTab: 'plays' | 'comments' | 'actions';
 
   // Actions
+  setGames: (games: GameSession[]) => void;
   setActiveGame: (gameId: string) => void;
   setCurrentTime: (time: number) => void;
   setIsPlaying: (playing: boolean) => void;
@@ -184,6 +185,8 @@ export const useGridironStore = create<GridironStore>((set, get) => ({
   activeTab: 'plays',
 
   // Actions
+  setGames: (games) => set({ games }),
+
   setActiveGame: (gameId) => {
     const game = get().games.find(g => g.id === gameId) ?? null;
     const plays = game?.plays ?? [];
