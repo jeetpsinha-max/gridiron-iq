@@ -232,9 +232,20 @@ function buildPeddieTrackingData({
     },
   ];
 
+  const ball: BallTrajectory = {
+    preSnap: { x: 50, y: losY },
+    mesh: { x: 48.5, y: losY + 6.5 },
+    inAirOrTuck: { x: (50 + passTargetX) / 2, y: (losY + passTargetY) / 2 - 4 },
+    playEnd: { x: passTargetX, y: passTargetY },
+    ballVelocityMph: 48.2,
+    carrierJersey: targetJersey,
+    carrierName: targetName,
+  };
+
   return {
     offense,
     defense,
+    ball,
     lineOfScrimmageY: losY,
     firstDownY,
     playConceptName: playConcept,

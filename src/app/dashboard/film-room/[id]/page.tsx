@@ -4,25 +4,21 @@ import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
-  Play, Pause, SkipBack, SkipForward, Volume2, VolumeX,
-  Maximize, Settings, Pen, ArrowUpRight, Circle, Highlighter,
-  Eraser, Undo2, MessageSquare, ListChecks, ChevronRight,
-  ChevronDown, Clock, Hash, Crosshair, Zap, Filter,
-  Search, RotateCcw, Send, AtSign, Plus, X,
-  Gauge, Target, TrendingUp, Film, Eye, EyeOff, Navigation,
-  Shield, Users, Activity, Sparkles, Trophy, Calendar, CheckCircle2,
-  ExternalLink
+  Play, Pause, SkipBack, SkipForward, ChevronLeft, ChevronRight,
+  ChevronDown, Search, Eye, EyeOff, Navigation, Shield, Users,
+  Sparkles, TrendingUp, Film, CheckCircle2, MessageSquare, Target,
+  Zap, Compass, PlayCircle, RotateCw, Repeat, Radio, Gauge
 } from 'lucide-react';
 import { useGridironStore } from '@/lib/store';
-import { PlayAnalysis, UserMention, ActionPriority, TrackedPlayer, PlayTrackingData, GameSession } from '@/types/football';
+import { PlayAnalysis, TrackedPlayer, PlayTrackingData, BallTrajectory } from '@/types/football';
 import {
-  formatTime, getMotionBadgeColor, getPlayTypeBadgeColor,
-  getEpaColor, getPriorityColor, getStatusColor, generateId,
+  formatTime, getPlayTypeBadgeColor,
+  getEpaColor,
 } from '@/lib/utils';
-import { TEAM_ROSTER, CURRENT_USER, MOCK_GAMES } from '@/lib/mock-game-data';
+import { TEAM_ROSTER, MOCK_GAMES } from '@/lib/mock-game-data';
 
 // ============================================================================
-// 1. 22-Player Tracking Overlay Component (O's for Offense, X's for Defense)
+// 1. 22-Player & 🏈 Real-time Ball Tracking Overlay (X's, O's, & Football)
 // ============================================================================
 
 interface PlayerOverlayProps {
@@ -35,6 +31,7 @@ interface PlayerOverlayProps {
   showVectors: boolean;
   showCoverage: boolean;
   showLabels: boolean;
+  showBall: boolean;
   activePlay: PlayAnalysis;
 }
 
@@ -48,6 +45,7 @@ function PlayerTrackingOverlay({
   showVectors,
   showCoverage,
   showLabels,
+  showBall,
   activePlay,
 }: PlayerOverlayProps) {
   let phase: 'preSnap' | 'motion' | 'snap' | 'postSnap' = 'preSnap';
@@ -100,19 +98,43 @@ function PlayerTrackingOverlay({
     }
   };
 
+  // Compute Live Football Ball Coordinates across the 4 Play Phases
+  const getBallPosition = (ball: BallTrajectory) => {
+    const pre = ball.preSnap;
+    const msh = ball.mesh ?? pre;
+    const mid = ball.inAirOrTuck;
+    const end = ball.playEnd;
+
+    if (phase === 'preSnap' || phase === 'motion') {
+      return pre;
+    } else if (phase === 'snap') {
+      return {
+        x: pre.x + (msh.x - pre.x) * phaseProgress,
+        y: pre.y + (msh.y - pre.y) * phaseProgress,
+      };
+    } else {
+      // postSnap
+      if (phaseProgress < 0.45) {
+        const subP = phaseProgress / 0.45;
+        return {
+          x: msh.x + (mid.x - msh.x) * subP,
+          y: msh.y + (mid.y - msh.y) * subP,
+        };
+      } else {
+        const subP = (phaseProgress - 0.45) / 0.55;
+        return {
+          x: mid.x + (end.x - mid.x) * subP,
+          y: mid.y + (end.y - mid.y) * subP,
+        };
+      }
+    }
+  };
+
   return (
     <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
-      {/* Field Tactical Grid Lines */}
+      {/* Field Tactical Grid Lines & Line of Scrimmage */}
       <svg className="w-full h-full absolute inset-0">
         <defs>
-          <linearGradient id="offenseGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#d97706" stopOpacity="0.8" />
-          </linearGradient>
-          <linearGradient id="defenseGlow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#ef4444" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#b91c1c" stopOpacity="0.8" />
-          </linearGradient>
           <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
             <feGaussianBlur stdDeviation="3" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
@@ -203,6 +225,20 @@ function PlayerTrackingOverlay({
                 />
               );
             })}
+
+            {/* Ball Flight Vector Line */}
+            {trackingData.ball && showBall && (
+              <line
+                x1={`${trackingData.ball.preSnap.x}%`}
+                y1={`${trackingData.ball.preSnap.y}%`}
+                x2={`${trackingData.ball.playEnd.x}%`}
+                y2={`${trackingData.ball.playEnd.y}%`}
+                stroke="#fbbf24"
+                strokeWidth="2"
+                strokeDasharray="2 3"
+                opacity="0.75"
+              />
+            )}
           </g>
         )}
       </svg>
@@ -243,7 +279,6 @@ function PlayerTrackingOverlay({
               }}
             >
               <span className="font-mono">{player.jerseyNumber}</span>
-              {/* O Indicator Ring */}
               <div
                 className="absolute -inset-1 rounded-full border border-amber-400 opacity-40 animate-pulse"
                 style={{ display: isMotion ? 'block' : 'none' }}
@@ -311,33 +346,69 @@ function PlayerTrackingOverlay({
           </div>
         );
       })}
+
+      {/* 🏈 Real-Time Football Location & Velocity Tracking Marker */}
+      {trackingData.ball && showBall && (
+        (() => {
+          const ball = trackingData.ball;
+          const bPos = getBallPosition(ball);
+
+          return (
+            <div
+              className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-100 flex flex-col items-center pointer-events-none"
+              style={{
+                left: `${bPos.x}%`,
+                top: `${bPos.y}%`,
+                zIndex: 35,
+              }}
+            >
+              {/* Pulsing Football Icon */}
+              <div className="relative flex items-center justify-center">
+                <div className="absolute w-8 h-8 rounded-full bg-amber-400/40 animate-ping" />
+                <div className="w-6 h-6 rounded-full bg-gradient-to-r from-amber-600 via-amber-500 to-amber-700 border-2 border-white shadow-[0_0_16px_rgba(251,191,36,0.9)] flex items-center justify-center text-xs">
+                  🏈
+                </div>
+              </div>
+
+              {/* Ball Telemetry Tag */}
+              {showLabels && (
+                <span className="mt-0.5 px-1.5 py-0.2 rounded text-[8px] font-black tracking-wider font-mono uppercase bg-black/90 text-amber-300 border border-amber-400/60 shadow-md">
+                  BALL {ball.ballVelocityMph ? `(${ball.ballVelocityMph} MPH)` : ''}
+                </span>
+              )}
+            </div>
+          );
+        })()
+      )}
     </div>
   );
 }
 
 // ============================================================================
-// 2. Video Player Component with Play Timeline Markers
+// 2. Upgraded Video Player with Scoreboard HUD & Play-by-Play Controls
 // ============================================================================
 
 function VideoPlayer() {
   const {
-    currentTime, isPlaying, playbackRate, duration,
-    setCurrentTime, setIsPlaying, setPlaybackRate, setDuration,
+    currentTime, isPlaying, playbackRate,
+    setCurrentTime, setIsPlaying, setPlaybackRate,
     activePlay, activeGame, setActivePlay, seekToPlay,
-    telestration, setTelestrationTool, setTelestrationColor,
+    telestration,
   } = useGridironStore();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const [isDrawing, setIsDrawing] = useState(false);
-  const [strokes, setStrokes] = useState<{ points: { x: number; y: number }[]; color: string; width: number }[]>([]);
   const [currentStroke, setCurrentStroke] = useState<{ x: number; y: number }[]>([]);
 
-  // Tactical Overlay View Controls (X's & O's)
+  // Tactical Overlay View Controls (X's, O's, Ball, Routes, Coverage)
   const [showPlayerTracking, setShowPlayerTracking] = useState(true);
+  const [showBall, setShowBall] = useState(true);
   const [showVectors, setShowVectors] = useState(true);
   const [showCoverage, setShowCoverage] = useState(true);
   const [showLabels, setShowLabels] = useState(true);
+  const [loopPlay, setLoopPlay] = useState(true);
+  const [autoAdvance, setAutoAdvance] = useState(false);
 
   const speedOptions = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2];
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
@@ -346,7 +417,30 @@ function VideoPlayer() {
   const gameDuration = activeGame?.duration ?? 180;
   const progressPct = (currentTime / gameDuration) * 100;
 
-  // Playback loop simulation
+  // Compute Active Play Index in the Full Game Sequence
+  const currentPlayIndex = useMemo(() => {
+    if (!activePlay) return -1;
+    return plays.findIndex(p => p.id === activePlay.id);
+  }, [plays, activePlay]);
+
+  // Previous and Next Play Handlers
+  const handlePrevPlay = useCallback(() => {
+    if (currentPlayIndex > 0) {
+      const prev = plays[currentPlayIndex - 1];
+      setActivePlay(prev.id);
+      seekToPlay(prev);
+    }
+  }, [plays, currentPlayIndex, setActivePlay, seekToPlay]);
+
+  const handleNextPlay = useCallback(() => {
+    if (currentPlayIndex >= 0 && currentPlayIndex < plays.length - 1) {
+      const next = plays[currentPlayIndex + 1];
+      setActivePlay(next.id);
+      seekToPlay(next);
+    }
+  }, [plays, currentPlayIndex, setActivePlay, seekToPlay]);
+
+  // Playback Loop & Auto-Advance / Loop Handler
   useEffect(() => {
     if (!isPlaying) return;
     const interval = setInterval(() => {
@@ -355,7 +449,21 @@ function VideoPlayer() {
     return () => clearInterval(interval);
   }, [isPlaying, currentTime, playbackRate, setCurrentTime, gameDuration]);
 
-  // Keyboard hotkeys (J-K-L, Space, Arrows)
+  // Check play boundary for Loop vs Auto-Advance
+  useEffect(() => {
+    if (!activePlay || !isPlaying) return;
+    if (currentTime >= activePlay.videoTimestampEnd) {
+      if (loopPlay) {
+        setCurrentTime(activePlay.videoTimestampStart);
+      } else if (autoAdvance) {
+        handleNextPlay();
+      } else {
+        setIsPlaying(false);
+      }
+    }
+  }, [currentTime, activePlay, isPlaying, loopPlay, autoAdvance, handleNextPlay, setCurrentTime, setIsPlaying]);
+
+  // Keyboard hotkeys (J-K-L, Space, Arrows, [ / ] for Play-by-Play)
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return;
@@ -364,13 +472,17 @@ function VideoPlayer() {
         case 'k': e.preventDefault(); setIsPlaying(!isPlaying); break;
         case 'j': e.preventDefault(); setCurrentTime(Math.max(0, currentTime - 5)); break;
         case 'l': e.preventDefault(); setCurrentTime(Math.min(currentTime + 5, gameDuration)); break;
+        case '[':
+        case 'p': e.preventDefault(); handlePrevPlay(); break;
+        case ']':
+        case 'n': e.preventDefault(); handleNextPlay(); break;
         case 'ArrowLeft': e.preventDefault(); setCurrentTime(Math.max(0, currentTime - 1)); break;
         case 'ArrowRight': e.preventDefault(); setCurrentTime(Math.min(currentTime + 1, gameDuration)); break;
       }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [isPlaying, currentTime, setIsPlaying, setCurrentTime, gameDuration]);
+  }, [isPlaying, currentTime, setIsPlaying, setCurrentTime, gameDuration, handlePrevPlay, handleNextPlay]);
 
   // Canvas drawing handlers
   const handleCanvasMouseDown = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -404,39 +516,8 @@ function VideoPlayer() {
   const handleCanvasMouseUp = useCallback(() => {
     if (!isDrawing) return;
     setIsDrawing(false);
-    if (currentStroke.length > 1) {
-      setStrokes(prev => [...prev, { points: currentStroke, color: telestration.activeColor, width: telestration.lineWidth }]);
-    }
     setCurrentStroke([]);
-  }, [isDrawing, currentStroke, telestration]);
-
-  const clearCanvas = () => {
-    if (canvasRef.current) {
-      const ctx = canvasRef.current.getContext('2d')!;
-      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-    }
-    setStrokes([]);
-  };
-
-  const undoStroke = () => {
-    setStrokes(prev => prev.slice(0, -1));
-    if (canvasRef.current) {
-      const ctx = canvasRef.current.getContext('2d')!;
-      ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
-      strokes.slice(0, -1).forEach(stroke => {
-        ctx.beginPath();
-        ctx.strokeStyle = stroke.color;
-        ctx.lineWidth = stroke.width;
-        ctx.lineCap = 'round';
-        ctx.lineJoin = 'round';
-        stroke.points.forEach((p, i) => {
-          if (i === 0) ctx.moveTo(p.x, p.y);
-          else ctx.lineTo(p.x, p.y);
-        });
-        ctx.stroke();
-      });
-    }
-  };
+  }, [isDrawing]);
 
   const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!progressRef.current) return;
@@ -474,17 +555,45 @@ function VideoPlayer() {
             ))}
           </svg>
 
-          {/* Hudl Watermark & Camera Angle Badge */}
-          <div className="absolute top-3 left-4 flex items-center gap-2 z-10">
-            <span className="px-2 py-0.5 rounded bg-black/70 border border-white/10 text-[10px] font-bold text-amber-400 uppercase tracking-wider font-mono">
-              HUDL FALCON-VISION CAM 1
-            </span>
-            <span className="px-2 py-0.5 rounded bg-black/70 border border-white/10 text-[10px] font-semibold text-slate-300">
-              PEDDIE 2025–2026 ALL-22 FILM
-            </span>
+          {/* Top Situational Scoreboard & Game Status HUD */}
+          <div className="absolute top-3 left-4 right-4 flex items-center justify-between z-30 pointer-events-auto">
+            {/* Live Scoreboard Pill */}
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/85 border border-white/15 backdrop-blur-md shadow-xl">
+              <span className="px-2 py-0.5 rounded bg-amber-500 text-slate-950 text-[10px] font-black uppercase tracking-wider font-mono">
+                HUDL FALCON-VISION
+              </span>
+              {activePlay ? (
+                <div className="flex items-center gap-2 font-mono text-xs font-bold text-white">
+                  <span className="text-amber-400">Q{activePlay.quarter}</span>
+                  <span className="text-slate-500">|</span>
+                  <span>{activePlay.gameClock}</span>
+                  <span className="text-slate-500">|</span>
+                  <span className="text-cyan-300">{activePlay.down}&{activePlay.distance}</span>
+                  <span className="text-slate-500">|</span>
+                  <span className="text-slate-300">Ball on {activePlay.yardLine} ({activePlay.hash})</span>
+                </div>
+              ) : (
+                <span className="text-xs font-mono text-slate-300">PEDDIE 2025–2026 VARSITY FILM</span>
+              )}
+            </div>
+
+            {/* Ball Telemetry Indicator */}
+            {activePlay?.trackingData?.ball && (
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/85 border border-amber-400/30 backdrop-blur-md shadow-xl">
+                <span className="text-xs">🏈</span>
+                <div className="flex items-center gap-1.5 text-xs font-mono">
+                  <span className="font-bold text-amber-300">
+                    #{activePlay.trackingData.ball.carrierJersey} {activePlay.trackingData.ball.carrierName}
+                  </span>
+                  <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 text-[10px] font-black">
+                    {activePlay.trackingData.ball.ballVelocityMph} MPH
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* 22-Player Dynamic Tracking Overlay (O's for Offense, X's for Defense) */}
+          {/* 22-Player & Ball Dynamic Tracking Overlay */}
           {activePlay?.trackingData && showPlayerTracking && (
             <PlayerTrackingOverlay
               trackingData={activePlay.trackingData}
@@ -496,6 +605,7 @@ function VideoPlayer() {
               showVectors={showVectors}
               showCoverage={showCoverage}
               showLabels={showLabels}
+              showBall={showBall}
               activePlay={activePlay}
             />
           )}
@@ -509,7 +619,7 @@ function VideoPlayer() {
                   <div className="text-xs font-bold text-white flex items-center gap-2">
                     {activePlay.trackingData?.playConceptName || activePlay.offensiveFormation}
                     {activePlay.isTouchdown && (
-                      <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-bold">
+                      <span className="px-1.5 py-0.2 rounded bg-amber-500 text-slate-950 text-[9px] font-black">
                         TOUCHDOWN
                       </span>
                     )}
@@ -548,13 +658,26 @@ function VideoPlayer() {
         />
       </div>
 
-      {/* Floating Tactical Layer Toggles (X's & O's, Routes, Coverage) */}
+      {/* Floating Tactical Layer Toggles on Field */}
       <div className="absolute top-14 left-4 flex flex-col gap-1.5 z-30">
+        <button
+          onClick={() => setShowBall(!showBall)}
+          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold transition-all shadow-md backdrop-blur-md border ${
+            showBall
+              ? 'bg-amber-500 text-slate-950 border-amber-300'
+              : 'bg-slate-900/80 text-slate-300 border-white/10 hover:bg-slate-800'
+          }`}
+          title="Toggle Real-Time Football Location & Trajectory"
+        >
+          <span>🏈</span>
+          {showBall ? 'Ball: ON' : 'Ball: OFF'}
+        </button>
+
         <button
           onClick={() => setShowPlayerTracking(!showPlayerTracking)}
           className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold transition-all shadow-md backdrop-blur-md border ${
             showPlayerTracking
-              ? 'bg-amber-500/90 text-slate-950 border-amber-300'
+              ? 'bg-blue-600 text-white border-blue-400'
               : 'bg-slate-900/80 text-slate-300 border-white/10 hover:bg-slate-800'
           }`}
           title="Toggle 22-Man X's and O's Player Tracking"
@@ -604,8 +727,8 @@ function VideoPlayer() {
         )}
       </div>
 
-      {/* Video Control Bar & Scrub Timeline */}
-      <div className="bg-slate-950 border-t border-white/10 p-3 flex flex-col gap-2 z-40">
+      {/* Upgraded Video Control Bar & Play-by-Play Nav */}
+      <div className="bg-slate-950 border-t border-white/10 p-3 flex flex-col gap-2.5 z-40">
         {/* Interactive Scrub Timeline with Play Markers */}
         <div
           ref={progressRef}
@@ -619,7 +742,7 @@ function VideoPlayer() {
           />
 
           {/* Individual Play Markers on Timeline */}
-          {plays.map((p, idx) => {
+          {plays.map((p) => {
             const playStartPct = (p.videoTimestampStart / gameDuration) * 100;
             const isSelected = activePlay?.id === p.id;
             return (
@@ -632,7 +755,7 @@ function VideoPlayer() {
                 }}
                 className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 transition-transform hover:scale-150 cursor-pointer ${
                   p.isTouchdown
-                    ? 'w-3 h-3 rounded-full bg-amber-400 ring-2 ring-white z-20'
+                    ? 'w-3.5 h-3.5 rounded-full bg-amber-400 ring-2 ring-white z-20'
                     : isSelected
                     ? 'w-3 h-3 rounded-full bg-cyan-400 ring-2 ring-cyan-200 z-20'
                     : 'w-2 h-2 rounded-full bg-slate-400 hover:bg-white z-10'
@@ -644,9 +767,22 @@ function VideoPlayer() {
           })}
         </div>
 
-        {/* Playback Controls & Time Display */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        {/* Play-by-Play Transport Controls & Loop / Auto-Advance Toggles */}
+        <div className="flex items-center justify-between flex-wrap gap-2">
+          {/* Play-by-Play Step Controls */}
+          <div className="flex items-center gap-2">
+            {/* Prev Play */}
+            <button
+              onClick={handlePrevPlay}
+              disabled={currentPlayIndex <= 0}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-white/10 hover:bg-slate-800 disabled:opacity-40 text-slate-200 text-xs font-bold transition-all"
+              title="Previous Play (Hotkeys: [ or P)"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>Prev Play</span>
+            </button>
+
+            {/* Play/Pause Button */}
             <button
               onClick={() => setIsPlaying(!isPlaying)}
               className="p-2 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition-all shadow-md"
@@ -654,25 +790,59 @@ function VideoPlayer() {
               {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
             </button>
 
+            {/* Next Play */}
             <button
-              onClick={() => setCurrentTime(Math.max(0, currentTime - 5))}
-              className="p-1.5 rounded-lg bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-300 text-xs font-mono"
+              onClick={handleNextPlay}
+              disabled={currentPlayIndex >= plays.length - 1}
+              className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-white/10 hover:bg-slate-800 disabled:opacity-40 text-slate-200 text-xs font-bold transition-all"
+              title="Next Play (Hotkeys: ] or N)"
             >
-              -5s
-            </button>
-            <button
-              onClick={() => setCurrentTime(Math.min(gameDuration, currentTime + 5))}
-              className="p-1.5 rounded-lg bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-300 text-xs font-mono"
-            >
-              +5s
+              <span>Next Play</span>
+              <ChevronRight className="w-4 h-4" />
             </button>
 
-            <span className="font-mono text-xs text-slate-300">
-              {formatTime(currentTime)} / {formatTime(gameDuration)}
-            </span>
+            {/* Play Counter Badge */}
+            <div className="ml-2 px-2.5 py-1 rounded-md bg-slate-900 border border-white/10 font-mono text-xs text-amber-400 font-bold">
+              Play {currentPlayIndex + 1} of {plays.length}
+            </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          {/* Time and Mode Toggles */}
+          <div className="flex items-center gap-2">
+            {/* Auto-Advance Toggle */}
+            <button
+              onClick={() => {
+                setAutoAdvance(!autoAdvance);
+                if (!autoAdvance) setLoopPlay(false);
+              }}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-mono font-bold transition-all border ${
+                autoAdvance
+                  ? 'bg-cyan-500 text-slate-950 border-cyan-300'
+                  : 'bg-slate-900 text-slate-400 border-white/10 hover:text-white'
+              }`}
+              title="Automatically advance to the next play when the current play finishes"
+            >
+              <Radio className="w-3.5 h-3.5" />
+              Auto-Advance
+            </button>
+
+            {/* Loop Play Toggle */}
+            <button
+              onClick={() => {
+                setLoopPlay(!loopPlay);
+                if (!loopPlay) setAutoAdvance(false);
+              }}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-mono font-bold transition-all border ${
+                loopPlay
+                  ? 'bg-amber-500 text-slate-950 border-amber-300'
+                  : 'bg-slate-900 text-slate-400 border-white/10 hover:text-white'
+              }`}
+              title="Continuously loop current play"
+            >
+              <Repeat className="w-3.5 h-3.5" />
+              Loop Play
+            </button>
+
             {/* Speed Selector */}
             <div className="relative">
               <button
@@ -700,6 +870,10 @@ function VideoPlayer() {
                 </div>
               )}
             </div>
+
+            <span className="font-mono text-xs text-slate-400">
+              {formatTime(currentTime)} / {formatTime(gameDuration)}
+            </span>
           </div>
         </div>
       </div>
@@ -708,7 +882,7 @@ function VideoPlayer() {
 }
 
 // ============================================================================
-// 3. Play-by-Play Table Component with Multi-Dimensional Filters
+// 3. Play-by-Play Table Component with Continuous Play Stream
 // ============================================================================
 
 function PlayByPlayList() {
@@ -742,7 +916,7 @@ function PlayByPlayList() {
       <div className="p-3 border-b border-white/10 bg-slate-900/60 flex items-center justify-between">
         <div className="flex items-center gap-2 font-bold text-sm text-white">
           <Target className="w-4 h-4 text-amber-400" />
-          Play Ledger ({filtered.length} / {plays.length} Plays)
+          Play-by-Play Ledger ({filtered.length} / {plays.length} Plays)
         </div>
         <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
           Hudl All-22
@@ -756,7 +930,7 @@ function PlayByPlayList() {
           <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500" />
           <input
             type="text"
-            placeholder="Search plays (e.g. Barone, Melton, TD)..."
+            placeholder="Search plays (e.g. Perkins, Melton, TD, Seam)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-8 pr-3 py-1 text-xs bg-slate-950 border border-white/10 rounded-md text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
@@ -775,7 +949,7 @@ function PlayByPlayList() {
                   : 'bg-slate-800/80 text-slate-400 hover:text-white'
               }`}
             >
-              {q === 'ALL' ? 'All Qtrs' : `Q${q}`}
+              {q === 'ALL' ? 'All Plays' : `Q${q}`}
             </button>
           ))}
         </div>
@@ -806,7 +980,7 @@ function PlayByPlayList() {
                   <span className="text-xs text-slate-400 font-semibold">
                     Q{play.quarter} · {play.gameClock}
                   </span>
-                  <span className="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-bold text-amber-300">
+                  <span className="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-bold text-amber-300 font-mono">
                     {play.down}&{play.distance}
                   </span>
                   {play.isTouchdown && (
@@ -849,7 +1023,7 @@ function PlayByPlayList() {
 }
 
 // ============================================================================
-// 4. Coaching Notes & Collaborative Mentions Feed
+// 4. Coaching Notes Feed
 // ============================================================================
 
 function CommentFeed() {
@@ -869,7 +1043,7 @@ function CommentFeed() {
       <div className="p-3 border-b border-white/10 flex items-center justify-between bg-slate-900/60">
         <div className="flex items-center gap-2 font-bold text-sm text-white">
           <MessageSquare className="w-4 h-4 text-cyan-400" />
-          Coaching Thread & @Mentions
+          Coaching Thread & Notes
         </div>
         <span className="text-[11px] font-mono text-slate-400">
           {currentComments.length} Notes
@@ -909,7 +1083,7 @@ function CommentFeed() {
             onClick={handleSend}
             className="px-3 py-1.5 rounded-md bg-amber-500 text-slate-950 font-bold text-xs hover:bg-amber-400 transition-colors flex items-center gap-1"
           >
-            <Send className="w-3.5 h-3.5" />
+            Send
           </button>
         </div>
       </div>
@@ -1003,7 +1177,7 @@ export default function FilmRoomPage() {
           )}
         </div>
 
-        {/* Action Link to Player Tracker */}
+        {/* Action Links to Player Tracker & Analytics */}
         <div className="flex items-center gap-2">
           <Link
             href={`/dashboard/players/${activeGame.id}`}
@@ -1024,14 +1198,14 @@ export default function FilmRoomPage() {
 
       {/* Main Film Room Workspace */}
       <div className="flex-1 flex overflow-hidden">
-        {/* Left: Video Player with Dynamic 22-Player Tracking Overlay */}
+        {/* Left: Video Player with Real-Time Ball & 22-Player Tracking Overlay */}
         <div className="flex-1 flex flex-col p-4 min-w-0 overflow-hidden">
           <div className="flex-1 overflow-hidden">
             <VideoPlayer />
           </div>
         </div>
 
-        {/* Right: Play Ledger & Coaching Feed */}
+        {/* Right: Play-by-Play Ledger & Coaching Feed */}
         <div className="w-96 flex flex-col p-4 pl-0 gap-3 border-l border-white/10 bg-slate-900/40">
           {/* Tab switcher */}
           <div className="flex bg-slate-950 p-1 rounded-lg border border-white/10">

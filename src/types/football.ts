@@ -233,9 +233,20 @@ export interface TrackedPlayer {
   vectorLabel?: string; // e.g. "Jet Sweep 22.4 mph", "Deep Post 18 yds", "B-Gap Blitz"
 }
 
+export interface BallTrajectory {
+  preSnap: PlayerTrackingPoint; // Center / QB hands at LOS
+  mesh?: PlayerTrackingPoint;   // QB mesh point / handoff / play-action fake
+  inAirOrTuck: PlayerTrackingPoint; // Mid-play apex or ball carrier cut
+  playEnd: PlayerTrackingPoint; // Tackle, catch, or touchdown end point
+  ballVelocityMph?: number;     // Tracked ball velocity in mph
+  carrierJersey?: number;
+  carrierName?: string;
+}
+
 export interface PlayTrackingData {
   offense: TrackedPlayer[]; // 11 O's (Peddie Falcons)
   defense: TrackedPlayer[]; // 11 X's (Opponent)
+  ball?: BallTrajectory;    // 🏈 Real-time Football Position & Trajectory
   lineOfScrimmageY: number; // Yardline %
   firstDownY: number; // 1st Down marker %
   playConceptName?: string; // e.g. "Peddie Orbit Mesh Wheel vs Cover 3"
