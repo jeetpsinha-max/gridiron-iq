@@ -5,7 +5,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateId } from '@/lib/utils';
 import { CoachingActionItem, ActionItemStatus, ActionPriority } from '@/types/football';
-import { TEAM_ROSTER } from '@/lib/mock-game-data';
+import { MOCK_GAMES } from '@/lib/mock-game-data';
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const gameId = searchParams.get('gameId');
+
+  const allActions = MOCK_GAMES.flatMap(g => g.plays.flatMap(p => p.actionItems));
+  const filtered = gameId ? allActions.filter(a => a.gameId === gameId) : allActions;
+
+  return NextResponse.json({
+    success: true,
+    actionItems: filtered,
+  });
+}
 
 export async function POST(request: NextRequest) {
   try {

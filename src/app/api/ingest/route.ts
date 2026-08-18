@@ -25,6 +25,15 @@ function extractYouTubeId(url: string): string | null {
   return null;
 }
 
+import { MOCK_GAMES } from '@/lib/mock-game-data';
+
+export async function GET() {
+  return NextResponse.json({
+    success: true,
+    sessions: MOCK_GAMES,
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
     const formData = await request.formData();
