@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import {
   Shield, Film, BarChart3, ListChecks, FileText,
   Bell, ChevronDown, Home, Settings, Menu, X,
-  User, Users, MessageSquare, Zap,
+  User, Users, MessageSquare, Zap, Swords,
 } from 'lucide-react';
 import { useGridironStore } from '@/lib/store';
 
@@ -108,6 +108,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   const navLinks = [
     { href: `/dashboard/film-room/${gameId}`, label: 'Film Room', icon: Film, active: pathname.includes('film-room') },
+    { href: `/dashboard/offensive-coach/${gameId}`, label: 'Offensive Coach', icon: Swords, active: pathname.includes('offensive-coach') },
     { href: `/dashboard/players/${gameId}`, label: 'Player Tracker', icon: Users, active: pathname.includes('players') },
     { href: `/dashboard/analytics/${gameId}`, label: 'Analytics', icon: BarChart3, active: pathname.includes('analytics') },
     { href: `/dashboard/actions/${gameId}`, label: 'Action Items', icon: ListChecks, active: pathname.includes('actions') },
