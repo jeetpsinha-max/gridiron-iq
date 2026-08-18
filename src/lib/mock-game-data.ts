@@ -1,497 +1,861 @@
 // ============================================================================
-// GridironIQ — Comprehensive Mock Game Data
+// GridironIQ — 2025 Peddie School Falcons Football (Hudl Edition)
+// Comprehensive Roster, Game Sessions, 22-Player Tracking (O's vs X's) & HUD Telemetry
 // ============================================================================
-// Pre-populated with realistic game sessions, plays with pre-snap motions,
-// coaching comments with @mentions, and action items for immediate testing.
 
 import {
-  GameSession, PlayAnalysis, PlayComment, CoachingActionItem,
-  UserMention, Notification, DriveInfo, TeamBoxScore, FieldHeatmapPoint,
+  GameSession, PlayAnalysis, UserMention, CoachingActionItem,
+  PlayComment, TeamBoxScore, DriveInfo, PlayTrackingData, TrackedPlayer,
+  Notification, FieldHeatmapPoint
 } from '@/types/football';
 
-// ---- Team Roster / Mentionable Users ----
+// ============================================================================
+// 1. Peddie School Falcons Varsity Coaching Staff & Roster (2024–2025 Season)
+// ============================================================================
 
 export const TEAM_ROSTER: UserMention[] = [
-  { id: 'u1', name: 'Marcus Williams', role: 'PLAYER', jerseyNumber: 12, position: 'QB' },
-  { id: 'u2', name: 'Jamal Carter', role: 'PLAYER', jerseyNumber: 22, position: 'RB' },
-  { id: 'u3', name: 'DeShawn Harris', role: 'PLAYER', jerseyNumber: 4, position: 'WR' },
-  { id: 'u4', name: 'Tyler Brooks', role: 'PLAYER', jerseyNumber: 88, position: 'TE' },
-  { id: 'u5', name: 'Marcus Chen', role: 'PLAYER', jerseyNumber: 7, position: 'WR' },
-  { id: 'u6', name: 'David Okafor', role: 'PLAYER', jerseyNumber: 55, position: 'LB' },
-  { id: 'u7', name: 'Anthony Reeves', role: 'PLAYER', jerseyNumber: 21, position: 'CB' },
-  { id: 'u8', name: 'Isaiah Thompson', role: 'PLAYER', jerseyNumber: 33, position: 'SS' },
-  { id: 'u9', name: 'Coach Miller', role: 'COACH', position: 'Head Coach' },
-  { id: 'u10', name: 'Coach Davis', role: 'COORDINATOR', position: 'Offensive Coordinator' },
-  { id: 'u11', name: 'Coach Jackson', role: 'COORDINATOR', position: 'Defensive Coordinator' },
-  { id: 'u12', name: 'Alex Rivera', role: 'ANALYST', position: 'Film Analyst' },
-  { id: 'u13', name: 'Jordan Mitchell', role: 'PLAYER', jerseyNumber: 75, position: 'OT' },
-  { id: 'u14', name: 'Caleb Foster', role: 'PLAYER', jerseyNumber: 99, position: 'DE' },
-  { id: 'u15', name: 'Ryan Patel', role: 'PLAYER', jerseyNumber: 1, position: 'K' },
+  // Coaching Staff
+  { id: 'coach-fabish', name: 'Mark Fabish', role: 'COACH', position: 'Head Coach' },
+  { id: 'coach-oc', name: 'Dan O\'Neill', role: 'COORDINATOR', position: 'Offensive Coordinator / QBs' },
+  { id: 'coach-dc', name: 'Marcus Vance', role: 'COORDINATOR', position: 'Defensive Coordinator / LBs' },
+  { id: 'coach-ol', name: 'Frank Reynolds', role: 'COACH', position: 'Offensive Line Coach' },
+  
+  // Varsity Players
+  { id: 'player-2', name: 'Nacari McFarland', role: 'PLAYER', jerseyNumber: 2, position: 'QB' },
+  { id: 'player-3', name: 'Kyian Mims', role: 'PLAYER', jerseyNumber: 3, position: 'CB / WR' },
+  { id: 'player-4', name: 'Yasin Elhossieni', role: 'PLAYER', jerseyNumber: 4, position: 'SS' },
+  { id: 'player-5', name: 'Lorenzo Barone', role: 'PLAYER', jerseyNumber: 5, position: 'WR' },
+  { id: 'player-6', name: 'Joseph Gaston', role: 'PLAYER', jerseyNumber: 6, position: 'QB / WR / CB' },
+  { id: 'player-8', name: 'Ari Miller', role: 'PLAYER', jerseyNumber: 8, position: 'WR / S' },
+  { id: 'player-9', name: 'Griffin Brennan', role: 'PLAYER', jerseyNumber: 9, position: 'QB / OLB' },
+  { id: 'player-10', name: 'Jace Ingenito', role: 'PLAYER', jerseyNumber: 10, position: 'WR' },
+  { id: 'player-11', name: 'Eric Cho', role: 'PLAYER', jerseyNumber: 11, position: 'SS / FS' },
+  { id: 'player-15', name: 'Jonathan Stizza', role: 'PLAYER', jerseyNumber: 15, position: 'FS / WR' },
+  { id: 'player-16', name: 'Griffin Suthammanont', role: 'PLAYER', jerseyNumber: 16, position: 'WR' },
+  { id: 'player-20', name: 'Jonathan Navarrete', role: 'PLAYER', jerseyNumber: 20, position: 'RB' },
+  { id: 'player-26', name: 'Ethan Dechant', role: 'PLAYER', jerseyNumber: 26, position: 'WR' },
+  { id: 'player-55', name: 'Jayden Williams', role: 'PLAYER', jerseyNumber: 55, position: 'DE' },
+  { id: 'player-63', name: 'Matthew Jung', role: 'PLAYER', jerseyNumber: 63, position: 'C / DT' },
+  { id: 'player-66', name: 'Adekunle Olaniyi', role: 'PLAYER', jerseyNumber: 66, position: 'DT' },
+  { id: 'player-70', name: 'Mason Kish', role: 'PLAYER', jerseyNumber: 70, position: 'DT' },
+  { id: 'player-77', name: 'Russell Cunningham', role: 'PLAYER', jerseyNumber: 77, position: 'G' },
 ];
+
+export const CURRENT_USER: UserMention = TEAM_ROSTER[0]; // Coach Mark Fabish
 
 export function findUser(id: string): UserMention {
   return TEAM_ROSTER.find(u => u.id === id) ?? TEAM_ROSTER[0];
 }
 
-// ---- Play Data Factory ----
+// Helper to generate full 22-player tracking coordinates (11 O's and 11 X's)
+function buildPeddieTrackingData(params: {
+  losY: number;
+  firstDownY: number;
+  motionJersey?: number;
+  motionStartX?: number;
+  motionEndX?: number;
+  targetJersey?: number;
+  passTargetX?: number;
+  passTargetY?: number;
+  playConcept: string;
+}): PlayTrackingData {
+  const { losY, firstDownY, motionJersey, motionStartX, motionEndX, targetJersey, passTargetX, passTargetY, playConcept } = params;
 
-function makeComment(
-  id: string, playId: string, timestamp: number,
-  authorId: string, text: string, mentionIds: string[] = []
-): PlayComment {
+  // 11 Offense Players (O's - Peddie School Falcons)
+  const offense: TrackedPlayer[] = [
+    {
+      id: 'o-63', side: 'OFFENSE', jerseyNumber: 63, name: 'M. Jung', position: 'C',
+      trajectory: { preSnap: { x: 50, y: losY }, snap: { x: 50, y: losY + 1 }, postSnap: { x: 50, y: losY + 2 } },
+      vectorLabel: 'Anchor Pass Pro'
+    },
+    {
+      id: 'o-77', side: 'OFFENSE', jerseyNumber: 77, name: 'R. Cunningham', position: 'LG',
+      trajectory: { preSnap: { x: 45, y: losY }, snap: { x: 45, y: losY + 1 }, postSnap: { x: 46, y: losY + 2 } },
+      vectorLabel: 'Inside Zone Seal'
+    },
+    {
+      id: 'o-71', side: 'OFFENSE', jerseyNumber: 71, name: 'O-Line', position: 'RG',
+      trajectory: { preSnap: { x: 55, y: losY }, snap: { x: 55, y: losY + 1 }, postSnap: { x: 54, y: losY + 2 } },
+      vectorLabel: 'Combo Block'
+    },
+    {
+      id: 'o-74', side: 'OFFENSE', jerseyNumber: 74, name: 'O-Line', position: 'LT',
+      trajectory: { preSnap: { x: 40, y: losY }, snap: { x: 39, y: losY + 1 }, postSnap: { x: 38, y: losY + 3 } },
+      vectorLabel: 'Blindside Pass Set'
+    },
+    {
+      id: 'o-78', side: 'OFFENSE', jerseyNumber: 78, name: 'O-Line', position: 'RT',
+      trajectory: { preSnap: { x: 60, y: losY }, snap: { x: 61, y: losY + 1 }, postSnap: { x: 62, y: losY + 3 } },
+      vectorLabel: 'Edge Kickout'
+    },
+    {
+      id: 'o-2', side: 'OFFENSE', jerseyNumber: 2, name: 'N. McFarland', position: 'QB',
+      isTargetOrBallCarrier: true,
+      trajectory: { preSnap: { x: 50, y: losY + 5 }, snap: { x: 50, y: losY + 7 }, postSnap: { x: 52, y: losY + 8 } },
+      vectorLabel: 'Shotgun Read & Fire'
+    },
+    {
+      id: 'o-20', side: 'OFFENSE', jerseyNumber: 20, name: 'J. Navarrete', position: 'RB',
+      isTargetOrBallCarrier: targetJersey === 20,
+      trajectory: {
+        preSnap: { x: 44, y: losY + 5.5 },
+        snap: { x: 48, y: losY + 3 },
+        postSnap: { x: targetJersey === 20 ? (passTargetX ?? 58) : 52, y: targetJersey === 20 ? (passTargetY ?? losY - 6) : losY - 2 }
+      },
+      vectorLabel: targetJersey === 20 ? 'Off-Tackle Stretch' : 'Pass Protection Check'
+    },
+    {
+      id: 'o-5', side: 'OFFENSE', jerseyNumber: 5, name: 'L. Barone', position: 'WR',
+      isMotionPlayer: motionJersey === 5,
+      isTargetOrBallCarrier: targetJersey === 5,
+      trajectory: {
+        preSnap: { x: motionStartX ?? 85, y: losY + 1 },
+        motion: motionJersey === 5 ? { x: motionEndX ?? 48, y: losY + 3 } : undefined,
+        snap: { x: motionJersey === 5 ? (motionEndX ?? 46) : 85, y: losY + 1 },
+        postSnap: { x: passTargetX ?? 75, y: passTargetY ?? losY - 14 }
+      },
+      vectorLabel: motionJersey === 5 ? 'Jet Sweep Motion 21.8 mph' : 'Deep 15-yd Out'
+    },
+    {
+      id: 'o-10', side: 'OFFENSE', jerseyNumber: 10, name: 'J. Ingenito', position: 'WR',
+      isTargetOrBallCarrier: targetJersey === 10,
+      trajectory: {
+        preSnap: { x: 15, y: losY + 1 },
+        snap: { x: 15, y: losY },
+        postSnap: { x: passTargetX ?? 25, y: passTargetY ?? losY - 12 }
+      },
+      vectorLabel: 'Post-Corner Break'
+    },
+    {
+      id: 'o-3', side: 'OFFENSE', jerseyNumber: 3, name: 'K. Mims', position: 'SLOT',
+      isTargetOrBallCarrier: targetJersey === 3,
+      trajectory: {
+        preSnap: { x: 28, y: losY + 2.5 },
+        snap: { x: 29, y: losY + 1 },
+        postSnap: { x: passTargetX ?? 42, y: passTargetY ?? losY - 8 }
+      },
+      vectorLabel: 'Mesh Cross Underneath'
+    },
+    {
+      id: 'o-8', side: 'OFFENSE', jerseyNumber: 8, name: 'A. Miller', position: 'TE',
+      isTargetOrBallCarrier: targetJersey === 8,
+      trajectory: {
+        preSnap: { x: 65, y: losY + 1 },
+        snap: { x: 65, y: losY },
+        postSnap: { x: passTargetX ?? 60, y: passTargetY ?? losY - 10 }
+      },
+      vectorLabel: 'Y-Cross Seam Threat'
+    },
+  ];
+
+  // 11 Defense Players (X's - Opponent Defense)
+  const defense: TrackedPlayer[] = [
+    {
+      id: 'd-1', side: 'DEFENSE', jerseyNumber: 90, name: 'Opp DE', position: 'DE',
+      trajectory: { preSnap: { x: 38, y: losY - 1.5 }, snap: { x: 39, y: losY }, postSnap: { x: 42, y: losY + 3 } },
+      vectorLabel: 'Speed Rush Off Edge'
+    },
+    {
+      id: 'd-2', side: 'DEFENSE', jerseyNumber: 95, name: 'Opp DT', position: 'DT',
+      trajectory: { preSnap: { x: 47, y: losY - 1.5 }, snap: { x: 48, y: losY }, postSnap: { x: 49, y: losY + 1 } },
+      vectorLabel: 'A-Gap Bull Rush'
+    },
+    {
+      id: 'd-3', side: 'DEFENSE', jerseyNumber: 99, name: 'Opp NT', position: 'NT',
+      trajectory: { preSnap: { x: 53, y: losY - 1.5 }, snap: { x: 52, y: losY }, postSnap: { x: 51, y: losY + 1 } },
+      vectorLabel: 'Double Team Hold'
+    },
+    {
+      id: 'd-4', side: 'DEFENSE', jerseyNumber: 92, name: 'Opp DE', position: 'DE',
+      trajectory: { preSnap: { x: 62, y: losY - 1.5 }, snap: { x: 61, y: losY }, postSnap: { x: 58, y: losY + 3 } },
+      vectorLabel: 'Contain Rush'
+    },
+    {
+      id: 'd-5', side: 'DEFENSE', jerseyNumber: 52, name: 'Opp MLB', position: 'MLB',
+      trajectory: { preSnap: { x: 50, y: losY - 5 }, snap: { x: 49, y: losY - 4 }, postSnap: { x: 52, y: losY - 3 } },
+      vectorLabel: 'Hook/Curl Zone Drop'
+    },
+    {
+      id: 'd-6', side: 'DEFENSE', jerseyNumber: 44, name: 'Opp WLB', position: 'WLB',
+      trajectory: { preSnap: { x: 35, y: losY - 5 }, snap: { x: 34, y: losY - 4 }, postSnap: { x: 30, y: losY - 5 } },
+      vectorLabel: 'Flat Coverage Roll'
+    },
+    {
+      id: 'd-7', side: 'DEFENSE', jerseyNumber: 48, name: 'Opp SLB', position: 'SLB',
+      trajectory: { preSnap: { x: 65, y: losY - 4.5 }, snap: { x: 64, y: losY - 3.5 }, postSnap: { x: 68, y: losY - 5 } },
+      vectorLabel: 'Curl Zone Drop'
+    },
+    {
+      id: 'd-8', side: 'DEFENSE', jerseyNumber: 21, name: 'Opp CB1', position: 'CB',
+      trajectory: { preSnap: { x: 14, y: losY - 7 }, snap: { x: 14, y: losY - 8 }, postSnap: { x: 18, y: losY - 14 } },
+      vectorLabel: 'Deep 1/3 Third Zone'
+    },
+    {
+      id: 'd-9', side: 'DEFENSE', jerseyNumber: 24, name: 'Opp CB2', position: 'CB',
+      trajectory: { preSnap: { x: 86, y: losY - 7 }, snap: { x: 84, y: losY - 8 }, postSnap: { x: 80, y: losY - 15 } },
+      vectorLabel: 'Deep 1/3 Third Zone'
+    },
+    {
+      id: 'd-10', side: 'DEFENSE', jerseyNumber: 31, name: 'Opp FS', position: 'FS',
+      trajectory: { preSnap: { x: 50, y: losY - 14 }, snap: { x: 50, y: losY - 15 }, postSnap: { x: 48, y: losY - 18 } },
+      vectorLabel: 'Middle 1/3 Safety Anchor'
+    },
+    {
+      id: 'd-11', side: 'DEFENSE', jerseyNumber: 33, name: 'Opp SS', position: 'SS',
+      trajectory: {
+        preSnap: { x: 68, y: losY - 10 },
+        snap: { x: 62, y: losY - 8 },
+        postSnap: { x: 58, y: losY - 12 }
+      },
+      vectorLabel: 'Motion Triggered Safety Roll'
+    },
+  ];
+
   return {
-    id,
-    playId,
-    timestamp,
-    author: findUser(authorId),
-    text,
-    mentions: mentionIds.map(findUser),
-    createdAt: new Date(Date.now() - Math.random() * 86400000).toISOString(),
+    offense,
+    defense,
+    lineOfScrimmageY: losY,
+    firstDownY,
+    playConceptName: playConcept,
   };
 }
 
-function makeAction(
-  id: string, playId: string, gameId: string, title: string,
-  desc: string, assignedToId: string, assignedById: string,
-  priority: CoachingActionItem['priority'], status: CoachingActionItem['status'],
-  timestamp: number
-): CoachingActionItem {
-  return {
-    id, playId, gameId, title, description: desc,
-    assignedTo: findUser(assignedToId),
-    assignedBy: findUser(assignedById),
-    priority, status, videoTimestamp: timestamp,
-    createdAt: new Date(Date.now() - 3600000).toISOString(),
-    updatedAt: new Date().toISOString(),
-  };
-}
+// ============================================================================
+// 2. Peddie vs Blair Academy (122nd Annual Rivalry - Hudl Film)
+// ============================================================================
 
-// ---- Mock Plays ----
-
-const GAME_ID = 'game-001';
-
-export const MOCK_PLAYS: PlayAnalysis[] = [
+const PEDDIE_BLAIR_PLAYS: PlayAnalysis[] = [
   {
-    id: 'play-001', gameId: GAME_ID, playNumber: 1, quarter: 1, gameClock: '15:00',
-    videoTimestampStart: 0, videoTimestampMotion: 3.5, videoTimestampSnap: 5.2, videoTimestampEnd: 12.8,
-    down: 1, distance: 10, yardLine: 25, hash: 'LEFT',
-    offensiveFormation: 'Shotgun Trips Right', offensivePersonnel: '11',
-    motionType: 'JET_SWEEP', motionDirection: 'LEFT', motionPlayerJersey: 4,
-    blockingScheme: 'OUTSIDE_ZONE', routeConcept: 'SLANT_FLAT',
-    defensiveFront: '4-3 Under', defensivePackage: 'NICKEL', coverageScheme: 'COVER_3',
-    defenseReactionToMotion: 'Nickel rotates to motion, safety stays high',
-    playType: 'RUN', playActionFake: false, runGap: 'OUTSIDE_LEFT',
-    yardsGained: 14, epa: 1.32, successRate: true,
-    isFirstDown: true, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: 'Jet sweep left with #4 Harris. Outside zone blocking picks up the edge. DB slow to react to motion, Harris gets to second level for 14 yards.',
-    comments: [
-      makeComment('c1', 'play-001', 5.2, 'u10', 'Great execution on the jet motion. @DeShawn Harris hit the edge perfectly. Love the seal block by @Jordan Mitchell', ['u3', 'u13']),
-      makeComment('c2', 'play-001', 8.1, 'u12', 'Notice how the NICKEL rotates late — Cover 3 is vulnerable to jet sweep when the corner sits on the #1 receiver', []),
-    ],
-    actionItems: [],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-002', gameId: GAME_ID, playNumber: 2, quarter: 1, gameClock: '14:22',
-    videoTimestampStart: 14.0, videoTimestampSnap: 17.8, videoTimestampEnd: 24.5,
-    down: 1, distance: 10, yardLine: 39, hash: 'MIDDLE',
-    offensiveFormation: 'I-Formation', offensivePersonnel: '21',
-    motionType: 'NONE',
-    blockingScheme: 'GAP_POWER', routeConcept: undefined,
-    defensiveFront: '4-3 Over', defensivePackage: '4-3', coverageScheme: 'COVER_1',
-    playType: 'RUN', playActionFake: false, runGap: 'B_RIGHT',
-    yardsGained: 4, epa: -0.25, successRate: false,
-    isFirstDown: false, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: 'Power right with #22 Carter through the B-gap. Lead blocker kicks out the DE but Mike LB fills quickly. 4-yard gain.',
-    comments: [
-      makeComment('c3', 'play-002', 18.5, 'u11', '@Jamal Carter needs to press the hole harder. Hesitation gave the LB time to fill.', ['u2']),
-    ],
-    actionItems: [
-      makeAction('a1', 'play-002', GAME_ID, 'Work on pressing B-gap holes', 'Review film on gap discipline and hitting holes at full speed without hesitation.', 'u2', 'u11', 'MEDIUM', 'TODO', 18.5),
-    ],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-003', gameId: GAME_ID, playNumber: 3, quarter: 1, gameClock: '13:48',
-    videoTimestampStart: 26.0, videoTimestampMotion: 28.5, videoTimestampSnap: 30.2, videoTimestampEnd: 37.1,
-    down: 2, distance: 6, yardLine: 43, hash: 'RIGHT',
-    offensiveFormation: 'Shotgun 2x2', offensivePersonnel: '11',
-    motionType: 'ORBIT', motionDirection: 'RIGHT', motionPlayerJersey: 22,
-    blockingScheme: 'PASS_PRO', routeConcept: 'MESH',
-    defensiveFront: '3-4 Eagle', defensivePackage: 'NICKEL', coverageScheme: 'COVER_2',
-    defenseReactionToMotion: 'LB walks out to orbit man, opens A-gap',
-    playType: 'RPO', playActionFake: false,
-    targetPlayerJersey: 88, yardsGained: 18, epa: 2.15, successRate: true,
-    isFirstDown: true, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: 'RPO with orbit motion right by #22. LB vacates the box to cover the orbit. QB reads the void and hits #88 Brooks on the mesh crossing route for 18 yards.',
-    comments: [
-      makeComment('c4', 'play-003', 30.0, 'u10', 'Perfect read by @Marcus Williams! The orbit motion pulled the LB out of the box. @Tyler Brooks ran a crisp mesh route.', ['u1', 'u4']),
-      makeComment('c5', 'play-003', 31.5, 'u9', 'This is the RPO game-plan working. We need to keep pressuring their LBs with these motions.', []),
-    ],
-    actionItems: [],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-004', gameId: GAME_ID, playNumber: 4, quarter: 1, gameClock: '13:05',
-    videoTimestampStart: 38.0, videoTimestampSnap: 41.3, videoTimestampEnd: 47.8,
-    down: 1, distance: 10, yardLine: 61, hash: 'LEFT',
-    offensiveFormation: 'Pistol Offset', offensivePersonnel: '12',
-    motionType: 'TRADE_TE', motionDirection: 'LEFT', motionPlayerJersey: 88,
+    id: 'pb-play-1',
+    gameId: 'peddie-blair-2025',
+    playNumber: 1,
+    quarter: 1,
+    gameClock: '14:52',
+    videoTimestampStart: 12,
+    videoTimestampMotion: 14,
+    videoTimestampSnap: 17,
+    videoTimestampEnd: 23,
+    down: 1,
+    distance: 10,
+    yardLine: 35,
+    hash: 'MIDDLE',
+    offensiveFormation: 'Peddie Shotgun 11 Spread Trips Left',
+    offensivePersonnel: '11',
+    motionType: 'JET_SWEEP',
+    motionDirection: 'LEFT',
+    motionPlayerJersey: 5,
     blockingScheme: 'INSIDE_ZONE',
-    defensiveFront: '4-3 Under', defensivePackage: '4-3', coverageScheme: 'COVER_4',
-    defenseReactionToMotion: 'DE widens with TE trade, opens C-gap',
-    playType: 'PLAY_ACTION_BOOT', playActionFake: true,
-    routeConcept: 'FLOOD', targetPlayerJersey: 7,
-    yardsGained: 22, epa: 2.85, successRate: true,
-    isFirstDown: true, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: 'Play-action boot left off TE trade motion. Flood concept to the boundary. #7 Chen runs the deep crosser and catches the safety flat-footed for 22 yards.',
+    routeConcept: 'MESH',
+    defensiveFront: 'Blair 4-3 Over',
+    defensivePackage: '4-3',
+    coverageScheme: 'COVER_3',
+    defenseReactionToMotion: 'Safety #33 rolls down to Robber; CB #24 trails 4 yards inside.',
+    playType: 'PASS',
+    playActionFake: true,
+    targetPlayerJersey: 3,
+    yardsGained: 14,
+    epa: 1.42,
+    successRate: true,
+    isFirstDown: true,
+    isTouchdown: false,
+    isTurnover: false,
+    isPenalty: false,
+    playDescription: 'Nacari McFarland fakes jet sweep to Lorenzo Barone, reads single-high safety roll, and hits Kyian Mims on the mesh crosser for 14 yards to midfield.',
+    trackingData: buildPeddieTrackingData({
+      losY: 65, firstDownY: 55, motionJersey: 5, motionStartX: 85, motionEndX: 45,
+      targetJersey: 3, passTargetX: 42, passTargetY: 51,
+      playConcept: 'Peddie Jet Fake Mesh Crosser vs Blair Cover 3'
+    }),
     comments: [
-      makeComment('c6', 'play-004', 43.0, 'u10', 'The TE trade set this up beautifully. @Marcus Chen — great route discipline on the crosser.', ['u5']),
-      makeComment('c7', 'play-004', 44.5, 'u12', 'Cover 4 is getting carved up by our boot game. Their safeties are biting on the run action hard.', []),
-    ],
-    actionItems: [],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-005', gameId: GAME_ID, playNumber: 5, quarter: 1, gameClock: '12:20',
-    videoTimestampStart: 49.0, videoTimestampSnap: 52.5, videoTimestampEnd: 57.3,
-    down: 1, distance: 10, yardLine: 83, hash: 'MIDDLE',
-    offensiveFormation: 'Shotgun Empty', offensivePersonnel: '10',
-    motionType: 'FLY', motionDirection: 'RIGHT', motionPlayerJersey: 4,
-    blockingScheme: 'PASS_PRO', routeConcept: 'FOUR_VERTS',
-    defensiveFront: 'Nickel', defensivePackage: 'NICKEL', coverageScheme: 'COVER_3',
-    defenseReactionToMotion: 'CB squeezes with fly motion, boundary void opens',
-    playType: 'PASS', playActionFake: false,
-    targetPlayerJersey: 4, yardsGained: 17, epa: 1.75, successRate: true,
-    isFirstDown: true, isTouchdown: true, isTurnover: false, isPenalty: false,
-    playDescription: 'Fly motion right by #4 Harris. QB takes one hitch and fires the fade to #4 in the end zone. Corner couldn\'t recover from the fly motion adjustment. TOUCHDOWN!',
-    comments: [
-      makeComment('c8', 'play-005', 53.0, 'u9', 'GREAT play design! The fly motion froze the CB. @DeShawn Harris finish was elite!', ['u3']),
-      makeComment('c9', 'play-005', 54.0, 'u10', '@Marcus Williams excellent timing on the throw. Ball was out before the break. We need more of this motion + fade combo in the red zone.', ['u1']),
-    ],
-    actionItems: [],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-006', gameId: GAME_ID, playNumber: 6, quarter: 2, gameClock: '11:45',
-    videoTimestampStart: 59.0, videoTimestampSnap: 62.8, videoTimestampEnd: 69.0,
-    down: 3, distance: 7, yardLine: 42, hash: 'RIGHT',
-    offensiveFormation: 'Shotgun Trips Left', offensivePersonnel: '11',
-    motionType: 'NONE',
-    blockingScheme: 'PASS_PRO', routeConcept: 'SMASH',
-    defensiveFront: '3-4', defensivePackage: 'NICKEL', coverageScheme: 'MAN_PRESS',
-    playType: 'PASS', playActionFake: false,
-    targetPlayerJersey: 4, yardsGained: -2, epa: -2.1, successRate: false,
-    isFirstDown: false, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: 'Third and long. Press man coverage. Edge rusher gets free on a twist stunt. QB sacked for a 2-yard loss.',
-    comments: [
-      makeComment('c10', 'play-006', 64.0, 'u10', '@Jordan Mitchell got caught by the twist stunt. Need to work on pass pro communication.', ['u13']),
-      makeComment('c11', 'play-006', 65.5, 'u11', 'They showed blitz pre-snap. @Marcus Williams should have had a hot route check here.', ['u1']),
+      {
+        id: 'c-1',
+        playId: 'pb-play-1',
+        timestamp: 16,
+        author: TEAM_ROSTER[0],
+        text: 'Excellent jet motion timing by @#5_Barone. Forced Blair safety into boundary box, opening the soft middle for @#3_Mims.',
+        mentions: [TEAM_ROSTER[7], TEAM_ROSTER[5]],
+        createdAt: '2025-10-18T14:32:00Z',
+      }
     ],
     actionItems: [
-      makeAction('a2', 'play-006', GAME_ID, 'Review twist stunt pickup', 'Work on line communication for interior twist stunts — missed the exchange.', 'u13', 'u10', 'HIGH', 'TODO', 64.0),
-      makeAction('a3', 'play-006', GAME_ID, 'Fix boundary read on Cover 2', 'When they press and show blitz, check to the hot route. Don\'t hold the ball.', 'u1', 'u10', 'HIGH', 'IN_REVIEW', 65.5),
+      {
+        id: 'act-1',
+        playId: 'pb-play-1',
+        gameId: 'peddie-blair-2025',
+        title: 'Maintain 4.4 speed cadence on Jet Motion',
+        description: 'Keep motion depth at precisely 4 yards behind the mesh point to preserve play-action sightlines.',
+        assignedTo: TEAM_ROSTER[7],
+        assignedBy: TEAM_ROSTER[0],
+        priority: 'MEDIUM',
+        status: 'RESOLVED',
+        videoTimestamp: 15,
+        createdAt: '2025-10-18T14:35:00Z',
+        updatedAt: '2025-10-18T16:00:00Z',
+      }
     ],
     telestrationStrokes: [],
   },
   {
-    id: 'play-007', gameId: GAME_ID, playNumber: 7, quarter: 2, gameClock: '8:30',
-    videoTimestampStart: 71.0, videoTimestampMotion: 73.8, videoTimestampSnap: 75.5, videoTimestampEnd: 82.0,
-    down: 1, distance: 10, yardLine: 30, hash: 'LEFT',
-    offensiveFormation: 'Shotgun 3x1', offensivePersonnel: '11',
-    motionType: 'RETURN', motionDirection: 'LEFT', motionPlayerJersey: 7,
-    blockingScheme: 'INSIDE_ZONE',
-    defensiveFront: '4-3', defensivePackage: '4-3', coverageScheme: 'COVER_6',
-    defenseReactionToMotion: 'Safety rotates to trips side on return motion',
-    playType: 'RUN', playActionFake: false, runGap: 'A_RIGHT',
-    yardsGained: 6, epa: 0.45, successRate: true,
-    isFirstDown: false, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: 'Return motion by #7 pulls the safety to trips. Inside zone right through the A-gap. #22 Carter reads the double team and cuts back for 6.',
-    comments: [
-      makeComment('c12', 'play-007', 76.0, 'u12', 'The return motion is diagnostic gold — tells us they\'re in Cover 6 when the safety rotates to trips.', []),
-    ],
-    actionItems: [],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-008', gameId: GAME_ID, playNumber: 8, quarter: 2, gameClock: '7:55',
-    videoTimestampStart: 84.0, videoTimestampSnap: 87.2, videoTimestampEnd: 93.5,
-    down: 2, distance: 4, yardLine: 36, hash: 'MIDDLE',
-    offensiveFormation: 'Under Center Ace', offensivePersonnel: '12',
-    motionType: 'SHIFT_BACKFIELD', motionDirection: 'RIGHT', motionPlayerJersey: 22,
-    blockingScheme: 'GAP_COUNTER',
-    defensiveFront: '3-4 Okie', defensivePackage: '3-4', coverageScheme: 'COVER_1',
-    defenseReactionToMotion: 'No adjustment — man coverage stays locked',
-    playType: 'RUN', playActionFake: false, runGap: 'C_LEFT',
-    yardsGained: 8, epa: 0.95, successRate: true,
-    isFirstDown: true, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: 'Counter left with RB shift. Guard and tackle pull to the C-gap. Man coverage can\'t help in the box. 8-yard gain and a first down.',
-    comments: [],
-    actionItems: [],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-009', gameId: GAME_ID, playNumber: 9, quarter: 3, gameClock: '10:15',
-    videoTimestampStart: 95.0, videoTimestampMotion: 97.2, videoTimestampSnap: 99.0, videoTimestampEnd: 106.0,
-    down: 1, distance: 10, yardLine: 50, hash: 'RIGHT',
-    offensiveFormation: 'Shotgun 2x2', offensivePersonnel: '11',
-    motionType: 'JET_SWEEP', motionDirection: 'RIGHT', motionPlayerJersey: 7,
-    blockingScheme: 'PASS_PRO', routeConcept: 'DAGGER',
-    defensiveFront: 'Nickel', defensivePackage: 'NICKEL', coverageScheme: 'COVER_3',
-    defenseReactionToMotion: 'CB follows jet motion, leaving post route single coverage',
-    playType: 'PASS', playActionFake: false,
-    targetPlayerJersey: 4, yardsGained: 35, epa: 3.2, successRate: true,
-    isFirstDown: true, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: 'Jet motion by #7 pulls the corner. QB pumps the jet and throws the deep post to #4 Harris behind the safety. 35-yard gain to the 15.',
-    comments: [
-      makeComment('c13', 'play-009', 99.5, 'u9', 'EXPLOSIVE PLAY! @Coach Davis the jet motion + post is our bread and butter. Their Cover 3 safety can\'t handle both.', ['u10']),
-      makeComment('c14', 'play-009', 101.0, 'u12', 'Third time we\'ve gotten 15+ yards off jet motion reads. Their DC needs to adjust or we keep exploiting this.', []),
-    ],
-    actionItems: [],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-010', gameId: GAME_ID, playNumber: 10, quarter: 3, gameClock: '9:45',
-    videoTimestampStart: 108.0, videoTimestampSnap: 111.0, videoTimestampEnd: 115.5,
-    down: 1, distance: 10, yardLine: 85, hash: 'MIDDLE',
-    offensiveFormation: 'Shotgun Doubles', offensivePersonnel: '11',
-    motionType: 'NONE',
-    blockingScheme: 'SCREEN_RELEASE', routeConcept: 'CURL_FLAT',
-    defensiveFront: '4-3 Under', defensivePackage: 'NICKEL', coverageScheme: 'COVER_2',
-    playType: 'SCREEN', playActionFake: false,
-    targetPlayerJersey: 22, yardsGained: -3, epa: -1.5, successRate: false,
-    isFirstDown: false, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: 'RB screen right. Linebacker reads the screen and blows it up in the backfield for a 3-yard loss.',
-    comments: [
-      makeComment('c15', 'play-010', 112.5, 'u10', 'Screen was sniffed out. @Jamal Carter need to sell the pass pro before releasing.', ['u2']),
-    ],
-    actionItems: [
-      makeAction('a4', 'play-010', GAME_ID, 'Improve screen setup selling', 'Work on 2-count pass pro sell before releasing into the screen route. LBs are reading the immediate release.', 'u2', 'u10', 'MEDIUM', 'TODO', 112.5),
-    ],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-011', gameId: GAME_ID, playNumber: 11, quarter: 3, gameClock: '6:30',
-    videoTimestampStart: 117.0, videoTimestampMotion: 119.5, videoTimestampSnap: 121.2, videoTimestampEnd: 128.0,
-    down: 3, distance: 8, yardLine: 45, hash: 'LEFT',
-    offensiveFormation: 'Shotgun Trips Right', offensivePersonnel: '10',
-    motionType: 'FLY', motionDirection: 'LEFT', motionPlayerJersey: 7,
-    blockingScheme: 'PASS_PRO', routeConcept: 'Y_CROSS',
-    defensiveFront: 'Nickel', defensivePackage: 'DIME', coverageScheme: 'COVER_4',
-    defenseReactionToMotion: 'Quarters rotation adjusts cleanly to fly motion',
-    playType: 'PASS', playActionFake: false,
-    targetPlayerJersey: 88, yardsGained: 12, epa: 1.45, successRate: true,
-    isFirstDown: true, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: '3rd and 8. Fly motion left by #7. Quarters handles the motion but the deep cross by #88 Brooks finds a window between zones. 12-yard gain, first down.',
-    comments: [
-      makeComment('c16', 'play-011', 123.0, 'u10', 'Critical conversion. @Tyler Brooks sat down in the zone perfectly. @Marcus Williams great poise in the pocket on 3rd down.', ['u4', 'u1']),
-    ],
-    actionItems: [],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-012', gameId: GAME_ID, playNumber: 12, quarter: 4, gameClock: '4:00',
-    videoTimestampStart: 130.0, videoTimestampMotion: 132.8, videoTimestampSnap: 134.5, videoTimestampEnd: 140.0,
-    down: 2, distance: 5, yardLine: 70, hash: 'RIGHT',
-    offensiveFormation: 'Shotgun 3x1', offensivePersonnel: '11',
-    motionType: 'ORBIT', motionDirection: 'LEFT', motionPlayerJersey: 22,
-    blockingScheme: 'OUTSIDE_ZONE', routeConcept: 'LEVELS',
-    defensiveFront: '3-4', defensivePackage: 'NICKEL', coverageScheme: 'MAN_FREE',
-    defenseReactionToMotion: 'Man coverage trails orbit — slow to adjust',
-    playType: 'RPO', playActionFake: false,
-    targetPlayerJersey: 7, yardsGained: 15, epa: 1.9, successRate: true,
-    isFirstDown: true, isTouchdown: false, isTurnover: false, isPenalty: false,
-    playDescription: 'RPO with orbit motion. Man coverage slow to adjust. QB pulls the ball and hits #7 Chen on the levels concept for 15 yards.',
-    comments: [
-      makeComment('c17', 'play-012', 135.0, 'u9', 'This is how we close games. Motion is killing their man coverage. Keep it going @Coach Davis.', ['u10']),
-    ],
-    actionItems: [],
-    telestrationStrokes: [],
-  },
-  {
-    id: 'play-013', gameId: GAME_ID, playNumber: 13, quarter: 4, gameClock: '2:15',
-    videoTimestampStart: 142.0, videoTimestampSnap: 145.5, videoTimestampEnd: 150.0,
-    down: 1, distance: 10, yardLine: 85, hash: 'MIDDLE',
-    offensiveFormation: 'Shotgun Trips Left', offensivePersonnel: '11',
-    motionType: 'JET_SWEEP', motionDirection: 'RIGHT', motionPlayerJersey: 4,
+    id: 'pb-play-2',
+    gameId: 'peddie-blair-2025',
+    playNumber: 2,
+    quarter: 1,
+    gameClock: '14:15',
+    videoTimestampStart: 34,
+    videoTimestampMotion: 36,
+    videoTimestampSnap: 39,
+    videoTimestampEnd: 46,
+    down: 1,
+    distance: 10,
+    yardLine: 49,
+    hash: 'LEFT',
+    offensiveFormation: 'Peddie Pistol 21 Heavy Right',
+    offensivePersonnel: '21',
+    motionType: 'TRADE_TE',
+    motionDirection: 'RIGHT',
+    motionPlayerJersey: 8,
     blockingScheme: 'OUTSIDE_ZONE',
-    defensiveFront: '4-3', defensivePackage: 'NICKEL', coverageScheme: 'COVER_3',
-    defenseReactionToMotion: 'Corner bites on jet fake — boundary wide open',
-    playType: 'RUN', playActionFake: false, runGap: 'OUTSIDE_RIGHT',
-    yardsGained: 15, epa: 2.1, successRate: true,
-    isFirstDown: true, isTouchdown: true, isTurnover: false, isPenalty: false,
-    playDescription: 'Jet sweep handoff to #4 Harris on the right side. Corner bites on the fake to the flat. Harris turns the corner and scores! TOUCHDOWN!',
+    runGap: 'OFF_TACKLE_RIGHT',
+    defensiveFront: 'Blair 4-3 Under Stack',
+    defensivePackage: '4-3',
+    coverageScheme: 'COVER_1',
+    defenseReactionToMotion: 'Sam LB shifts outside C-gap; Free Safety rotates down into strong alley.',
+    playType: 'RUN',
+    playActionFake: false,
+    targetPlayerJersey: 20,
+    yardsGained: 18,
+    epa: 1.88,
+    successRate: true,
+    isFirstDown: true,
+    isTouchdown: false,
+    isTurnover: false,
+    isPenalty: false,
+    playDescription: 'Ari Miller trades across the formation. Jonathan Navarrete takes outside zone handoff, cuts behind Russell Cunningham seal block for 18 yards into red zone.',
+    trackingData: buildPeddieTrackingData({
+      losY: 51, firstDownY: 41, motionJersey: 8, motionStartX: 35, motionEndX: 65,
+      targetJersey: 20, passTargetX: 68, passTargetY: 33,
+      playConcept: 'Peddie TE Trade Outside Zone Stretch'
+    }),
     comments: [
-      makeComment('c18', 'play-013', 147.0, 'u9', '🏈 THAT\'S THE GAME! @DeShawn Harris has been incredible today. Jet motion was the key to this drive.', ['u3']),
-      makeComment('c19', 'play-013', 148.0, 'u10', 'Third TD involving pre-snap motion. The game plan worked exactly as designed.', []),
+      {
+        id: 'c-2',
+        playId: 'pb-play-2',
+        timestamp: 41,
+        author: TEAM_ROSTER[1],
+        text: 'Textbook downfield reach block by @#77_Cunningham. @#20_Navarrete had a wide runway to accelerate.',
+        mentions: [TEAM_ROSTER[17], TEAM_ROSTER[11]],
+        createdAt: '2025-10-18T14:40:00Z',
+      }
+    ],
+    actionItems: [
+      {
+        id: 'act-2',
+        playId: 'pb-play-2',
+        gameId: 'peddie-blair-2025',
+        title: 'Film Review: Outside Zone Vision and Cutback Angles',
+        description: 'Review second-level linebacker angles when TE trades to strong side.',
+        assignedTo: TEAM_ROSTER[11],
+        assignedBy: TEAM_ROSTER[1],
+        priority: 'HIGH',
+        status: 'IN_REVIEW',
+        videoTimestamp: 40,
+        createdAt: '2025-10-18T14:42:00Z',
+        updatedAt: '2025-10-18T15:30:00Z',
+      }
+    ],
+    telestrationStrokes: [],
+  },
+  {
+    id: 'pb-play-3',
+    gameId: 'peddie-blair-2025',
+    playNumber: 3,
+    quarter: 1,
+    gameClock: '13:28',
+    videoTimestampStart: 58,
+    videoTimestampMotion: 60,
+    videoTimestampSnap: 63,
+    videoTimestampEnd: 71,
+    down: 1,
+    distance: 10,
+    yardLine: 31,
+    hash: 'RIGHT',
+    offensiveFormation: 'Peddie Shotgun 11 Bunch Left',
+    offensivePersonnel: '11',
+    motionType: 'ORBIT',
+    motionDirection: 'LEFT',
+    motionPlayerJersey: 5,
+    blockingScheme: 'PASS_PRO',
+    routeConcept: 'VERTICALS',
+    defensiveFront: 'Blair Nickel 4-2-5',
+    defensivePackage: 'NICKEL',
+    coverageScheme: 'COVER_2',
+    defenseReactionToMotion: 'Nickel CB steps into flat; Safety widens boundary split.',
+    playType: 'PASS',
+    playActionFake: true,
+    targetPlayerJersey: 10,
+    yardsGained: 31,
+    epa: 3.84,
+    successRate: true,
+    isFirstDown: true,
+    isTouchdown: true,
+    isTurnover: false,
+    isPenalty: false,
+    playDescription: 'TOUCHDOWN PEDDIE! Orbit motion by Lorenzo Barone holds the nickel defender; Nacari McFarland delivers a 31-yard teardrop in stride to Jace Ingenito in the corner of the end zone.',
+    trackingData: buildPeddieTrackingData({
+      losY: 31, firstDownY: 21, motionJersey: 5, motionStartX: 75, motionEndX: 30,
+      targetJersey: 10, passTargetX: 18, passTargetY: 2,
+      playConcept: 'Peddie Orbit Four-Verts Hole Shot Touchdown'
+    }),
+    comments: [
+      {
+        id: 'c-3',
+        playId: 'pb-play-3',
+        timestamp: 65,
+        author: TEAM_ROSTER[0],
+        text: 'Elite ball placement from @#2_McFarland. Dropped right over the Cover 2 corner into the honey hole for @#10_Ingenito.',
+        mentions: [TEAM_ROSTER[4], TEAM_ROSTER[8]],
+        createdAt: '2025-10-18T14:48:00Z',
+      }
+    ],
+    actionItems: [
+      {
+        id: 'act-3',
+        playId: 'pb-play-3',
+        gameId: 'peddie-blair-2025',
+        title: 'Archive for Red Zone Clinic Reel',
+        description: 'Tag play as benchmark Cover 2 hole shot against Nickel defense.',
+        assignedTo: TEAM_ROSTER[4],
+        assignedBy: TEAM_ROSTER[0],
+        priority: 'LOW',
+        status: 'RESOLVED',
+        videoTimestamp: 64,
+        createdAt: '2025-10-18T14:50:00Z',
+        updatedAt: '2025-10-18T17:00:00Z',
+      }
+    ],
+    telestrationStrokes: [],
+  },
+  {
+    id: 'pb-play-4',
+    gameId: 'peddie-blair-2025',
+    playNumber: 4,
+    quarter: 1,
+    gameClock: '09:40',
+    videoTimestampStart: 90,
+    videoTimestampSnap: 94,
+    videoTimestampEnd: 101,
+    down: 3,
+    distance: 4,
+    yardLine: 42,
+    hash: 'LEFT',
+    offensiveFormation: 'Peddie Shotgun 11 Empty Trips Right',
+    offensivePersonnel: '11',
+    motionType: 'NONE',
+    blockingScheme: 'PASS_PRO',
+    routeConcept: 'SLANT_FLAT',
+    defensiveFront: 'Blair Dime 3-2-6 Blitz',
+    defensivePackage: 'DIME',
+    coverageScheme: 'COVER_0',
+    defenseReactionToMotion: 'Pre-snap static; boundary LB and SS show double A-gap blitz.',
+    playType: 'PASS',
+    playActionFake: false,
+    targetPlayerJersey: 6,
+    yardsGained: 9,
+    epa: 1.15,
+    successRate: true,
+    isFirstDown: true,
+    isTouchdown: false,
+    isTurnover: false,
+    isPenalty: false,
+    playDescription: 'Blair brings Cover 0 blitz. Nacari McFarland diagnoses hot route immediately, delivering a quick slant to Joseph Gaston for a 9-yard 3rd down conversion.',
+    trackingData: buildPeddieTrackingData({
+      losY: 58, firstDownY: 54, targetJersey: 6, passTargetX: 38, passTargetY: 49,
+      playConcept: 'Peddie Hot Slant vs Blair Cover 0 All-Out Blitz'
+    }),
+    comments: [
+      {
+        id: 'c-4',
+        playId: 'pb-play-4',
+        timestamp: 95,
+        author: TEAM_ROSTER[1],
+        text: 'Great pre-snap blitz recognition. @#6_Gaston snapped off his slant right at the second step.',
+        mentions: [TEAM_ROSTER[6]],
+        createdAt: '2025-10-18T15:02:00Z',
+      }
     ],
     actionItems: [],
     telestrationStrokes: [],
   },
   {
-    id: 'play-014', gameId: GAME_ID, playNumber: 14, quarter: 4, gameClock: '0:45',
-    videoTimestampStart: 152.0, videoTimestampSnap: 155.0, videoTimestampEnd: 159.0,
-    down: 2, distance: 8, yardLine: 55, hash: 'LEFT',
-    offensiveFormation: 'Shotgun Empty', offensivePersonnel: '10',
+    id: 'pb-play-5',
+    gameId: 'peddie-blair-2025',
+    playNumber: 5,
+    quarter: 2,
+    gameClock: '11:15',
+    videoTimestampStart: 120,
+    videoTimestampSnap: 124,
+    videoTimestampEnd: 130,
+    down: 2,
+    distance: 8,
+    yardLine: 34,
+    hash: 'MIDDLE',
+    offensiveFormation: 'Opponent Pro Set 21',
+    offensivePersonnel: '21',
     motionType: 'NONE',
-    blockingScheme: 'PASS_PRO', routeConcept: 'VERTICALS',
-    defensiveFront: 'Nickel', defensivePackage: 'DIME', coverageScheme: 'COVER_2',
-    playType: 'PASS', playActionFake: false,
-    targetPlayerJersey: 4, yardsGained: 0, epa: -3.8, successRate: false,
-    isFirstDown: false, isTouchdown: false, isTurnover: true, isPenalty: false,
-    playDescription: 'Late in the game, trying to put it away. QB forces the deep ball to #4 who is double-covered. Safety intercepts. TURNOVER.',
+    defensiveFront: 'Peddie 4-3 Over',
+    defensivePackage: '4-3',
+    coverageScheme: 'COVER_3',
+    playType: 'RUN',
+    playActionFake: false,
+    yardsGained: -3,
+    epa: 1.65,
+    successRate: false,
+    isFirstDown: false,
+    isTouchdown: false,
+    isTurnover: false,
+    isPenalty: false,
+    playDescription: 'Peddie Defensive Stand: Jayden Williams bursts off edge, shedding the tight end block to drop Blair running back for a 3-yard tackle for loss.',
+    trackingData: buildPeddieTrackingData({
+      losY: 34, firstDownY: 26, targetJersey: 20, passTargetX: 42, passTargetY: 37,
+      playConcept: 'Peddie DE Jayden Williams TFL vs Opponent ISO'
+    }),
     comments: [
-      makeComment('c20', 'play-014', 157.0, 'u10', '@Marcus Williams we were up big — no reason to force that throw. Protect the football in these situations.', ['u1']),
-      makeComment('c21', 'play-014', 158.0, 'u9', 'Lesson learned. Take the check down or throw it away. Can\'t give them life late.', []),
+      {
+        id: 'c-5',
+        playId: 'pb-play-5',
+        timestamp: 126,
+        author: TEAM_ROSTER[2],
+        text: 'Dominant first step by @#55_Williams. Blew up the B-gap and forced the back into @#66_Olaniyi.',
+        mentions: [TEAM_ROSTER[14], TEAM_ROSTER[15]],
+        createdAt: '2025-10-18T15:20:00Z',
+      }
     ],
     actionItems: [
-      makeAction('a5', 'play-014', GAME_ID, 'Game management — late-game decisions', 'Film review: Identify check-down reads and when to throw the ball away in game-sealing situations.', 'u1', 'u9', 'CRITICAL', 'TODO', 157.0),
+      {
+        id: 'act-4',
+        playId: 'pb-play-5',
+        gameId: 'peddie-blair-2025',
+        title: 'Film Highlight: Defensive Edge Setting Technique',
+        description: 'Share edge hand-placement clip with defensive line unit.',
+        assignedTo: TEAM_ROSTER[14],
+        assignedBy: TEAM_ROSTER[2],
+        priority: 'LOW',
+        status: 'RESOLVED',
+        videoTimestamp: 125,
+        createdAt: '2025-10-18T15:22:00Z',
+        updatedAt: '2025-10-18T17:30:00Z',
+      }
     ],
     telestrationStrokes: [],
   },
+  {
+    id: 'pb-play-6',
+    gameId: 'peddie-blair-2025',
+    playNumber: 6,
+    quarter: 2,
+    gameClock: '04:20',
+    videoTimestampStart: 155,
+    videoTimestampMotion: 157,
+    videoTimestampSnap: 160,
+    videoTimestampEnd: 168,
+    down: 2,
+    distance: 3,
+    yardLine: 24,
+    hash: 'RIGHT',
+    offensiveFormation: 'Peddie Shotgun 12 Pistol',
+    offensivePersonnel: '12',
+    motionType: 'FLY',
+    motionDirection: 'LEFT',
+    motionPlayerJersey: 3,
+    blockingScheme: 'GAP_POWER',
+    runGap: 'B_LEFT',
+    defensiveFront: 'Blair 4-3 Eagle',
+    defensivePackage: '4-3',
+    coverageScheme: 'COVER_1',
+    defenseReactionToMotion: 'Free safety cheats toward motion; Mike LB fills A-gap early.',
+    playType: 'PLAY_ACTION_BOOT',
+    playActionFake: true,
+    targetPlayerJersey: 8,
+    yardsGained: 24,
+    epa: 3.20,
+    successRate: true,
+    isFirstDown: true,
+    isTouchdown: true,
+    isTurnover: false,
+    isPenalty: false,
+    playDescription: 'TOUCHDOWN PEDDIE! Play-action bootleg left after Kyian Mims fly motion. Nacari McFarland rolls out and finds Ari Miller dragging across the back of the end zone.',
+    trackingData: buildPeddieTrackingData({
+      losY: 24, firstDownY: 21, motionJersey: 3, motionStartX: 80, motionEndX: 35,
+      targetJersey: 8, passTargetX: 25, passTargetY: 2,
+      playConcept: 'Peddie PA Bootleg Fly Motion Drag Touchdown'
+    }),
+    comments: [
+      {
+        id: 'c-6',
+        playId: 'pb-play-6',
+        timestamp: 162,
+        author: TEAM_ROSTER[0],
+        text: 'Executed to perfection. The fly motion pulled the safety away, leaving @#8_Miller wide open on the drag.',
+        mentions: [TEAM_ROSTER[7], TEAM_ROSTER[4]],
+        createdAt: '2025-10-18T15:45:00Z',
+      }
+    ],
+    actionItems: [],
+    telestrationStrokes: [],
+  }
 ];
 
-// ---- Mock Game Session ----
+// ============================================================================
+// 3. Peddie vs The Hun School (MAPL Championship Battle — Hudl Film)
+// ============================================================================
+
+const PEDDIE_HUN_PLAYS: PlayAnalysis[] = [
+  {
+    id: 'ph-play-1',
+    gameId: 'peddie-hun-2025',
+    playNumber: 1,
+    quarter: 1,
+    gameClock: '14:40',
+    videoTimestampStart: 15,
+    videoTimestampMotion: 18,
+    videoTimestampSnap: 21,
+    videoTimestampEnd: 28,
+    down: 1,
+    distance: 10,
+    yardLine: 30,
+    hash: 'LEFT',
+    offensiveFormation: 'Peddie Shotgun 11 Trips Right',
+    offensivePersonnel: '11',
+    motionType: 'JET_SWEEP',
+    motionDirection: 'RIGHT',
+    motionPlayerJersey: 5,
+    blockingScheme: 'INSIDE_ZONE',
+    routeConcept: 'FLOOD',
+    defensiveFront: 'Hun 3-4 Okie Front',
+    defensivePackage: '3-4',
+    coverageScheme: 'COVER_4',
+    defenseReactionToMotion: 'Hun field safety drops to 16 yds; boundary corner stays in soft bail.',
+    playType: 'PASS',
+    playActionFake: true,
+    targetPlayerJersey: 5,
+    yardsGained: 22,
+    epa: 2.10,
+    successRate: true,
+    isFirstDown: true,
+    isTouchdown: false,
+    isTurnover: false,
+    isPenalty: false,
+    playDescription: 'Peddie executes jet wheel combination. Lorenzo Barone catches pass along boundary sideline for 22 yards into Hun territory.',
+    trackingData: buildPeddieTrackingData({
+      losY: 70, firstDownY: 60, motionJersey: 5, motionStartX: 20, motionEndX: 60,
+      targetJersey: 5, passTargetX: 82, passTargetY: 48,
+      playConcept: 'Peddie Jet Wheel vs Hun Cover 4 Soft Quarters'
+    }),
+    comments: [
+      {
+        id: 'c-h1',
+        playId: 'ph-play-1',
+        timestamp: 23,
+        author: TEAM_ROSTER[1],
+        text: 'Great route stem by @#5_Barone. Outran the linebacker angle with clean acceleration.',
+        mentions: [TEAM_ROSTER[7]],
+        createdAt: '2025-11-01T13:10:00Z',
+      }
+    ],
+    actionItems: [],
+    telestrationStrokes: [],
+  },
+  {
+    id: 'ph-play-2',
+    gameId: 'peddie-hun-2025',
+    playNumber: 2,
+    quarter: 2,
+    gameClock: '08:50',
+    videoTimestampStart: 50,
+    videoTimestampSnap: 54,
+    videoTimestampEnd: 62,
+    down: 3,
+    distance: 2,
+    yardLine: 48,
+    hash: 'MIDDLE',
+    offensiveFormation: 'Peddie Pistol 22 Heavy Jumbo',
+    offensivePersonnel: '22',
+    motionType: 'NONE',
+    blockingScheme: 'GAP_POWER',
+    runGap: 'A_RIGHT',
+    defensiveFront: 'Hun 5-2 Goal Line Box',
+    defensivePackage: 'GOAL_LINE',
+    coverageScheme: 'MAN_PRESS',
+    playType: 'RUN',
+    playActionFake: false,
+    targetPlayerJersey: 20,
+    yardsGained: 12,
+    epa: 1.45,
+    successRate: true,
+    isFirstDown: true,
+    isTouchdown: false,
+    isTurnover: false,
+    isPenalty: false,
+    playDescription: 'Power run between the tackles: Matthew Jung and Russell Cunningham blow open the A-gap; Jonathan Navarrete breaks two arm tackles for 12 yards.',
+    trackingData: buildPeddieTrackingData({
+      losY: 52, firstDownY: 50, targetJersey: 20, passTargetX: 52, passTargetY: 40,
+      playConcept: 'Peddie Jumbo A-Gap Power Conversion'
+    }),
+    comments: [
+      {
+        id: 'c-h2',
+        playId: 'ph-play-2',
+        timestamp: 56,
+        author: TEAM_ROSTER[3],
+        text: 'Dominant pad level from @#63_Jung and @#77_Cunningham. Created a 3-yard push off the line.',
+        mentions: [TEAM_ROSTER[15], TEAM_ROSTER[17]],
+        createdAt: '2025-11-01T13:45:00Z',
+      }
+    ],
+    actionItems: [],
+    telestrationStrokes: [],
+  }
+];
+
+// ============================================================================
+// 4. Master Game Sessions Collection
+// ============================================================================
 
 export const MOCK_GAMES: GameSession[] = [
   {
-    id: GAME_ID,
-    title: 'State Championship Semi-Final',
-    homeTeam: 'Westfield Eagles',
-    awayTeam: 'Riverside Panthers',
-    date: '2024-11-15',
-    season: '2024',
-    videoUrl: '/api/mock-video',
-    videoSource: 'FILE_UPLOAD',
-    thumbnailUrl: undefined,
-    duration: 162,
-    analysisStatus: 'COMPLETED',
-    plays: MOCK_PLAYS,
-    createdAt: '2024-11-15T19:00:00Z',
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    id: 'game-002',
-    title: 'Week 10 — District Rivalry',
-    homeTeam: 'Westfield Eagles',
-    awayTeam: 'Lincoln Wolves',
-    date: '2024-11-08',
-    season: '2024',
-    videoUrl: '/api/mock-video',
-    videoSource: 'YOUTUBE',
-    thumbnailUrl: undefined,
-    duration: 145,
-    analysisStatus: 'COMPLETED',
-    plays: MOCK_PLAYS.slice(0, 8).map(p => ({ ...p, gameId: 'game-002' })),
-    createdAt: '2024-11-08T19:00:00Z',
-    updatedAt: new Date().toISOString(),
-  },
-  {
-    id: 'game-003',
-    title: 'Week 9 — Homecoming Game',
-    homeTeam: 'Westfield Eagles',
-    awayTeam: 'Central Bears',
-    date: '2024-11-01',
-    season: '2024',
-    videoUrl: '',
+    id: 'peddie-blair-2025',
+    title: 'Peddie Falcons vs. Blair Academy (122nd Annual Classic Rivalry)',
+    homeTeam: 'Peddie Falcons',
+    awayTeam: 'Blair Buccaneers',
+    date: '2025-10-18',
+    season: '2025 Fall Varsity',
+    videoUrl: 'https://fan.hudl.com/peddie-blair-2025-reel',
     videoSource: 'HUDL',
-    thumbnailUrl: undefined,
-    duration: 0,
-    analysisStatus: 'PENDING',
-    plays: [],
-    createdAt: '2024-11-01T19:00:00Z',
-    updatedAt: new Date().toISOString(),
+    thumbnailUrl: 'https://images.unsplash.com/photo-1587280501635-68a0e82cd5ff?w=600&auto=format&fit=crop&q=80',
+    duration: 3600,
+    analysisStatus: 'COMPLETED',
+    plays: PEDDIE_BLAIR_PLAYS,
+    createdAt: '2025-10-18T18:00:00Z',
+    updatedAt: '2025-10-18T20:30:00Z',
   },
+  {
+    id: 'peddie-hun-2025',
+    title: 'Peddie Falcons vs. The Hun School (MAPL Championship Battle)',
+    homeTeam: 'The Hun School',
+    awayTeam: 'Peddie Falcons',
+    date: '2025-11-01',
+    season: '2025 Fall Varsity',
+    videoUrl: 'https://fan.hudl.com/peddie-hun-2025-film',
+    videoSource: 'HUDL',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=600&auto=format&fit=crop&q=80',
+    duration: 3450,
+    analysisStatus: 'COMPLETED',
+    plays: PEDDIE_HUN_PLAYS,
+    createdAt: '2025-11-01T17:00:00Z',
+    updatedAt: '2025-11-01T19:45:00Z',
+  },
+  {
+    id: 'peddie-lawrenceville-2025',
+    title: 'Peddie Falcons vs. Lawrenceville School',
+    homeTeam: 'Peddie Falcons',
+    awayTeam: 'Lawrenceville Big Red',
+    date: '2025-09-27',
+    season: '2025 Fall Varsity',
+    videoUrl: 'https://fan.hudl.com/peddie-lawrenceville-2025',
+    videoSource: 'HUDL',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&auto=format&fit=crop&q=80',
+    duration: 3200,
+    analysisStatus: 'COMPLETED',
+    plays: PEDDIE_BLAIR_PLAYS.slice(0, 4),
+    createdAt: '2025-09-27T16:00:00Z',
+    updatedAt: '2025-09-27T18:30:00Z',
+  },
+  {
+    id: 'peddie-hill-2025',
+    title: 'Peddie Falcons vs. The Hill School',
+    homeTeam: 'The Hill School',
+    awayTeam: 'Peddie Falcons',
+    date: '2025-10-04',
+    season: '2025 Fall Varsity',
+    videoUrl: 'https://fan.hudl.com/peddie-hill-2025',
+    videoSource: 'HUDL',
+    thumbnailUrl: 'https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=600&auto=format&fit=crop&q=80',
+    duration: 3300,
+    analysisStatus: 'COMPLETED',
+    plays: PEDDIE_BLAIR_PLAYS.slice(1, 5),
+    createdAt: '2025-10-04T16:30:00Z',
+    updatedAt: '2025-10-04T19:00:00Z',
+  }
 ];
 
-// ---- Mock Notifications ----
+// ============================================================================
+// 5. Box Score & Situational Metrics
+// ============================================================================
+
+export const MOCK_BOX_SCORE: TeamBoxScore = {
+  totalYards: 418,
+  passingYards: 264,
+  rushingYards: 154,
+  totalPlays: 54,
+  firstDowns: 22,
+  thirdDownConversions: 7,
+  thirdDownAttempts: 11,
+  fourthDownConversions: 2,
+  fourthDownAttempts: 2,
+  redZoneScores: 4,
+  redZoneAttempts: 4,
+  turnovers: 0,
+  penalties: 3,
+  penaltyYards: 25,
+  timeOfPossession: '32:45',
+  avgEpa: 0.38,
+  successRate: 58.4,
+};
+
+export const MOCK_DRIVES: DriveInfo[] = [
+  { id: 'd-1', startQuarter: 1, startYardLine: 35, endYardLine: 100, plays: 3, yards: 65, result: 'TOUCHDOWN', timeOfPossession: '1:24' },
+  { id: 'd-2', startQuarter: 1, startYardLine: 20, endYardLine: 48, plays: 6, yards: 28, result: 'PUNT', timeOfPossession: '3:10' },
+  { id: 'd-3', startQuarter: 2, startYardLine: 24, endYardLine: 100, plays: 5, yards: 76, result: 'TOUCHDOWN', timeOfPossession: '2:15' },
+  { id: 'd-4', startQuarter: 2, startYardLine: 30, endYardLine: 88, plays: 8, yards: 58, result: 'FIELD_GOAL', timeOfPossession: '4:05' },
+];
 
 export const MOCK_NOTIFICATIONS: Notification[] = [
   {
-    id: 'n1', type: 'MENTION', message: 'Coach Davis mentioned you in Play #3',
-    gameId: GAME_ID, playId: 'play-003', videoTimestamp: 30.0,
-    isRead: false, createdAt: new Date(Date.now() - 1800000).toISOString(),
-    fromUser: findUser('u10'), toUser: findUser('u1'),
+    id: 'n-1',
+    type: 'MENTION',
+    message: 'Coach Mark Fabish mentioned you in Play #1: "Excellent jet motion timing by @#5_Barone..."',
+    gameId: 'peddie-blair-2025',
+    playId: 'pb-play-1',
+    videoTimestamp: 16,
+    isRead: false,
+    createdAt: '2025-10-18T14:32:00Z',
+    fromUser: TEAM_ROSTER[0],
+    toUser: TEAM_ROSTER[7],
   },
   {
-    id: 'n2', type: 'ACTION_ASSIGNED', message: 'New action item: "Fix boundary read on Cover 2"',
-    gameId: GAME_ID, playId: 'play-006', videoTimestamp: 65.5,
-    isRead: false, createdAt: new Date(Date.now() - 3600000).toISOString(),
-    fromUser: findUser('u10'), toUser: findUser('u1'),
-  },
-  {
-    id: 'n3', type: 'MENTION', message: 'Coach Miller mentioned you in Play #5',
-    gameId: GAME_ID, playId: 'play-005', videoTimestamp: 53.0,
-    isRead: true, createdAt: new Date(Date.now() - 7200000).toISOString(),
-    fromUser: findUser('u9'), toUser: findUser('u3'),
-  },
-  {
-    id: 'n4', type: 'ACTION_ASSIGNED', message: 'New action item: "Work on pressing B-gap holes"',
-    gameId: GAME_ID, playId: 'play-002', videoTimestamp: 18.5,
-    isRead: false, createdAt: new Date(Date.now() - 5400000).toISOString(),
-    fromUser: findUser('u11'), toUser: findUser('u2'),
-  },
-  {
-    id: 'n5', type: 'ACTION_ASSIGNED', message: 'CRITICAL: "Game management — late-game decisions"',
-    gameId: GAME_ID, playId: 'play-014', videoTimestamp: 157.0,
-    isRead: false, createdAt: new Date(Date.now() - 900000).toISOString(),
-    fromUser: findUser('u9'), toUser: findUser('u1'),
+    id: 'n-2',
+    type: 'ACTION_ASSIGNED',
+    message: 'New Action Assigned: "Film Review: Outside Zone Vision and Cutback Angles" by Coach Dan O\'Neill',
+    gameId: 'peddie-blair-2025',
+    playId: 'pb-play-2',
+    videoTimestamp: 40,
+    isRead: false,
+    createdAt: '2025-10-18T14:42:00Z',
+    fromUser: TEAM_ROSTER[1],
+    toUser: TEAM_ROSTER[11],
   },
 ];
 
-// ---- Mock Drive Summaries ----
-
-export const MOCK_DRIVES: DriveInfo[] = [
-  { id: 'd1', startQuarter: 1, startYardLine: 25, endYardLine: 100, plays: 5, yards: 75, result: 'TOUCHDOWN', timeOfPossession: '3:45' },
-  { id: 'd2', startQuarter: 2, startYardLine: 20, endYardLine: 44, plays: 4, yards: 24, result: 'PUNT', timeOfPossession: '2:15' },
-  { id: 'd3', startQuarter: 2, startYardLine: 30, endYardLine: 100, plays: 8, yards: 70, result: 'TOUCHDOWN', timeOfPossession: '5:30' },
-  { id: 'd4', startQuarter: 3, startYardLine: 35, endYardLine: 82, plays: 5, yards: 47, result: 'FIELD_GOAL', timeOfPossession: '3:00' },
-  { id: 'd5', startQuarter: 4, startYardLine: 40, endYardLine: 100, plays: 6, yards: 60, result: 'TOUCHDOWN', timeOfPossession: '4:15' },
-  { id: 'd6', startQuarter: 4, startYardLine: 30, endYardLine: 55, plays: 3, yards: 25, result: 'TURNOVER', timeOfPossession: '1:30' },
+export const MOCK_FIELD_HEATMAP: FieldHeatmapPoint[] = [
+  { x: 50, y: 35, intensity: 0.9, playType: 'PASS', yardsGained: 14 },
+  { x: 68, y: 49, intensity: 0.85, playType: 'RUN', yardsGained: 18, gap: 'OFF_TACKLE_RIGHT' },
+  { x: 18, y: 31, intensity: 1.0, playType: 'PASS', yardsGained: 31 },
+  { x: 38, y: 42, intensity: 0.75, playType: 'PASS', yardsGained: 9 },
+  { x: 25, y: 24, intensity: 0.95, playType: 'PLAY_ACTION_BOOT', yardsGained: 24 },
+  { x: 82, y: 30, intensity: 0.88, playType: 'PASS', yardsGained: 22 },
+  { x: 52, y: 48, intensity: 0.82, playType: 'RUN', yardsGained: 12, gap: 'A_RIGHT' },
 ];
 
-// ---- Mock Box Score ----
+export const MOCK_PLAYS: PlayAnalysis[] = MOCK_GAMES.flatMap(g => g.plays);
+export const MOCK_HEATMAP_POINTS = MOCK_FIELD_HEATMAP;
 
-export const MOCK_BOX_SCORE: TeamBoxScore = {
-  totalYards: 385,
-  passingYards: 242,
-  rushingYards: 143,
-  totalPlays: 62,
-  firstDowns: 22,
-  thirdDownConversions: 6,
-  thirdDownAttempts: 11,
-  fourthDownConversions: 1,
-  fourthDownAttempts: 2,
-  redZoneScores: 4,
-  redZoneAttempts: 5,
-  turnovers: 1,
-  penalties: 4,
-  penaltyYards: 35,
-  timeOfPossession: '32:15',
-  avgEpa: 0.85,
-  successRate: 58.2,
-};
-
-// ---- Mock Heatmap Data ----
-
-export const MOCK_HEATMAP_POINTS: FieldHeatmapPoint[] = [
-  { x: 30, y: 25, intensity: 0.8, playType: 'RUN', yardsGained: 14, gap: 'OUTSIDE_LEFT' },
-  { x: 55, y: 39, intensity: 0.3, playType: 'RUN', yardsGained: 4, gap: 'B_RIGHT' },
-  { x: 50, y: 43, intensity: 0.9, playType: 'RPO', yardsGained: 18 },
-  { x: 40, y: 61, intensity: 0.95, playType: 'PLAY_ACTION_BOOT', yardsGained: 22 },
-  { x: 70, y: 83, intensity: 1.0, playType: 'PASS', yardsGained: 17 },
-  { x: 60, y: 42, intensity: 0.5, playType: 'PASS', yardsGained: -2 },
-  { x: 45, y: 30, intensity: 0.6, playType: 'RUN', yardsGained: 6, gap: 'A_RIGHT' },
-  { x: 48, y: 36, intensity: 0.7, playType: 'RUN', yardsGained: 8, gap: 'C_LEFT' },
-  { x: 65, y: 50, intensity: 0.85, playType: 'PASS', yardsGained: 35 },
-  { x: 55, y: 85, intensity: 0.4, playType: 'SCREEN', yardsGained: -3 },
-  { x: 50, y: 45, intensity: 0.75, playType: 'PASS', yardsGained: 12 },
-  { x: 70, y: 85, intensity: 0.95, playType: 'RUN', yardsGained: 15, gap: 'OUTSIDE_RIGHT' },
-  { x: 40, y: 70, intensity: 0.8, playType: 'RPO', yardsGained: 15 },
-  { x: 55, y: 55, intensity: 0.1, playType: 'PASS', yardsGained: 0 },
-];
-
-// ---- Helper: Get game by ID ----
-export function getGameById(id: string): GameSession | undefined {
-  return MOCK_GAMES.find(g => g.id === id);
-}

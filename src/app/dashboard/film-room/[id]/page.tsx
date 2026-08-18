@@ -8,17 +8,322 @@ import {
   Eraser, Undo2, MessageSquare, ListChecks, ChevronRight,
   ChevronDown, Clock, Hash, Crosshair, Zap, Filter,
   Search, RotateCcw, Send, AtSign, Plus, X,
-  Gauge, Target, TrendingUp, Film,
+  Gauge, Target, TrendingUp, Film, Eye, EyeOff, Navigation,
+  Shield, Users, Activity, Sparkles
 } from 'lucide-react';
 import { useGridironStore } from '@/lib/store';
-import { PlayAnalysis, UserMention, ActionPriority } from '@/types/football';
+import { PlayAnalysis, UserMention, ActionPriority, TrackedPlayer, PlayTrackingData } from '@/types/football';
 import {
   formatTime, getMotionBadgeColor, getPlayTypeBadgeColor,
   getEpaColor, getPriorityColor, getStatusColor, generateId,
 } from '@/lib/utils';
-import { TEAM_ROSTER } from '@/lib/mock-game-data';
+import { TEAM_ROSTER, CURRENT_USER } from '@/lib/mock-game-data';
 
-// ---- Video Player Component ----
+// ============================================================================
+// 1. 22-Player Tracking Overlay Component (O's for Offense, X's for Defense)
+// ============================================================================
+
+interface PlayerOverlayProps {
+  trackingData: PlayTrackingData;
+  currentTime: number;
+  playStart: number;
+  playMotion?: number;
+  playSnap: number;
+  playEnd: number;
+  showVectors: boolean;
+  showCoverage: boolean;
+  showLabels: boolean;
+  activePlay: PlayAnalysis;
+}
+
+function PlayerTrackingOverlay({
+  trackingData,
+  currentTime,
+  playStart,
+  playMotion,
+  playSnap,
+  playEnd,
+  showVectors,
+  showCoverage,
+  showLabels,
+  activePlay,
+}: PlayerOverlayProps) {
+  // Determine play phase based on video currentTime:
+  // Phase 0: Pre-snap alignment (before motion)
+  // Phase 1: Pre-snap motion (between motion & snap)
+  // Phase 2: Snap & mesh (between snap & snap+1.5s)
+  // Phase 3: Route running & post-snap execution (after snap+1.5s)
+  
+  let phase: 'preSnap' | 'motion' | 'snap' | 'postSnap' = 'preSnap';
+  let phaseProgress = 0; // 0 to 1
+
+  const motionTime = playMotion ?? (playSnap - 2.5);
+
+  if (currentTime < motionTime) {
+    phase = 'preSnap';
+    phaseProgress = Math.max(0, Math.min(1, (currentTime - playStart) / Math.max(motionTime - playStart, 0.5)));
+  } else if (currentTime < playSnap) {
+    phase = 'motion';
+    phaseProgress = Math.max(0, Math.min(1, (currentTime - motionTime) / Math.max(playSnap - motionTime, 0.5)));
+  } else if (currentTime < playSnap + 1.5) {
+    phase = 'snap';
+    phaseProgress = Math.max(0, Math.min(1, (currentTime - playSnap) / 1.5));
+  } else {
+    phase = 'postSnap';
+    phaseProgress = Math.max(0, Math.min(1, (currentTime - (playSnap + 1.5)) / Math.max(playEnd - (playSnap + 1.5), 1)));
+  }
+
+  // Interpolate coordinates between phases
+  const getPlayerPosition = (player: TrackedPlayer) => {
+    const { trajectory } = player;
+    const pre = trajectory.preSnap;
+    const mot = trajectory.motion ?? pre;
+    const snp = trajectory.snap;
+    const post = trajectory.postSnap;
+
+    if (phase === 'preSnap') {
+      return pre;
+    } else if (phase === 'motion') {
+      if (player.isMotionPlayer && trajectory.motion) {
+        return {
+          x: pre.x + (mot.x - pre.x) * phaseProgress,
+          y: pre.y + (mot.y - pre.y) * phaseProgress,
+        };
+      }
+      return pre;
+    } else if (phase === 'snap') {
+      const startPoint = player.isMotionPlayer && trajectory.motion ? mot : pre;
+      return {
+        x: startPoint.x + (snp.x - startPoint.x) * phaseProgress,
+        y: startPoint.y + (snp.y - startPoint.y) * phaseProgress,
+      };
+    } else {
+      return {
+        x: snp.x + (post.x - snp.x) * phaseProgress,
+        y: snp.y + (post.y - snp.y) * phaseProgress,
+      };
+    }
+  };
+
+  return (
+    <div className="absolute inset-0 pointer-events-none select-none overflow-hidden">
+      {/* Field Tactical Grid Lines */}
+      <svg className="w-full h-full absolute inset-0">
+        <defs>
+          <linearGradient id="offenseGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#d97706" stopOpacity="0.8" />
+          </linearGradient>
+          <linearGradient id="defenseGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#ef4444" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#b91c1c" stopOpacity="0.8" />
+          </linearGradient>
+          <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+
+        {/* Line of Scrimmage (Blue) & 1st Down Line (Yellow) */}
+        <line
+          x1="5%"
+          y1={`${trackingData.lineOfScrimmageY}%`}
+          x2="95%"
+          y2={`${trackingData.lineOfScrimmageY}%`}
+          stroke="#3b82f6"
+          strokeWidth="2.5"
+          strokeDasharray="6 4"
+          opacity="0.85"
+        />
+        <line
+          x1="5%"
+          y1={`${trackingData.firstDownY}%`}
+          x2="95%"
+          y2={`${trackingData.firstDownY}%`}
+          stroke="#eab308"
+          strokeWidth="2.5"
+          opacity="0.85"
+        />
+
+        {/* Coverage Zone Shading */}
+        {showCoverage && (
+          <g opacity="0.18">
+            <rect x="10%" y="10%" width="26%" height="30%" fill="#ef4444" rx="10" />
+            <rect x="37%" y="5%" width="26%" height="35%" fill="#ef4444" rx="10" />
+            <rect x="64%" y="10%" width="26%" height="30%" fill="#ef4444" rx="10" />
+          </g>
+        )}
+
+        {/* Trajectory Vectors (Routes and Pursuit Paths) */}
+        {showVectors && (
+          <g>
+            {/* Offense Route Paths (Gold Dotted Lines) */}
+            {trackingData.offense.map(player => {
+              const start = player.trajectory.snap;
+              const end = player.trajectory.postSnap;
+              return (
+                <g key={`vec-o-${player.id}`}>
+                  <line
+                    x1={`${start.x}%`}
+                    y1={`${start.y}%`}
+                    x2={`${end.x}%`}
+                    y2={`${end.y}%`}
+                    stroke="#f59e0b"
+                    strokeWidth="2"
+                    strokeDasharray="4 4"
+                    opacity={player.isTargetOrBallCarrier ? 0.95 : 0.45}
+                  />
+                  {player.vectorLabel && showLabels && (
+                    <text
+                      x={`${end.x}%`}
+                      y={`${end.y - 2.5}%`}
+                      fill="#fef08a"
+                      fontSize="9"
+                      fontWeight="600"
+                      textAnchor="middle"
+                      opacity="0.85"
+                    >
+                      {player.vectorLabel}
+                    </text>
+                  )}
+                </g>
+              );
+            })}
+
+            {/* Defense Pursuit Angles (Red Solid/Dotted Lines) */}
+            {trackingData.defense.map(player => {
+              const start = player.trajectory.preSnap;
+              const end = player.trajectory.postSnap;
+              return (
+                <line
+                  key={`vec-d-${player.id}`}
+                  x1={`${start.x}%`}
+                  y1={`${start.y}%`}
+                  x2={`${end.x}%`}
+                  y2={`${end.y}%`}
+                  stroke="#ef4444"
+                  strokeWidth="1.5"
+                  strokeDasharray="3 3"
+                  opacity="0.5"
+                />
+              );
+            })}
+          </g>
+        )}
+      </svg>
+
+      {/* Render 11 Offense Players (O's - Peddie Falcons) */}
+      {trackingData.offense.map(player => {
+        const pos = getPlayerPosition(player);
+        const isBallCarrier = player.isTargetOrBallCarrier;
+        const isMotion = player.isMotionPlayer;
+
+        return (
+          <div
+            key={player.id}
+            className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-150 flex flex-col items-center"
+            style={{
+              left: `${pos.x}%`,
+              top: `${pos.y}%`,
+              zIndex: isBallCarrier ? 25 : 20,
+            }}
+          >
+            {/* O Badge */}
+            <div
+              className={`relative flex items-center justify-center rounded-full font-bold transition-transform ${
+                isBallCarrier
+                  ? 'w-7 h-7 ring-2 ring-amber-300 shadow-lg scale-110'
+                  : 'w-6 h-6'
+              }`}
+              style={{
+                background: isBallCarrier
+                  ? 'linear-gradient(135deg, #fbbf24, #d97706)'
+                  : 'linear-gradient(135deg, #1e3a8a, #0f172a)',
+                border: '2px solid #fbbf24',
+                color: '#fff',
+                fontSize: '10px',
+                boxShadow: isBallCarrier
+                  ? '0 0 14px rgba(251, 191, 36, 0.8)'
+                  : '0 2px 6px rgba(0,0,0,0.6)',
+              }}
+            >
+              <span className="font-mono">{player.jerseyNumber}</span>
+              {/* O Indicator Ring */}
+              <div
+                className="absolute -inset-1 rounded-full border border-amber-400 opacity-40 animate-pulse"
+                style={{ display: isMotion ? 'block' : 'none' }}
+              />
+            </div>
+
+            {/* Label */}
+            {showLabels && (
+              <span
+                className="mt-0.5 px-1 py-0.2 rounded text-[8px] font-semibold tracking-wider font-mono uppercase backdrop-blur-sm"
+                style={{
+                  background: 'rgba(15, 23, 42, 0.85)',
+                  color: isBallCarrier ? '#fde047' : '#e2e8f0',
+                  border: '1px solid rgba(251, 191, 36, 0.3)',
+                }}
+              >
+                {player.position} {player.name.split(' ')[1] || player.name}
+              </span>
+            )}
+          </div>
+        );
+      })}
+
+      {/* Render 11 Defense Players (X's - Opponent Defense) */}
+      {trackingData.defense.map(player => {
+        const pos = getPlayerPosition(player);
+
+        return (
+          <div
+            key={player.id}
+            className="absolute transform -translate-x-1/2 -translate-y-1/2 transition-all duration-150 flex flex-col items-center"
+            style={{
+              left: `${pos.x}%`,
+              top: `${pos.y}%`,
+              zIndex: 18,
+            }}
+          >
+            {/* X Badge */}
+            <div
+              className="relative flex items-center justify-center w-6 h-6 rounded-md font-bold transition-transform"
+              style={{
+                background: 'linear-gradient(135deg, #7f1d1d, #450a0a)',
+                border: '2px solid #ef4444',
+                color: '#fca5a5',
+                fontSize: '10px',
+                boxShadow: '0 2px 6px rgba(239, 68, 68, 0.4)',
+              }}
+            >
+              <span className="font-mono">X{player.jerseyNumber}</span>
+            </div>
+
+            {/* Label */}
+            {showLabels && (
+              <span
+                className="mt-0.5 px-1 py-0.2 rounded text-[8px] font-semibold tracking-wider font-mono uppercase backdrop-blur-sm"
+                style={{
+                  background: 'rgba(30, 10, 10, 0.85)',
+                  color: '#fca5a5',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                }}
+              >
+                {player.position}
+              </span>
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// ============================================================================
+// 2. Video Player & Tactical HUD Component
+// ============================================================================
+
 function VideoPlayer() {
   const {
     currentTime, isPlaying, playbackRate, duration,
@@ -27,18 +332,22 @@ function VideoPlayer() {
     telestration, setTelestrationTool, setTelestrationColor,
   } = useGridironStore();
 
-  const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
-  const [isMuted, setIsMuted] = useState(false);
   const [isDrawing, setIsDrawing] = useState(false);
   const [strokes, setStrokes] = useState<{ points: { x: number; y: number }[]; color: string; width: number }[]>([]);
   const [currentStroke, setCurrentStroke] = useState<{ x: number; y: number }[]>([]);
 
+  // Tactical Overlay View Controls (X's & O's)
+  const [showPlayerTracking, setShowPlayerTracking] = useState(true);
+  const [showVectors, setShowVectors] = useState(true);
+  const [showCoverage, setShowCoverage] = useState(true);
+  const [showLabels, setShowLabels] = useState(true);
+
   const speedOptions = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2];
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
 
-  // Simulate playback for demo
+  // Playback loop simulation
   useEffect(() => {
     if (!isPlaying) return;
     const interval = setInterval(() => {
@@ -47,26 +356,24 @@ function VideoPlayer() {
     return () => clearInterval(interval);
   }, [isPlaying, currentTime, playbackRate, setCurrentTime, activeGame?.duration]);
 
-  // Keyboard shortcuts
+  // Keyboard hotkeys (J-K-L, Space, Arrows)
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement).tagName === 'INPUT' || (e.target as HTMLElement).tagName === 'TEXTAREA') return;
       switch (e.key) {
         case ' ':
         case 'k': e.preventDefault(); setIsPlaying(!isPlaying); break;
-        case 'j': e.preventDefault(); setCurrentTime(Math.max(0, currentTime - 10)); break;
-        case 'l': e.preventDefault(); setCurrentTime(Math.min(currentTime + 10, activeGame?.duration ?? 180)); break;
+        case 'j': e.preventDefault(); setCurrentTime(Math.max(0, currentTime - 5)); break;
+        case 'l': e.preventDefault(); setCurrentTime(Math.min(currentTime + 5, activeGame?.duration ?? 180)); break;
         case 'ArrowLeft': e.preventDefault(); setCurrentTime(Math.max(0, currentTime - 1)); break;
         case 'ArrowRight': e.preventDefault(); setCurrentTime(Math.min(currentTime + 1, activeGame?.duration ?? 180)); break;
-        case ',': e.preventDefault(); setCurrentTime(Math.max(0, currentTime - 1/30)); break;
-        case '.': e.preventDefault(); setCurrentTime(Math.min(currentTime + 1/30, activeGame?.duration ?? 180)); break;
       }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
   }, [isPlaying, currentTime, setIsPlaying, setCurrentTime, activeGame?.duration]);
 
-  // Draw on canvas
+  // Canvas drawing handlers
   const handleCanvasMouseDown = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
     if (!telestration.activeTool) return;
     setIsDrawing(true);
@@ -81,7 +388,6 @@ function VideoPlayer() {
     const point = { x: e.clientX - rect.left, y: e.clientY - rect.top };
     setCurrentStroke(prev => [...prev, point]);
 
-    // Draw in real-time
     const ctx = canvasRef.current.getContext('2d')!;
     if (currentStroke.length > 0) {
       ctx.beginPath();
@@ -115,7 +421,6 @@ function VideoPlayer() {
 
   const undoStroke = () => {
     setStrokes(prev => prev.slice(0, -1));
-    // Redraw remaining strokes
     if (canvasRef.current) {
       const ctx = canvasRef.current.getContext('2d')!;
       ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height);
@@ -134,84 +439,151 @@ function VideoPlayer() {
     }
   };
 
-  const handleProgressClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!progressRef.current) return;
-    const rect = progressRef.current.getBoundingClientRect();
-    const pct = (e.clientX - rect.left) / rect.width;
-    setCurrentTime(pct * (activeGame?.duration ?? 180));
-  };
-
   const gameDuration = activeGame?.duration ?? 180;
   const progressPct = (currentTime / gameDuration) * 100;
 
-  // Comment markers on timeline
-  const commentMarkers = activeGame?.plays.flatMap(p => p.comments.map(c => ({
-    pct: (c.timestamp / gameDuration) * 100,
-    text: c.text.slice(0, 40),
-    author: c.author.name,
-  }))) ?? [];
-
   const telestrationTools = [
-    { tool: 'PEN' as const, icon: Pen, label: 'Freehand' },
-    { tool: 'ARROW' as const, icon: ArrowUpRight, label: 'Arrow' },
-    { tool: 'SPOTLIGHT' as const, icon: Circle, label: 'Spotlight' },
-    { tool: 'ROUTE_LINE' as const, icon: Crosshair, label: 'Route' },
+    { tool: 'PEN' as const, icon: Pen, label: 'Freehand Pen' },
+    { tool: 'ARROW' as const, icon: ArrowUpRight, label: 'Directional Arrow' },
+    { tool: 'SPOTLIGHT' as const, icon: Circle, label: 'Player Spotlight' },
+    { tool: 'ROUTE_LINE' as const, icon: Crosshair, label: 'Route Path' },
     { tool: 'ERASER' as const, icon: Eraser, label: 'Eraser' },
   ];
 
-  const colors = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899', '#ffffff'];
+  const colors = ['#ef4444', '#f59e0b', '#10b981', '#06b6d4', '#6366f1', '#ffffff'];
 
   return (
-    <div className="relative" style={{ background: '#000' }}>
-      {/* Video / Placeholder */}
-      <div className="relative aspect-video bg-black overflow-hidden rounded-t-lg">
-        {/* Football field placeholder visual */}
-        <div className="absolute inset-0 flex items-center justify-center"
-          style={{ background: 'linear-gradient(180deg, #0d2818 0%, #0f3420 50%, #0d2818 100%)' }}>
-          {/* Field lines */}
-          <svg viewBox="0 0 1000 530" className="absolute inset-0 w-full h-full opacity-20">
-            {/* Yard lines */}
-            {Array.from({ length: 11 }, (_, i) => (
-              <line key={i} x1={100 + i * 80} y1={20} x2={100 + i * 80} y2={510} stroke="white" strokeWidth="1" />
+    <div className="relative flex flex-col bg-black rounded-lg overflow-hidden border border-white/10 shadow-2xl">
+      {/* Top HUD Telemetry Bar */}
+      {activePlay && (
+        <div className="bg-slate-950/95 border-b border-white/10 px-4 py-2.5 flex items-center justify-between z-20 backdrop-blur-md">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold font-mono">
+              <Activity className="w-3.5 h-3.5" />
+              PLAY #{activePlay.playNumber}
+            </div>
+            <div className="text-xs font-semibold text-white/90">
+              Q{activePlay.quarter} · {activePlay.gameClock} · <span className="text-amber-400 font-bold">{activePlay.down}&{activePlay.distance}</span> on {activePlay.yardLine} YD
+            </div>
+            <div className={`badge text-[11px] px-2 py-0.5 font-bold ${getPlayTypeBadgeColor(activePlay.playType)}`}>
+              {activePlay.playType.replace(/_/g, ' ')}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-3">
+            {activePlay.motionType !== 'NONE' && (
+              <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-[11px] font-bold">
+                <Zap className="w-3 h-3" />
+                {activePlay.motionType.replace(/_/g, ' ')} (#{activePlay.motionPlayerJersey})
+              </div>
+            )}
+            <div className={`px-2 py-0.5 rounded font-mono text-xs font-bold ${getEpaColor(activePlay.epa)}`}>
+              {activePlay.epa >= 0 ? `+${activePlay.epa.toFixed(2)}` : activePlay.epa.toFixed(2)} EPA
+            </div>
+            <div className="text-xs text-white/60 font-mono">
+              +{activePlay.yardsGained} YDS
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Video & Tactical Canvas Viewport */}
+      <div className="relative aspect-video bg-slate-950 overflow-hidden">
+        {/* Realistic Gridiron Field Background Layer */}
+        <div
+          className="absolute inset-0 flex items-center justify-center"
+          style={{
+            background: 'radial-gradient(ellipse at center, #0f3420 0%, #0d2818 60%, #08180e 100%)',
+          }}
+        >
+          {/* Field Markings & Yardlines */}
+          <svg viewBox="0 0 1000 560" className="absolute inset-0 w-full h-full opacity-35">
+            {/* Endzones */}
+            <rect x="0" y="0" width="1000" height="560" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="3" />
+            {/* Yardlines */}
+            {Array.from({ length: 9 }, (_, i) => (
+              <line
+                key={i}
+                x1="40"
+                y1={60 + i * 55}
+                x2="960"
+                y2={60 + i * 55}
+                stroke="white"
+                strokeWidth="1.5"
+                strokeOpacity="0.3"
+              />
             ))}
-            {/* Hash marks */}
-            {Array.from({ length: 11 }, (_, i) => (
-              <text key={`t${i}`} x={100 + i * 80} y={535} fill="white" fontSize="16" textAnchor="middle" opacity="0.5">
-                {i === 0 || i === 10 ? '' : i < 5 ? `${i}0` : i === 5 ? '50' : `${10 - i}0`}
-              </text>
+            {/* Hashmarks */}
+            {Array.from({ length: 9 }, (_, i) => (
+              <g key={`hash-${i}`}>
+                <line x1="380" y1={60 + i * 55} x2="400" y2={60 + i * 55} stroke="white" strokeWidth="2" strokeOpacity="0.5" />
+                <line x1="600" y1={60 + i * 55} x2="620" y2={60 + i * 55} stroke="white" strokeWidth="2" strokeOpacity="0.5" />
+              </g>
             ))}
-            {/* Sidelines */}
-            <rect x={90} y={15} width={820} height={500} fill="none" stroke="white" strokeWidth="2" />
           </svg>
 
-          {/* Play info overlay */}
-          {activePlay && (
-            <div className="absolute top-4 left-4 glass-card-sm p-3 animate-fade-in-up" style={{ fontSize: '12px' }}>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="font-bold" style={{ color: 'var(--text-primary)' }}>Play #{activePlay.playNumber}</span>
-                <span className={`badge ${getPlayTypeBadgeColor(activePlay.playType)}`}>{activePlay.playType.replace('_', ' ')}</span>
-              </div>
-              <p style={{ color: 'var(--text-muted)' }}>Q{activePlay.quarter} · {activePlay.gameClock} · {activePlay.down}&{activePlay.distance}</p>
-            </div>
+          {/* Hudl Watermark & Camera Angle Badge */}
+          <div className="absolute top-3 left-4 flex items-center gap-2 z-10">
+            <span className="px-2 py-0.5 rounded bg-black/70 border border-white/10 text-[10px] font-bold text-amber-400 uppercase tracking-wider font-mono">
+              HUDL FALCON-VISION CAM 1
+            </span>
+            <span className="px-2 py-0.5 rounded bg-black/70 border border-white/10 text-[10px] font-semibold text-slate-300">
+              PEDDIE 2025 ALL-22 FILM
+            </span>
+          </div>
+
+          {/* 22-Player Dynamic Tracking Overlay (O's for Offense, X's for Defense) */}
+          {activePlay?.trackingData && showPlayerTracking && (
+            <PlayerTrackingOverlay
+              trackingData={activePlay.trackingData}
+              currentTime={currentTime}
+              playStart={activePlay.videoTimestampStart}
+              playMotion={activePlay.videoTimestampMotion}
+              playSnap={activePlay.videoTimestampSnap}
+              playEnd={activePlay.videoTimestampEnd}
+              showVectors={showVectors}
+              showCoverage={showCoverage}
+              showLabels={showLabels}
+              activePlay={activePlay}
+            />
           )}
 
-          {/* Current play description */}
+          {/* Bottom Play Concept Description Bar */}
           {activePlay && (
-            <div className="absolute bottom-16 left-4 right-4 glass-card-sm p-3 animate-fade-in-up">
-              <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                {activePlay.playDescription}
-              </p>
+            <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 border border-white/10 rounded-lg p-2.5 z-20 backdrop-blur-md shadow-lg flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-4 h-4 text-amber-400 shrink-0" />
+                <div>
+                  <div className="text-xs font-bold text-white flex items-center gap-2">
+                    {activePlay.trackingData?.playConceptName || activePlay.offensiveFormation}
+                  </div>
+                  <div className="text-[11px] text-slate-400 line-clamp-1">
+                    {activePlay.playDescription}
+                  </div>
+                </div>
+              </div>
+              <div className="text-right shrink-0">
+                <div className="text-[10px] font-mono font-bold text-slate-400 uppercase">
+                  Coverage Scheme
+                </div>
+                <div className="text-xs font-bold text-amber-300 font-mono">
+                  {activePlay.coverageScheme.replace(/_/g, ' ')}
+                </div>
+              </div>
             </div>
           )}
         </div>
 
-        {/* Telestration Canvas Overlay */}
+        {/* Freehand Telestration Canvas Layer */}
         <canvas
           ref={canvasRef}
           width={1280}
           height={720}
           className="absolute inset-0 w-full h-full"
-          style={{ cursor: telestration.activeTool ? 'crosshair' : 'default', zIndex: telestration.activeTool ? 20 : -1 }}
+          style={{
+            cursor: telestration.activeTool ? 'crosshair' : 'default',
+            zIndex: telestration.activeTool ? 35 : 5,
+          }}
           onMouseDown={handleCanvasMouseDown}
           onMouseMove={handleCanvasMouseMove}
           onMouseUp={handleCanvasMouseUp}
@@ -219,573 +591,362 @@ function VideoPlayer() {
         />
       </div>
 
-      {/* Telestration Toolbar */}
-      <div className="absolute top-3 right-3 flex flex-col gap-1 z-30">
+      {/* Floating Tactical Layer Toggles (X's & O's, Routes, Coverage) */}
+      <div className="absolute top-14 left-4 flex flex-col gap-1.5 z-30">
+        <button
+          onClick={() => setShowPlayerTracking(!showPlayerTracking)}
+          className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-bold transition-all shadow-md backdrop-blur-md border ${
+            showPlayerTracking
+              ? 'bg-amber-500/90 text-slate-950 border-amber-300'
+              : 'bg-slate-900/80 text-slate-300 border-white/10 hover:bg-slate-800'
+          }`}
+          title="Toggle 22-Man X's and O's Player Tracking"
+        >
+          <Users className="w-3.5 h-3.5" />
+          {showPlayerTracking ? "X's & O's: ON" : "X's & O's: OFF"}
+        </button>
+
+        {showPlayerTracking && (
+          <>
+            <button
+              onClick={() => setShowVectors(!showVectors)}
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all shadow-md backdrop-blur-md border ${
+                showVectors
+                  ? 'bg-cyan-500/80 text-slate-950 border-cyan-300'
+                  : 'bg-slate-900/80 text-slate-300 border-white/10 hover:bg-slate-800'
+              }`}
+            >
+              <Navigation className="w-3.5 h-3.5" />
+              Routes & Motion
+            </button>
+
+            <button
+              onClick={() => setShowCoverage(!showCoverage)}
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all shadow-md backdrop-blur-md border ${
+                showCoverage
+                  ? 'bg-red-500/80 text-white border-red-300'
+                  : 'bg-slate-900/80 text-slate-300 border-white/10 hover:bg-slate-800'
+              }`}
+            >
+              <Shield className="w-3.5 h-3.5" />
+              Coverage Shell
+            </button>
+
+            <button
+              onClick={() => setShowLabels(!showLabels)}
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold transition-all shadow-md backdrop-blur-md border ${
+                showLabels
+                  ? 'bg-purple-500/80 text-white border-purple-300'
+                  : 'bg-slate-900/80 text-slate-300 border-white/10 hover:bg-slate-800'
+              }`}
+            >
+              {showLabels ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
+              Player Names
+            </button>
+          </>
+        )}
+      </div>
+
+      {/* Floating Telestration Toolbar (Right side) */}
+      <div className="absolute top-14 right-4 flex flex-col gap-1.5 z-30 bg-slate-950/80 border border-white/10 p-1.5 rounded-lg backdrop-blur-md shadow-xl">
         {telestrationTools.map(({ tool, icon: Icon, label }) => (
           <button
             key={tool}
             onClick={() => setTelestrationTool(telestration.activeTool === tool ? null : tool)}
-            className="w-9 h-9 rounded-lg flex items-center justify-center transition-all"
+            className={`w-8 h-8 rounded flex items-center justify-center transition-all ${
+              telestration.activeTool === tool
+                ? 'bg-amber-500 text-slate-950 shadow-md font-bold'
+                : 'text-slate-400 hover:text-white hover:bg-white/10'
+            }`}
             title={label}
-            style={{
-              background: telestration.activeTool === tool ? 'var(--accent-primary)' : 'rgba(0,0,0,0.6)',
-              color: telestration.activeTool === tool ? 'white' : 'var(--text-secondary)',
-              backdropFilter: 'blur(8px)',
-            }}
           >
             <Icon className="w-4 h-4" />
           </button>
         ))}
-        <div className="h-px my-1" style={{ background: 'var(--border-primary)' }} />
-        <button onClick={undoStroke} className="w-9 h-9 rounded-lg flex items-center justify-center transition-all"
-          style={{ background: 'rgba(0,0,0,0.6)', color: 'var(--text-secondary)' }} title="Undo">
+        <div className="h-px bg-white/10 my-0.5" />
+        <button
+          onClick={undoStroke}
+          className="w-8 h-8 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10"
+          title="Undo"
+        >
           <Undo2 className="w-4 h-4" />
         </button>
-        <button onClick={clearCanvas} className="w-9 h-9 rounded-lg flex items-center justify-center transition-all"
-          style={{ background: 'rgba(0,0,0,0.6)', color: 'var(--text-secondary)' }} title="Clear All">
+        <button
+          onClick={clearCanvas}
+          className="w-8 h-8 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10"
+          title="Clear All"
+        >
           <X className="w-4 h-4" />
         </button>
-        {/* Color picker */}
-        <div className="flex flex-col gap-1 mt-1">
+        {/* Color Palette */}
+        <div className="flex flex-col gap-1 mt-1 items-center">
           {colors.map(c => (
-            <button key={c}
+            <button
+              key={c}
               onClick={() => setTelestrationColor(c)}
-              className="w-5 h-5 rounded-full mx-auto transition-transform"
-              style={{
-                background: c,
-                border: telestration.activeColor === c ? '2px solid white' : '1px solid rgba(255,255,255,0.2)',
-                transform: telestration.activeColor === c ? 'scale(1.3)' : 'scale(1)',
-              }}
+              className={`w-4 h-4 rounded-full border transition-transform ${
+                telestration.activeColor === c ? 'scale-125 border-white' : 'border-transparent opacity-70'
+              }`}
+              style={{ backgroundColor: c }}
             />
           ))}
         </div>
       </div>
 
-      {/* Timeline & Controls */}
-      <div className="px-4 py-3" style={{ background: 'var(--bg-secondary)' }}>
-        {/* Progress bar with markers */}
-        <div ref={progressRef} className="relative h-2 rounded-full cursor-pointer mb-3 group"
-          style={{ background: 'var(--bg-tertiary)' }}
-          onClick={handleProgressClick}>
-          {/* Progress fill */}
-          <div className="absolute inset-y-0 left-0 rounded-full transition-all"
-            style={{ width: `${progressPct}%`, background: 'linear-gradient(90deg, var(--accent-primary), var(--accent-secondary))' }} />
-
-          {/* Comment markers */}
-          {commentMarkers.map((m, i) => (
-            <div key={i} className="timeline-marker" style={{ left: `${m.pct}%`, top: '50%' }}
-              title={`${m.author}: ${m.text}`} />
+      {/* Bottom Playback & Scrubber Controls */}
+      <div className="bg-slate-950 px-4 py-3 border-t border-white/10 flex flex-col gap-2">
+        {/* Timeline Scrubber */}
+        <div
+          ref={progressRef}
+          onClick={(e) => {
+            if (!progressRef.current) return;
+            const rect = progressRef.current.getBoundingClientRect();
+            const pct = (e.clientX - rect.left) / rect.width;
+            setCurrentTime(pct * gameDuration);
+          }}
+          className="relative h-2.5 bg-slate-800 rounded-full cursor-pointer overflow-hidden group"
+        >
+          {/* Progress bar */}
+          <div
+            className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-amber-500 to-amber-300 rounded-full transition-all"
+            style={{ width: `${progressPct}%` }}
+          />
+          {/* Play markers */}
+          {activeGame?.plays.map(p => (
+            <div
+              key={p.id}
+              className="absolute top-0 bottom-0 w-1 bg-white/40 group-hover:bg-white/80 transition-colors"
+              style={{ left: `${(p.videoTimestampStart / gameDuration) * 100}%` }}
+              title={`Play #${p.playNumber}: ${p.playDescription}`}
+            />
           ))}
-
-          {/* Play segment markers */}
-          {activeGame?.plays.map((p, i) => (
-            <div key={i} className="absolute top-full mt-1 w-0.5 h-1.5 rounded"
-              style={{
-                left: `${(p.videoTimestampStart / gameDuration) * 100}%`,
-                background: p.motionType !== 'NONE' ? 'var(--accent-amber)' : 'var(--text-muted)',
-                opacity: 0.6,
-              }} />
-          ))}
-
-          {/* Scrubber */}
-          <div className="absolute top-1/2 -translate-y-1/2 w-4 h-4 rounded-full shadow-lg transition-opacity opacity-0 group-hover:opacity-100"
-            style={{
-              left: `${progressPct}%`,
-              transform: 'translate(-50%, -50%)',
-              background: 'white',
-              boxShadow: '0 0 8px rgba(99, 102, 241, 0.5)',
-            }} />
         </div>
 
-        {/* Controls */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <button onClick={() => setCurrentTime(Math.max(0, currentTime - 10))}
-              className="p-1.5 rounded-lg transition-colors hover:bg-white/5" style={{ color: 'var(--text-secondary)' }}>
+        {/* Action Controls & Timestamps */}
+        <div className="flex items-center justify-between text-xs text-slate-300">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="w-8 h-8 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center hover:bg-amber-400 transition-transform font-bold"
+            >
+              {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
+            </button>
+            <button
+              onClick={() => setCurrentTime(Math.max(0, currentTime - 5))}
+              className="p-1.5 hover:text-white transition-colors"
+              title="Back 5s (J)"
+            >
               <SkipBack className="w-4 h-4" />
             </button>
-            <button onClick={() => setIsPlaying(!isPlaying)}
-              className="w-9 h-9 rounded-full flex items-center justify-center transition-all"
-              style={{ background: 'var(--accent-primary)', color: 'white' }}>
-              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
-            </button>
-            <button onClick={() => setCurrentTime(Math.min(currentTime + 10, gameDuration))}
-              className="p-1.5 rounded-lg transition-colors hover:bg-white/5" style={{ color: 'var(--text-secondary)' }}>
+            <button
+              onClick={() => setCurrentTime(Math.min(gameDuration, currentTime + 5))}
+              className="p-1.5 hover:text-white transition-colors"
+              title="Forward 5s (L)"
+            >
               <SkipForward className="w-4 h-4" />
             </button>
-
-            <span className="text-xs font-mono ml-2" style={{ color: 'var(--text-secondary)' }}>
+            <span className="font-mono text-slate-400 font-semibold">
               {formatTime(currentTime)} / {formatTime(gameDuration)}
             </span>
           </div>
 
-          <div className="flex items-center gap-2">
-            {/* Speed control */}
+          <div className="flex items-center gap-3">
+            {/* Speed Selector */}
             <div className="relative">
-              <button onClick={() => setShowSpeedMenu(!showSpeedMenu)}
-                className="flex items-center gap-1 px-2 py-1 rounded text-xs font-medium transition-colors hover:bg-white/5"
-                style={{ color: 'var(--text-secondary)' }}>
-                <Gauge className="w-3.5 h-3.5" />
+              <button
+                onClick={() => setShowSpeedMenu(!showSpeedMenu)}
+                className="px-2 py-1 rounded bg-slate-900 border border-white/10 hover:border-white/30 text-xs font-mono font-bold"
+              >
                 {playbackRate}x
               </button>
               {showSpeedMenu && (
-                <>
-                  <div className="fixed inset-0 z-40" onClick={() => setShowSpeedMenu(false)} />
-                  <div className="absolute bottom-full right-0 mb-2 z-50 glass-card-sm p-1 min-w-[80px]">
-                    {speedOptions.map(speed => (
-                      <button key={speed}
-                        onClick={() => { setPlaybackRate(speed); setShowSpeedMenu(false); }}
-                        className="w-full text-left px-3 py-1.5 rounded text-xs transition-colors hover:bg-white/5"
-                        style={{ color: playbackRate === speed ? 'var(--accent-primary)' : 'var(--text-secondary)', fontWeight: playbackRate === speed ? 600 : 400 }}>
-                        {speed}x
-                      </button>
-                    ))}
-                  </div>
-                </>
-              )}
-            </div>
-
-            <button onClick={() => setIsMuted(!isMuted)}
-              className="p-1.5 rounded transition-colors hover:bg-white/5" style={{ color: 'var(--text-secondary)' }}>
-              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ---- Play By Play Table ----
-function PlayByPlayTable() {
-  const { filteredPlays, activePlayId, seekToPlay, activeGame } = useGridironStore();
-  const plays = filteredPlays.length > 0 ? filteredPlays : (activeGame?.plays ?? []);
-
-  return (
-    <div className="overflow-y-auto" style={{ maxHeight: 'calc(100vh - 200px)' }}>
-      {plays.map((play) => (
-        <div
-          key={play.id}
-          onClick={() => seekToPlay(play)}
-          className={`play-row px-3 py-2.5 border-b ${activePlayId === play.id ? 'active' : ''}`}
-          style={{ borderColor: 'var(--border-primary)' }}
-        >
-          <div className="flex items-center justify-between mb-1">
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-bold font-mono px-1.5 py-0.5 rounded"
-                style={{ background: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>
-                #{play.playNumber}
-              </span>
-              <span className={`badge text-[10px] ${getPlayTypeBadgeColor(play.playType)}`}>
-                {play.playType.replace(/_/g, ' ')}
-              </span>
-              {play.motionType !== 'NONE' && (
-                <span className={`badge text-[10px] ${getMotionBadgeColor(play.motionType)}`}>
-                  ⚡ {play.motionType.replace(/_/g, ' ')}
-                </span>
-              )}
-            </div>
-            <div className="flex items-center gap-2">
-              <span className={`text-xs font-bold font-mono ${getEpaColor(play.epa)}`}>
-                {play.epa > 0 ? '+' : ''}{play.epa.toFixed(1)} EPA
-              </span>
-              <span className="text-xs font-mono" style={{ color: play.yardsGained >= 0 ? 'var(--accent-emerald)' : 'var(--accent-red)' }}>
-                {play.yardsGained > 0 ? '+' : ''}{play.yardsGained}y
-              </span>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3 text-[11px]" style={{ color: 'var(--text-muted)' }}>
-            <span>Q{play.quarter} · {play.gameClock}</span>
-            <span>{play.down}&{play.distance}</span>
-            <span>{play.offensiveFormation}</span>
-            <span>vs {play.coverageScheme.replace(/_/g, ' ')}</span>
-          </div>
-
-          <p className="text-xs mt-1 line-clamp-1" style={{ color: 'var(--text-secondary)' }}>
-            {play.playDescription}
-          </p>
-
-          {/* Comment/action badges */}
-          <div className="flex items-center gap-2 mt-1.5">
-            {play.comments.length > 0 && (
-              <span className="flex items-center gap-1 text-[10px]" style={{ color: 'var(--accent-primary)' }}>
-                <MessageSquare className="w-3 h-3" /> {play.comments.length}
-              </span>
-            )}
-            {play.actionItems.length > 0 && (
-              <span className="flex items-center gap-1 text-[10px]" style={{ color: 'var(--accent-amber)' }}>
-                <ListChecks className="w-3 h-3" /> {play.actionItems.length}
-              </span>
-            )}
-            {play.isTouchdown && <span className="text-[10px]">🏈 TD</span>}
-            {play.isTurnover && <span className="text-[10px]">❌ TO</span>}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-// ---- Play Filter Bar ----
-function PlayFilterBar() {
-  const { filters, setFilters, resetFilters } = useGridironStore();
-  const [expanded, setExpanded] = useState(false);
-
-  return (
-    <div className="px-3 py-2 border-b" style={{ borderColor: 'var(--border-primary)', background: 'var(--bg-secondary)' }}>
-      <div className="flex items-center gap-2 mb-2">
-        <div className="relative flex-1">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5" style={{ color: 'var(--text-muted)' }} />
-          <input
-            placeholder="Search plays..."
-            value={filters.searchQuery}
-            onChange={(e) => setFilters({ searchQuery: e.target.value })}
-            className="input-field text-xs py-1.5 pl-8 pr-3"
-            style={{ fontSize: '12px' }}
-          />
-        </div>
-        <button onClick={() => setExpanded(!expanded)}
-          className="p-1.5 rounded-lg transition-colors hover:bg-white/5" style={{ color: 'var(--text-muted)' }}>
-          <Filter className="w-4 h-4" />
-        </button>
-        {(filters.playTypes.length > 0 || filters.motionTypes.length > 0 || filters.hasMotion !== null) && (
-          <button onClick={resetFilters}
-            className="p-1.5 rounded-lg transition-colors hover:bg-white/5" style={{ color: 'var(--accent-red)' }}>
-            <RotateCcw className="w-3.5 h-3.5" />
-          </button>
-        )}
-      </div>
-
-      {expanded && (
-        <div className="space-y-2 pb-2 animate-fade-in-up">
-          {/* Motion filter */}
-          <div className="flex items-center gap-1 flex-wrap">
-            <span className="text-[10px] font-medium uppercase mr-1" style={{ color: 'var(--text-muted)' }}>Motion:</span>
-            {(['NONE', 'JET_SWEEP', 'ORBIT', 'FLY', 'RETURN'] as const).map(m => (
-              <button key={m}
-                onClick={() => {
-                  const current = filters.motionTypes;
-                  setFilters({ motionTypes: current.includes(m) ? current.filter(t => t !== m) : [...current, m] });
-                }}
-                className={`badge text-[9px] cursor-pointer transition-opacity ${getMotionBadgeColor(m)} ${filters.motionTypes.includes(m) ? 'opacity-100' : 'opacity-40'}`}>
-                {m.replace(/_/g, ' ')}
-              </button>
-            ))}
-          </div>
-
-          {/* Play type filter */}
-          <div className="flex items-center gap-1 flex-wrap">
-            <span className="text-[10px] font-medium uppercase mr-1" style={{ color: 'var(--text-muted)' }}>Type:</span>
-            {(['PASS', 'RUN', 'RPO', 'PLAY_ACTION_BOOT', 'SCREEN'] as const).map(t => (
-              <button key={t}
-                onClick={() => {
-                  const current = filters.playTypes;
-                  setFilters({ playTypes: current.includes(t) ? current.filter(x => x !== t) : [...current, t] });
-                }}
-                className={`badge text-[9px] cursor-pointer transition-opacity ${getPlayTypeBadgeColor(t)} ${filters.playTypes.includes(t) ? 'opacity-100' : 'opacity-40'}`}>
-                {t.replace(/_/g, ' ')}
-              </button>
-            ))}
-          </div>
-
-          {/* Has motion toggle */}
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] font-medium uppercase" style={{ color: 'var(--text-muted)' }}>Motion Only:</span>
-            <button
-              onClick={() => setFilters({ hasMotion: filters.hasMotion === true ? null : true })}
-              className="badge text-[9px] cursor-pointer"
-              style={{
-                background: filters.hasMotion === true ? 'rgba(99, 102, 241, 0.2)' : 'transparent',
-                color: filters.hasMotion === true ? 'var(--accent-primary)' : 'var(--text-muted)',
-                borderColor: filters.hasMotion === true ? 'rgba(99, 102, 241, 0.3)' : 'var(--border-primary)',
-              }}>
-              ⚡ Motion Plays
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ---- Comment Thread ----
-function CommentThread() {
-  const { activePlay, activeGame, addComment, currentTime, commentDraft, setCommentDraft } = useGridironStore();
-  const [showMentions, setShowMentions] = useState(false);
-  const [mentionQuery, setMentionQuery] = useState('');
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-  const comments = activePlay?.comments ?? [];
-  const filteredRoster = TEAM_ROSTER.filter(u =>
-    u.name.toLowerCase().includes(mentionQuery.toLowerCase()) ||
-    u.position?.toLowerCase().includes(mentionQuery.toLowerCase()) ||
-    u.jerseyNumber?.toString().includes(mentionQuery)
-  );
-
-  const handleInput = (text: string) => {
-    setCommentDraft(text);
-    const lastAt = text.lastIndexOf('@');
-    if (lastAt >= 0 && lastAt === text.length - 1) {
-      setShowMentions(true);
-      setMentionQuery('');
-    } else if (lastAt >= 0) {
-      const query = text.slice(lastAt + 1);
-      if (!query.includes(' ') || query.length < 20) {
-        setShowMentions(true);
-        setMentionQuery(query);
-      } else {
-        setShowMentions(false);
-      }
-    } else {
-      setShowMentions(false);
-    }
-  };
-
-  const insertMention = (user: UserMention) => {
-    const lastAt = commentDraft.lastIndexOf('@');
-    const before = commentDraft.slice(0, lastAt);
-    const name = user.jerseyNumber ? `@#${user.jerseyNumber}_${user.name.replace(/\s/g, '_')}` : `@${user.name.replace(/\s/g, '_')}`;
-    setCommentDraft(before + name + ' ');
-    setShowMentions(false);
-    textareaRef.current?.focus();
-  };
-
-  const submitComment = () => {
-    if (!commentDraft.trim() || !activePlay || !activeGame) return;
-    const mentions: UserMention[] = [];
-    const mentionPattern = /@([^\s]+)/g;
-    let match;
-    while ((match = mentionPattern.exec(commentDraft)) !== null) {
-      const mentionText = match[1].replace(/_/g, ' ').replace('#', '');
-      const user = TEAM_ROSTER.find(u =>
-        u.name.toLowerCase().includes(mentionText.toLowerCase()) ||
-        u.jerseyNumber?.toString() === mentionText.split(' ')[0]
-      );
-      if (user) mentions.push(user);
-    }
-
-    addComment(activePlay.id, {
-      id: generateId(),
-      playId: activePlay.id,
-      timestamp: currentTime,
-      author: TEAM_ROSTER[8], // Coach Miller as default
-      text: commentDraft,
-      mentions,
-      createdAt: new Date().toISOString(),
-    });
-  };
-
-  return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto p-3 space-y-3">
-        {!activePlay ? (
-          <div className="text-center py-8" style={{ color: 'var(--text-muted)' }}>
-            <MessageSquare className="w-8 h-8 mx-auto mb-2 opacity-40" />
-            <p className="text-xs">Select a play to view comments</p>
-          </div>
-        ) : comments.length === 0 ? (
-          <div className="text-center py-8" style={{ color: 'var(--text-muted)' }}>
-            <MessageSquare className="w-8 h-8 mx-auto mb-2 opacity-40" />
-            <p className="text-xs">No comments yet on Play #{activePlay.playNumber}</p>
-          </div>
-        ) : (
-          comments.map((comment) => (
-            <div key={comment.id} className="animate-fade-in-up">
-              <div className="flex items-start gap-2.5">
-                <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold"
-                  style={{ background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))', color: 'white' }}>
-                  {comment.author.name.charAt(0)}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{comment.author.name}</span>
-                    <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                      @ {formatTime(comment.timestamp)}
-                    </span>
-                    <span className="badge text-[9px]" style={{ background: 'var(--bg-tertiary)', color: 'var(--text-muted)', borderColor: 'transparent' }}>
-                      {comment.author.role}
-                    </span>
-                  </div>
-                  <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                    {comment.text.split(/(@[^\s]+)/g).map((part, i) =>
-                      part.startsWith('@') ? (
-                        <span key={i} className="mention-highlight">{part}</span>
-                      ) : (
-                        <span key={i}>{part}</span>
-                      )
-                    )}
-                  </p>
-                  {comment.mentions.length > 0 && (
-                    <div className="flex items-center gap-1 mt-1">
-                      {comment.mentions.map(m => (
-                        <span key={m.id} className="badge text-[9px]" style={{
-                          background: 'rgba(99, 102, 241, 0.1)', color: 'var(--accent-primary)', borderColor: 'rgba(99, 102, 241, 0.2)'
-                        }}>
-                          @{m.name}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-
-      {/* Comment Input */}
-      {activePlay && (
-        <div className="relative p-3 border-t" style={{ borderColor: 'var(--border-primary)' }}>
-          {showMentions && (
-            <div className="absolute bottom-full left-3 right-3 mb-1 glass-card-sm max-h-40 overflow-y-auto z-30">
-              {filteredRoster.map(user => (
-                <button key={user.id}
-                  onClick={() => insertMention(user)}
-                  className="w-full flex items-center gap-2 px-3 py-2 text-left transition-colors hover:bg-white/5">
-                  <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold"
-                    style={{ background: 'var(--bg-tertiary)', color: 'var(--text-primary)' }}>
-                    {user.jerseyNumber ?? user.name.charAt(0)}
-                  </div>
-                  <div>
-                    <span className="text-xs font-medium" style={{ color: 'var(--text-primary)' }}>{user.name}</span>
-                    <span className="text-[10px] ml-2" style={{ color: 'var(--text-muted)' }}>{user.position} · {user.role}</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-          )}
-          <div className="flex items-end gap-2">
-            <textarea
-              ref={textareaRef}
-              value={commentDraft}
-              onChange={(e) => handleInput(e.target.value)}
-              placeholder="Type @ to mention players or coaches..."
-              className="input-field text-xs resize-none"
-              rows={2}
-              onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submitComment(); } }}
-            />
-            <button onClick={submitComment} className="p-2 rounded-lg shrink-0"
-              style={{ background: commentDraft.trim() ? 'var(--accent-primary)' : 'var(--bg-tertiary)', color: 'white' }}>
-              <Send className="w-4 h-4" />
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
-}
-
-// ---- Action Items Panel ----
-function ActionItemsPanel() {
-  const { activePlay, activeGame, addActionItem, currentTime } = useGridironStore();
-  const [showForm, setShowForm] = useState(false);
-  const [title, setTitle] = useState('');
-  const [desc, setDesc] = useState('');
-  const [assignedTo, setAssignedTo] = useState('u1');
-  const [priority, setPriority] = useState<ActionPriority>('MEDIUM');
-
-  const actions = activePlay?.actionItems ?? [];
-
-  const handleCreate = () => {
-    if (!title.trim() || !activePlay || !activeGame) return;
-    addActionItem({
-      id: generateId(),
-      playId: activePlay.id,
-      gameId: activeGame.id,
-      title,
-      description: desc,
-      assignedTo: TEAM_ROSTER.find(u => u.id === assignedTo) ?? TEAM_ROSTER[0],
-      assignedBy: TEAM_ROSTER[8], // Coach Miller
-      priority,
-      status: 'TODO',
-      videoTimestamp: currentTime,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    });
-    setTitle('');
-    setDesc('');
-    setShowForm(false);
-  };
-
-  return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto p-3 space-y-2">
-        {!activePlay ? (
-          <div className="text-center py-8" style={{ color: 'var(--text-muted)' }}>
-            <ListChecks className="w-8 h-8 mx-auto mb-2 opacity-40" />
-            <p className="text-xs">Select a play to view action items</p>
-          </div>
-        ) : actions.length === 0 && !showForm ? (
-          <div className="text-center py-8" style={{ color: 'var(--text-muted)' }}>
-            <ListChecks className="w-8 h-8 mx-auto mb-2 opacity-40" />
-            <p className="text-xs">No action items for Play #{activePlay.playNumber}</p>
-          </div>
-        ) : (
-          actions.map((item) => (
-            <div key={item.id} className="glass-card-sm p-3 animate-fade-in-up">
-              <div className="flex items-start justify-between mb-1">
-                <h4 className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>{item.title}</h4>
-                <span className={`badge text-[9px] ${getPriorityColor(item.priority)}`}>{item.priority}</span>
-              </div>
-              <p className="text-[11px] mb-2" style={{ color: 'var(--text-muted)' }}>{item.description}</p>
-              <div className="flex items-center justify-between">
-                <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-                  → {item.assignedTo.name} {item.assignedTo.jerseyNumber ? `(#${item.assignedTo.jerseyNumber})` : ''}
-                </span>
-                <span className={`badge text-[9px] ${getStatusColor(item.status)}`}>{item.status.replace('_', ' ')}</span>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
-
-      {activePlay && (
-        <div className="p-3 border-t" style={{ borderColor: 'var(--border-primary)' }}>
-          {showForm ? (
-            <div className="space-y-2 animate-fade-in-up">
-              <input placeholder="Action title..." value={title} onChange={(e) => setTitle(e.target.value)}
-                className="input-field text-xs" />
-              <textarea placeholder="Description..." value={desc} onChange={(e) => setDesc(e.target.value)}
-                className="input-field text-xs resize-none" rows={2} />
-              <div className="flex gap-2">
-                <select value={assignedTo} onChange={(e) => setAssignedTo(e.target.value)}
-                  className="input-field text-xs flex-1">
-                  {TEAM_ROSTER.map(u => (
-                    <option key={u.id} value={u.id}>
-                      {u.jerseyNumber ? `#${u.jerseyNumber} ` : ''}{u.name}
-                    </option>
+                <div className="absolute bottom-full right-0 mb-1 bg-slate-900 border border-white/10 rounded-md shadow-xl py-1 z-50 flex flex-col">
+                  {speedOptions.map(rate => (
+                    <button
+                      key={rate}
+                      onClick={() => {
+                        setPlaybackRate(rate);
+                        setShowSpeedMenu(false);
+                      }}
+                      className={`px-3 py-1 text-xs text-left font-mono hover:bg-white/10 ${
+                        playbackRate === rate ? 'text-amber-400 font-bold' : 'text-slate-300'
+                      }`}
+                    >
+                      {rate}x
+                    </button>
                   ))}
-                </select>
-                <select value={priority} onChange={(e) => setPriority(e.target.value as ActionPriority)}
-                  className="input-field text-xs w-28">
-                  <option value="LOW">Low</option>
-                  <option value="MEDIUM">Medium</option>
-                  <option value="HIGH">High</option>
-                  <option value="CRITICAL">Critical</option>
-                </select>
-              </div>
-              <div className="flex gap-2">
-                <button onClick={handleCreate} className="btn-primary text-xs py-1.5 flex-1">Create</button>
-                <button onClick={() => setShowForm(false)} className="btn-ghost text-xs py-1.5">Cancel</button>
-              </div>
+                </div>
+              )}
             </div>
-          ) : (
-            <button onClick={() => setShowForm(true)} className="btn-ghost w-full text-xs justify-center">
-              <Plus className="w-3.5 h-3.5" /> New Action Item
-            </button>
-          )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
 
-// ---- Main Film Room Page ----
+// ============================================================================
+// 3. Play-by-Play Table Component
+// ============================================================================
+
+function PlayByPlayList() {
+  const { activeGame, activePlay, setActivePlay, seekToPlay } = useGridironStore();
+  const plays = activeGame?.plays ?? [];
+
+  return (
+    <div className="flex-1 flex flex-col overflow-hidden bg-slate-950 border border-white/10 rounded-lg">
+      <div className="p-3 border-b border-white/10 flex items-center justify-between bg-slate-900/60">
+        <div className="flex items-center gap-2 font-bold text-sm text-white">
+          <Target className="w-4 h-4 text-amber-400" />
+          Play Ledger ({plays.length} Plays Detected)
+        </div>
+        <span className="text-[11px] font-mono text-slate-400">
+          Peddie Falcons 2025 Film
+        </span>
+      </div>
+
+      <div className="flex-1 overflow-y-auto divide-y divide-white/5">
+        {plays.map(play => {
+          const isSelected = activePlay?.id === play.id;
+          return (
+            <div
+              key={play.id}
+              onClick={() => {
+                setActivePlay(play.id);
+                seekToPlay(play);
+              }}
+              className={`p-3 cursor-pointer transition-all ${
+                isSelected
+                  ? 'bg-amber-500/15 border-l-4 border-amber-400'
+                  : 'hover:bg-white/5'
+              }`}
+            >
+              <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center gap-2">
+                  <span className="font-mono text-xs font-bold text-white">
+                    #{play.playNumber}
+                  </span>
+                  <span className="text-xs text-slate-400 font-semibold">
+                    Q{play.quarter} · {play.gameClock}
+                  </span>
+                  <span className="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-bold text-amber-300">
+                    {play.down}&{play.distance}
+                  </span>
+                </div>
+                <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${getEpaColor(play.epa)}`}>
+                  {play.epa >= 0 ? `+${play.epa.toFixed(2)}` : play.epa.toFixed(2)} EPA
+                </span>
+              </div>
+
+              <div className="text-xs text-slate-300 font-medium mb-1.5 line-clamp-2">
+                {play.playDescription}
+              </div>
+
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <span className={`badge text-[9px] px-1.5 py-0.2 font-bold ${getPlayTypeBadgeColor(play.playType)}`}>
+                  {play.playType}
+                </span>
+                {play.motionType !== 'NONE' && (
+                  <span className="badge badge-motion text-[9px] px-1.5 py-0.2">
+                    {play.motionType}
+                  </span>
+                )}
+                <span className="badge badge-coverage text-[9px] px-1.5 py-0.2">
+                  {play.coverageScheme}
+                </span>
+                <span className="text-[10px] font-mono text-slate-400 ml-auto">
+                  +{play.yardsGained} yds
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// 4. Collaborative Comments & @Mention Feed
+// ============================================================================
+
+function CommentFeed() {
+  const { activeGame, activePlay, currentTime } = useGridironStore();
+  const [commentText, setCommentText] = useState('');
+  const [showMentions, setShowMentions] = useState(false);
+  const [mentionFilter, setMentionFilter] = useState('');
+
+  const plays = activeGame?.plays ?? [];
+  const currentComments = activePlay ? activePlay.comments : plays.flatMap(p => p.comments);
+
+  const handleSend = () => {
+    if (!commentText.trim()) return;
+    // Add comment logic
+    setCommentText('');
+  };
+
+  return (
+    <div className="flex-1 flex flex-col overflow-hidden bg-slate-950 border border-white/10 rounded-lg">
+      <div className="p-3 border-b border-white/10 flex items-center justify-between bg-slate-900/60">
+        <div className="flex items-center gap-2 font-bold text-sm text-white">
+          <MessageSquare className="w-4 h-4 text-cyan-400" />
+          Coaching Thread & @Mentions
+        </div>
+        <span className="text-[11px] font-mono text-slate-400">
+          {currentComments.length} Notes
+        </span>
+      </div>
+
+      <div className="flex-1 overflow-y-auto p-3 space-y-3">
+        {currentComments.map(comment => (
+          <div key={comment.id} className="p-2.5 rounded-lg bg-white/5 border border-white/5 space-y-1.5">
+            <div className="flex items-center justify-between text-xs">
+              <div className="flex items-center gap-1.5">
+                <span className="font-bold text-amber-300">{comment.author.name}</span>
+                <span className="text-[10px] text-slate-400">({comment.author.position || comment.author.role})</span>
+              </div>
+              <span className="text-[10px] font-mono text-cyan-400">
+                {formatTime(comment.timestamp)}
+              </span>
+            </div>
+            <p className="text-xs text-slate-200 leading-relaxed">
+              {comment.text}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div className="p-3 border-t border-white/10 bg-slate-900/80">
+        <div className="flex gap-2">
+          <input
+            type="text"
+            placeholder="Type comment or @player (e.g. @#2_McFarland)..."
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            className="flex-1 px-3 py-1.5 rounded-md bg-slate-950 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+          />
+          <button
+            onClick={handleSend}
+            className="px-3 py-1.5 rounded-md bg-amber-500 text-slate-950 font-bold text-xs hover:bg-amber-400 transition-colors flex items-center gap-1"
+          >
+            <Send className="w-3.5 h-3.5" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================================
+// 5. Main Film Room Page Shell
+// ============================================================================
+
 export default function FilmRoomPage() {
   const params = useParams();
   const gameId = params.id as string;
-  const { setActiveGame, activeGame, activeTab, setActiveTab } = useGridironStore();
+  const { setActiveGame, activeGame } = useGridironStore();
+  const [activeTab, setActiveTab] = useState<'plays' | 'comments'>('plays');
 
   useEffect(() => {
     setActiveGame(gameId);
@@ -793,86 +954,67 @@ export default function FilmRoomPage() {
 
   if (!activeGame) {
     return (
-      <div className="flex items-center justify-center h-[calc(100vh-56px)]" style={{ color: 'var(--text-muted)' }}>
+      <div className="flex items-center justify-center h-[calc(100vh-56px)] text-slate-400">
         <div className="text-center">
-          <Film className="w-12 h-12 mx-auto mb-4 opacity-40" />
-          <p className="text-lg font-semibold mb-2">Loading Film Room...</p>
-          <p className="text-sm">Game session not found. Go back to import a game.</p>
+          <Film className="w-12 h-12 mx-auto mb-4 opacity-40 animate-pulse text-amber-400" />
+          <p className="text-lg font-semibold mb-2 text-white">Loading Peddie Falcons Film Room...</p>
+          <p className="text-sm">Fetching Hudl all-22 game footage and tracking models.</p>
         </div>
       </div>
     );
   }
 
-  const tabConfig = [
-    { key: 'plays' as const, label: 'Plays', icon: Target, count: activeGame.plays.length },
-    { key: 'comments' as const, label: 'Comments', icon: MessageSquare, count: activeGame.plays.reduce((s, p) => s + p.comments.length, 0) },
-    { key: 'actions' as const, label: 'Actions', icon: ListChecks, count: activeGame.plays.reduce((s, p) => s + p.actionItems.length, 0) },
-  ];
-
   return (
-    <div className="flex h-[calc(100vh-56px)] overflow-hidden">
-      {/* Left: Video + Controls */}
-      <div className="flex-1 flex flex-col min-w-0">
-        <VideoPlayer />
-
-        {/* Quick Play Info Bar */}
-        <div className="flex items-center gap-4 px-4 py-2 border-b overflow-x-auto"
-          style={{ borderColor: 'var(--border-primary)', background: 'var(--bg-secondary)' }}>
-          <div className="flex items-center gap-2 shrink-0">
-            <Zap className="w-4 h-4" style={{ color: 'var(--accent-primary)' }} />
-            <span className="text-xs font-semibold" style={{ color: 'var(--text-primary)' }}>
+    <div className="flex h-[calc(100vh-56px)] bg-slate-950 overflow-hidden">
+      {/* Left 70%: Video Player with Dynamic 22-Player Tracking Overlay */}
+      <div className="flex-1 flex flex-col p-4 min-w-0 overflow-hidden">
+        <div className="flex items-center justify-between mb-3">
+          <div>
+            <h1 className="text-lg font-bold text-white flex items-center gap-2">
+              <Film className="w-5 h-5 text-amber-400" />
               {activeGame.title}
-            </span>
+            </h1>
+            <p className="text-xs text-slate-400 mt-0.5">
+              {activeGame.homeTeam} vs {activeGame.awayTeam} · {activeGame.season} · Hudl 2025 Reel
+            </p>
           </div>
-          <div className="flex items-center gap-3 text-xs" style={{ color: 'var(--text-muted)' }}>
-            <span>{activeGame.plays.length} plays</span>
-            <span>·</span>
-            <span>{activeGame.plays.filter(p => p.motionType !== 'NONE').length} with motion</span>
-            <span>·</span>
-            <span>{activeGame.plays.filter(p => p.isTouchdown).length} TDs</span>
-            <span>·</span>
-            <span className={getEpaColor(activeGame.plays.reduce((s, p) => s + p.epa, 0) / (activeGame.plays.length || 1))}>
-              {(activeGame.plays.reduce((s, p) => s + p.epa, 0) / (activeGame.plays.length || 1)).toFixed(2)} avg EPA
-            </span>
-          </div>
+        </div>
+
+        <div className="flex-1 overflow-hidden">
+          <VideoPlayer />
         </div>
       </div>
 
-      {/* Right: Sidebar */}
-      <div className="w-[380px] shrink-0 flex flex-col border-l"
-        style={{ borderColor: 'var(--border-primary)', background: 'var(--bg-secondary)' }}>
-        {/* Tabs */}
-        <div className="flex border-b" style={{ borderColor: 'var(--border-primary)' }}>
-          {tabConfig.map(tab => (
-            <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
-              className={`tab-button flex-1 flex items-center justify-center gap-1.5 py-3 ${activeTab === tab.key ? 'active' : ''}`}
-            >
-              <tab.icon className="w-3.5 h-3.5" />
-              {tab.label}
-              <span className="text-[10px] px-1.5 rounded-full font-semibold"
-                style={{
-                  background: activeTab === tab.key ? 'rgba(99, 102, 241, 0.15)' : 'var(--bg-tertiary)',
-                  color: activeTab === tab.key ? 'var(--accent-primary)' : 'var(--text-muted)',
-                }}>
-                {tab.count}
-              </span>
-            </button>
-          ))}
+      {/* Right 30%: Play Ledger & Coaching Feed */}
+      <div className="w-96 flex flex-col p-4 pl-0 gap-3 border-l border-white/10 bg-slate-900/40">
+        {/* Tab switcher */}
+        <div className="flex bg-slate-950 p-1 rounded-lg border border-white/10">
+          <button
+            onClick={() => setActiveTab('plays')}
+            className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all flex items-center justify-center gap-1.5 ${
+              activeTab === 'plays'
+                ? 'bg-amber-500 text-slate-950 shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <Target className="w-3.5 h-3.5" />
+            Plays ({activeGame.plays.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('comments')}
+            className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all flex items-center justify-center gap-1.5 ${
+              activeTab === 'comments'
+                ? 'bg-amber-500 text-slate-950 shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <MessageSquare className="w-3.5 h-3.5" />
+            Coaching Notes
+          </button>
         </div>
 
         {/* Tab Content */}
-        <div className="flex-1 overflow-hidden">
-          {activeTab === 'plays' && (
-            <div className="h-full flex flex-col">
-              <PlayFilterBar />
-              <PlayByPlayTable />
-            </div>
-          )}
-          {activeTab === 'comments' && <CommentThread />}
-          {activeTab === 'actions' && <ActionItemsPanel />}
-        </div>
+        {activeTab === 'plays' ? <PlayByPlayList /> : <CommentFeed />}
       </div>
     </div>
   );

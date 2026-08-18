@@ -6,6 +6,7 @@ import {
   Upload, Link, PlayCircle, ArrowRight, Video,
   Zap, BarChart3, Users, MessageSquare, Target,
   ChevronRight, Film, Sparkles, Shield, TrendingUp,
+  Activity, Award
 } from 'lucide-react';
 import { useGridironStore } from '@/lib/store';
 import { MOCK_GAMES } from '@/lib/mock-game-data';
@@ -32,15 +33,15 @@ export default function HomePage() {
     try {
       const formData = new FormData();
       formData.append('videoUrl', videoUrl);
-      formData.append('title', title || 'New Game Film');
-      formData.append('homeTeam', homeTeam || 'Home');
-      formData.append('awayTeam', awayTeam || 'Away');
+      formData.append('title', title || 'Peddie Falcons 2025 Film Session');
+      formData.append('homeTeam', homeTeam || 'Peddie Falcons');
+      formData.append('awayTeam', awayTeam || 'Opponent');
 
       const res = await fetch('/api/ingest', { method: 'POST', body: formData });
       const data = await res.json();
 
       if (data.success) {
-        // Auto-analyze with mock engine
+        // Auto-analyze with mock vision engine
         const analyzeRes = await fetch('/api/analyze', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -52,31 +53,14 @@ export default function HomePage() {
           ...data.game,
           plays: analyzeData.plays ?? [],
           analysisStatus: 'COMPLETED',
-          duration: 180,
+          duration: 3600,
         };
 
         addGame(newGame);
         router.push(`/dashboard/film-room/${newGame.id}`);
       }
-    } catch {
-      // Fallback: add directly with mock data
-      const mockGame: GameSession = {
-        id: generateId(),
-        title: title || 'New Game Film',
-        homeTeam: homeTeam || 'Home',
-        awayTeam: awayTeam || 'Away',
-        date: new Date().toISOString().split('T')[0],
-        season: '2024',
-        videoUrl: videoUrl || '/mock',
-        videoSource: videoUrl.includes('youtube') ? 'YOUTUBE' : videoUrl.includes('hudl') ? 'HUDL' : 'FILE_UPLOAD',
-        duration: 180,
-        analysisStatus: 'COMPLETED',
-        plays: MOCK_GAMES[0].plays.map(p => ({ ...p, gameId: generateId() })),
-        createdAt: new Date().toISOString(),
-        updatedAt: new Date().toISOString(),
-      };
-      addGame(mockGame);
-      router.push(`/dashboard/film-room/${mockGame.id}`);
+    } catch (e) {
+      console.error(e);
     } finally {
       setIsLoading(false);
     }
@@ -85,224 +69,225 @@ export default function HomePage() {
   const handleDrop = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(false);
-    const file = e.dataTransfer.files[0];
-    if (file && (file.type.startsWith('video/') || file.name.match(/\.(mp4|mov|webm)$/i))) {
-      setTitle(file.name.replace(/\.[^.]+$/, ''));
-      setVideoUrl(`file://${file.name}`);
+    const files = Array.from(e.dataTransfer.files);
+    if (files.length > 0) {
+      const file = files[0];
+      setTitle(file.name.replace(/\.[^/.]+$/, ''));
+      setVideoUrl(URL.createObjectURL(file));
     }
   }, []);
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setTitle(file.name.replace(/\.[^.]+$/, ''));
-      setVideoUrl(`file://${file.name}`);
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      const file = files[0];
+      setTitle(file.name.replace(/\.[^/.]+$/, ''));
+      setVideoUrl(URL.createObjectURL(file));
     }
   };
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-primary)' }}>
-      {/* Ambient background */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full opacity-[0.03]"
-          style={{ background: 'radial-gradient(circle, var(--accent-primary), transparent 70%)' }} />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full opacity-[0.03]"
-          style={{ background: 'radial-gradient(circle, var(--accent-secondary), transparent 70%)' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-[0.02]"
-          style={{ background: 'radial-gradient(circle, var(--accent-emerald), transparent 60%)' }} />
-      </div>
+    <div className="min-h-screen bg-[#07070c] text-white relative overflow-hidden">
+      {/* Dynamic Background Glows */}
+      <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[130px] pointer-events-none" />
+      <div className="absolute top-[30%] right-[-15%] w-[600px] h-[600px] rounded-full bg-blue-600/10 blur-[150px] pointer-events-none" />
 
-      {/* Navigation */}
-      <nav className="relative z-10 flex items-center justify-between px-8 py-5 border-b"
-        style={{ borderColor: 'var(--border-primary)', background: 'rgba(10, 10, 15, 0.8)', backdropFilter: 'blur(12px)' }}>
+      {/* Top Navigation */}
+      <nav className="relative z-20 max-w-7xl mx-auto px-6 py-4 flex items-center justify-between border-b border-white/10">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-            style={{ background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-secondary))' }}>
-            <Shield className="w-5 h-5 text-white" />
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
+            <Shield className="w-5 h-5 text-slate-950 font-bold" />
           </div>
           <div>
-            <h1 className="text-lg font-bold" style={{ color: 'var(--text-primary)' }}>GridironIQ</h1>
-            <p className="text-xs" style={{ color: 'var(--text-muted)' }}>AI Film Analytics</p>
+            <div className="flex items-center gap-2">
+              <h1 className="text-base font-black tracking-tight text-white font-mono">GRIDIRON IQ</h1>
+              <span className="px-2 py-0.5 rounded bg-amber-400/20 border border-amber-400/40 text-[10px] font-bold text-amber-300">
+                2025 PEDDIE FALCONS HUDL
+              </span>
+            </div>
+            <p className="text-[11px] text-slate-400 font-medium">Multimodal Football Sports Vision AI</p>
           </div>
         </div>
 
         {games.length > 0 && (
           <button
             onClick={() => router.push(`/dashboard/film-room/${games[0].id}`)}
-            className="btn-ghost text-sm"
+            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs hover:bg-amber-400 transition-all shadow-md"
           >
             <Film className="w-4 h-4" />
-            Open Film Room
-            <ChevronRight className="w-3 h-3" />
+            Open 2025 Peddie Film Room
+            <ChevronRight className="w-3.5 h-3.5" />
           </button>
         )}
       </nav>
 
-      {/* Hero Section */}
-      <main className="relative z-10 max-w-6xl mx-auto px-6 pt-16 pb-24">
-        <div className="text-center mb-16 animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full mb-6 text-sm font-medium"
-            style={{ background: 'rgba(99, 102, 241, 0.1)', color: 'var(--accent-primary)', border: '1px solid rgba(99, 102, 241, 0.2)' }}>
-            <Sparkles className="w-4 h-4" />
-            AI-Powered Football Film Analysis
+      {/* Main Hero & Ingestion Hub */}
+      <main className="relative z-10 max-w-6xl mx-auto px-6 pt-12 pb-20">
+        {/* Banner */}
+        <div className="text-center mb-12 animate-fade-in-up">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
+            <Award className="w-3.5 h-3.5" />
+            2024–2025 Peddie School Falcons Varsity Football · Hudl Film Engine
           </div>
-          <h2 className="text-5xl md:text-6xl font-black tracking-tight mb-5"
-            style={{ color: 'var(--text-primary)', lineHeight: 1.1 }}>
-            Break Down Film.<br />
-            <span style={{ background: 'linear-gradient(135deg, var(--accent-primary), var(--accent-cyan))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-              Elevate Your Game.
+          <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
+            All-22 Film Breakdown with<br />
+            <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-cyan-400 bg-clip-text text-transparent">
+              Dynamic 22-Man X's & O's Tracking
             </span>
           </h2>
-          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-secondary)' }}>
-            Drop a YouTube link, Hudl URL, or upload game footage. Our AI identifies every play,
-            tracks pre-snap motions, and generates coaching-grade analytics in seconds.
+          <p className="text-sm md:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
+            Ingest Hudl reels, YouTube streams, or raw camera files. Automatically detect pre-snap motions, route concepts, and render every Offense player as <strong className="text-amber-400">'O'</strong> and Defense as <strong className="text-red-400">'X'</strong> with sub-second accuracy.
           </p>
         </div>
 
-        {/* Import Card */}
-        <div className="max-w-2xl mx-auto mb-16 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
-          <div className="glass-card glow-border p-8">
-            <h3 className="text-xl font-bold mb-6 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-              <Zap className="w-5 h-5" style={{ color: 'var(--accent-primary)' }} />
-              Import Game Footage
+        {/* Ingest Form Card */}
+        <div className="max-w-2xl mx-auto mb-16 bg-slate-900/80 border border-white/10 rounded-2xl p-6 md:p-8 backdrop-blur-xl shadow-2xl">
+          <div className="flex items-center justify-between mb-5">
+            <h3 className="text-lg font-bold text-white flex items-center gap-2">
+              <Zap className="w-4 h-4 text-amber-400" />
+              Import Hudl or Game Film
             </h3>
-
-            {/* Drag & Drop Zone */}
-            <div
-              className={`relative border-2 border-dashed rounded-xl p-8 text-center mb-6 transition-all cursor-pointer ${isDragging ? 'scale-[1.02]' : ''}`}
-              style={{
-                borderColor: isDragging ? 'var(--accent-primary)' : 'var(--border-primary)',
-                background: isDragging ? 'rgba(99, 102, 241, 0.05)' : 'transparent',
-              }}
-              onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
-              onDragLeave={() => setIsDragging(false)}
-              onDrop={handleDrop}
-              onClick={() => fileInputRef.current?.click()}
-            >
-              <input ref={fileInputRef} type="file" accept="video/*,.mp4,.mov,.webm" className="hidden" onChange={handleFileSelect} />
-              <Upload className="w-10 h-10 mx-auto mb-3" style={{ color: isDragging ? 'var(--accent-primary)' : 'var(--text-muted)' }} />
-              <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
-                Drag & drop video file or <span style={{ color: 'var(--accent-primary)' }}>browse</span>
-              </p>
-              <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>.mp4, .mov, .webm supported</p>
-            </div>
-
-            {/* URL Input */}
-            <div className="relative mb-4">
-              <div className="absolute left-3 top-1/2 -translate-y-1/2 flex items-center gap-2" style={{ color: 'var(--text-muted)' }}>
-                <Link className="w-4 h-4" />
-              </div>
-              <input
-                type="url"
-                placeholder="Paste YouTube URL, Hudl link, or video URL..."
-                value={videoUrl}
-                onChange={(e) => setVideoUrl(e.target.value)}
-                className="input-field pl-10"
-              />
-              {videoUrl.includes('youtube') && <Video className="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-red-500" />}
-            </div>
-
-            {/* Game Info */}
-            <div className="grid grid-cols-3 gap-3 mb-6">
-              <input placeholder="Game Title" value={title} onChange={(e) => setTitle(e.target.value)} className="input-field" />
-              <input placeholder="Home Team" value={homeTeam} onChange={(e) => setHomeTeam(e.target.value)} className="input-field" />
-              <input placeholder="Away Team" value={awayTeam} onChange={(e) => setAwayTeam(e.target.value)} className="input-field" />
-            </div>
-
-            {/* Submit */}
-            <button
-              onClick={handleIngest}
-              disabled={isLoading || (!videoUrl && !title)}
-              className="btn-primary w-full justify-center text-base py-3 disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              {isLoading ? (
-                <>
-                  <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                  Analyzing Film...
-                </>
-              ) : (
-                <>
-                  <PlayCircle className="w-5 h-5" />
-                  Start Analysis
-                  <ArrowRight className="w-4 h-4" />
-                </>
-              )}
-            </button>
+            <span className="text-xs font-mono text-slate-400">Hudl URL · YouTube · File Upload</span>
           </div>
+
+          {/* Drag & Drop */}
+          <div
+            className={`border-2 border-dashed rounded-xl p-6 text-center mb-4 transition-all cursor-pointer ${
+              isDragging ? 'border-amber-400 bg-amber-500/10 scale-[1.01]' : 'border-white/10 hover:border-white/20 bg-slate-950/40'
+            }`}
+            onDragOver={(e) => { e.preventDefault(); setIsDragging(true); }}
+            onDragLeave={() => setIsDragging(false)}
+            onDrop={handleDrop}
+            onClick={() => fileInputRef.current?.click()}
+          >
+            <input ref={fileInputRef} type="file" accept="video/*,.mp4,.mov,.webm" className="hidden" onChange={handleFileSelect} />
+            <Upload className="w-8 h-8 mx-auto mb-2 text-slate-400" />
+            <p className="text-xs font-semibold text-slate-200">
+              Drag and drop all-22 footage or <span className="text-amber-400 underline">browse files</span>
+            </p>
+            <p className="text-[11px] text-slate-500 mt-0.5">Supports .mp4, .mov, .webm</p>
+          </div>
+
+          {/* URL Input */}
+          <div className="relative mb-4">
+            <div className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">
+              <Link className="w-4 h-4" />
+            </div>
+            <input
+              type="url"
+              placeholder="Paste Hudl film URL (e.g. https://fan.hudl.com/peddie-blair-2025)..."
+              value={videoUrl}
+              onChange={(e) => setVideoUrl(e.target.value)}
+              className="w-full pl-9 pr-4 py-2.5 rounded-lg bg-slate-950 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-mono"
+            />
+          </div>
+
+          {/* Metadata Grid */}
+          <div className="grid grid-cols-3 gap-2.5 mb-5">
+            <input
+              placeholder="Game Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="px-3 py-2 rounded-lg bg-slate-950 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+            />
+            <input
+              placeholder="Home Team (e.g. Peddie Falcons)"
+              value={homeTeam}
+              onChange={(e) => setHomeTeam(e.target.value)}
+              className="px-3 py-2 rounded-lg bg-slate-950 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+            />
+            <input
+              placeholder="Away Team (e.g. Blair Buccaneers)"
+              value={awayTeam}
+              onChange={(e) => setAwayTeam(e.target.value)}
+              className="px-3 py-2 rounded-lg bg-slate-950 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+            />
+          </div>
+
+          <button
+            onClick={handleIngest}
+            disabled={isLoading || (!videoUrl && !title)}
+            className="w-full py-3 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider hover:opacity-95 transition-all shadow-lg disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          >
+            {isLoading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-slate-950 border-t-transparent rounded-full animate-spin" />
+                Analyzing Peddie Falcons Film...
+              </>
+            ) : (
+              <>
+                <PlayCircle className="w-4 h-4" />
+                Analyze Game Film
+                <ArrowRight className="w-4 h-4" />
+              </>
+            )}
+          </button>
         </div>
 
-        {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-16 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+        {/* Feature Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5 mb-14">
           {[
-            { icon: Target, title: 'Pre-Snap Motion Detection', desc: 'Jet sweeps, orbit, fly motions — automatically identified with defensive reactions.' },
-            { icon: BarChart3, title: 'EPA Analytics', desc: 'Expected Points Added, success rates, and motion tendency breakdowns per play.' },
-            { icon: MessageSquare, title: '@Mention Collaboration', desc: 'Tag coaches and players with timestamped comments directly on the film.' },
-            { icon: TrendingUp, title: 'Scouting Reports', desc: 'One-click PDF exports with tendencies, heatmaps, and coaching action items.' },
+            { icon: Users, title: "22-Man X's & O's Tracking", desc: "Offense rendered as 'O' (Peddie) and Defense as 'X' with real-time trajectory vectors." },
+            { icon: Target, title: "Pre-Snap Motion Engine", desc: "Jet sweeps, orbit motions, and TE trades with motion velocity and defensive reaction tagging." },
+            { icon: BarChart3, title: "Coaching-Grade EPA", desc: "Expected Points Added & situational conversion matrices for Coach Mark Fabish." },
+            { icon: MessageSquare, title: "@Mention Team Hub", desc: "Tag players like @#2_McFarland, @#20_Navarrete, and assign coaching action items." },
           ].map((feat, i) => (
-            <div key={i} className="metric-card group">
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4 transition-transform group-hover:scale-110"
-                style={{ background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.15))' }}>
-                <feat.icon className="w-5 h-5" style={{ color: 'var(--accent-primary)' }} />
+            <div key={i} className="p-4 rounded-xl bg-slate-900/60 border border-white/10 hover:border-amber-400/40 transition-all group">
+              <div className="w-9 h-9 rounded-lg bg-amber-500/15 flex items-center justify-center mb-3 text-amber-400 group-hover:scale-110 transition-transform">
+                <feat.icon className="w-4 h-4" />
               </div>
-              <h4 className="font-semibold text-sm mb-2" style={{ color: 'var(--text-primary)' }}>{feat.title}</h4>
-              <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>{feat.desc}</p>
+              <h4 className="text-xs font-bold text-white mb-1">{feat.title}</h4>
+              <p className="text-[11px] text-slate-400 leading-relaxed">{feat.desc}</p>
             </div>
           ))}
         </div>
 
-        {/* Recent Games */}
-        {games.length > 0 && (
-          <div className="animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <h3 className="text-lg font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--text-primary)' }}>
-              <Film className="w-5 h-5" style={{ color: 'var(--accent-primary)' }} />
-              Recent Game Sessions
+        {/* Featured 2025 Peddie School Falcons Hudl Sessions */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-base font-bold text-white flex items-center gap-2">
+              <Film className="w-4 h-4 text-amber-400" />
+              Featured 2025 Peddie School Falcons Game Film
             </h3>
-            <div className="grid gap-3">
-              {games.map((game) => (
-                <div
-                  key={game.id}
-                  onClick={() => router.push(`/dashboard/film-room/${game.id}`)}
-                  className="glass-card-sm p-5 flex items-center justify-between cursor-pointer hover:border-[var(--border-hover)] transition-all group"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-lg flex items-center justify-center"
-                      style={{ background: game.analysisStatus === 'COMPLETED' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(245, 158, 11, 0.1)' }}>
-                      {game.analysisStatus === 'COMPLETED' ? (
-                        <PlayCircle className="w-6 h-6" style={{ color: 'var(--accent-emerald)' }} />
-                      ) : (
-                        <div className="w-5 h-5 border-2 rounded-full animate-spin" style={{ borderColor: 'var(--accent-amber)', borderTopColor: 'transparent' }} />
-                      )}
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-sm" style={{ color: 'var(--text-primary)' }}>{game.title}</h4>
-                      <p className="text-xs mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                        {game.homeTeam} vs {game.awayTeam} · {game.date} · {game.plays.length} plays
-                      </p>
-                    </div>
+            <span className="text-xs text-slate-400 font-mono">MAPL Conference Schedule</span>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
+            {games.map(game => (
+              <div
+                key={game.id}
+                onClick={() => router.push(`/dashboard/film-room/${game.id}`)}
+                className="p-4 rounded-xl bg-slate-900/80 border border-white/10 hover:border-amber-400/60 hover:bg-slate-900 transition-all cursor-pointer group shadow-lg flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3.5">
+                  <div className="w-12 h-12 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-300 group-hover:scale-105 transition-transform shrink-0">
+                    <PlayCircle className="w-6 h-6" />
                   </div>
-                  <div className="flex items-center gap-3">
-                    <span className="badge" style={{
-                      background: game.videoSource === 'YOUTUBE' ? 'rgba(239, 68, 68, 0.1)' : game.videoSource === 'HUDL' ? 'rgba(245, 158, 11, 0.1)' : 'rgba(99, 102, 241, 0.1)',
-                      color: game.videoSource === 'YOUTUBE' ? '#ef4444' : game.videoSource === 'HUDL' ? '#f59e0b' : 'var(--accent-primary)',
-                      borderColor: 'transparent',
-                    }}>
-                      {game.videoSource === 'YOUTUBE' && <Video className="w-3 h-3" />}
-                      {game.videoSource}
-                    </span>
-                    <ChevronRight className="w-4 h-4 transition-transform group-hover:translate-x-1" style={{ color: 'var(--text-muted)' }} />
+                  <div>
+                    <h4 className="text-xs font-bold text-white group-hover:text-amber-300 transition-colors">
+                      {game.title}
+                    </h4>
+                    <p className="text-[11px] text-slate-400 mt-0.5">
+                      {game.homeTeam} vs {game.awayTeam} · {game.date} · <span className="text-amber-400 font-bold">{game.plays.length} plays</span>
+                    </p>
                   </div>
                 </div>
-              ))}
-            </div>
+
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-0.5 rounded bg-amber-400/10 border border-amber-400/30 text-[10px] font-bold text-amber-300">
+                    HUDL FILM
+                  </span>
+                  <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all" />
+                </div>
+              </div>
+            ))}
           </div>
-        )}
+        </div>
       </main>
 
       {/* Footer */}
-      <footer className="relative z-10 text-center py-8 border-t" style={{ borderColor: 'var(--border-primary)' }}>
-        <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-          GridironIQ © {new Date().getFullYear()} · AI-Powered Football Film Analytics · Built for Coaches
-        </p>
+      <footer className="relative z-10 text-center py-6 border-t border-white/10 text-[11px] text-slate-500 font-mono">
+        GridironIQ © 2025 · 2025 Peddie School Falcons Football (Hudl Edition) · Built for Coaches & Analysts
       </footer>
     </div>
   );

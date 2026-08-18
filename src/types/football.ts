@@ -131,6 +131,39 @@ export interface TelestrationStroke {
   timestamp: number;
 }
 
+// --- Dynamic 22-Player Tracking Overlay Types (X's & O's) ---
+
+export interface PlayerTrackingPoint {
+  x: number; // 0 to 100 on field percentage (width)
+  y: number; // 0 to 100 on field percentage (length/depth)
+}
+
+export interface TrackedPlayer {
+  id: string;
+  side: 'OFFENSE' | 'DEFENSE'; // OFFENSE = 'O', DEFENSE = 'X'
+  jerseyNumber: number;
+  name: string;
+  position: string;
+  isTargetOrBallCarrier?: boolean;
+  isMotionPlayer?: boolean;
+  // Dynamic trajectory points across 4 phases: [preSnap, motion, snap, postSnap]
+  trajectory: {
+    preSnap: PlayerTrackingPoint;
+    motion?: PlayerTrackingPoint;
+    snap: PlayerTrackingPoint;
+    postSnap: PlayerTrackingPoint;
+  };
+  vectorLabel?: string; // e.g. "Jet Sweep 22.4 mph", "Deep Post 18 yds", "B-Gap Blitz"
+}
+
+export interface PlayTrackingData {
+  offense: TrackedPlayer[]; // 11 O's (Peddie Falcons)
+  defense: TrackedPlayer[]; // 11 X's (Opponent)
+  lineOfScrimmageY: number; // Yardline %
+  firstDownY: number; // 1st Down marker %
+  playConceptName?: string; // e.g. "Peddie Orbit Mesh Wheel vs Cover 3"
+}
+
 // --- Play Analysis (Core Model) ---
 
 export interface PlayAnalysis {
@@ -184,6 +217,9 @@ export interface PlayAnalysis {
   comments: PlayComment[];
   actionItems: CoachingActionItem[];
   telestrationStrokes: TelestrationStroke[];
+
+  // 22-Player Tracking Overlay Data (11 O's & 11 X's)
+  trackingData?: PlayTrackingData;
 }
 
 // --- Game Session ---

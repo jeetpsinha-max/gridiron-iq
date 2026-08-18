@@ -5,7 +5,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { generateId } from '@/lib/utils';
 import { CoachingActionItem, ActionItemStatus, ActionPriority } from '@/types/football';
-import { MOCK_GAMES } from '@/lib/mock-game-data';
+import { MOCK_GAMES, TEAM_ROSTER } from '@/lib/mock-game-data';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
