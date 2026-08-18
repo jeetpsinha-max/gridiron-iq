@@ -677,6 +677,76 @@ function VideoPlayer() {
           </div>
         )}
 
+        {/* Live Telemetry & AI Coach HUD Floating Card (Top Right) */}
+        {activePlay && (
+          <div className="absolute top-14 right-4 z-30 font-mono flex flex-col gap-2 max-w-xs pointer-events-auto">
+            <div className="bg-slate-950/90 border border-white/15 rounded-xl p-3 backdrop-blur-md shadow-2xl space-y-2">
+              <div className="flex items-center justify-between border-b border-white/10 pb-1.5">
+                <span className="text-[10px] uppercase font-bold tracking-wider text-amber-400 flex items-center gap-1.5">
+                  <Gauge className="w-3.5 h-3.5" /> Live HUD Telemetry
+                </span>
+                <span className={`text-[10px] font-black px-1.5 py-0.5 rounded ${
+                  activePlay.epa >= 0 ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
+                }`}>
+                  {activePlay.epa >= 0 ? `+${activePlay.epa.toFixed(2)} EPA` : `${activePlay.epa.toFixed(2)} EPA`}
+                </span>
+              </div>
+
+              {/* Motion & Concept Metrics */}
+              <div className="grid grid-cols-2 gap-2 text-[11px]">
+                <div className="bg-white/5 p-1.5 rounded-lg border border-white/5">
+                  <span className="text-[9px] text-slate-400 uppercase block">Pre-Snap Motion</span>
+                  <span className="font-bold text-cyan-300 flex items-center gap-1">
+                    {activePlay.motionType !== 'NONE' ? (
+                      <>
+                        <Zap className="w-3 h-3 text-amber-400 animate-pulse" />
+                        {activePlay.motionType} ({activePlay.motionDirection || 'DIR'})
+                      </>
+                    ) : (
+                      'STATIC SET'
+                    )}
+                  </span>
+                </div>
+
+                <div className="bg-white/5 p-1.5 rounded-lg border border-white/5">
+                  <span className="text-[9px] text-slate-400 uppercase block">Coverage Shell</span>
+                  <span className="font-bold text-amber-300">
+                    {activePlay.coverageScheme.replace(/_/g, ' ')}
+                  </span>
+                </div>
+              </div>
+
+              {/* Playmaker & Target Highlight */}
+              <div className="bg-white/5 p-2 rounded-lg border border-white/5 flex items-center justify-between text-xs">
+                <div>
+                  <span className="text-[9px] text-slate-400 uppercase block">
+                    {activePlay.unit === 'DEFENSE' ? 'Defensive Stop / Impact' : 'Target / Primary Ballcarrier'}
+                  </span>
+                  <span className="font-bold text-white">
+                    {activePlay.unit === 'DEFENSE'
+                      ? (activePlay.defensivePlayMakerName ? `#${activePlay.defensivePlayMakerJersey} ${activePlay.defensivePlayMakerName}` : 'Team Swarm Defense')
+                      : (activePlay.targetPlayerJersey ? `#${activePlay.targetPlayerJersey} Target` : 'Falcons Backfield')}
+                  </span>
+                </div>
+                {activePlay.motionType !== 'NONE' && (
+                  <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">
+                    +0.82 Motion Lift
+                  </span>
+                )}
+              </div>
+
+              {/* Direct Link to Offensive Coach Counter */}
+              <Link
+                href={`/dashboard/offensive-coach/${activeGame?.id || 'peddie-blair-2025'}`}
+                className="w-full flex items-center justify-center gap-1.5 py-1.5 px-3 rounded-lg bg-gradient-to-r from-amber-500 to-amber-400 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs transition-all shadow-md hover:shadow-amber-500/20"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>AI Coach Counter Synthesizer →</span>
+              </Link>
+            </div>
+          </div>
+        )}
+
         {/* Bottom Play Concept Description Bar */}
         {activePlay && (
           <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 border border-white/10 rounded-lg p-2.5 z-20 backdrop-blur-md shadow-lg flex items-center justify-between">
@@ -757,8 +827,8 @@ function VideoPlayer() {
 
         {/* Play-by-Play Transport Controls & Loop / Auto-Advance Toggles */}
         <div className="flex items-center justify-between flex-wrap gap-2 font-mono">
-          {/* Play-by-Play Step Controls */}
-          <div className="flex items-center gap-2">
+          {/* Play-by-Play Step Controls & Precision Jogging */}
+          <div className="flex items-center gap-1.5">
             {/* Prev Play */}
             <button
               onClick={handlePrevPlay}
@@ -767,15 +837,42 @@ function VideoPlayer() {
               title="Previous Play (Hotkeys: [ or P)"
             >
               <ChevronLeft className="w-4 h-4" />
-              <span>Prev Play</span>
+              <span>Prev</span>
+            </button>
+
+            {/* Instant Replay (-3s) */}
+            <button
+              onClick={() => setCurrentTime(Math.max(0, currentTime - 3))}
+              className="px-2 py-1.5 rounded-lg bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-300 text-xs font-bold transition-all"
+              title="Replay 3 Seconds (Hotkey: J)"
+            >
+              -3s
+            </button>
+
+            {/* Jog -0.1s */}
+            <button
+              onClick={() => setCurrentTime(Math.max(0, currentTime - 0.1))}
+              className="px-1.5 py-1.5 rounded-lg bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-400 hover:text-white text-[10px] font-bold transition-all"
+              title="Frame Step Back"
+            >
+              ◀ 0.1s
             </button>
 
             {/* Play/Pause Button */}
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="p-2 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition-all shadow-md"
+              className="p-2 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition-all shadow-md mx-1"
             >
               {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
+            </button>
+
+            {/* Jog +0.1s */}
+            <button
+              onClick={() => setCurrentTime(Math.min(gameDuration, currentTime + 0.1))}
+              className="px-1.5 py-1.5 rounded-lg bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-400 hover:text-white text-[10px] font-bold transition-all"
+              title="Frame Step Forward"
+            >
+              0.1s ▶
             </button>
 
             {/* Next Play */}
@@ -785,7 +882,7 @@ function VideoPlayer() {
               className="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-white/10 hover:bg-slate-800 disabled:opacity-40 text-slate-200 text-xs font-bold transition-all"
               title="Next Play (Hotkeys: ] or N)"
             >
-              <span>Next Play</span>
+              <span>Next</span>
               <ChevronRight className="w-4 h-4" />
             </button>
 
