@@ -88,6 +88,83 @@ export interface UserMention {
   avatarUrl?: string;
 }
 
+// --- Player Tracker & Recruiting Profile Types ---
+
+export interface PlayerStats {
+  gamesPlayed: number;
+  passingYards?: number;
+  passingTds?: number;
+  interceptionsThrown?: number;
+  completionPct?: number;
+  qbr?: number;
+  rushingYards?: number;
+  rushingAttempts?: number;
+  rushingTds?: number;
+  yardsPerCarry?: number;
+  receptions?: number;
+  receivingYards?: number;
+  receivingTds?: number;
+  yardsPerCatch?: number;
+  tacklesTotal?: number;
+  tacklesSolo?: number;
+  tacklesForLoss?: number;
+  sacks?: number;
+  interceptionsDefense?: number;
+  passBreakups?: number;
+  forcedFumbles?: number;
+  pancakeBlocks?: number;
+  sacksAllowed?: number;
+  avgEpaContribution: number;
+}
+
+export interface PlayerRadarMetrics {
+  speed: number; // 0-100
+  strength: number; // 0-100
+  technique: number; // 0-100
+  footballIq: number; // 0-100
+  motor: number; // 0-100
+  versatility: number; // 0-100
+}
+
+export interface RecruitmentProfile {
+  rating: '5_STAR' | '4_STAR' | '3_STAR' | 'D1_FCS_PROSPECT' | 'D3_IVY_PROSPECT' | 'DEVELOPING';
+  status: 'COMMITTED' | 'MULTIPLE_OFFERS' | 'HIGH_INTEREST' | 'SCOUTED';
+  committedCollege?: string;
+  interestedColleges: string[];
+  offers: string[];
+  hudlProfileUrl: string;
+  ncaaEligibilityId?: string;
+  gpa?: number;
+  benchPressMaxLbs?: number;
+  squatMaxLbs?: number;
+  fortyYardDashSec?: number;
+  shuttleTimeSec?: number;
+  verticalJumpInches?: number;
+}
+
+export interface PlayerProfile {
+  id: string;
+  name: string;
+  jerseyNumber: number;
+  positions: string[];
+  primaryPosition: string;
+  classYear: '2025' | '2026' | '2027' | '2028';
+  gradeLevel: 'Senior' | 'Junior' | 'Sophomore' | 'Freshman';
+  age: number;
+  height: string; // e.g. "6'6\""
+  weight: string; // e.g. "195 lbs"
+  hometown: string;
+  highSchool: string;
+  headshotUrl?: string;
+  strengths: string[];
+  weaknesses: string[];
+  scoutingSummary: string;
+  radarMetrics: PlayerRadarMetrics;
+  stats2025: PlayerStats;
+  recruitment: RecruitmentProfile;
+  keyFilmPlays: string[]; // List of PlayAnalysis IDs
+}
+
 // --- Comment & Collaboration Types ---
 
 export interface PlayComment {

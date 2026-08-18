@@ -109,16 +109,25 @@ export default function HomePage() {
           </div>
         </div>
 
-        {games.length > 0 && (
+        <div className="flex items-center gap-2.5">
           <button
-            onClick={() => router.push(`/dashboard/film-room/${games[0].id}`)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs hover:bg-amber-400 transition-all shadow-md"
+            onClick={() => router.push(`/dashboard/players/peddie-blair-2025`)}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 border border-white/15 text-slate-200 font-bold text-xs hover:border-amber-400 hover:text-amber-300 transition-all shadow-md"
           >
-            <Film className="w-4 h-4" />
-            Open 2025 Peddie Film Room
-            <ChevronRight className="w-3.5 h-3.5" />
+            <Users className="w-4 h-4 text-amber-400" />
+            2025–26 Player Tracker
           </button>
-        )}
+          {games.length > 0 && (
+            <button
+              onClick={() => router.push(`/dashboard/film-room/${games[0].id}`)}
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs hover:bg-amber-400 transition-all shadow-md"
+            >
+              <Film className="w-4 h-4" />
+              Open Film Room
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
       </nav>
 
       {/* Main Hero & Ingestion Hub */}
