@@ -88,7 +88,7 @@ function ActionCard({ item, onStatusChange }: {
           by {item.assignedBy.name}
         </span>
         <span className="text-[10px]" style={{ color: 'var(--text-muted)' }}>
-          · {new Date(item.createdAt).toLocaleDateString()}
+          · {item.createdAt ? item.createdAt.slice(0, 10) : ''}
         </span>
       </div>
     </div>

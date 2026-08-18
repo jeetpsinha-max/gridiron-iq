@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -13,6 +13,23 @@ import { useGridironStore } from '@/lib/store';
 function NotificationBell() {
   const { notifications, unreadCount, markNotificationRead, markAllNotificationsRead } = useGridironStore();
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const formatTimestamp = (iso: string) => {
+    try {
+      const d = new Date(iso);
+      if (isNaN(d.getTime())) return '';
+      const hours = d.getUTCHours().toString().padStart(2, '0');
+      const mins = d.getUTCMinutes().toString().padStart(2, '0');
+      return `${hours}:${mins} UTC`;
+    } catch {
+      return '';
+    }
+  };
 
   return (
     <div className="relative">
@@ -22,7 +39,7 @@ function NotificationBell() {
         style={{ color: 'var(--text-secondary)' }}
       >
         <Bell className="w-5 h-5" />
-        {unreadCount > 0 && (
+        {mounted && unreadCount > 0 && (
           <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] flex items-center justify-center text-[10px] font-bold text-white rounded-full pulse-glow"
             style={{ background: 'var(--accent-red)', padding: '0 4px' }}>
             {unreadCount}
@@ -80,7 +97,7 @@ function NotificationBell() {
                         {notif.message}
                       </p>
                       <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-                        from {notif.fromUser?.name ?? 'Staff'} · {new Date(notif.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        from {notif.fromUser?.name ?? 'Staff'} · {formatTimestamp(notif.createdAt)}
                       </p>
                     </div>
                     {!notif.isRead && (
