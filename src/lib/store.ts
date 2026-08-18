@@ -188,14 +188,15 @@ export const useGridironStore = create<GridironStore>((set, get) => ({
     const game = get().games.find(g => g.id === gameId) ?? null;
     const plays = game?.plays ?? [];
     const allActions = plays.flatMap(p => p.actionItems);
+    const firstPlay = plays.length > 0 ? plays[0] : null;
     set({
       activeGameId: gameId,
       activeGame: game,
       filteredPlays: filterPlays(plays, get().filters),
       actionItems: allActions,
-      activePlayId: null,
-      activePlay: null,
-      currentTime: 0,
+      activePlayId: firstPlay?.id ?? null,
+      activePlay: firstPlay,
+      currentTime: firstPlay?.videoTimestampStart ?? 0,
     });
   },
 

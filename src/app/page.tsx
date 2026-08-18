@@ -239,7 +239,7 @@ export default function HomePage() {
             { icon: Users, title: "22-Man X's & O's Tracking", desc: "Offense rendered as 'O' (Peddie) and Defense as 'X' with real-time trajectory vectors." },
             { icon: Target, title: "Pre-Snap Motion Engine", desc: "Jet sweeps, orbit motions, and TE trades with motion velocity and defensive reaction tagging." },
             { icon: BarChart3, title: "Coaching-Grade EPA", desc: "Expected Points Added & situational conversion matrices for Coach Mark Fabish." },
-            { icon: MessageSquare, title: "@Mention Team Hub", desc: "Tag players like @#2_McFarland, @#20_Navarrete, and assign coaching action items." },
+            { icon: MessageSquare, title: "@Mention Team Hub", desc: "Tag players like @#15_Melton, @#3_Davis, @#5_Barone, and assign coaching action items." },
           ].map((feat, i) => (
             <div key={i} className="p-4 rounded-xl bg-slate-900/60 border border-white/10 hover:border-amber-400/40 transition-all group">
               <div className="w-9 h-9 rounded-lg bg-amber-500/15 flex items-center justify-center mb-3 text-amber-400 group-hover:scale-110 transition-transform">

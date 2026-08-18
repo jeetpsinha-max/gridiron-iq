@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState, useRef, useCallback } from 'react';
-import { useParams } from 'next/navigation';
+import { useEffect, useState, useRef, useCallback, useMemo } from 'react';
+import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import {
   Play, Pause, SkipBack, SkipForward, Volume2, VolumeX,
   Maximize, Settings, Pen, ArrowUpRight, Circle, Highlighter,
@@ -9,15 +10,16 @@ import {
   ChevronDown, Clock, Hash, Crosshair, Zap, Filter,
   Search, RotateCcw, Send, AtSign, Plus, X,
   Gauge, Target, TrendingUp, Film, Eye, EyeOff, Navigation,
-  Shield, Users, Activity, Sparkles
+  Shield, Users, Activity, Sparkles, Trophy, Calendar, CheckCircle2,
+  ExternalLink
 } from 'lucide-react';
 import { useGridironStore } from '@/lib/store';
-import { PlayAnalysis, UserMention, ActionPriority, TrackedPlayer, PlayTrackingData } from '@/types/football';
+import { PlayAnalysis, UserMention, ActionPriority, TrackedPlayer, PlayTrackingData, GameSession } from '@/types/football';
 import {
   formatTime, getMotionBadgeColor, getPlayTypeBadgeColor,
   getEpaColor, getPriorityColor, getStatusColor, generateId,
 } from '@/lib/utils';
-import { TEAM_ROSTER, CURRENT_USER } from '@/lib/mock-game-data';
+import { TEAM_ROSTER, CURRENT_USER, MOCK_GAMES } from '@/lib/mock-game-data';
 
 // ============================================================================
 // 1. 22-Player Tracking Overlay Component (O's for Offense, X's for Defense)
@@ -48,14 +50,8 @@ function PlayerTrackingOverlay({
   showLabels,
   activePlay,
 }: PlayerOverlayProps) {
-  // Determine play phase based on video currentTime:
-  // Phase 0: Pre-snap alignment (before motion)
-  // Phase 1: Pre-snap motion (between motion & snap)
-  // Phase 2: Snap & mesh (between snap & snap+1.5s)
-  // Phase 3: Route running & post-snap execution (after snap+1.5s)
-  
   let phase: 'preSnap' | 'motion' | 'snap' | 'postSnap' = 'preSnap';
-  let phaseProgress = 0; // 0 to 1
+  let phaseProgress = 0;
 
   const motionTime = playMotion ?? (playSnap - 2.5);
 
@@ -73,7 +69,6 @@ function PlayerTrackingOverlay({
     phaseProgress = Math.max(0, Math.min(1, (currentTime - (playSnap + 1.5)) / Math.max(playEnd - (playSnap + 1.5), 1)));
   }
 
-  // Interpolate coordinates between phases
   const getPlayerPosition = (player: TrackedPlayer) => {
     const { trajectory } = player;
     const pre = trajectory.preSnap;
@@ -190,7 +185,7 @@ function PlayerTrackingOverlay({
               );
             })}
 
-            {/* Defense Pursuit Angles (Red Solid/Dotted Lines) */}
+            {/* Defense Pursuit Angles (Red Dotted Lines) */}
             {trackingData.defense.map(player => {
               const start = player.trajectory.preSnap;
               const end = player.trajectory.postSnap;
@@ -321,14 +316,14 @@ function PlayerTrackingOverlay({
 }
 
 // ============================================================================
-// 2. Video Player & Tactical HUD Component
+// 2. Video Player Component with Play Timeline Markers
 // ============================================================================
 
 function VideoPlayer() {
   const {
     currentTime, isPlaying, playbackRate, duration,
     setCurrentTime, setIsPlaying, setPlaybackRate, setDuration,
-    activePlay, activeGame,
+    activePlay, activeGame, setActivePlay, seekToPlay,
     telestration, setTelestrationTool, setTelestrationColor,
   } = useGridironStore();
 
@@ -347,14 +342,18 @@ function VideoPlayer() {
   const speedOptions = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 2];
   const [showSpeedMenu, setShowSpeedMenu] = useState(false);
 
+  const plays = activeGame?.plays ?? [];
+  const gameDuration = activeGame?.duration ?? 180;
+  const progressPct = (currentTime / gameDuration) * 100;
+
   // Playback loop simulation
   useEffect(() => {
     if (!isPlaying) return;
     const interval = setInterval(() => {
-      setCurrentTime(Math.min(currentTime + 0.1 * playbackRate, activeGame?.duration ?? 180));
+      setCurrentTime(Math.min(currentTime + 0.1 * playbackRate, gameDuration));
     }, 100);
     return () => clearInterval(interval);
-  }, [isPlaying, currentTime, playbackRate, setCurrentTime, activeGame?.duration]);
+  }, [isPlaying, currentTime, playbackRate, setCurrentTime, gameDuration]);
 
   // Keyboard hotkeys (J-K-L, Space, Arrows)
   useEffect(() => {
@@ -364,14 +363,14 @@ function VideoPlayer() {
         case ' ':
         case 'k': e.preventDefault(); setIsPlaying(!isPlaying); break;
         case 'j': e.preventDefault(); setCurrentTime(Math.max(0, currentTime - 5)); break;
-        case 'l': e.preventDefault(); setCurrentTime(Math.min(currentTime + 5, activeGame?.duration ?? 180)); break;
+        case 'l': e.preventDefault(); setCurrentTime(Math.min(currentTime + 5, gameDuration)); break;
         case 'ArrowLeft': e.preventDefault(); setCurrentTime(Math.max(0, currentTime - 1)); break;
-        case 'ArrowRight': e.preventDefault(); setCurrentTime(Math.min(currentTime + 1, activeGame?.duration ?? 180)); break;
+        case 'ArrowRight': e.preventDefault(); setCurrentTime(Math.min(currentTime + 1, gameDuration)); break;
       }
     };
     window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [isPlaying, currentTime, setIsPlaying, setCurrentTime, activeGame?.duration]);
+  }, [isPlaying, currentTime, setIsPlaying, setCurrentTime, gameDuration]);
 
   // Canvas drawing handlers
   const handleCanvasMouseDown = useCallback((e: React.MouseEvent<HTMLCanvasElement>) => {
@@ -439,68 +438,22 @@ function VideoPlayer() {
     }
   };
 
-  const gameDuration = activeGame?.duration ?? 180;
-  const progressPct = (currentTime / gameDuration) * 100;
-
-  const telestrationTools = [
-    { tool: 'PEN' as const, icon: Pen, label: 'Freehand Pen' },
-    { tool: 'ARROW' as const, icon: ArrowUpRight, label: 'Directional Arrow' },
-    { tool: 'SPOTLIGHT' as const, icon: Circle, label: 'Player Spotlight' },
-    { tool: 'ROUTE_LINE' as const, icon: Crosshair, label: 'Route Path' },
-    { tool: 'ERASER' as const, icon: Eraser, label: 'Eraser' },
-  ];
-
-  const colors = ['#ef4444', '#f59e0b', '#10b981', '#06b6d4', '#6366f1', '#ffffff'];
+  const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!progressRef.current) return;
+    const rect = progressRef.current.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const pct = Math.max(0, Math.min(1, clickX / rect.width));
+    setCurrentTime(pct * gameDuration);
+  };
 
   return (
-    <div className="relative flex flex-col bg-black rounded-lg overflow-hidden border border-white/10 shadow-2xl">
-      {/* Top HUD Telemetry Bar */}
-      {activePlay && (
-        <div className="bg-slate-950/95 border-b border-white/10 px-4 py-2.5 flex items-center justify-between z-20 backdrop-blur-md">
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold font-mono">
-              <Activity className="w-3.5 h-3.5" />
-              PLAY #{activePlay.playNumber}
-            </div>
-            <div className="text-xs font-semibold text-white/90">
-              Q{activePlay.quarter} · {activePlay.gameClock} · <span className="text-amber-400 font-bold">{activePlay.down}&{activePlay.distance}</span> on {activePlay.yardLine} YD
-            </div>
-            <div className={`badge text-[11px] px-2 py-0.5 font-bold ${getPlayTypeBadgeColor(activePlay.playType)}`}>
-              {activePlay.playType.replace(/_/g, ' ')}
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {activePlay.motionType !== 'NONE' && (
-              <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-[11px] font-bold">
-                <Zap className="w-3 h-3" />
-                {activePlay.motionType.replace(/_/g, ' ')} (#{activePlay.motionPlayerJersey})
-              </div>
-            )}
-            <div className={`px-2 py-0.5 rounded font-mono text-xs font-bold ${getEpaColor(activePlay.epa)}`}>
-              {activePlay.epa >= 0 ? `+${activePlay.epa.toFixed(2)}` : activePlay.epa.toFixed(2)} EPA
-            </div>
-            <div className="text-xs text-white/60 font-mono">
-              +{activePlay.yardsGained} YDS
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Main Video & Tactical Canvas Viewport */}
-      <div className="relative aspect-video bg-slate-950 overflow-hidden">
-        {/* Realistic Gridiron Field Background Layer */}
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{
-            background: 'radial-gradient(ellipse at center, #0f3420 0%, #0d2818 60%, #08180e 100%)',
-          }}
-        >
-          {/* Field Markings & Yardlines */}
+    <div className="relative flex flex-col h-full bg-slate-950 rounded-xl overflow-hidden border border-white/10 shadow-2xl">
+      {/* Video Viewport / Canvas Stack */}
+      <div className="relative flex-1 bg-slate-900 overflow-hidden flex items-center justify-center">
+        {/* Synthetic Football Field Canvas */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0a2215] via-[#0d2e1c] to-[#0a2215] flex items-center justify-center">
           <svg viewBox="0 0 1000 560" className="absolute inset-0 w-full h-full opacity-35">
-            {/* Endzones */}
             <rect x="0" y="0" width="1000" height="560" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="3" />
-            {/* Yardlines */}
             {Array.from({ length: 9 }, (_, i) => (
               <line
                 key={i}
@@ -513,7 +466,6 @@ function VideoPlayer() {
                 strokeOpacity="0.3"
               />
             ))}
-            {/* Hashmarks */}
             {Array.from({ length: 9 }, (_, i) => (
               <g key={`hash-${i}`}>
                 <line x1="380" y1={60 + i * 55} x2="400" y2={60 + i * 55} stroke="white" strokeWidth="2" strokeOpacity="0.5" />
@@ -528,7 +480,7 @@ function VideoPlayer() {
               HUDL FALCON-VISION CAM 1
             </span>
             <span className="px-2 py-0.5 rounded bg-black/70 border border-white/10 text-[10px] font-semibold text-slate-300">
-              PEDDIE 2025 ALL-22 FILM
+              PEDDIE 2025–2026 ALL-22 FILM
             </span>
           </div>
 
@@ -556,6 +508,11 @@ function VideoPlayer() {
                 <div>
                   <div className="text-xs font-bold text-white flex items-center gap-2">
                     {activePlay.trackingData?.playConceptName || activePlay.offensiveFormation}
+                    {activePlay.isTouchdown && (
+                      <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-bold">
+                        TOUCHDOWN
+                      </span>
+                    )}
                   </div>
                   <div className="text-[11px] text-slate-400 line-clamp-1">
                     {activePlay.playDescription}
@@ -647,105 +604,70 @@ function VideoPlayer() {
         )}
       </div>
 
-      {/* Floating Telestration Toolbar (Right side) */}
-      <div className="absolute top-14 right-4 flex flex-col gap-1.5 z-30 bg-slate-950/80 border border-white/10 p-1.5 rounded-lg backdrop-blur-md shadow-xl">
-        {telestrationTools.map(({ tool, icon: Icon, label }) => (
-          <button
-            key={tool}
-            onClick={() => setTelestrationTool(telestration.activeTool === tool ? null : tool)}
-            className={`w-8 h-8 rounded flex items-center justify-center transition-all ${
-              telestration.activeTool === tool
-                ? 'bg-amber-500 text-slate-950 shadow-md font-bold'
-                : 'text-slate-400 hover:text-white hover:bg-white/10'
-            }`}
-            title={label}
-          >
-            <Icon className="w-4 h-4" />
-          </button>
-        ))}
-        <div className="h-px bg-white/10 my-0.5" />
-        <button
-          onClick={undoStroke}
-          className="w-8 h-8 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10"
-          title="Undo"
-        >
-          <Undo2 className="w-4 h-4" />
-        </button>
-        <button
-          onClick={clearCanvas}
-          className="w-8 h-8 rounded flex items-center justify-center text-slate-400 hover:text-white hover:bg-white/10"
-          title="Clear All"
-        >
-          <X className="w-4 h-4" />
-        </button>
-        {/* Color Palette */}
-        <div className="flex flex-col gap-1 mt-1 items-center">
-          {colors.map(c => (
-            <button
-              key={c}
-              onClick={() => setTelestrationColor(c)}
-              className={`w-4 h-4 rounded-full border transition-transform ${
-                telestration.activeColor === c ? 'scale-125 border-white' : 'border-transparent opacity-70'
-              }`}
-              style={{ backgroundColor: c }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* Bottom Playback & Scrubber Controls */}
-      <div className="bg-slate-950 px-4 py-3 border-t border-white/10 flex flex-col gap-2">
-        {/* Timeline Scrubber */}
+      {/* Video Control Bar & Scrub Timeline */}
+      <div className="bg-slate-950 border-t border-white/10 p-3 flex flex-col gap-2 z-40">
+        {/* Interactive Scrub Timeline with Play Markers */}
         <div
           ref={progressRef}
-          onClick={(e) => {
-            if (!progressRef.current) return;
-            const rect = progressRef.current.getBoundingClientRect();
-            const pct = (e.clientX - rect.left) / rect.width;
-            setCurrentTime(pct * gameDuration);
-          }}
-          className="relative h-2.5 bg-slate-800 rounded-full cursor-pointer overflow-hidden group"
+          onClick={handleProgressBarClick}
+          className="relative w-full h-3.5 bg-slate-800/80 rounded-full cursor-pointer overflow-visible group"
         >
-          {/* Progress bar */}
+          {/* Active Played Fill */}
           <div
-            className="absolute top-0 bottom-0 left-0 bg-gradient-to-r from-amber-500 to-amber-300 rounded-full transition-all"
+            className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full transition-all"
             style={{ width: `${progressPct}%` }}
           />
-          {/* Play markers */}
-          {activeGame?.plays.map(p => (
-            <div
-              key={p.id}
-              className="absolute top-0 bottom-0 w-1 bg-white/40 group-hover:bg-white/80 transition-colors"
-              style={{ left: `${(p.videoTimestampStart / gameDuration) * 100}%` }}
-              title={`Play #${p.playNumber}: ${p.playDescription}`}
-            />
-          ))}
+
+          {/* Individual Play Markers on Timeline */}
+          {plays.map((p, idx) => {
+            const playStartPct = (p.videoTimestampStart / gameDuration) * 100;
+            const isSelected = activePlay?.id === p.id;
+            return (
+              <div
+                key={p.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActivePlay(p.id);
+                  seekToPlay(p);
+                }}
+                className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 transition-transform hover:scale-150 cursor-pointer ${
+                  p.isTouchdown
+                    ? 'w-3 h-3 rounded-full bg-amber-400 ring-2 ring-white z-20'
+                    : isSelected
+                    ? 'w-3 h-3 rounded-full bg-cyan-400 ring-2 ring-cyan-200 z-20'
+                    : 'w-2 h-2 rounded-full bg-slate-400 hover:bg-white z-10'
+                }`}
+                style={{ left: `${playStartPct}%` }}
+                title={`Play #${p.playNumber}: Q${p.quarter} (${p.down}&${p.distance}) - ${p.playDescription}`}
+              />
+            );
+          })}
         </div>
 
-        {/* Action Controls & Timestamps */}
-        <div className="flex items-center justify-between text-xs text-slate-300">
+        {/* Playback Controls & Time Display */}
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <button
               onClick={() => setIsPlaying(!isPlaying)}
-              className="w-8 h-8 rounded-full bg-amber-500 text-slate-950 flex items-center justify-center hover:bg-amber-400 transition-transform font-bold"
+              className="p-2 rounded-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold transition-all shadow-md"
             >
-              {isPlaying ? <Pause className="w-4 h-4 fill-current" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
+              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 fill-current ml-0.5" />}
             </button>
+
             <button
               onClick={() => setCurrentTime(Math.max(0, currentTime - 5))}
-              className="p-1.5 hover:text-white transition-colors"
-              title="Back 5s (J)"
+              className="p-1.5 rounded-lg bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-300 text-xs font-mono"
             >
-              <SkipBack className="w-4 h-4" />
+              -5s
             </button>
             <button
               onClick={() => setCurrentTime(Math.min(gameDuration, currentTime + 5))}
-              className="p-1.5 hover:text-white transition-colors"
-              title="Forward 5s (L)"
+              className="p-1.5 rounded-lg bg-slate-900 border border-white/10 hover:bg-slate-800 text-slate-300 text-xs font-mono"
             >
-              <SkipForward className="w-4 h-4" />
+              +5s
             </button>
-            <span className="font-mono text-slate-400 font-semibold">
+
+            <span className="font-mono text-xs text-slate-300">
               {formatTime(currentTime)} / {formatTime(gameDuration)}
             </span>
           </div>
@@ -755,7 +677,7 @@ function VideoPlayer() {
             <div className="relative">
               <button
                 onClick={() => setShowSpeedMenu(!showSpeedMenu)}
-                className="px-2 py-1 rounded bg-slate-900 border border-white/10 hover:border-white/30 text-xs font-mono font-bold"
+                className="px-2.5 py-1 rounded bg-slate-900 border border-white/10 hover:border-white/30 text-xs font-mono font-bold text-slate-200"
               >
                 {playbackRate}x
               </button>
@@ -786,27 +708,82 @@ function VideoPlayer() {
 }
 
 // ============================================================================
-// 3. Play-by-Play Table Component
+// 3. Play-by-Play Table Component with Multi-Dimensional Filters
 // ============================================================================
 
 function PlayByPlayList() {
   const { activeGame, activePlay, setActivePlay, seekToPlay } = useGridironStore();
   const plays = activeGame?.plays ?? [];
 
+  const [quarterFilter, setQuarterFilter] = useState<'ALL' | 1 | 2 | 3 | 4>('ALL');
+  const [typeFilter, setTypeFilter] = useState<string>('ALL');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const filtered = useMemo(() => {
+    return plays.filter(p => {
+      if (quarterFilter !== 'ALL' && p.quarter !== quarterFilter) return false;
+      if (typeFilter !== 'ALL' && p.playType !== typeFilter) return false;
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        return (
+          p.playDescription.toLowerCase().includes(q) ||
+          p.offensiveFormation.toLowerCase().includes(q) ||
+          p.coverageScheme.toLowerCase().includes(q) ||
+          p.routeConcept.toLowerCase().includes(q)
+        );
+      }
+      return true;
+    });
+  }, [plays, quarterFilter, typeFilter, searchQuery]);
+
   return (
     <div className="flex-1 flex flex-col overflow-hidden bg-slate-950 border border-white/10 rounded-lg">
-      <div className="p-3 border-b border-white/10 flex items-center justify-between bg-slate-900/60">
+      {/* Header with Play Count */}
+      <div className="p-3 border-b border-white/10 bg-slate-900/60 flex items-center justify-between">
         <div className="flex items-center gap-2 font-bold text-sm text-white">
           <Target className="w-4 h-4 text-amber-400" />
-          Play Ledger ({plays.length} Plays Detected)
+          Play Ledger ({filtered.length} / {plays.length} Plays)
         </div>
-        <span className="text-[11px] font-mono text-slate-400">
-          Peddie Falcons 2025 Film
+        <span className="text-[10px] font-mono text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
+          Hudl All-22
         </span>
       </div>
 
+      {/* Filter Tabs (Quarter & Type) */}
+      <div className="p-2 border-b border-white/10 bg-slate-900/40 space-y-2">
+        {/* Search */}
+        <div className="relative">
+          <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500" />
+          <input
+            type="text"
+            placeholder="Search plays (e.g. Barone, Melton, TD)..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            className="w-full pl-8 pr-3 py-1 text-xs bg-slate-950 border border-white/10 rounded-md text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+          />
+        </div>
+
+        {/* Quarter Chips */}
+        <div className="flex items-center gap-1 overflow-x-auto pb-0.5">
+          {(['ALL', 1, 2, 3, 4] as const).map(q => (
+            <button
+              key={`q-${q}`}
+              onClick={() => setQuarterFilter(q)}
+              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold transition-all ${
+                quarterFilter === q
+                  ? 'bg-amber-500 text-slate-950'
+                  : 'bg-slate-800/80 text-slate-400 hover:text-white'
+              }`}
+            >
+              {q === 'ALL' ? 'All Qtrs' : `Q${q}`}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Play Ledger List */}
       <div className="flex-1 overflow-y-auto divide-y divide-white/5">
-        {plays.map(play => {
+        {filtered.map(play => {
           const isSelected = activePlay?.id === play.id;
           return (
             <div
@@ -832,6 +809,11 @@ function PlayByPlayList() {
                   <span className="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-bold text-amber-300">
                     {play.down}&{play.distance}
                   </span>
+                  {play.isTouchdown && (
+                    <span className="px-1 py-0.2 rounded bg-amber-500 text-slate-950 text-[9px] font-black tracking-wider">
+                      TD
+                    </span>
+                  )}
                 </div>
                 <span className={`px-1.5 py-0.5 rounded text-[10px] font-mono font-bold ${getEpaColor(play.epa)}`}>
                   {play.epa >= 0 ? `+${play.epa.toFixed(2)}` : play.epa.toFixed(2)} EPA
@@ -867,21 +849,18 @@ function PlayByPlayList() {
 }
 
 // ============================================================================
-// 4. Collaborative Comments & @Mention Feed
+// 4. Coaching Notes & Collaborative Mentions Feed
 // ============================================================================
 
 function CommentFeed() {
-  const { activeGame, activePlay, currentTime } = useGridironStore();
+  const { activeGame, activePlay } = useGridironStore();
   const [commentText, setCommentText] = useState('');
-  const [showMentions, setShowMentions] = useState(false);
-  const [mentionFilter, setMentionFilter] = useState('');
 
   const plays = activeGame?.plays ?? [];
   const currentComments = activePlay ? activePlay.comments : plays.flatMap(p => p.comments);
 
   const handleSend = () => {
     if (!commentText.trim()) return;
-    // Add comment logic
     setCommentText('');
   };
 
@@ -920,7 +899,7 @@ function CommentFeed() {
         <div className="flex gap-2">
           <input
             type="text"
-            placeholder="Type comment or @player (e.g. @#2_McFarland)..."
+            placeholder="Add coaching note (e.g. @#15_Melton)..."
             value={commentText}
             onChange={(e) => setCommentText(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleSend()}
@@ -939,14 +918,16 @@ function CommentFeed() {
 }
 
 // ============================================================================
-// 5. Main Film Room Page Shell
+// 5. Main Film Room Page Shell with 9-Game Dropdown Selector
 // ============================================================================
 
 export default function FilmRoomPage() {
   const params = useParams();
+  const router = useRouter();
   const gameId = params.id as string;
   const { setActiveGame, activeGame } = useGridironStore();
   const [activeTab, setActiveTab] = useState<'plays' | 'comments'>('plays');
+  const [showGameSelector, setShowGameSelector] = useState(false);
 
   useEffect(() => {
     setActiveGame(gameId);
@@ -965,56 +946,122 @@ export default function FilmRoomPage() {
   }
 
   return (
-    <div className="flex h-[calc(100vh-56px)] bg-slate-950 overflow-hidden">
-      {/* Left 70%: Video Player with Dynamic 22-Player Tracking Overlay */}
-      <div className="flex-1 flex flex-col p-4 min-w-0 overflow-hidden">
-        <div className="flex items-center justify-between mb-3">
-          <div>
-            <h1 className="text-lg font-bold text-white flex items-center gap-2">
-              <Film className="w-5 h-5 text-amber-400" />
-              {activeGame.title}
-            </h1>
-            <p className="text-xs text-slate-400 mt-0.5">
-              {activeGame.homeTeam} vs {activeGame.awayTeam} · {activeGame.season} · Hudl 2025 Reel
-            </p>
-          </div>
+    <div className="flex flex-col h-[calc(100vh-56px)] bg-slate-950 overflow-hidden">
+      {/* Top 9-Game Selector Header Bar */}
+      <div className="h-14 px-4 border-b border-white/10 bg-slate-900/90 flex items-center justify-between shrink-0">
+        <div className="flex items-center gap-3 relative">
+          <button
+            onClick={() => setShowGameSelector(!showGameSelector)}
+            className="flex items-center gap-2.5 px-3 py-1.5 rounded-lg bg-slate-950 border border-white/10 hover:border-amber-400/50 transition-all text-left"
+          >
+            <Film className="w-4 h-4 text-amber-400 shrink-0" />
+            <div>
+              <div className="text-xs font-bold text-white flex items-center gap-1.5">
+                {activeGame.title}
+                <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+              </div>
+              <div className="text-[10px] text-slate-400 font-mono">
+                {activeGame.date} · {activeGame.homeTeam} vs {activeGame.awayTeam} ({activeGame.plays.length} Plays)
+              </div>
+            </div>
+          </button>
+
+          {/* Dropdown Menu to Select Across All 9 Season Games */}
+          {showGameSelector && (
+            <div className="absolute top-full left-0 mt-1.5 w-96 max-h-96 overflow-y-auto rounded-xl bg-slate-950 border border-white/20 shadow-2xl p-1.5 z-50 divide-y divide-white/5">
+              <div className="px-3 py-1.5 text-[10px] font-bold text-amber-400 uppercase tracking-wider font-mono">
+                Peddie School 2025–2026 Schedule & Hudl Film (9 Games)
+              </div>
+              {MOCK_GAMES.map(g => {
+                const isCurrent = g.id === activeGame.id;
+                return (
+                  <button
+                    key={g.id}
+                    onClick={() => {
+                      setShowGameSelector(false);
+                      router.push(`/dashboard/film-room/${g.id}`);
+                    }}
+                    className={`w-full p-2.5 rounded-lg text-left transition-all flex items-center justify-between ${
+                      isCurrent
+                        ? 'bg-amber-500/20 text-white border border-amber-400/40'
+                        : 'hover:bg-white/5 text-slate-300'
+                    }`}
+                  >
+                    <div>
+                      <div className="text-xs font-bold text-white">
+                        {g.title}
+                      </div>
+                      <div className="text-[10px] text-slate-400 font-mono mt-0.5">
+                        {g.date} · {g.plays.length} Analyzed Plays
+                      </div>
+                    </div>
+                    {isCurrent && <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 ml-2" />}
+                  </button>
+                );
+              })}
+            </div>
+          )}
         </div>
 
-        <div className="flex-1 overflow-hidden">
-          <VideoPlayer />
+        {/* Action Link to Player Tracker */}
+        <div className="flex items-center gap-2">
+          <Link
+            href={`/dashboard/players/${activeGame.id}`}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white border border-white/10 transition-colors"
+          >
+            <Users className="w-3.5 h-3.5 text-amber-400" />
+            Player Tracker
+          </Link>
+          <Link
+            href={`/dashboard/analytics/${activeGame.id}`}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-white border border-white/10 transition-colors"
+          >
+            <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />
+            Analytics
+          </Link>
         </div>
       </div>
 
-      {/* Right 30%: Play Ledger & Coaching Feed */}
-      <div className="w-96 flex flex-col p-4 pl-0 gap-3 border-l border-white/10 bg-slate-900/40">
-        {/* Tab switcher */}
-        <div className="flex bg-slate-950 p-1 rounded-lg border border-white/10">
-          <button
-            onClick={() => setActiveTab('plays')}
-            className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === 'plays'
-                ? 'bg-amber-500 text-slate-950 shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <Target className="w-3.5 h-3.5" />
-            Plays ({activeGame.plays.length})
-          </button>
-          <button
-            onClick={() => setActiveTab('comments')}
-            className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all flex items-center justify-center gap-1.5 ${
-              activeTab === 'comments'
-                ? 'bg-amber-500 text-slate-950 shadow-md'
-                : 'text-slate-400 hover:text-white'
-            }`}
-          >
-            <MessageSquare className="w-3.5 h-3.5" />
-            Coaching Notes
-          </button>
+      {/* Main Film Room Workspace */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Left: Video Player with Dynamic 22-Player Tracking Overlay */}
+        <div className="flex-1 flex flex-col p-4 min-w-0 overflow-hidden">
+          <div className="flex-1 overflow-hidden">
+            <VideoPlayer />
+          </div>
         </div>
 
-        {/* Tab Content */}
-        {activeTab === 'plays' ? <PlayByPlayList /> : <CommentFeed />}
+        {/* Right: Play Ledger & Coaching Feed */}
+        <div className="w-96 flex flex-col p-4 pl-0 gap-3 border-l border-white/10 bg-slate-900/40">
+          {/* Tab switcher */}
+          <div className="flex bg-slate-950 p-1 rounded-lg border border-white/10">
+            <button
+              onClick={() => setActiveTab('plays')}
+              className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all flex items-center justify-center gap-1.5 ${
+                activeTab === 'plays'
+                  ? 'bg-amber-500 text-slate-950 shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Target className="w-3.5 h-3.5" />
+              All Plays ({activeGame.plays.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('comments')}
+              className={`flex-1 py-1.5 text-xs font-bold rounded-md transition-all flex items-center justify-center gap-1.5 ${
+                activeTab === 'comments'
+                  ? 'bg-amber-500 text-slate-950 shadow-md'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <MessageSquare className="w-3.5 h-3.5" />
+              Coaching Notes
+            </button>
+          </div>
+
+          {/* Tab Content */}
+          {activeTab === 'plays' ? <PlayByPlayList /> : <CommentFeed />}
+        </div>
       </div>
     </div>
   );
