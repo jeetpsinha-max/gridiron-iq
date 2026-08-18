@@ -102,7 +102,7 @@ export default function HomePage() {
             <div className="flex items-center gap-2">
               <h1 className="text-base font-black tracking-tight text-white font-mono">GRIDIRON IQ</h1>
               <span className="px-2 py-0.5 rounded bg-amber-400/20 border border-amber-400/40 text-[10px] font-bold text-amber-300">
-                2025 PEDDIE FALCONS HUDL
+                2025–2026 PEDDIE FALCONS HUDL
               </span>
             </div>
             <p className="text-[11px] text-slate-400 font-medium">Multimodal Football Sports Vision AI</p>
@@ -136,7 +136,7 @@ export default function HomePage() {
         <div className="text-center mb-12 animate-fade-in-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
             <Award className="w-3.5 h-3.5" />
-            2024–2025 Peddie School Falcons Varsity Football · Hudl Film Engine
+            2025–2026 Peddie School Falcons Varsity Football · Hudl Film Engine
           </div>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
             All-22 Film Breakdown with<br />
