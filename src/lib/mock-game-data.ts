@@ -30,7 +30,7 @@ export const TEAM_ROSTER: UserMention[] = [
   { id: 'player-6', name: 'Joey Gaston', role: 'PLAYER', jerseyNumber: 6, position: 'QB / ATH (Sr, 2026)' },
   { id: 'player-9', name: 'Griffin Brennan', role: 'PLAYER', jerseyNumber: 9, position: 'QB / OLB (Jr, 2027)' },
   { id: 'player-14', name: 'JT Rulewich', role: 'PLAYER', jerseyNumber: 14, position: 'WR (So, 2028)' },
-  { id: 'player-22', name: 'Benjamin Perkins', role: 'PLAYER', jerseyNumber: 22, position: 'RB (So, 2028)' },
+  { id: 'player-22', name: 'Benjamin Perkins', role: 'PLAYER', jerseyNumber: 22, position: 'WR / Returner (So, 2028)' },
   { id: 'player-72', name: 'Mason Kish', role: 'PLAYER', jerseyNumber: 72, position: 'DT (So, 2028)' },
   { id: 'player-11', name: 'Jonathan Stizza', role: 'PLAYER', jerseyNumber: 11, position: 'FS / WR (Jr, 2027)' },
   { id: 'player-16', name: 'Griffin Suthammanont', role: 'PLAYER', jerseyNumber: 16, position: 'WR (Jr, 2027)' },
@@ -421,7 +421,7 @@ const WSCP_PLAYS: PlayAnalysis[] = [
     defensivePackage: '3-4',
     coverageScheme: 'COVER_3',
     defenseReactionToMotion: 'Linebacker flows hard to motion side.',
-    playType: 'RUN',
+    playType: 'PASS',
     playActionFake: false,
     targetPlayerJersey: 22,
     yardsGained: 14,
@@ -431,11 +431,11 @@ const WSCP_PLAYS: PlayAnalysis[] = [
     isTouchdown: false,
     isTurnover: false,
     isPenalty: false,
-    playDescription: 'Benjamin Perkins breaks through B-gap off inside zone for a 14-yard gain.',
+    playDescription: 'Freddy Melton delivers a quick strike to slot receiver Benjamin Perkins (#22), who accelerates for a 14-yard first down gain.',
     trackingData: buildPeddieTrackingData({
-      losY: 70, firstDownY: 60, rbJersey: 22, rbName: 'Benjamin Perkins',
-      motionJersey: 5, motionName: 'Lorenzo Barone', passTargetX: 52, passTargetY: 56,
-      playConcept: 'Perkins Inside Zone Read'
+      losY: 70, firstDownY: 60, qbJersey: 15, qbName: 'Freddy Melton',
+      motionJersey: 5, motionName: 'Lorenzo Barone', targetJersey: 22, targetName: 'Benjamin Perkins', passTargetX: 52, passTargetY: 56,
+      playConcept: 'Melton Slant to Benjamin Perkins'
     }),
     comments: [],
     actionItems: [],
@@ -748,7 +748,7 @@ const LAWRENCEVILLE_PLAYS: PlayAnalysis[] = [
     defensivePackage: '4-3',
     coverageScheme: 'COVER_3',
     defenseReactionToMotion: 'Linebacker flows with motion.',
-    playType: 'RUN',
+    playType: 'PASS',
     playActionFake: false,
     targetPlayerJersey: 22,
     yardsGained: 11,
@@ -758,11 +758,11 @@ const LAWRENCEVILLE_PLAYS: PlayAnalysis[] = [
     isTouchdown: false,
     isTurnover: false,
     isPenalty: false,
-    playDescription: 'Benjamin Perkins breaks outside tackle for an 11-yard first down run.',
+    playDescription: 'Freddy Melton flips a jet sweep pass to receiver Benjamin Perkins (#22), who accelerates around the edge for an 11-yard first down.',
     trackingData: buildPeddieTrackingData({
-      losY: 75, firstDownY: 65, rbJersey: 22, rbName: 'Benjamin Perkins',
-      motionJersey: 14, motionName: 'JT Rulewich', passTargetX: 25, passTargetY: 64,
-      playConcept: 'Perkins 11-yd Perimeter Run'
+      losY: 75, firstDownY: 65, qbJersey: 15, qbName: 'Freddy Melton',
+      motionJersey: 22, motionName: 'Benjamin Perkins', targetJersey: 22, targetName: 'Benjamin Perkins', passTargetX: 25, passTargetY: 64,
+      playConcept: 'Perkins 11-yd Jet Sweep Reception'
     }),
     comments: [],
     actionItems: [],
