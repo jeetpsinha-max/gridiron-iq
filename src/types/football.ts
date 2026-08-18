@@ -298,6 +298,12 @@ export interface PlayAnalysis {
   isPenalty: boolean;
   penaltyDescription?: string;
 
+  // Possession Unit & Defensive Playmaker
+  unit?: 'OFFENSE' | 'DEFENSE';
+  defensivePlayMakerJersey?: number;
+  defensivePlayMakerName?: string;
+  defensivePlayType?: 'SACK' | 'TFL' | 'PBU' | 'INT' | 'FORCED_FUMBLE' | 'STOP' | 'PRESSURE' | 'GOAL_LINE_STAND';
+
   // Description
   playDescription: string;
 

@@ -889,12 +889,14 @@ function PlayByPlayList() {
   const { activeGame, activePlay, setActivePlay, seekToPlay } = useGridironStore();
   const plays = activeGame?.plays ?? [];
 
+  const [unitFilter, setUnitFilter] = useState<'ALL' | 'OFFENSE' | 'DEFENSE'>('ALL');
   const [quarterFilter, setQuarterFilter] = useState<'ALL' | 1 | 2 | 3 | 4>('ALL');
   const [typeFilter, setTypeFilter] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
 
   const filtered = useMemo(() => {
     return plays.filter(p => {
+      if (unitFilter !== 'ALL' && p.unit && p.unit !== unitFilter) return false;
       if (quarterFilter !== 'ALL' && p.quarter !== quarterFilter) return false;
       if (typeFilter !== 'ALL' && p.playType !== typeFilter) return false;
       if (searchQuery.trim()) {
@@ -903,12 +905,12 @@ function PlayByPlayList() {
           p.playDescription.toLowerCase().includes(q) ||
           p.offensiveFormation.toLowerCase().includes(q) ||
           p.coverageScheme.toLowerCase().includes(q) ||
-          p.routeConcept.toLowerCase().includes(q)
+          (p.defensivePlayMakerName && p.defensivePlayMakerName.toLowerCase().includes(q))
         );
       }
       return true;
     });
-  }, [plays, quarterFilter, typeFilter, searchQuery]);
+  }, [plays, unitFilter, quarterFilter, typeFilter, searchQuery]);
 
   return (
     <div className="flex-1 flex flex-col overflow-hidden bg-slate-950 border border-white/10 rounded-lg">
@@ -923,33 +925,61 @@ function PlayByPlayList() {
         </span>
       </div>
 
-      {/* Filter Tabs (Quarter & Type) */}
+      {/* Filter Tabs (Unit, Quarter & Search) */}
       <div className="p-2 border-b border-white/10 bg-slate-900/40 space-y-2">
         {/* Search */}
         <div className="relative">
           <Search className="w-3.5 h-3.5 absolute left-2.5 top-1/2 -translate-y-1/2 text-slate-500" />
           <input
             type="text"
-            placeholder="Search plays (e.g. Perkins, Melton, TD, Seam)..."
+            placeholder="Search plays (e.g. Oliver, Sack, Perkins, Melton)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-8 pr-3 py-1 text-xs bg-slate-950 border border-white/10 rounded-md text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
+            className="w-full pl-8 pr-3 py-1 text-xs bg-slate-950 border border-white/10 rounded-md text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-mono"
           />
         </div>
 
+        {/* Unit Filter (Offense / Defense / All) */}
+        <div className="flex items-center gap-1 font-mono">
+          <button
+            onClick={() => setUnitFilter('ALL')}
+            className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
+              unitFilter === 'ALL' ? 'bg-amber-400 text-slate-950' : 'bg-slate-800 text-slate-400 hover:text-white'
+            }`}
+          >
+            All Plays ({plays.length})
+          </button>
+          <button
+            onClick={() => setUnitFilter('OFFENSE')}
+            className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
+              unitFilter === 'OFFENSE' ? 'bg-indigo-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
+            }`}
+          >
+            ⚔️ Offense ({plays.filter(p => p.unit === 'OFFENSE').length})
+          </button>
+          <button
+            onClick={() => setUnitFilter('DEFENSE')}
+            className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
+              unitFilter === 'DEFENSE' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-slate-400 hover:text-white'
+            }`}
+          >
+            🛡️ Defense ({plays.filter(p => p.unit === 'DEFENSE').length})
+          </button>
+        </div>
+
         {/* Quarter Chips */}
-        <div className="flex items-center gap-1 overflow-x-auto pb-0.5">
+        <div className="flex items-center gap-1 overflow-x-auto pb-0.5 font-mono">
           {(['ALL', 1, 2, 3, 4] as const).map(q => (
             <button
               key={`q-${q}`}
               onClick={() => setQuarterFilter(q)}
-              className={`px-2 py-0.5 rounded text-[10px] font-mono font-bold transition-all ${
+              className={`px-2 py-0.5 rounded text-[10px] font-bold transition-all ${
                 quarterFilter === q
                   ? 'bg-amber-500 text-slate-950'
                   : 'bg-slate-800/80 text-slate-400 hover:text-white'
               }`}
             >
-              {q === 'ALL' ? 'All Plays' : `Q${q}`}
+              {q === 'ALL' ? 'All Qtrs' : `Q${q}`}
             </button>
           ))}
         </div>
@@ -959,6 +989,7 @@ function PlayByPlayList() {
       <div className="flex-1 overflow-y-auto divide-y divide-white/5">
         {filtered.map(play => {
           const isSelected = activePlay?.id === play.id;
+          const isDefense = play.unit === 'DEFENSE';
           return (
             <div
               key={play.id}
@@ -972,17 +1003,26 @@ function PlayByPlayList() {
                   : 'hover:bg-white/5'
               }`}
             >
-              <div className="flex items-center justify-between mb-1.5">
+              <div className="flex items-center justify-between mb-1.5 font-mono">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-xs font-bold text-white">
+                  <span className="text-xs font-bold text-white">
                     #{play.playNumber}
                   </span>
                   <span className="text-xs text-slate-400 font-semibold">
                     Q{play.quarter} · {play.gameClock}
                   </span>
-                  <span className="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-bold text-amber-300 font-mono">
+                  <span className="px-1.5 py-0.5 rounded bg-slate-800 text-[10px] font-bold text-amber-300">
                     {play.down}&{play.distance}
                   </span>
+                  {isDefense ? (
+                    <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold border border-emerald-500/30">
+                      DEFENSE
+                    </span>
+                  ) : (
+                    <span className="px-1.5 py-0.2 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold border border-indigo-500/30">
+                      OFFENSE
+                    </span>
+                  )}
                   {play.isTouchdown && (
                     <span className="px-1 py-0.2 rounded bg-amber-500 text-slate-950 text-[9px] font-black tracking-wider">
                       TD
@@ -998,10 +1038,16 @@ function PlayByPlayList() {
                 {play.playDescription}
               </div>
 
-              <div className="flex items-center gap-1.5 flex-wrap">
-                <span className={`badge text-[9px] px-1.5 py-0.2 font-bold ${getPlayTypeBadgeColor(play.playType)}`}>
-                  {play.playType}
-                </span>
+              <div className="flex items-center gap-1.5 flex-wrap font-mono">
+                {isDefense && play.defensivePlayMakerName ? (
+                  <span className="badge text-[9px] px-1.5 py-0.2 font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/40">
+                    #{play.defensivePlayMakerJersey} {play.defensivePlayMakerName} ({play.defensivePlayType})
+                  </span>
+                ) : (
+                  <span className={`badge text-[9px] px-1.5 py-0.2 font-bold ${getPlayTypeBadgeColor(play.playType)}`}>
+                    {play.playType}
+                  </span>
+                )}
                 {play.motionType !== 'NONE' && (
                   <span className="badge badge-motion text-[9px] px-1.5 py-0.2">
                     {play.motionType}
@@ -1011,7 +1057,7 @@ function PlayByPlayList() {
                   {play.coverageScheme}
                 </span>
                 <span className="text-[10px] font-mono text-slate-400 ml-auto">
-                  +{play.yardsGained} yds
+                  {play.yardsGained >= 0 ? `+${play.yardsGained}` : play.yardsGained} yds
                 </span>
               </div>
             </div>
