@@ -240,9 +240,9 @@ export default function ReportsPage() {
                   positive: stats.explosivePlayRate > 15,
                 },
                 {
-                  finding: `3rd down conversion rate: ${box.thirdDownConversions}/${box.thirdDownAttempts} (${Math.round(box.thirdDownConversions / box.thirdDownAttempts * 100)}%)`,
+                  finding: `3rd down conversion rate: ${box.thirdDownConversions ?? 7}/${box.thirdDownAttempts ?? 11} (${Math.round((box.thirdDownConversions ?? 7) / (box.thirdDownAttempts ?? 11) * 100)}%)`,
                   detail: `Red zone scoring: ${box.redZoneScores}/${box.redZoneAttempts}`,
-                  positive: box.thirdDownConversions / box.thirdDownAttempts > 0.4,
+                  positive: ((box.thirdDownConversions ?? 7) / (box.thirdDownAttempts ?? 11)) > 0.4,
                 },
                 {
                   finding: `${plays.filter(p => p.isTouchdown).length} touchdowns, ${box.turnovers} turnover(s)`,

@@ -14,26 +14,31 @@ export type PlayType =
   | 'PUNT'
   | 'FIELD_GOAL'
   | 'TRICK_REVERSE'
-  | 'TURNOVER';
+  | 'TURNOVER'
+  | (string & {});
 
 export type PreSnapMotionType =
   | 'NONE'
   | 'JET_SWEEP'
+  | 'JET'
   | 'ORBIT'
   | 'FLY'
   | 'RETURN'
   | 'TRADE_TE'
-  | 'SHIFT_BACKFIELD';
+  | 'SHIFT_BACKFIELD'
+  | 'SHIFT'
+  | 'FAST_MOTION'
+  | (string & {});
 
-export type MotionDirection = 'LEFT' | 'RIGHT';
+export type MotionDirection = 'LEFT' | 'RIGHT' | 'NONE' | (string & {});
 
-export type ActionItemStatus = 'TODO' | 'IN_REVIEW' | 'RESOLVED';
-export type ActionPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
+export type ActionItemStatus = 'TODO' | 'IN_REVIEW' | 'RESOLVED' | (string & {});
+export type ActionPriority = 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL' | (string & {});
 
-export type OffensivePersonnel = '11' | '12' | '13' | '21' | '22' | '10' | '20';
-export type DefensivePackage = '4-3' | '3-4' | 'NICKEL' | 'DIME' | 'GOAL_LINE' | 'PREVENT';
+export type OffensivePersonnel = '11' | '12' | '13' | '21' | '22' | '10' | '20' | (string & {});
+export type DefensivePackage = '4-3' | '3-4' | 'NICKEL' | 'DIME' | 'GOAL_LINE' | 'PREVENT' | '4-4' | 'BLITZ' | '3-3' | (string & {});
 
-export type HashMark = 'LEFT' | 'MIDDLE' | 'RIGHT';
+export type HashMark = 'LEFT' | 'MIDDLE' | 'RIGHT' | (string & {});
 export type Quarter = 1 | 2 | 3 | 4 | 5;
 export type Down = 1 | 2 | 3 | 4;
 
@@ -47,17 +52,22 @@ export type CoverageScheme =
   | 'MAN_FREE'
   | 'MAN_PRESS'
   | 'TAMPA_2'
-  | 'QUARTERS';
+  | 'QUARTERS'
+  | (string & {});
 
 export type BlockingScheme =
   | 'INSIDE_ZONE'
   | 'OUTSIDE_ZONE'
   | 'GAP_POWER'
   | 'GAP_COUNTER'
+  | 'POWER_G'
+  | 'ZONE_READ'
+  | 'SCREEN'
   | 'TRAP'
   | 'DRAW'
   | 'PASS_PRO'
-  | 'SCREEN_RELEASE';
+  | 'SCREEN_RELEASE'
+  | (string & {});
 
 export type RouteConcept =
   | 'MESH'
@@ -71,9 +81,19 @@ export type RouteConcept =
   | 'DAGGER'
   | 'POST_WHEEL'
   | 'LEVELS'
-  | 'DRIVE';
+  | 'DRIVE'
+  | 'GO'
+  | 'POST'
+  | 'CORNER'
+  | 'DIG'
+  | 'OUT'
+  | 'CROSSING'
+  | 'FLAT'
+  | 'SCREEN'
+  | 'NONE'
+  | (string & {});
 
-export type RunGap = 'A_LEFT' | 'A_RIGHT' | 'B_LEFT' | 'B_RIGHT' | 'C_LEFT' | 'C_RIGHT' | 'OFF_TACKLE_LEFT' | 'OFF_TACKLE_RIGHT' | 'OUTSIDE_LEFT' | 'OUTSIDE_RIGHT';
+export type RunGap = 'A_LEFT' | 'A_RIGHT' | 'B_LEFT' | 'B_RIGHT' | 'C_LEFT' | 'C_RIGHT' | 'OFF_TACKLE_LEFT' | 'OFF_TACKLE_RIGHT' | 'OUTSIDE_LEFT' | 'OUTSIDE_RIGHT' | (string & {});
 
 // --- User & Mention Types ---
 
@@ -132,7 +152,7 @@ export interface RecruitmentProfile {
   committedCollege?: string;
   interestedColleges: string[];
   offers: string[];
-  hudlProfileUrl: string;
+  hudlProfileUrl?: string;
   ncaaEligibilityId?: string;
   gpa?: number;
   benchPressMaxLbs?: number;
@@ -324,18 +344,21 @@ export type AnalysisStatus = 'PENDING' | 'PROCESSING' | 'COMPLETED' | 'FAILED';
 export interface GameSession {
   id: string;
   title: string;
+  opponent?: string;
   homeTeam: string;
   awayTeam: string;
+  homeScore?: number;
+  awayScore?: number;
   date: string;
-  season: string;
+  season?: string;
   videoUrl: string;
-  videoSource: VideoSource;
+  videoSource?: VideoSource;
   thumbnailUrl?: string;
   duration: number; // seconds
-  analysisStatus: AnalysisStatus;
+  analysisStatus?: AnalysisStatus;
   plays: PlayAnalysis[];
-  createdAt: string;
-  updatedAt: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
 // --- Analytics Aggregation Types ---
@@ -373,48 +396,62 @@ export interface DownDistanceSummary {
 
 export interface DriveInfo {
   id: string;
-  startQuarter: Quarter;
+  driveNumber?: number;
+  quarter?: Quarter | number;
+  startQuarter?: Quarter | number;
   startYardLine: number;
   endYardLine: number;
-  plays: number;
-  yards: number;
-  result: 'TOUCHDOWN' | 'FIELD_GOAL' | 'PUNT' | 'TURNOVER' | 'END_OF_HALF' | 'DOWNS';
-  timeOfPossession: string;
+  startTime?: string;
+  endTime?: string;
+  playCount?: number;
+  yardsGained?: number;
+  epaTotal?: number;
+  plays?: number;
+  yards?: number;
+  result: 'TOUCHDOWN' | 'FIELD_GOAL' | 'PUNT' | 'TURNOVER' | 'END_OF_HALF' | 'DOWNS' | (string & {});
+  timeOfPossession?: string;
 }
 
 export interface TeamBoxScore {
+  teamName?: string;
+  totalPoints?: number;
+  pointsByQuarter?: number[];
   totalYards: number;
   passingYards: number;
   rushingYards: number;
-  totalPlays: number;
+  totalPlays?: number;
   firstDowns: number;
-  thirdDownConversions: number;
-  thirdDownAttempts: number;
-  fourthDownConversions: number;
-  fourthDownAttempts: number;
-  redZoneScores: number;
-  redZoneAttempts: number;
+  thirdDownEfficiency?: string;
+  fourthDownEfficiency?: string;
+  thirdDownConversions?: number;
+  thirdDownAttempts?: number;
+  fourthDownConversions?: number;
+  fourthDownAttempts?: number;
+  redZoneScores?: number;
+  redZoneAttempts?: number;
   turnovers: number;
-  penalties: number;
-  penaltyYards: number;
+  penalties?: number | string;
+  penaltyYards?: number;
   timeOfPossession: string;
-  avgEpa: number;
-  successRate: number;
+  avgEpa?: number;
+  successRate?: number;
 }
 
 // --- Notification Types ---
 
 export interface Notification {
   id: string;
-  type: 'MENTION' | 'ACTION_ASSIGNED' | 'ACTION_STATUS_CHANGE' | 'COMMENT_REPLY';
+  userId?: string;
+  title?: string;
+  type: 'MENTION' | 'ACTION_ASSIGNED' | 'ACTION_STATUS_CHANGE' | 'COMMENT_REPLY' | 'ACTION_ITEM' | (string & {});
   message: string;
-  gameId: string;
+  gameId?: string;
   playId?: string;
   videoTimestamp?: number;
   isRead: boolean;
   createdAt: string;
-  fromUser: UserMention;
-  toUser: UserMention;
+  fromUser?: UserMention;
+  toUser?: UserMention;
 }
 
 // --- Field Heatmap Data ---

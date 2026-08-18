@@ -80,7 +80,7 @@ function NotificationBell() {
                         {notif.message}
                       </p>
                       <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-                        from {notif.fromUser.name} · {new Date(notif.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        from {notif.fromUser?.name ?? 'Staff'} · {new Date(notif.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </p>
                     </div>
                     {!notif.isRead && (

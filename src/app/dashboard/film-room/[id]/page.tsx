@@ -101,21 +101,22 @@ function PlayerTrackingOverlay({
 
   const getBallPosition = (ball: BallTrajectory) => {
     const { preSnap, mesh, inAirOrTuck, playEnd: endPt } = ball;
+    const meshPt = mesh ?? preSnap;
     if (phase === 'preSnap') {
       return preSnap;
     } else if (phase === 'motion') {
       return preSnap;
     } else if (phase === 'snap') {
       return {
-        x: preSnap.x + (mesh.x - preSnap.x) * phaseProgress,
-        y: preSnap.y + (mesh.y - preSnap.y) * phaseProgress,
+        x: preSnap.x + (meshPt.x - preSnap.x) * phaseProgress,
+        y: preSnap.y + (meshPt.y - preSnap.y) * phaseProgress,
       };
     } else {
       if (phaseProgress < 0.5) {
         const subProgress = phaseProgress / 0.5;
         return {
-          x: mesh.x + (inAirOrTuck.x - mesh.x) * subProgress,
-          y: mesh.y + (inAirOrTuck.y - mesh.y) * subProgress,
+          x: meshPt.x + (inAirOrTuck.x - meshPt.x) * subProgress,
+          y: meshPt.y + (inAirOrTuck.y - meshPt.y) * subProgress,
         };
       } else {
         const subProgress = (phaseProgress - 0.5) / 0.5;
@@ -1132,14 +1133,13 @@ export default function FilmRoomPage() {
   const params = useParams();
   const router = useRouter();
   const gameId = (params?.id as string) || 'peddie-blair-2025';
-  const { setActiveGame, activeGame, setGames } = useGridironStore();
+  const { setActiveGame, activeGame } = useGridironStore();
 
   const [activeTab, setActiveTab] = useState<'plays' | 'notes'>('plays');
 
   useEffect(() => {
-    setGames(MOCK_GAMES);
     setActiveGame(gameId);
-  }, [gameId, setActiveGame, setGames]);
+  }, [gameId, setActiveGame]);
 
   return (
     <div className="h-[calc(100vh-3.5rem)] flex flex-col bg-[#07070d] text-slate-100 overflow-hidden">
