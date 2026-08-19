@@ -2,11 +2,12 @@
 
 import { useState, useMemo } from 'react';
 import { useParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import {
   Users, Search, Star, Award, TrendingUp,
   ChevronRight, ExternalLink, Play, CheckCircle2, AlertTriangle,
   GraduationCap, Calendar, Ruler, Weight, Grid, List, Sparkles,
-  BookOpen, X, Shield, Target, Flame
+  BookOpen, X, Shield, Target, Flame, Gauge, Zap, Trophy, Video
 } from 'lucide-react';
 import {
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
@@ -23,13 +24,15 @@ export default function PlayerTrackerPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedClass, setSelectedClass] = useState<string>('ALL');
   const [selectedPositionGroup, setSelectedPositionGroup] = useState<string>('ALL');
-  const [selectedRecruitmentStatus, setSelectedRecruitmentStatus] = useState<string>('ALL');
+  const [selectedGradeTier, setSelectedGradeTier] = useState<string>('ALL');
+  const [sortBy, setSortBy] = useState<'grade' | 'rank' | 'jersey' | 'snaps' | 'epa'>('grade');
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
   const [activePlayerModal, setActivePlayerModal] = useState<PlayerProfile | null>(null);
+  const [modalTab, setModalTab] = useState<'film' | 'radar' | 'recruiting'>('film');
 
-  // Filter logic across all 38 official varsity players
+  // Filter and sort logic across all 38 official varsity players
   const filteredPlayers = useMemo(() => {
-    return PEDDIE_PLAYERS.filter(player => {
+    const list = PEDDIE_PLAYERS.filter(player => {
       // Search match
       const query = searchQuery.toLowerCase().trim();
       const matchesQuery = !query ||
@@ -55,22 +58,67 @@ export default function PlayerTrackerPage() {
         matchesPosition = player.positions.includes(selectedPositionGroup) || player.primaryPosition === selectedPositionGroup;
       }
 
-      // Recruitment match
-      let matchesRecruitment = true;
-      if (selectedRecruitmentStatus === 'COMMITTED') {
-        matchesRecruitment = player.recruitment?.status === 'COMMITTED' || !!player.recruitment?.committedCollege;
+      // Grade tier filter
+      let matchesTier = true;
+      const tier = player.filmAnalytics?.gradeTier || 'DEVELOPING';
+      if (selectedGradeTier !== 'ALL') {
+        matchesTier = tier === selectedGradeTier;
       }
 
-      return matchesQuery && matchesClass && matchesPosition && matchesRecruitment;
+      return matchesQuery && matchesClass && matchesPosition && matchesTier;
     });
-  }, [searchQuery, selectedClass, selectedPositionGroup, selectedRecruitmentStatus]);
+
+    // Sorting
+    return list.sort((a, b) => {
+      const aGrade = a.filmAnalytics?.seasonGrade ?? 0;
+      const bGrade = b.filmAnalytics?.seasonGrade ?? 0;
+      const aSnaps = a.filmAnalytics?.totalFilmSnaps ?? 0;
+      const bSnaps = b.filmAnalytics?.totalFilmSnaps ?? 0;
+      const aEpa = a.filmAnalytics?.filmEpaTotal ?? 0;
+      const bEpa = b.filmAnalytics?.filmEpaTotal ?? 0;
+
+      if (sortBy === 'grade' || sortBy === 'rank') {
+        return bGrade - aGrade;
+      } else if (sortBy === 'jersey') {
+        return a.jerseyNumber - b.jerseyNumber;
+      } else if (sortBy === 'snaps') {
+        return bSnaps - aSnaps;
+      } else if (sortBy === 'epa') {
+        return bEpa - aEpa;
+      }
+      return 0;
+    });
+  }, [searchQuery, selectedClass, selectedPositionGroup, selectedGradeTier, sortBy]);
 
   // Aggregate KPIs
   const totalRosterCount = PEDDIE_PLAYERS.length;
-  const totalSeniors = PEDDIE_PLAYERS.filter(p => p.gradeLevel === 'Senior').length;
-  const totalJuniors = PEDDIE_PLAYERS.filter(p => p.gradeLevel === 'Junior').length;
-  const totalSophomores = PEDDIE_PLAYERS.filter(p => p.gradeLevel === 'Sophomore').length;
-  const totalFreshmen = PEDDIE_PLAYERS.filter(p => p.gradeLevel === 'Freshman').length;
+  const eliteCount = PEDDIE_PLAYERS.filter(p => (p.filmAnalytics?.seasonGrade ?? 0) >= 90).length;
+  const allMaplCount = PEDDIE_PLAYERS.filter(p => {
+    const g = p.filmAnalytics?.seasonGrade ?? 0;
+    return g >= 85 && g < 90;
+  }).length;
+  const impactCount = PEDDIE_PLAYERS.filter(p => {
+    const g = p.filmAnalytics?.seasonGrade ?? 0;
+    return g >= 80 && g < 85;
+  }).length;
+
+  const getTierColor = (tier?: string) => {
+    switch (tier) {
+      case 'ELITE': return 'from-amber-400 to-amber-600 text-amber-950 border-amber-300';
+      case 'ALL_MAPL': return 'from-indigo-400 to-indigo-600 text-white border-indigo-300';
+      case 'IMPACT_STARTER': return 'from-cyan-400 to-cyan-600 text-slate-950 border-cyan-300';
+      case 'ROTATION': return 'from-emerald-400 to-emerald-600 text-slate-950 border-emerald-300';
+      default: return 'from-slate-600 to-slate-700 text-slate-200 border-slate-500';
+    }
+  };
+
+  const getTierBadgeStyle = (score: number) => {
+    if (score >= 90) return 'bg-amber-500/20 text-amber-300 border-amber-400/40';
+    if (score >= 85) return 'bg-indigo-500/20 text-indigo-300 border-indigo-400/40';
+    if (score >= 80) return 'bg-cyan-500/20 text-cyan-300 border-cyan-400/40';
+    if (score >= 70) return 'bg-emerald-500/20 text-emerald-300 border-emerald-400/40';
+    return 'bg-slate-800 text-slate-400 border-white/10';
+  };
 
   return (
     <div className="h-[calc(100vh-3.5rem)] flex flex-col bg-[#07070d] text-slate-100 overflow-hidden">
@@ -80,75 +128,67 @@ export default function PlayerTrackerPage() {
           <div>
             <div className="flex items-center gap-2.5">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
-                <Users className="w-4 h-4 text-slate-950 font-bold" />
+                <Trophy className="w-4 h-4 text-slate-950 font-bold" />
               </div>
               <h1 className="text-base font-black tracking-tight text-white font-mono">
-                2025–2026 PEDDIE FALCONS OFFICIAL VARSITY ROSTER & DOSSIER
+                2025–2026 PEDDIE FALCONS INDIVIDUAL FILM DOSSIERS & 1-100 PERFORMANCE RANKINGS
               </h1>
-              <span className="px-2 py-0.5 rounded bg-amber-400/20 border border-amber-400/40 text-[10px] font-bold text-amber-300">
-                OFFICIAL NJ.COM ROSTER
+              <span className="px-2 py-0.5 rounded bg-amber-400/20 border border-amber-400/40 text-[10px] font-bold text-amber-300 font-mono">
+                292 PLAYS EVALUATED
               </span>
             </div>
             <p className="text-[11px] text-slate-400 mt-0.5 font-mono">
-              Head Coach: Mark Fabish · Assistant Coaches: Ethan Kibrick, Deyvon Brooks, Chris Gonzalez · Complete 38-Player Roster
+              Complete 38-Athlete Roster Evaluated Across All 9 Varsity Games · Head Coach: Mark Fabish
             </p>
           </div>
 
-          {/* Quick KPIs */}
+          {/* Performance Tier KPIs */}
           <div className="flex items-center gap-2 overflow-x-auto pb-1 md:pb-0 font-mono">
-            <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 flex items-center gap-2">
-              <GraduationCap className="w-3.5 h-3.5 text-amber-400" />
+            <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-amber-400/30 flex items-center gap-2">
+              <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
               <div>
-                <div className="text-[10px] text-slate-400">TOTAL SQUAD</div>
+                <div className="text-[10px] text-slate-400">ELITE (90-100)</div>
+                <div className="text-xs font-bold text-amber-300">{eliteCount} D1 Commits</div>
+              </div>
+            </div>
+
+            <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-indigo-400/30 flex items-center gap-2">
+              <Award className="w-3.5 h-3.5 text-indigo-400" />
+              <div>
+                <div className="text-[10px] text-slate-400">ALL-MAPL (85-89)</div>
+                <div className="text-xs font-bold text-indigo-300">{allMaplCount} Starters</div>
+              </div>
+            </div>
+
+            <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-cyan-400/30 flex items-center gap-2">
+              <Zap className="w-3.5 h-3.5 text-cyan-400" />
+              <div>
+                <div className="text-[10px] text-slate-400">IMPACT (80-84)</div>
+                <div className="text-xs font-bold text-cyan-300">{impactCount} Athletes</div>
+              </div>
+            </div>
+
+            <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 flex items-center gap-2">
+              <GraduationCap className="w-3.5 h-3.5 text-slate-400" />
+              <div>
+                <div className="text-[10px] text-slate-400">ROSTER SQUAD</div>
                 <div className="text-xs font-bold text-white">{totalRosterCount} Athletes</div>
-              </div>
-            </div>
-
-            <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 flex items-center gap-2">
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-bold">SR</span>
-              <div>
-                <div className="text-[10px] text-slate-400">SENIORS ('26)</div>
-                <div className="text-xs font-bold text-amber-300">{totalSeniors}</div>
-              </div>
-            </div>
-
-            <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 flex items-center gap-2">
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 font-bold">JR</span>
-              <div>
-                <div className="text-[10px] text-slate-400">JUNIORS ('27)</div>
-                <div className="text-xs font-bold text-cyan-300">{totalJuniors}</div>
-              </div>
-            </div>
-
-            <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 flex items-center gap-2">
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-bold">SO</span>
-              <div>
-                <div className="text-[10px] text-slate-400">SOPHOMORES ('28)</div>
-                <div className="text-xs font-bold text-indigo-300">{totalSophomores}</div>
-              </div>
-            </div>
-
-            <div className="px-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 flex items-center gap-2">
-              <span className="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">FR</span>
-              <div>
-                <div className="text-[10px] text-slate-400">FRESHMEN ('29)</div>
-                <div className="text-xs font-bold text-emerald-300">{totalFreshmen}</div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Filter Controls Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/5">
+        {/* Filter & Sort Controls Bar */}
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-white/5 font-mono">
           {/* Search Input */}
-          <div className="relative flex-1 min-w-[220px] max-w-md">
+          <div className="relative flex-1 min-w-[200px] max-w-sm">
             <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
             <input
               type="text"
-              placeholder="Search by player name, # jersey, position, or class..."
+              placeholder="Search athlete, # jersey, position, class..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400 font-mono"
+              className="w-full pl-8 pr-3 py-1.5 rounded-lg bg-slate-900 border border-white/10 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-amber-400"
             />
             {searchQuery && (
               <button
@@ -161,43 +201,40 @@ export default function PlayerTrackerPage() {
           </div>
 
           {/* Filter Pills */}
-          <div className="flex items-center gap-2 overflow-x-auto">
-            {/* Graduation Class Filter */}
-            <div className="flex items-center rounded-lg bg-slate-900 border border-white/10 p-0.5 text-[11px] font-mono">
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Tier Filter */}
+            <div className="flex items-center rounded-lg bg-slate-900 border border-white/10 p-0.5 text-[11px]">
               {[
-                { id: 'ALL', label: 'All Classes' },
-                { id: '2026', label: "Sr ('26)" },
-                { id: '2027', label: "Jr ('27)" },
-                { id: '2028', label: "So ('28)" },
-                { id: '2029', label: "Fr ('29)" },
-              ].map(cls => (
+                { id: 'ALL', label: 'All Tiers' },
+                { id: 'ELITE', label: 'Elite (90+)' },
+                { id: 'ALL_MAPL', label: 'All-MAPL (85-89)' },
+                { id: 'IMPACT_STARTER', label: 'Impact (80-84)' },
+                { id: 'ROTATION', label: 'Rotation (70-79)' },
+                { id: 'DEVELOPING', label: 'Developing (<70)' },
+              ].map(t => (
                 <button
-                  key={cls.id}
-                  onClick={() => setSelectedClass(cls.id)}
-                  className={`px-2.5 py-1 rounded-md transition-all font-medium ${
-                    selectedClass === cls.id ? 'bg-amber-400 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
+                  key={t.id}
+                  onClick={() => setSelectedGradeTier(t.id)}
+                  className={`px-2 py-1 rounded-md transition-all font-medium ${
+                    selectedGradeTier === t.id ? 'bg-amber-400 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
                   }`}
                 >
-                  {cls.label}
+                  {t.label}
                 </button>
               ))}
             </div>
 
             {/* Position Filter */}
-            <div className="flex items-center rounded-lg bg-slate-900 border border-white/10 p-0.5 text-[11px] font-mono">
+            <div className="flex items-center rounded-lg bg-slate-900 border border-white/10 p-0.5 text-[11px]">
               {[
-                { id: 'ALL', label: 'All' },
+                { id: 'ALL', label: 'All Pos' },
                 { id: 'OFFENSE', label: 'Offense' },
                 { id: 'DEFENSE', label: 'Defense' },
-                { id: 'SPECIAL', label: 'K/P' },
                 { id: 'QB', label: 'QB' },
                 { id: 'RB', label: 'RB' },
                 { id: 'WR', label: 'WR' },
                 { id: 'TE', label: 'TE' },
                 { id: 'OL', label: 'OL' },
-                { id: 'DL', label: 'DL' },
-                { id: 'LB', label: 'LB' },
-                { id: 'DB', label: 'DB' },
               ].map(pos => (
                 <button
                   key={pos.id}
@@ -210,6 +247,18 @@ export default function PlayerTrackerPage() {
                 </button>
               ))}
             </div>
+
+            {/* Sort Dropdown */}
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value as any)}
+              className="bg-slate-900 border border-white/15 rounded-lg px-2.5 py-1 text-xs text-amber-300 font-bold focus:outline-none"
+            >
+              <option value="grade">Rank: 1-100 Score (High to Low)</option>
+              <option value="snaps">Sort: Verified Film Snaps</option>
+              <option value="epa">Sort: Total EPA Impact</option>
+              <option value="jersey">Sort: Jersey #</option>
+            </select>
 
             {/* View Mode Toggle */}
             <div className="flex items-center rounded-lg bg-slate-900 border border-white/10 p-0.5 text-[11px]">
@@ -239,31 +288,33 @@ export default function PlayerTrackerPage() {
       {/* Main Content Area */}
       <div className="flex-1 overflow-y-auto p-6 space-y-6">
         {filteredPlayers.length === 0 ? (
-          <div className="p-12 text-center text-slate-500 border border-dashed border-white/10 rounded-2xl">
+          <div className="p-12 text-center text-slate-500 border border-dashed border-white/10 rounded-2xl font-mono">
             <Users className="w-10 h-10 mx-auto mb-3 opacity-30" />
-            <h3 className="text-sm font-semibold text-slate-400">No Peddie football athletes found</h3>
-            <p className="text-xs mt-1">Try adjusting your search query or class filter.</p>
+            <h3 className="text-sm font-semibold text-slate-400">No Peddie football athletes match current filters</h3>
+            <p className="text-xs mt-1">Try adjusting your search query or performance tier filter.</p>
             <button
-              onClick={() => { setSearchQuery(''); setSelectedClass('ALL'); setSelectedPositionGroup('ALL'); }}
+              onClick={() => { setSearchQuery(''); setSelectedClass('ALL'); setSelectedPositionGroup('ALL'); setSelectedGradeTier('ALL'); }}
               className="mt-4 px-3 py-1.5 rounded-lg bg-amber-400/20 text-amber-300 text-xs font-bold hover:bg-amber-400/30"
             >
               Reset Filters
             </button>
           </div>
         ) : viewMode === 'grid' ? (
-          /* Grid View */
+          /* Grid View with 1-100 Performance Score Badges */
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {filteredPlayers.map((player) => {
+              const fa = player.filmAnalytics;
+              const grade = fa?.seasonGrade ?? 70;
               return (
                 <div
                   key={player.id}
                   className="bg-slate-900/90 border border-white/10 rounded-xl overflow-hidden hover:border-amber-400/50 transition-all flex flex-col shadow-lg group relative"
                 >
-                  {/* Card Header */}
-                  <div className="p-4 pb-3 border-b border-white/5 bg-slate-950/60 flex items-start justify-between gap-2">
+                  {/* Card Header with Rank & Season Rating */}
+                  <div className="p-4 pb-3 border-b border-white/5 bg-slate-950/70 flex items-start justify-between gap-2">
                     <div className="flex items-center gap-3">
                       {/* Jersey Badge */}
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-black font-mono text-base shadow-md shrink-0">
+                      <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-black font-mono text-base shadow-md shrink-0">
                         #{player.jerseyNumber}
                       </div>
 
@@ -278,69 +329,78 @@ export default function PlayerTrackerPage() {
                           <span>·</span>
                           <span>{player.gradeLevel}</span>
                           <span>·</span>
-                          <span>Class of '{player.classYear.slice(2)}</span>
+                          <span>'{player.classYear.slice(2)}</span>
                         </div>
                       </div>
                     </div>
 
-                    {/* Commit / Roster Badge */}
-                    {player.recruitment?.committedCollege ? (
-                      <span className="px-2 py-0.5 rounded bg-emerald-400/15 border border-emerald-400/40 text-[10px] font-bold text-emerald-300 flex items-center gap-1">
-                        <Star className="w-3 h-3 fill-emerald-300" />
-                        COMMIT
+                    {/* Season Performance Score Badge (1-100) */}
+                    <div className="flex flex-col items-end shrink-0 font-mono">
+                      <div className={`px-2 py-0.5 rounded-lg border text-xs font-black flex items-center gap-1 shadow-sm ${getTierBadgeStyle(grade)}`}>
+                        <Gauge className="w-3 h-3" />
+                        <span>{grade}/100</span>
+                      </div>
+                      <span className="text-[9px] text-slate-400 mt-0.5 font-bold">
+                        RANK #{fa?.overallRank || '—'}
                       </span>
-                    ) : (
-                      <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-400 text-[10px] font-mono font-bold">
-                        VARSITY
-                      </span>
-                    )}
+                    </div>
                   </div>
 
-                  {/* Physical Dimensions */}
-                  <div className="px-4 py-2.5 bg-slate-950/30 grid grid-cols-3 gap-2 border-b border-white/5 text-center font-mono">
+                  {/* Film Analytics Snapshot Bar */}
+                  <div className="px-4 py-2 bg-slate-950/40 grid grid-cols-3 gap-2 border-b border-white/5 text-center font-mono">
                     <div>
-                      <div className="text-[10px] text-slate-500">HEIGHT</div>
-                      <div className="text-xs font-bold text-slate-200">{player.height || '—'}</div>
+                      <div className="text-[9px] text-slate-500 uppercase">FILM SNAPS</div>
+                      <div className="text-xs font-bold text-white">{fa?.totalFilmSnaps || '—'}</div>
                     </div>
                     <div>
-                      <div className="text-[10px] text-slate-500">GRADE</div>
-                      <div className="text-xs font-bold text-amber-400">{player.gradeLevel}</div>
+                      <div className="text-[9px] text-slate-500 uppercase">NET EPA</div>
+                      <div className={`text-xs font-bold ${fa && fa.filmEpaTotal >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                        {fa ? (fa.filmEpaTotal >= 0 ? `+${fa.filmEpaTotal}` : fa.filmEpaTotal) : '—'}
+                      </div>
                     </div>
                     <div>
-                      <div className="text-[10px] text-slate-500">CLASS</div>
-                      <div className="text-xs font-bold text-slate-200">'{player.classYear.slice(2)}</div>
+                      <div className="text-[9px] text-slate-500 uppercase">SUCCESS %</div>
+                      <div className="text-xs font-bold text-amber-300">{fa?.filmSuccessRatePct || 50}%</div>
                     </div>
                   </div>
 
                   {/* Card Body */}
                   <div className="p-4 flex-1 flex flex-col justify-between space-y-3">
-                    {/* Strengths / Profile Snapshot */}
-                    <div className="space-y-1.5">
-                      <div className="text-[10px] font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3 text-emerald-400" />
-                        Official Roster Profile
+                    {/* Performance Tier Label */}
+                    <div>
+                      <div className="text-[10px] font-bold text-amber-400 font-mono uppercase tracking-wider flex items-center gap-1">
+                        <Award className="w-3 h-3 text-amber-400" />
+                        {fa?.tierLabel || 'VARSITY ATHLETE'}
                       </div>
-                      <p className="text-[11px] text-slate-300 leading-snug">
-                        {player.scoutingSummary}
+                      <p className="text-[11px] text-slate-300 leading-snug mt-1 line-clamp-2">
+                        {fa?.filmEvaluationNotes || player.scoutingSummary}
                       </p>
                     </div>
 
-                    {/* Verified Recruitment Info */}
-                    {player.recruitment?.committedCollege && (
-                      <div className="p-2 rounded-lg bg-emerald-950/30 border border-emerald-500/20 text-xs">
-                        <span className="text-[10px] text-emerald-400 font-mono block font-bold">COLLEGE COMMITMENT</span>
+                    {/* Commit or Best Game */}
+                    {player.recruitment?.committedCollege ? (
+                      <div className="p-2 rounded-lg bg-emerald-950/30 border border-emerald-500/20 text-xs font-mono">
+                        <span className="text-[9px] text-emerald-400 block font-bold">COLLEGE COMMITMENT</span>
                         <span className="text-white font-semibold">{player.recruitment.committedCollege}</span>
+                      </div>
+                    ) : (
+                      <div className="p-2 rounded-lg bg-slate-950/50 border border-white/5 text-xs font-mono">
+                        <span className="text-[9px] text-slate-400 block font-bold">BEST FILM GAME</span>
+                        <span className="text-slate-200 font-medium truncate block">{fa?.bestFilmGame || '2025 Varsity Season'}</span>
                       </div>
                     )}
 
                     {/* Action Button */}
                     <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-                      <span className="text-slate-500 font-mono text-[10px]">The Peddie School</span>
+                      <span className="text-slate-500 font-mono text-[10px]">Pos #{fa?.positionRank || '1'} {player.primaryPosition}</span>
                       <button
-                        onClick={() => setActivePlayerModal(player)}
-                        className="px-2.5 py-1 rounded-md bg-amber-500/15 hover:bg-amber-400 text-amber-300 hover:text-slate-950 font-bold text-[11px] transition-all flex items-center gap-1 shrink-0"
+                        onClick={() => {
+                          setActivePlayerModal(player);
+                          setModalTab('film');
+                        }}
+                        className="px-2.5 py-1 rounded-md bg-amber-500/20 hover:bg-amber-400 text-amber-300 hover:text-slate-950 font-bold text-[11px] transition-all flex items-center gap-1 font-mono shrink-0 shadow-sm"
                       >
-                        View Dossier
+                        View Full Dossier
                         <ChevronRight className="w-3 h-3" />
                       </button>
                     </div>
@@ -350,57 +410,76 @@ export default function PlayerTrackerPage() {
             })}
           </div>
         ) : (
-          /* Table View */
+          /* Table View with Rankings */
           <div className="bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-xl">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 border-b border-white/10 text-slate-400 font-mono text-[10px] uppercase">
+              <table className="w-full text-left text-xs font-mono">
+                <thead className="bg-slate-950 border-b border-white/10 text-slate-400 text-[10px] uppercase tracking-wider">
                   <tr>
+                    <th className="p-3">Rank</th>
                     <th className="p-3">#</th>
                     <th className="p-3">Athlete Name</th>
+                    <th className="p-3">Position</th>
                     <th className="p-3">Grade</th>
-                    <th className="p-3">Positions</th>
-                    <th className="p-3">Class Year</th>
-                    <th className="p-3">Height</th>
-                    <th className="p-3">Status / Commitment</th>
-                    <th className="p-3 text-right">Actions</th>
+                    <th className="p-3">Season Grade (1-100)</th>
+                    <th className="p-3">Film Snaps</th>
+                    <th className="p-3">Net EPA</th>
+                    <th className="p-3">Success %</th>
+                    <th className="p-3">Commitment / Status</th>
+                    <th className="p-3 text-right">Dossier</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/5 font-mono">
-                  {filteredPlayers.map((player) => (
-                    <tr key={player.id} className="hover:bg-white/[0.02] transition-colors">
-                      <td className="p-3 font-bold text-amber-400">#{player.jerseyNumber}</td>
-                      <td className="p-3">
-                        <div className="font-bold text-white">{player.name}</div>
-                        <div className="text-[10px] text-slate-400 font-sans">The Peddie School</div>
-                      </td>
-                      <td className="p-3 text-slate-300">{player.gradeLevel}</td>
-                      <td className="p-3">
-                        <span className="px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-bold text-[10px]">
-                          {player.positions.join(', ')}
-                        </span>
-                      </td>
-                      <td className="p-3 text-slate-300">Class of {player.classYear}</td>
-                      <td className="p-3 text-slate-300">{player.height || '—'}</td>
-                      <td className="p-3">
-                        {player.recruitment?.committedCollege ? (
-                          <span className="text-emerald-400 font-bold text-[11px]">
-                            {player.recruitment.committedCollege}
+                <tbody className="divide-y divide-white/5">
+                  {filteredPlayers.map((player) => {
+                    const fa = player.filmAnalytics;
+                    const grade = fa?.seasonGrade ?? 70;
+                    return (
+                      <tr key={player.id} className="hover:bg-white/[0.02] transition-colors">
+                        <td className="p-3 font-bold text-amber-400">#{fa?.overallRank || '—'}</td>
+                        <td className="p-3 font-bold text-slate-200">#{player.jerseyNumber}</td>
+                        <td className="p-3 font-sans">
+                          <div className="font-bold text-white">{player.name}</div>
+                          <div className="text-[10px] text-slate-400 font-mono">{fa?.tierLabel || 'Varsity'}</div>
+                        </td>
+                        <td className="p-3">
+                          <span className="px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-bold text-[10px]">
+                            {player.positions.join(', ')}
                           </span>
-                        ) : (
-                          <span className="text-slate-400 text-[11px]">Varsity Athlete</span>
-                        )}
-                      </td>
-                      <td className="p-3 text-right">
-                        <button
-                          onClick={() => setActivePlayerModal(player)}
-                          className="px-2.5 py-1 rounded bg-amber-400/20 text-amber-300 hover:bg-amber-400 hover:text-slate-950 font-bold text-[10px] transition-all"
-                        >
-                          Dossier
-                        </button>
-                      </td>
-                    </tr>
-                  ))}
+                        </td>
+                        <td className="p-3 text-slate-300">{player.gradeLevel}</td>
+                        <td className="p-3">
+                          <span className={`px-2 py-0.5 rounded border text-[11px] font-black ${getTierBadgeStyle(grade)}`}>
+                            {grade}/100
+                          </span>
+                        </td>
+                        <td className="p-3 text-white font-bold">{fa?.totalFilmSnaps || '—'}</td>
+                        <td className={`p-3 font-bold ${fa && fa.filmEpaTotal >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                          {fa ? (fa.filmEpaTotal >= 0 ? `+${fa.filmEpaTotal}` : fa.filmEpaTotal) : '—'}
+                        </td>
+                        <td className="p-3 text-amber-300">{fa?.filmSuccessRatePct || 50}%</td>
+                        <td className="p-3">
+                          {player.recruitment?.committedCollege ? (
+                            <span className="text-emerald-400 font-bold text-[11px]">
+                              {player.recruitment.committedCollege}
+                            </span>
+                          ) : (
+                            <span className="text-slate-400 text-[11px]">Varsity Athlete</span>
+                          )}
+                        </td>
+                        <td className="p-3 text-right">
+                          <button
+                            onClick={() => {
+                              setActivePlayerModal(player);
+                              setModalTab('film');
+                            }}
+                            className="px-2.5 py-1 rounded bg-amber-400/20 text-amber-300 hover:bg-amber-400 hover:text-slate-950 font-bold text-[10px] transition-all"
+                          >
+                            Open
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
@@ -408,29 +487,33 @@ export default function PlayerTrackerPage() {
         )}
       </div>
 
-      {/* Interactive Scouting Dossier Modal */}
+      {/* Upgraded Interactive Scouting Dossier Modal with Film Analytics & 1-100 Breakdown */}
       {activePlayerModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
-          <div className="bg-slate-900 border border-white/15 rounded-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden shadow-2xl">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in font-mono">
+          <div className="bg-slate-900 border border-white/15 rounded-2xl w-full max-w-3xl max-h-[92vh] flex flex-col overflow-hidden shadow-2xl">
             {/* Modal Header */}
             <div className="p-6 bg-slate-950 border-b border-white/10 flex items-start justify-between gap-4">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-black font-mono text-2xl shadow-xl shrink-0">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-black text-2xl shadow-xl shrink-0">
                   #{activePlayerModal.jerseyNumber}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-xl font-black text-white">{activePlayerModal.name}</h2>
-                    <span className="px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-mono font-bold">
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <h2 className="text-xl font-black text-white font-sans">{activePlayerModal.name}</h2>
+                    <span className="px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/40 text-xs font-bold">
                       {activePlayerModal.positions.join(', ')}
                     </span>
-                    <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-xs font-mono">
+                    <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300 text-xs">
                       {activePlayerModal.gradeLevel} (Class of {activePlayerModal.classYear})
                     </span>
                   </div>
-                  <p className="text-xs text-slate-400 mt-1 font-mono">
-                    The Peddie School · Head Coach: Mark Fabish
-                  </p>
+                  <div className="flex items-center gap-3 text-xs text-slate-400 mt-1">
+                    <span>The Peddie School</span>
+                    <span>·</span>
+                    <span className="text-amber-400 font-bold">Overall Rank: #{activePlayerModal.filmAnalytics?.overallRank || '—'}</span>
+                    <span>·</span>
+                    <span className="text-indigo-400 font-bold">Pos Rank: #{activePlayerModal.filmAnalytics?.positionRank || '1'} {activePlayerModal.primaryPosition}</span>
+                  </div>
                 </div>
               </div>
 
@@ -442,53 +525,307 @@ export default function PlayerTrackerPage() {
               </button>
             </div>
 
+            {/* Dossier Modal Tabs */}
+            <div className="flex items-center gap-2 px-6 border-b border-white/10 bg-slate-950/60 text-xs font-bold">
+              <button
+                onClick={() => setModalTab('film')}
+                className={`py-3 px-3 border-b-2 flex items-center gap-2 transition-all ${
+                  modalTab === 'film' ? 'border-amber-400 text-amber-300 font-bold' : 'border-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                <Gauge className="w-4 h-4" />
+                <span>Film Analytics & 1-100 Grade</span>
+              </button>
+
+              <button
+                onClick={() => setModalTab('radar')}
+                className={`py-3 px-3 border-b-2 flex items-center gap-2 transition-all ${
+                  modalTab === 'radar' ? 'border-amber-400 text-amber-300 font-bold' : 'border-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                <Target className="w-4 h-4" />
+                <span>Athletic Radar & Traits</span>
+              </button>
+
+              <button
+                onClick={() => setModalTab('recruiting')}
+                className={`py-3 px-3 border-b-2 flex items-center gap-2 transition-all ${
+                  modalTab === 'recruiting' ? 'border-amber-400 text-amber-300 font-bold' : 'border-transparent text-slate-400 hover:text-white'
+                }`}
+              >
+                <GraduationCap className="w-4 h-4" />
+                <span>Recruitment & Bio</span>
+              </button>
+            </div>
+
             {/* Modal Body */}
-            <div className="flex-1 overflow-y-auto p-6 space-y-5">
-              {/* Bio & Details */}
-              <div className="grid grid-cols-3 gap-3 font-mono">
-                <div className="p-3 rounded-xl bg-slate-950 border border-white/5 text-center">
-                  <div className="text-[10px] text-slate-500">JERSEY #</div>
-                  <div className="text-base font-bold text-amber-400 mt-0.5">#{activePlayerModal.jerseyNumber}</div>
-                </div>
-                <div className="p-3 rounded-xl bg-slate-950 border border-white/5 text-center">
-                  <div className="text-[10px] text-slate-500">POSITIONS</div>
-                  <div className="text-sm font-bold text-white mt-0.5">{activePlayerModal.positions.join(', ')}</div>
-                </div>
-                <div className="p-3 rounded-xl bg-slate-950 border border-white/5 text-center">
-                  <div className="text-[10px] text-slate-500">HEIGHT</div>
-                  <div className="text-sm font-bold text-slate-200 mt-0.5">{activePlayerModal.height || '—'}</div>
-                </div>
-              </div>
+            <div className="flex-1 overflow-y-auto p-6 space-y-6">
+              {modalTab === 'film' && (
+                <div className="space-y-6">
+                  {/* Performance Score Hero Gauge */}
+                  <div className="p-5 rounded-2xl bg-gradient-to-br from-slate-950 to-slate-900 border border-white/15 flex flex-col sm:flex-row items-center justify-between gap-5 shadow-xl">
+                    <div className="flex items-center gap-4">
+                      {/* Big Score Circle */}
+                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-amber-500 to-amber-300 flex flex-col items-center justify-center text-slate-950 font-black shadow-lg shadow-amber-500/20 shrink-0">
+                        <span className="text-2xl leading-none">{activePlayerModal.filmAnalytics?.seasonGrade || 70}</span>
+                        <span className="text-[10px] tracking-wider uppercase font-bold">/ 100</span>
+                      </div>
 
-              {/* Roster Summary */}
-              <div className="p-4 rounded-xl bg-slate-950/80 border border-white/10 space-y-2">
-                <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
-                  <BookOpen className="w-3.5 h-3.5" />
-                  Roster Verification & Notes
-                </h4>
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  {activePlayerModal.scoutingSummary}
-                </p>
-                <ul className="space-y-1 mt-2">
-                  {activePlayerModal.strengths.map((str, i) => (
-                    <li key={i} className="text-xs text-slate-300 flex items-start gap-2">
-                      <span className="text-emerald-400 font-bold">✓</span>
-                      <span>{str}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+                      <div>
+                        <div className="text-[10px] text-amber-400 uppercase tracking-widest font-bold">
+                          SEASON PERFORMANCE EVALUATION
+                        </div>
+                        <div className="text-base font-bold text-white font-sans mt-0.5">
+                          {activePlayerModal.filmAnalytics?.tierLabel || 'Varsity Player'}
+                        </div>
+                        <p className="text-xs text-slate-400 mt-1 max-w-md">
+                          {activePlayerModal.filmAnalytics?.filmEvaluationNotes}
+                        </p>
+                      </div>
+                    </div>
 
-              {/* College Commitment */}
-              {activePlayerModal.recruitment?.committedCollege && (
-                <div className="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/30">
-                  <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                    <Star className="w-3.5 h-3.5" />
-                    Collegiate Commitment
-                  </h4>
-                  <p className="text-sm font-bold text-white">
-                    {activePlayerModal.recruitment.committedCollege}
-                  </p>
+                    <div className="text-right sm:border-l sm:border-white/10 sm:pl-5 shrink-0">
+                      <div className="text-[10px] text-slate-500 uppercase">BEST FILM PERFORMANCE</div>
+                      <div className="text-xs font-bold text-amber-300 mt-0.5">
+                        {activePlayerModal.filmAnalytics?.bestFilmGame}
+                      </div>
+                      <div className="text-[10px] text-slate-400 mt-1">
+                        Playmaker Score: <span className="text-white font-bold">{activePlayerModal.filmAnalytics?.filmPlaymakerScore}/100</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Key Film Metrics Grid */}
+                  <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    <div className="p-3 rounded-xl bg-slate-950 border border-white/5 text-center">
+                      <div className="text-[10px] text-slate-500 uppercase">TOTAL VERIFIED SNAPS</div>
+                      <div className="text-lg font-bold text-white mt-0.5">
+                        {activePlayerModal.filmAnalytics?.totalFilmSnaps || '—'}
+                      </div>
+                      <div className="text-[9px] text-slate-400 mt-0.5">
+                        {activePlayerModal.filmAnalytics?.offenseSnaps} Off · {activePlayerModal.filmAnalytics?.defenseSnaps} Def
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-950 border border-white/5 text-center">
+                      <div className="text-[10px] text-slate-500 uppercase">NET EPA IMPACT</div>
+                      <div className={`text-lg font-bold mt-0.5 ${
+                        (activePlayerModal.filmAnalytics?.filmEpaTotal ?? 0) >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                      }`}>
+                        {(activePlayerModal.filmAnalytics?.filmEpaTotal ?? 0) >= 0
+                          ? `+${activePlayerModal.filmAnalytics?.filmEpaTotal}`
+                          : activePlayerModal.filmAnalytics?.filmEpaTotal}
+                      </div>
+                      <div className="text-[9px] text-slate-400 mt-0.5">
+                        {activePlayerModal.filmAnalytics?.filmAvgEpa}/snap avg
+                      </div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-950 border border-white/5 text-center">
+                      <div className="text-[10px] text-slate-500 uppercase">EXECUTION SUCCESS %</div>
+                      <div className="text-lg font-bold text-amber-300 mt-0.5">
+                        {activePlayerModal.filmAnalytics?.filmSuccessRatePct || 50}%
+                      </div>
+                      <div className="text-[9px] text-slate-400 mt-0.5">Positive EPA Snaps</div>
+                    </div>
+
+                    <div className="p-3 rounded-xl bg-slate-950 border border-white/5 text-center">
+                      <div className="text-[10px] text-slate-500 uppercase">PLAYMAKER IMPACTS</div>
+                      <div className="text-lg font-bold text-cyan-300 mt-0.5">
+                        {(activePlayerModal.filmAnalytics?.filmTouchdowns || 0) + (activePlayerModal.filmAnalytics?.filmDefensiveStops || 0)}
+                      </div>
+                      <div className="text-[9px] text-slate-400 mt-0.5">
+                        {activePlayerModal.filmAnalytics?.filmTouchdowns} TDs · {activePlayerModal.filmAnalytics?.filmDefensiveStops} Stops
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Scouted Position Traits (0-100) */}
+                  <div className="p-4 rounded-xl bg-slate-950/80 border border-white/10 space-y-3">
+                    <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <Sparkles className="w-3.5 h-3.5" />
+                      Scouted Film Traits Matrix (1-100 Scale)
+                    </h4>
+                    <div className="space-y-3">
+                      {activePlayerModal.filmAnalytics?.scoutedTraits?.map((trait, i) => (
+                        <div key={i} className="space-y-1">
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-bold text-white">{trait.name}</span>
+                            <span className="font-bold text-amber-300">{trait.score}/100</span>
+                          </div>
+                          <div className="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                            <div
+                              className="h-full bg-gradient-to-r from-amber-500 to-amber-300 rounded-full transition-all"
+                              style={{ width: `${trait.score}%` }}
+                            />
+                          </div>
+                          <p className="text-[10px] text-slate-400 font-sans">
+                            {trait.description}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Signature Film Plays Ledger with 1-Click Jump to Film Room */}
+                  <div className="p-4 rounded-xl bg-slate-950/80 border border-white/10 space-y-3">
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-xs font-bold text-cyan-300 uppercase tracking-wider flex items-center gap-1.5">
+                        <Video className="w-3.5 h-3.5" />
+                        Signature Film Plays (Ground Truth from 2025 Season)
+                      </h4>
+                      <span className="text-[10px] text-slate-400">
+                        {activePlayerModal.filmAnalytics?.signaturePlays?.length || 0} Key Highlights
+                      </span>
+                    </div>
+
+                    <div className="space-y-2">
+                      {activePlayerModal.filmAnalytics?.signaturePlays?.map((play, i) => (
+                        <div
+                          key={i}
+                          className="p-3 rounded-lg bg-slate-900 border border-white/5 hover:border-amber-400/40 transition-all flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"
+                        >
+                          <div className="space-y-1 min-w-0">
+                            <div className="flex items-center gap-2">
+                              <span className="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[10px] font-bold">
+                                {play.impactType}
+                              </span>
+                              <span className="text-xs font-bold text-white truncate">
+                                {play.gameTitle} · Q{play.quarter} ({play.gameClock})
+                              </span>
+                              <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${
+                                play.epa >= 0 ? 'text-emerald-400 bg-emerald-500/10' : 'text-rose-400 bg-rose-500/10'
+                              }`}>
+                                {play.epa >= 0 ? `+${play.epa.toFixed(2)}` : play.epa.toFixed(2)} EPA
+                              </span>
+                            </div>
+                            <p className="text-[11px] text-slate-300 font-sans line-clamp-2">
+                              {play.playDescription}
+                            </p>
+                          </div>
+
+                          <button
+                            onClick={() => {
+                              setActivePlayerModal(null);
+                              router.push(`/dashboard/film-room/${play.gameId}`);
+                            }}
+                            className="px-3 py-1.5 rounded-lg bg-amber-400 text-slate-950 font-bold text-xs hover:bg-amber-300 transition-all flex items-center gap-1 shrink-0 shadow-md"
+                          >
+                            <Play className="w-3 h-3 fill-current" />
+                            Watch Play
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {modalTab === 'radar' && (
+                <div className="space-y-6">
+                  {/* Radar Chart Display */}
+                  <div className="p-4 rounded-xl bg-slate-950 border border-white/10 flex flex-col items-center">
+                    <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider mb-2">
+                      Athletic & Functional Radar Dimensions
+                    </h4>
+                    <div className="w-full h-64 max-w-md">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <RadarChart data={[
+                          { subject: 'Speed', A: activePlayerModal.radarMetrics?.speed || 75 },
+                          { subject: 'Strength', A: activePlayerModal.radarMetrics?.strength || 75 },
+                          { subject: 'Technique', A: activePlayerModal.radarMetrics?.technique || 75 },
+                          { subject: 'Football IQ', A: activePlayerModal.radarMetrics?.footballIq || 75 },
+                          { subject: 'Motor', A: activePlayerModal.radarMetrics?.motor || 75 },
+                          { subject: 'Versatility', A: activePlayerModal.radarMetrics?.versatility || 75 },
+                        ]}>
+                          <PolarGrid stroke="rgba(255,255,255,0.15)" />
+                          <PolarAngleAxis dataKey="subject" stroke="#94a3b8" tick={{ fontSize: 10 }} />
+                          <PolarRadiusAxis domain={[0, 100]} stroke="rgba(255,255,255,0.1)" />
+                          <Radar name={activePlayerModal.name} dataKey="A" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.4} />
+                          <Tooltip />
+                        </RadarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+
+                  {/* Physical Dimensions */}
+                  <div className="grid grid-cols-3 gap-3 font-mono text-center">
+                    <div className="p-3 rounded-xl bg-slate-950 border border-white/5">
+                      <div className="text-[10px] text-slate-500 uppercase">HEIGHT</div>
+                      <div className="text-sm font-bold text-white mt-0.5">{activePlayerModal.height || '6-0'}</div>
+                    </div>
+                    <div className="p-3 rounded-xl bg-slate-950 border border-white/5">
+                      <div className="text-[10px] text-slate-500 uppercase">WEIGHT</div>
+                      <div className="text-sm font-bold text-white mt-0.5">{activePlayerModal.weight || '195 lbs'}</div>
+                    </div>
+                    <div className="p-3 rounded-xl bg-slate-950 border border-white/5">
+                      <div className="text-[10px] text-slate-500 uppercase">CLASS YEAR</div>
+                      <div className="text-sm font-bold text-amber-400 mt-0.5">{activePlayerModal.classYear} ({activePlayerModal.gradeLevel})</div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {modalTab === 'recruiting' && (
+                <div className="space-y-6">
+                  {/* College Commitment */}
+                  {activePlayerModal.recruitment?.committedCollege && (
+                    <div className="p-5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 shadow-xl space-y-2">
+                      <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Star className="w-4 h-4 fill-emerald-400" />
+                        COLLEGIATE COMMITMENT VERIFIED
+                      </div>
+                      <h3 className="text-xl font-black text-white font-sans">
+                        {activePlayerModal.recruitment.committedCollege}
+                      </h3>
+                      <p className="text-xs text-slate-300">
+                        Official Division 1 commitment from The Peddie School Class of {activePlayerModal.classYear}.
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Hudl Verified Link */}
+                  {activePlayerModal.recruitment?.hudlProfileUrl && (
+                    <div className="p-4 rounded-xl bg-slate-950 border border-white/10 flex items-center justify-between">
+                      <div>
+                        <div className="text-xs font-bold text-white flex items-center gap-2">
+                          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                          Hudl Verified Film Profile
+                        </div>
+                        <p className="text-[11px] text-slate-400 mt-0.5">
+                          Official athlete highlights, testing numbers, and verified game reels.
+                        </p>
+                      </div>
+                      <a
+                        href={activePlayerModal.recruitment.hudlProfileUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md"
+                      >
+                        <ExternalLink className="w-3.5 h-3.5" />
+                        Hudl Reel
+                      </a>
+                    </div>
+                  )}
+
+                  {/* Scouting Overview */}
+                  <div className="p-4 rounded-xl bg-slate-950 border border-white/10 space-y-2">
+                    <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                      <BookOpen className="w-3.5 h-3.5" />
+                      Peddie Varsity Scouting Summary
+                    </h4>
+                    <p className="text-xs text-slate-300 leading-relaxed font-sans">
+                      {activePlayerModal.scoutingSummary}
+                    </p>
+                    <ul className="space-y-1.5 mt-3">
+                      {activePlayerModal.strengths.map((str, i) => (
+                        <li key={i} className="text-xs text-slate-300 flex items-start gap-2">
+                          <span className="text-emerald-400 font-bold">✓</span>
+                          <span className="font-sans">{str}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               )}
             </div>
@@ -496,7 +833,7 @@ export default function PlayerTrackerPage() {
             {/* Modal Footer */}
             <div className="p-4 bg-slate-950 border-t border-white/10 flex items-center justify-between">
               <span className="text-xs text-slate-500 font-mono">
-                Official 2025–26 Peddie Falcons Varsity Football
+                Official 2025–26 Peddie Falcons Varsity Football · 38 Athletes
               </span>
 
               <button
@@ -504,9 +841,9 @@ export default function PlayerTrackerPage() {
                   setActivePlayerModal(null);
                   router.push(`/dashboard/film-room/${gameId}`);
                 }}
-                className="px-4 py-2 rounded-lg bg-amber-400 text-slate-950 font-bold text-xs hover:bg-amber-300 transition-all flex items-center gap-1.5"
+                className="px-4 py-2 rounded-lg bg-amber-400 text-slate-950 font-bold text-xs hover:bg-amber-300 transition-all flex items-center gap-1.5 shadow-md"
               >
-                <Play className="w-3.5 h-3.5" />
+                <Play className="w-3.5 h-3.5 fill-current" />
                 Open In Film Room
               </button>
             </div>

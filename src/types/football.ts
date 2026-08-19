@@ -149,17 +149,59 @@ export interface PlayerRadarMetrics {
 export interface RecruitmentProfile {
   rating: '5_STAR' | '4_STAR' | '3_STAR' | 'D1_FCS_PROSPECT' | 'D3_IVY_PROSPECT' | 'DEVELOPING';
   status: 'COMMITTED' | 'MULTIPLE_OFFERS' | 'HIGH_INTEREST' | 'SCOUTED';
-  committedCollege?: string;
+  committedCollege?: string | null;
   interestedColleges: string[];
   offers: string[];
-  hudlProfileUrl?: string;
-  ncaaEligibilityId?: string;
-  gpa?: number;
-  benchPressMaxLbs?: number;
-  squatMaxLbs?: number;
-  fortyYardDashSec?: number;
-  shuttleTimeSec?: number;
-  verticalJumpInches?: number;
+  hudlProfileUrl?: string | null;
+  ncaaEligibilityId?: string | null;
+  gpa?: number | null;
+  benchPressMaxLbs?: number | null;
+  squatMaxLbs?: number | null;
+  fortyYardDashSec?: number | null;
+  shuttleTimeSec?: number | null;
+  verticalJumpInches?: number | null;
+}
+
+export interface PlayerSignaturePlay {
+  playId: string;
+  gameId: string;
+  gameTitle: string;
+  quarter: number;
+  gameClock: string;
+  downDistance: string;
+  playDescription: string;
+  epa: number;
+  yardsGained: number;
+  isTouchdown?: boolean;
+  unit: 'OFFENSE' | 'DEFENSE';
+  impactType: string;
+}
+
+export interface PlayerTraitRating {
+  name: string;
+  score: number; // 1-100
+  description: string;
+}
+
+export interface PlayerFilmAnalytics {
+  seasonGrade: number; // 1-100 Overall Film Performance Rating
+  gradeTier: 'ELITE' | 'ALL_MAPL' | 'IMPACT_STARTER' | 'ROTATION' | 'DEVELOPING' | (string & {});
+  tierLabel: string;
+  overallRank: number; // 1 to 38
+  positionRank: number;
+  totalFilmSnaps: number;
+  offenseSnaps: number;
+  defenseSnaps: number;
+  filmEpaTotal: number;
+  filmAvgEpa: number;
+  filmSuccessRatePct: number;
+  filmTouchdowns: number;
+  filmDefensiveStops: number;
+  filmPlaymakerScore: number; // 1-100
+  bestFilmGame: string;
+  signaturePlays: PlayerSignaturePlay[];
+  scoutedTraits: PlayerTraitRating[];
+  filmEvaluationNotes: string;
 }
 
 export interface PlayerProfile {
@@ -182,6 +224,7 @@ export interface PlayerProfile {
   radarMetrics?: PlayerRadarMetrics;
   stats2025?: PlayerStats; // Optional: Only present if officially published, never fabricated
   recruitment?: RecruitmentProfile;
+  filmAnalytics?: PlayerFilmAnalytics; // Individual Film Analytics & 1-100 Season Performance Rating
   keyFilmPlays: string[]; // List of PlayAnalysis IDs
 }
 
