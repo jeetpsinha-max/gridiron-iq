@@ -1,5 +1,5 @@
 // ============================================================================
-// GridironIQ — Coaching Action Items CRUD API
+// Peddie Football S.A.C. — Coaching Action Items CRUD API
 // ============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';

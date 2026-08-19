@@ -8,15 +8,15 @@ import {
   ChevronRight, Film, Sparkles, Shield, TrendingUp,
   Activity, Award
 } from 'lucide-react';
-import { useGridironStore } from '@/lib/store';
+import { usePeddieSACStore } from '@/lib/store';
 import { MOCK_GAMES } from '@/lib/mock-game-data';
 import { GameSession } from '@/types/football';
 import { generateId } from '@/lib/utils';
 
 export default function HomePage() {
   const router = useRouter();
-  const addGame = useGridironStore(s => s.addGame);
-  const games = useGridironStore(s => s.games);
+  const addGame = usePeddieSACStore(s => s.addGame);
+  const games = usePeddieSACStore(s => s.games);
 
   const [videoUrl, setVideoUrl] = useState('');
   const [title, setTitle] = useState('');
@@ -100,12 +100,12 @@ export default function HomePage() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-base font-black tracking-tight text-white font-mono">GRIDIRON IQ</h1>
+              <h1 className="text-base font-black tracking-tight text-white font-mono">PEDDIE FOOTBALL S.A.C.</h1>
               <span className="px-2 py-0.5 rounded bg-amber-400/20 border border-amber-400/40 text-[10px] font-bold text-amber-300">
                 2025–2026 PEDDIE FALCONS HUDL
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 font-medium">Multimodal Football Sports Vision AI</p>
+            <p className="text-[11px] text-slate-400 font-medium">Sports Analytics & Coaching · AI-Powered Film Intelligence</p>
           </div>
         </div>
 
@@ -296,7 +296,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="relative z-10 text-center py-6 border-t border-white/10 text-[11px] text-slate-500 font-mono">
-        GridironIQ © 2025 · 2025 Peddie School Falcons Football (Hudl Edition) · Built for Coaches & Analysts
+        Peddie Football S.A.C. © 2025 · Sports Analytics & Coaching · The Peddie School Falcons · Built for Coaches & Analysts
       </footer>
     </div>
   );

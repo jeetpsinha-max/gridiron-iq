@@ -39,7 +39,7 @@ export default function DashboardOverviewPage() {
               <div>
                 <div className="flex items-center gap-2">
                   <h1 className="text-xl font-black text-white font-sans tracking-tight">
-                    GRIDIRON IQ COMMAND CENTER
+                    PEDDIE FOOTBALL S.A.C. COMMAND CENTER
                   </h1>
                   <span className="px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 border border-amber-400/40 text-[10px] font-bold">
                     2025–2026 VARSITY PLATFORM

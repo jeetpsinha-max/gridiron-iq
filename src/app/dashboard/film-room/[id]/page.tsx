@@ -10,7 +10,7 @@ import {
   Zap, Compass, PlayCircle, RotateCw, Repeat, Radio, Gauge,
   Tv, SplitSquareVertical, Video
 } from 'lucide-react';
-import { useGridironStore } from '@/lib/store';
+import { usePeddieSACStore } from '@/lib/store';
 import { PlayAnalysis, TrackedPlayer, PlayTrackingData, BallTrajectory } from '@/types/football';
 import {
   formatTime, getPlayTypeBadgeColor,
@@ -287,7 +287,7 @@ function VideoPlayer() {
     setCurrentTime, setIsPlaying, setPlaybackRate,
     activePlay, activeGame, setActivePlay, seekToPlay,
     telestration,
-  } = useGridironStore();
+  } = usePeddieSACStore();
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const progressRef = useRef<HTMLDivElement>(null);
@@ -1016,7 +1016,7 @@ function VideoPlayer() {
 // ============================================================================
 
 function PlayByPlayList() {
-  const { activeGame, activePlay, setActivePlay, seekToPlay } = useGridironStore();
+  const { activeGame, activePlay, setActivePlay, seekToPlay } = usePeddieSACStore();
   const plays = activeGame?.plays ?? [];
 
   const [unitFilter, setUnitFilter] = useState<'ALL' | 'OFFENSE' | 'DEFENSE'>('ALL');
@@ -1203,7 +1203,7 @@ function PlayByPlayList() {
 // ============================================================================
 
 function CommentFeed() {
-  const { activeGame, activePlay } = useGridironStore();
+  const { activeGame, activePlay } = usePeddieSACStore();
   const [commentText, setCommentText] = useState('');
 
   const plays = activeGame?.plays ?? [];
@@ -1275,7 +1275,7 @@ export default function FilmRoomPage() {
   const params = useParams();
   const router = useRouter();
   const gameId = (params?.id as string) || 'peddie-blair-2025';
-  const { setActiveGame, activeGame } = useGridironStore();
+  const { setActiveGame, activeGame } = usePeddieSACStore();
 
   const [activeTab, setActiveTab] = useState<'plays' | 'notes'>('plays');
 

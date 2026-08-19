@@ -7,7 +7,7 @@ import {
   ChevronRight, CheckCircle2, BarChart3, Target, Zap,
   Users, MessageSquare, ListChecks,
 } from 'lucide-react';
-import { useGridironStore } from '@/lib/store';
+import { usePeddieSACStore } from '@/lib/store';
 import { MOCK_BOX_SCORE, MOCK_DRIVES } from '@/lib/mock-game-data';
 import { aggregateEPA } from '@/lib/epa-calculator';
 import { getEpaColor, formatTime } from '@/lib/utils';
@@ -15,7 +15,7 @@ import { getEpaColor, formatTime } from '@/lib/utils';
 export default function ReportsPage() {
   const params = useParams();
   const gameId = params.id as string;
-  const { setActiveGame, activeGame, actionItems } = useGridironStore();
+  const { setActiveGame, activeGame, actionItems } = usePeddieSACStore();
   const [exporting, setExporting] = useState<string | null>(null);
 
   useEffect(() => {

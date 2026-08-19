@@ -1,5 +1,5 @@
 // ============================================================================
-// GridironIQ — 2025–2026 Peddie School Falcons Player Tracker API
+// Peddie Football S.A.C. — 2025–2026 Peddie School Falcons Player Tracker API
 // ============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';

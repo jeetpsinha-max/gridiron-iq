@@ -6,7 +6,7 @@ import {
   ListChecks, Clock, Eye, CheckCircle2, AlertTriangle,
   User, Play, ChevronRight, Filter, RotateCcw,
 } from 'lucide-react';
-import { useGridironStore } from '@/lib/store';
+import { usePeddieSACStore } from '@/lib/store';
 import { CoachingActionItem, ActionItemStatus, ActionPriority } from '@/types/football';
 import { getPriorityColor, getStatusColor, formatTime } from '@/lib/utils';
 
@@ -14,7 +14,7 @@ function ActionCard({ item, onStatusChange }: {
   item: CoachingActionItem;
   onStatusChange: (id: string, status: ActionItemStatus) => void;
 }) {
-  const { activeGame, setActiveGame } = useGridironStore();
+  const { activeGame, setActiveGame } = usePeddieSACStore();
   const play = activeGame?.plays.find(p => p.id === item.playId);
 
   return (
@@ -134,7 +134,7 @@ function KanbanColumn({ title, icon: Icon, items, status, color, onStatusChange 
 export default function ActionsPage() {
   const params = useParams();
   const gameId = params.id as string;
-  const { setActiveGame, activeGame, actionItems, updateActionItemStatus } = useGridironStore();
+  const { setActiveGame, activeGame, actionItems, updateActionItemStatus } = usePeddieSACStore();
   const [priorityFilter, setPriorityFilter] = useState<ActionPriority | 'ALL'>('ALL');
 
   useEffect(() => {

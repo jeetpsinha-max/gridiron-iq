@@ -17,7 +17,7 @@ import {
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, Legend,
   PieChart, Pie, Cell, LineChart, Line, Area, AreaChart, ScatterChart, Scatter, ZAxis
 } from 'recharts';
-import { useGridironStore } from '@/lib/store';
+import { usePeddieSACStore } from '@/lib/store';
 import { PlayAnalysis, PreSnapMotionType, PlayType } from '@/types/football';
 import { aggregateEPA } from '@/lib/epa-calculator';
 import { MOCK_GAMES } from '@/lib/mock-game-data';
@@ -85,7 +85,7 @@ export default function AnalyticsPage() {
   const params = useParams();
   const router = useRouter();
   const gameId = (params?.id as string) || 'all-season';
-  const { setActiveGame, activeGame } = useGridironStore();
+  const { setActiveGame, activeGame } = usePeddieSACStore();
 
   const [selectedDataset, setSelectedDataset] = useState<string>(gameId);
   const [activeUnit, setActiveUnit] = useState<'ALL' | 'OFFENSE' | 'DEFENSE'>('ALL');

@@ -1,5 +1,5 @@
 // ============================================================================
-// GridironIQ — Video Ingestion API Route
+// Peddie Football S.A.C. — Video Ingestion API Route
 // ============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';

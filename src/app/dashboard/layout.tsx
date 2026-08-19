@@ -8,10 +8,10 @@ import {
   Bell, ChevronDown, Home, Settings, Menu, X,
   User, Users, MessageSquare, Zap, Swords,
 } from 'lucide-react';
-import { useGridironStore } from '@/lib/store';
+import { usePeddieSACStore } from '@/lib/store';
 
 function NotificationBell() {
-  const { notifications, unreadCount, markNotificationRead, markAllNotificationsRead } = useGridironStore();
+  const { notifications, unreadCount, markNotificationRead, markAllNotificationsRead } = usePeddieSACStore();
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -117,7 +117,7 @@ function NotificationBell() {
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const router = useRouter();
-  const { activeGame, games, setActiveGame } = useGridironStore();
+  const { activeGame, games, setActiveGame } = usePeddieSACStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [gameDropdownOpen, setGameDropdownOpen] = useState(false);
 
@@ -158,7 +158,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}>
               <Shield className="w-4 h-4 text-slate-950" />
             </div>
-            <span className="font-bold text-sm hidden sm:block text-white font-mono tracking-tight">GridironIQ</span>
+            <span className="font-bold text-sm hidden sm:block text-white font-mono tracking-tight">Peddie Football S.A.C.</span>
           </Link>
 
           {/* Desktop Nav Tabs */}

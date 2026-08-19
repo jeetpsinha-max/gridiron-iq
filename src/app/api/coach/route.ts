@@ -1,5 +1,5 @@
 // ============================================================================
-// GridironIQ — AI Offensive Coordinator Counter-Play Synthesizer API
+// Peddie Football S.A.C. — AI Offensive Coordinator Counter-Play Synthesizer API
 // Grounded on BigQuery ML Models, Opponent Defensive Tendencies & Peddie Personnel
 // ============================================================================
 

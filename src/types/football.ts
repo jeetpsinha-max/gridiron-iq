@@ -1,5 +1,5 @@
 // ============================================================================
-// GridironIQ / PitchVision — Core Football Analytics Type Definitions
+// Peddie Football S.A.C. / PitchVision — Core Football Analytics Type Definitions
 // ============================================================================
 
 // --- Play & Action Enums ---

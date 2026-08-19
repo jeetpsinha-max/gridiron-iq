@@ -1,5 +1,5 @@
 // ============================================================================
-// GridironIQ — Zustand State Store
+// Peddie Football S.A.C. — Zustand State Store
 // ============================================================================
 // Centralized state for video playback sync, active play filtering,
 // mention/notification management, and coaching action items.
@@ -47,7 +47,7 @@ interface TelestrationState {
 
 // ---- Main Store ----
 
-interface GridironStore {
+interface PeddieSACStore {
   // Game sessions
   games: GameSession[];
   activeGameId: string | null;
@@ -148,7 +148,7 @@ function filterPlays(plays: PlayAnalysis[], filters: PlayFilters): PlayAnalysis[
   });
 }
 
-export const useGridironStore = create<GridironStore>((set, get) => ({
+export const usePeddieSACStore = create<PeddieSACStore>((set, get) => ({
   // Initial state
   games: MOCK_GAMES,
   activeGameId: null,

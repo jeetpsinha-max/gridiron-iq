@@ -1,5 +1,5 @@
 // ============================================================================
-// GridironIQ — Utility Functions (shadcn/ui compatible)
+// Peddie Football S.A.C. — Utility Functions (shadcn/ui compatible)
 // ============================================================================
 
 import { type ClassValue, clsx } from 'clsx';

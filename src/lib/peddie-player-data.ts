@@ -1,5 +1,5 @@
 // ============================================================================
-// GridironIQ — 2025–2026 Peddie School Falcons Official Varsity Roster & Dossiers
+// Peddie Football S.A.C. — 2025–2026 Peddie School Falcons Official Varsity Roster & Dossiers
 // Grounded on Official MaxPreps, NJ.com High School Sports PDF & Athletic Records
 // Includes 1-100 Season Performance Rankings and Grounded Film Analytics (292 Plays)
 // Head Coach: Mark Fabish | Assistant Coaches: Ethan Kibrick, Deyvon Brooks, Chris Gonzalez

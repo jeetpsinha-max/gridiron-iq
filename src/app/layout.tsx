@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "GridironIQ | AI-Powered Football Film Analytics",
-  description: "Production-grade football game analysis platform with AI-powered play detection, pre-snap motion tracking, telestration tools, and collaborative coaching features with @mentions and action items.",
-  keywords: ["football analytics", "film study", "pre-snap motion", "coaching tools", "AI video analysis"],
+  title: "Peddie Football S.A.C. | Sports Analytics & Coaching Platform",
+  description: "The Peddie School Falcons' official AI-powered Sports Analytics & Coaching platform. All-22 film breakdown, player performance rankings, pre-snap motion tracking, and real-time coaching intelligence.",
+  keywords: ["Peddie School", "football analytics", "S.A.C.", "sports analytics", "coaching platform", "film study", "AI video analysis"],
 };
 
 export default function RootLayout({
