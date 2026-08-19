@@ -127,6 +127,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const gameId = pathParts[3] || 'peddie-blair-2025';
 
   const navLinks = [
+    { href: `/dashboard`, label: 'Command Center', icon: Home, active: pathname === '/dashboard' },
     { href: `/dashboard/film-room/${gameId}`, label: 'Film Room', icon: Film, active: pathname.includes('film-room') },
     { href: `/dashboard/offensive-coach/${gameId}`, label: 'AI Offensive Coach', icon: Swords, active: pathname.includes('offensive-coach') },
     { href: `/dashboard/players/${gameId}`, label: 'Player Tracker', icon: Users, active: pathname.includes('players') },
@@ -138,7 +139,11 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const handleSelectGame = (targetGameId: string) => {
     setActiveGame(targetGameId);
     setGameDropdownOpen(false);
-    router.push(`/dashboard/${section}/${targetGameId}`);
+    if (pathname === '/dashboard') {
+      router.push(`/dashboard/film-room/${targetGameId}`);
+    } else {
+      router.push(`/dashboard/${section}/${targetGameId}`);
+    }
   };
 
   return (
