@@ -1,5 +1,5 @@
 // ============================================================================
-// Peddie Football S.A.C. — Utility Functions (shadcn/ui compatible)
+// Peddie Football Analytics — Utility Functions (shadcn/ui compatible)
 // ============================================================================
 
 import { type ClassValue, clsx } from 'clsx';

@@ -1,5 +1,5 @@
 // ============================================================================
-// Peddie Football S.A.C. — EPA (Expected Points Added) Calculator Engine
+// Peddie Football Analytics — EPA (Expected Points Added) Calculator Engine
 // ============================================================================
 // Simplified EP model based on down, distance, and yard line context.
 // Production apps would use nflfastR-style logistic models; this provides

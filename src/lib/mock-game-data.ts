@@ -1,5 +1,5 @@
 // ============================================================================
-// Peddie Football S.A.C. / PitchVision — Peddie School Falcons Football (2025–2026 Season)
+// Peddie Football Analytics / PitchVision — Peddie School Falcons Football (2025–2026 Season)
 // Complete 9-Game Schedule & Hudl All-22 Play-by-Play Film Ledger (150+ Plays)
 // Grounded on Official MaxPreps & NJ.com Records
 // ============================================================================

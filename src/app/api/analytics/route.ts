@@ -1,5 +1,5 @@
 // ============================================================================
-// Peddie Football S.A.C. — Advanced ML Analytics & Motion Models API Route
+// Peddie Football Analytics — Advanced ML Analytics & Motion Models API Route
 // ============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';

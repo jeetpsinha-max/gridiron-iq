@@ -158,7 +158,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               style={{ background: 'linear-gradient(135deg, #f59e0b, #d97706)' }}>
               <Shield className="w-4 h-4 text-slate-950" />
             </div>
-            <span className="font-bold text-sm hidden sm:block text-white font-mono tracking-tight">Peddie Football S.A.C.</span>
+            <span className="font-bold text-sm hidden sm:block text-white font-mono tracking-tight">Peddie Football Analytics</span>
           </Link>
 
           {/* Desktop Nav Tabs */}

@@ -1,5 +1,5 @@
 // ============================================================================
-// Peddie Football S.A.C. — AI Multimodal Vision Analysis Parser
+// Peddie Football Analytics — AI Multimodal Vision Analysis Parser
 // ============================================================================
 // Supports Gemini 1.5 Pro/Flash & OpenAI GPT-4o Vision with automatic
 // heuristic mock fallback for zero-API instant testing.

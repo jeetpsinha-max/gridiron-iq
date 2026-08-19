@@ -1,5 +1,5 @@
 // ============================================================================
-// Peddie Football S.A.C. — AI Video Analysis API Route
+// Peddie Football Analytics — AI Video Analysis API Route
 // ============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';

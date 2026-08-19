@@ -1,5 +1,5 @@
 // ============================================================================
-// Peddie Football S.A.C. — 2025–2026 Peddie Falcons Games API Route
+// Peddie Football Analytics — 2025–2026 Peddie Falcons Games API Route
 // ============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';

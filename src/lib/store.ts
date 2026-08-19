@@ -1,5 +1,5 @@
 // ============================================================================
-// Peddie Football S.A.C. — Zustand State Store
+// Peddie Football Analytics — Zustand State Store
 // ============================================================================
 // Centralized state for video playback sync, active play filtering,
 // mention/notification management, and coaching action items.

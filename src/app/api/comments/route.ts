@@ -1,5 +1,5 @@
 // ============================================================================
-// Peddie Football S.A.C. — Comments & @Mentions API Route
+// Peddie Football Analytics — Comments & @Mentions API Route
 // ============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';

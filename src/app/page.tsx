@@ -100,7 +100,7 @@ export default function HomePage() {
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-base font-black tracking-tight text-white font-mono">PEDDIE FOOTBALL S.A.C.</h1>
+              <h1 className="text-base font-black tracking-tight text-white font-mono">Peddie Football Analytics</h1>
               <span className="px-2 py-0.5 rounded bg-amber-400/20 border border-amber-400/40 text-[10px] font-bold text-amber-300">
                 2025–2026 PEDDIE FALCONS HUDL
               </span>
@@ -119,11 +119,11 @@ export default function HomePage() {
           </button>
           {games.length > 0 && (
             <button
-              onClick={() => router.push(`/dashboard/film-room/${games[0].id}`)}
+              onClick={() => router.push(`/dashboard`)}
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs hover:bg-amber-400 transition-all shadow-md"
             >
               <Film className="w-4 h-4" />
-              Open Film Room
+              Go to Command Center
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
           )}
@@ -132,6 +132,42 @@ export default function HomePage() {
 
       {/* Main Hero & Ingestion Hub */}
       <main className="relative z-10 max-w-6xl mx-auto px-6 pt-12 pb-20">
+        
+        {/* Improved Home Screen HUD */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 mb-12 animate-fade-in-up">
+          <div className="p-4 rounded-xl bg-slate-900/40 border border-white/10 backdrop-blur-md hover:border-amber-400/30 transition-all flex flex-col justify-between group shadow-lg">
+            <div>
+              <div className="text-[10px] text-slate-400 font-mono tracking-wider">9 SEASON GAMES</div>
+              <div className="text-2xl font-black text-white mt-1 group-hover:text-amber-300 transition-colors">VARSITY SCHED</div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-mono mt-3">MAPL Conference & Rivalries</div>
+          </div>
+          
+          <div className="p-4 rounded-xl bg-slate-900/40 border border-white/10 backdrop-blur-md hover:border-amber-400/30 transition-all flex flex-col justify-between group shadow-lg">
+            <div>
+              <div className="text-[10px] text-slate-400 font-mono tracking-wider">292 PLAYS SEGMENTED</div>
+              <div className="text-2xl font-black text-white mt-1 group-hover:text-amber-300 transition-colors">FILM DETECTED</div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-mono mt-3">Pre-Snap Motions & Routes</div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-slate-900/40 border border-white/10 backdrop-blur-md hover:border-cyan-400/30 transition-all flex flex-col justify-between group shadow-lg">
+            <div>
+              <div className="text-[10px] text-slate-400 font-mono tracking-wider">38 VARSITY PLAYERS</div>
+              <div className="text-2xl font-black text-cyan-300 mt-1">ACTIVE ROSTER</div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-mono mt-3">1-100 Performance Rankings</div>
+          </div>
+
+          <div className="p-4 rounded-xl bg-slate-900/40 border border-white/10 backdrop-blur-md hover:border-emerald-400/30 transition-all flex flex-col justify-between group shadow-lg">
+            <div>
+              <div className="text-[10px] text-slate-400 font-mono tracking-wider">+1.51 MOTION EPA LIFT</div>
+              <div className="text-2xl font-black text-emerald-400 mt-1">ADVANCED ML</div>
+            </div>
+            <div className="text-[10px] text-slate-500 font-mono mt-3">Self-Scouting Tendency Models</div>
+          </div>
+        </div>
+
         {/* Banner */}
         <div className="text-center mb-12 animate-fade-in-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
@@ -296,7 +332,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="relative z-10 text-center py-6 border-t border-white/10 text-[11px] text-slate-500 font-mono">
-        Peddie Football S.A.C. © 2025 · Sports Analytics & Coaching · The Peddie School Falcons · Built for Coaches & Analysts
+        Peddie Football Analytics © 2025 · Sports Analytics & Coaching · The Peddie School Falcons · Built for Coaches & Analysts
       </footer>
     </div>
   );
