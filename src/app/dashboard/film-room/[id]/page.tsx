@@ -450,15 +450,16 @@ function VideoPlayer() {
         <div className="absolute inset-0 flex">
           {/* 1. ACTUAL VIDEO FILM / HIGHLIGHTS VIEW */}
           {(filmViewMode === 'VIDEO' || filmViewMode === 'SPLIT') && (
-            <div className={`relative h-full bg-black flex items-center justify-center overflow-hidden ${
+            <div className={`relative h-full bg-slate-950 flex items-center justify-center overflow-hidden ${
               filmViewMode === 'SPLIT' ? 'w-1/2 border-r border-white/20' : 'w-full'
             }`}>
               <video
                 ref={videoElementRef}
-                src={activeGame?.videoUrl || 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}
+                src={activeGame?.videoUrl || 'https://assets.mixkit.co/videos/preview/mixkit-american-football-game-action-41122-large.mp4'}
                 className="w-full h-full object-cover"
                 muted
                 playsInline
+                loop
                 onTimeUpdate={(e) => {
                   if (isPlaying) {
                     setCurrentTime((e.target as HTMLVideoElement).currentTime);
@@ -466,13 +467,57 @@ function VideoPlayer() {
                 }}
               />
 
-              {/* Broadcast Match Overlay Pill on Actual Video */}
-              <div className="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/80 border border-white/15 backdrop-blur-md">
-                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                <span className="text-[10px] font-bold text-white font-mono uppercase tracking-wider">
-                  HUDL VARSITY HIGHLIGHTS · {activeGame?.title || 'Peddie Football Film'}
+              {/* Broadcast Match Overlay Header */}
+              <div className="absolute top-4 left-4 z-20 flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-950/85 border border-white/15 backdrop-blur-md shadow-xl font-mono">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse shadow-md shadow-red-500/50" />
+                <span className="text-[10px] font-black text-white uppercase tracking-wider">
+                  HUDL VARSITY HIGHLIGHTS REEL · {activeGame?.title || 'Peddie Football Film'}
+                </span>
+                <span className="px-1.5 py-0.2 rounded bg-amber-400 text-slate-950 font-bold text-[9px]">
+                  ALL-22 SYNC
                 </span>
               </div>
+
+              {/* Live Playmaker Spotlight Overlay on Video */}
+              {activePlay && (
+                <div className="absolute bottom-6 left-4 z-20 max-w-md p-3 rounded-xl bg-slate-950/90 border border-white/15 backdrop-blur-md shadow-2xl space-y-1.5 font-mono">
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                      <span className="text-[10px] font-bold text-amber-400 uppercase tracking-wider">
+                        {activePlay.unit === 'DEFENSE' ? '🛡️ DEFENSIVE HAVOC PLAYMAKER' : '⚔️ OFFENSIVE PLAYMAKER'}
+                      </span>
+                    </div>
+                    <span className={`text-[10px] font-bold px-1.5 py-0.2 rounded ${
+                      activePlay.epa >= 0 ? 'text-emerald-400 bg-emerald-500/20' : 'text-rose-400 bg-rose-500/20'
+                    }`}>
+                      {activePlay.epa >= 0 ? `+${activePlay.epa.toFixed(2)}` : activePlay.epa.toFixed(2)} EPA
+                    </span>
+                  </div>
+
+                  <div className="text-xs font-bold text-white font-sans line-clamp-1">
+                    {activePlay.unit === 'DEFENSE' && activePlay.defensivePlayMakerName ? (
+                      <span className="text-emerald-300">
+                        #{activePlay.defensivePlayMakerJersey} {activePlay.defensivePlayMakerName} ({activePlay.defensivePlayType})
+                      </span>
+                    ) : (
+                      <span className="text-amber-300">
+                        {activePlay.playDescription.split(':')[0] || activePlay.playDescription}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="text-[10px] text-slate-300 flex items-center gap-2 pt-1 border-t border-white/10">
+                    <span>Q{activePlay.quarter} · {activePlay.gameClock}</span>
+                    <span>·</span>
+                    <span className="text-cyan-300 font-bold">{activePlay.down}&{activePlay.distance}</span>
+                    <span>·</span>
+                    <span>{activePlay.offensiveFormation}</span>
+                    <span>·</span>
+                    <span className="text-amber-300">{activePlay.coverageScheme}</span>
+                  </div>
+                </div>
+              )}
             </div>
           )}
 
