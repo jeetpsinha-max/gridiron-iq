@@ -9,7 +9,7 @@ import React, { useState, useMemo } from 'react';
 import { useSeason } from '@/context/SeasonContext';
 import {
   Users, Film, Award, Star, CheckCircle2, XCircle, MinusCircle,
-  Play, Shield, Target, Zap, Clock, TrendingUp, Filter, Sparkles
+  Play, Shield, Target, Zap, Clock, TrendingUp, Filter, Sparkles, ExternalLink
 } from 'lucide-react';
 import Link from 'next/link';
 import { geminiWorkers } from '@/lib/agents/gemini-workers';
@@ -144,6 +144,22 @@ export default function PlayerPortalPage() {
                  `High-motor athlete with clean technical fundamentals. Consistently wins 1-on-1 leverage and shows elite diagnostic recognition on pre-snap film.`}
               </p>
             </div>
+
+            {/* Verified Hudl Reel Badge / Link */}
+            {selectedPlayer.recruitment?.hudlProfileUrl && (
+              <a
+                href={selectedPlayer.recruitment.hudlProfileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full p-2.5 rounded-xl bg-red-600/20 border border-red-500/40 hover:bg-red-600 hover:text-white text-red-300 text-xs font-bold transition-all flex items-center justify-between shadow-lg group"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                  <span>Verified Hudl Film Reel</span>
+                </div>
+                <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              </a>
+            )}
           </div>
         </div>
 
