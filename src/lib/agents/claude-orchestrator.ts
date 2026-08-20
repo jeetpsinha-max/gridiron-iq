@@ -112,15 +112,15 @@ export class ClaudeLeadOrchestrator {
     let fgMakeProb = yardLine <= 20 ? 0.92 : yardLine <= 30 ? 0.82 : yardLine <= 38 ? 0.65 : 0.35;
     if (!isFieldGoalRange) fgMakeProb = 0.10;
 
-    let expectedPointsGo = (convProb * (isGoalToGo ? 6.2 : 4.4)) - ((1 - convProb) * (3.8 * (yardLine / 100)));
-    let expectedPointsFg = isFieldGoalRange ? (fgMakeProb * 3.0) - ((1 - fgMakeProb) * 2.5) : -2.0;
-    let expectedPointsPunt = yardLine > 40 ? 1.2 - ((100 - yardLine) * 0.03) : -2.5;
+    const expectedPointsGo = (convProb * (isGoalToGo ? 6.2 : 4.4)) - ((1 - convProb) * (3.8 * (yardLine / 100)));
+    const expectedPointsFg = isFieldGoalRange ? (fgMakeProb * 3.0) - ((1 - fgMakeProb) * 2.5) : -2.0;
+    const expectedPointsPunt = yardLine > 40 ? 1.2 - ((100 - yardLine) * 0.03) : -2.5;
 
     // Win probabilities estimation
-    let baseWp = 50 + (scoreDiff * 4.5);
-    let goWp = Math.max(5, Math.min(98, baseWp + (expectedPointsGo * 3.2)));
-    let fgWp = Math.max(5, Math.min(98, baseWp + (expectedPointsFg * 2.8)));
-    let puntWp = Math.max(5, Math.min(98, baseWp + (expectedPointsPunt * 2.1)));
+    const baseWp = 50 + (scoreDiff * 4.5);
+    const goWp = Math.max(5, Math.min(98, baseWp + (expectedPointsGo * 3.2)));
+    const fgWp = Math.max(5, Math.min(98, baseWp + (expectedPointsFg * 2.8)));
+    const puntWp = Math.max(5, Math.min(98, baseWp + (expectedPointsPunt * 2.1)));
 
     let recommendation: WinProbabilityDecision['recommendation'] = 'GO_FOR_IT';
     let rationale = '';
