@@ -12,6 +12,7 @@ import {
 import { TEAM_ROSTER, MOCK_GAMES } from '@/lib/mock-game-data';
 import { aggregateEPA } from '@/lib/epa-calculator';
 import { useSeason } from '@/context/SeasonContext';
+import { AntigravityTacticalHUD } from '@/components/AntigravityTacticalHUD';
 
 // --- Available Offensive Personnel Groupings ---
 interface PersonnelOption {
@@ -426,6 +427,9 @@ SELECT
           </Link>
         </div>
       </div>
+
+      {/* Google Antigravity Tactical Co-Pilot */}
+      <AntigravityTacticalHUD />
 
       {/* 2-Column Main Workspace */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
