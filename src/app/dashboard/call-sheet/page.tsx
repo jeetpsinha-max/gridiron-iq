@@ -45,7 +45,7 @@ export default function CallSheetPage() {
             </h1>
           </div>
           <p className="text-xs text-slate-400 mt-1">
-            Season {seasonMetadata.yearSpan} · Head Coach: {seasonMetadata.headCoach} · AI Orchestrated by Claude Opus
+            Season {seasonMetadata.yearSpan} · Head Coach: {seasonMetadata.headCoach} · AI Orchestrated by Google Antigravity & Fable 5 Tactical Engine
           </p>
         </div>
 
