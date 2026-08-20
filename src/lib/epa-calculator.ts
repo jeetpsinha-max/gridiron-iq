@@ -134,3 +134,293 @@ export function aggregateEPA(plays: PlayAnalysis[]): {
     negativePlayRate: Number((negativePlays / plays.length * 100).toFixed(1)),
   };
 }
+
+// ============================================================================
+// Advanced Analytics Functions — Computed from Actual Play Data
+// ============================================================================
+
+export type DistanceBucket = 'SHORT' | 'MEDIUM' | 'LONG';
+
+export interface DownDistanceCell {
+  down: Down;
+  distanceBucket: DistanceBucket;
+  distanceLabel: string;
+  plays: number;
+  successRate: number;
+  avgEpa: number;
+  passRate: number;
+  runRate: number;
+  avgYards: number;
+  conversionRate: number;
+}
+
+/**
+ * Generates a situational conversion/success matrix by down & distance bucket.
+ * Short ≤3, Medium 4–7, Long 8+.
+ */
+export function computeDownDistanceMatrix(plays: PlayAnalysis[]): DownDistanceCell[] {
+  const buckets: { key: DistanceBucket; label: string; min: number; max: number }[] = [
+    { key: 'SHORT', label: '≤3 yds', min: 0, max: 3 },
+    { key: 'MEDIUM', label: '4–7 yds', min: 4, max: 7 },
+    { key: 'LONG', label: '8+ yds', min: 8, max: 99 },
+  ];
+  const downs: Down[] = [1, 2, 3, 4];
+
+  const results: DownDistanceCell[] = [];
+
+  for (const d of downs) {
+    for (const b of buckets) {
+      const subset = plays.filter(
+        p => p.down === d && p.distance >= b.min && p.distance <= b.max
+      );
+      if (subset.length === 0) {
+        results.push({
+          down: d, distanceBucket: b.key, distanceLabel: b.label,
+          plays: 0, successRate: 0, avgEpa: 0, passRate: 0, runRate: 0, avgYards: 0, conversionRate: 0,
+        });
+        continue;
+      }
+      const successful = subset.filter(p => isPlaySuccessful(p)).length;
+      const passes = subset.filter(p => ['PASS', 'PLAY_ACTION_BOOT', 'RPO', 'SCREEN'].includes(p.playType)).length;
+      const conversions = subset.filter(p => p.isFirstDown || p.isTouchdown).length;
+      const totalEpa = subset.reduce((s, p) => s + p.epa, 0);
+      const totalYards = subset.reduce((s, p) => s + p.yardsGained, 0);
+
+      results.push({
+        down: d,
+        distanceBucket: b.key,
+        distanceLabel: b.label,
+        plays: subset.length,
+        successRate: Number(((successful / subset.length) * 100).toFixed(1)),
+        avgEpa: Number((totalEpa / subset.length).toFixed(2)),
+        passRate: Number(((passes / subset.length) * 100).toFixed(1)),
+        runRate: Number((((subset.length - passes) / subset.length) * 100).toFixed(1)),
+        avgYards: Number((totalYards / subset.length).toFixed(1)),
+        conversionRate: Number(((conversions / subset.length) * 100).toFixed(1)),
+      });
+    }
+  }
+  return results;
+}
+
+export interface RedZoneStats {
+  totalPlays: number;
+  touchdownRate: number;
+  fieldGoalRate: number;
+  turnoverRate: number;
+  avgEpa: number;
+  successRate: number;
+  touchdowns: number;
+  fieldGoals: number;
+  turnovers: number;
+  goalLinePlays: number;
+  goalLineTdRate: number;
+}
+
+/**
+ * Filters plays inside opponent's 20 (yardLine >= 80) and computes
+ * red zone efficiency metrics.
+ */
+export function computeRedZoneEfficiency(plays: PlayAnalysis[]): RedZoneStats {
+  const rzPlays = plays.filter(p => p.yardLine >= 80);
+  if (rzPlays.length === 0) {
+    return { totalPlays: 0, touchdownRate: 0, fieldGoalRate: 0, turnoverRate: 0, avgEpa: 0, successRate: 0, touchdowns: 0, fieldGoals: 0, turnovers: 0, goalLinePlays: 0, goalLineTdRate: 0 };
+  }
+
+  const tds = rzPlays.filter(p => p.isTouchdown).length;
+  const fgs = rzPlays.filter(p => p.playType === 'FIELD_GOAL').length;
+  const tos = rzPlays.filter(p => p.isTurnover).length;
+  const successful = rzPlays.filter(p => isPlaySuccessful(p)).length;
+  const totalEpa = rzPlays.reduce((s, p) => s + p.epa, 0);
+
+  // Goal line plays (inside 5)
+  const glPlays = rzPlays.filter(p => p.yardLine >= 95);
+  const glTds = glPlays.filter(p => p.isTouchdown).length;
+
+  return {
+    totalPlays: rzPlays.length,
+    touchdownRate: Number(((tds / rzPlays.length) * 100).toFixed(1)),
+    fieldGoalRate: Number(((fgs / rzPlays.length) * 100).toFixed(1)),
+    turnoverRate: Number(((tos / rzPlays.length) * 100).toFixed(1)),
+    avgEpa: Number((totalEpa / rzPlays.length).toFixed(2)),
+    successRate: Number(((successful / rzPlays.length) * 100).toFixed(1)),
+    touchdowns: tds,
+    fieldGoals: fgs,
+    turnovers: tos,
+    goalLinePlays: glPlays.length,
+    goalLineTdRate: glPlays.length > 0 ? Number(((glTds / glPlays.length) * 100).toFixed(1)) : 0,
+  };
+}
+
+export interface QuarterTrend {
+  quarter: number;
+  quarterLabel: string;
+  plays: number;
+  avgEpa: number;
+  totalEpa: number;
+  successRate: number;
+  explosiveRate: number;
+  avgYards: number;
+  touchdowns: number;
+  turnovers: number;
+}
+
+/**
+ * Returns per-quarter EPA, success rate, explosive play rate and scoring.
+ */
+export function computeQuarterTrends(plays: PlayAnalysis[]): QuarterTrend[] {
+  const quarters = [1, 2, 3, 4];
+  return quarters.map(q => {
+    const subset = plays.filter(p => p.quarter === q);
+    if (subset.length === 0) {
+      return { quarter: q, quarterLabel: `Q${q}`, plays: 0, avgEpa: 0, totalEpa: 0, successRate: 0, explosiveRate: 0, avgYards: 0, touchdowns: 0, turnovers: 0 };
+    }
+    const stats = aggregateEPA(subset);
+    const totalYards = subset.reduce((s, p) => s + p.yardsGained, 0);
+    const tds = subset.filter(p => p.isTouchdown).length;
+    const tos = subset.filter(p => p.isTurnover).length;
+
+    return {
+      quarter: q,
+      quarterLabel: `Q${q}`,
+      plays: subset.length,
+      avgEpa: stats.avgEpa,
+      totalEpa: stats.totalEpa,
+      successRate: stats.successRate,
+      explosiveRate: stats.explosivePlayRate,
+      avgYards: Number((totalYards / subset.length).toFixed(1)),
+      touchdowns: tds,
+      turnovers: tos,
+    };
+  });
+}
+
+export interface FieldZoneStats {
+  zone: string;
+  zoneLabel: string;
+  plays: number;
+  avgEpa: number;
+  successRate: number;
+  explosiveRate: number;
+  avgYards: number;
+}
+
+/**
+ * Buckets plays into 5 field zones and returns performance per zone.
+ */
+export function computeFieldPositionEPA(plays: PlayAnalysis[]): FieldZoneStats[] {
+  const zones = [
+    { zone: 'own_deep', label: 'Own 1–20', min: 1, max: 20 },
+    { zone: 'own_mid', label: 'Own 21–40', min: 21, max: 40 },
+    { zone: 'midfield', label: 'Midfield 41–60', min: 41, max: 60 },
+    { zone: 'opp_mid', label: 'Opp 21–40 (61–80)', min: 61, max: 80 },
+    { zone: 'red_zone', label: 'Red Zone (81–99)', min: 81, max: 99 },
+  ];
+
+  return zones.map(z => {
+    const subset = plays.filter(p => p.yardLine >= z.min && p.yardLine <= z.max);
+    if (subset.length === 0) {
+      return { zone: z.zone, zoneLabel: z.label, plays: 0, avgEpa: 0, successRate: 0, explosiveRate: 0, avgYards: 0 };
+    }
+    const stats = aggregateEPA(subset);
+    const totalYards = subset.reduce((s, p) => s + p.yardsGained, 0);
+    return {
+      zone: z.zone,
+      zoneLabel: z.label,
+      plays: subset.length,
+      avgEpa: stats.avgEpa,
+      successRate: stats.successRate,
+      explosiveRate: stats.explosivePlayRate,
+      avgYards: Number((totalYards / subset.length).toFixed(1)),
+    };
+  });
+}
+
+export interface PersonnelStats {
+  personnel: string;
+  personnelLabel: string;
+  plays: number;
+  avgEpa: number;
+  successRate: number;
+  explosiveRate: number;
+  avgYards: number;
+  motionRate: number;
+  passRate: number;
+}
+
+/**
+ * Calculates performance by offensive personnel grouping (11, 12, 21 personnel etc.).
+ */
+export function computePersonnelSplits(plays: PlayAnalysis[]): PersonnelStats[] {
+  const personnelLabels: Record<string, string> = {
+    '11': '1RB 1TE 3WR',
+    '12': '1RB 2TE 2WR',
+    '13': '1RB 3TE 1WR',
+    '21': '2RB 1TE 2WR',
+    '22': '2RB 2TE 1WR',
+    '10': '1RB 0TE 4WR',
+    '20': '2RB 0TE 3WR',
+  };
+
+  const groups = new Map<string, PlayAnalysis[]>();
+  for (const p of plays) {
+    const key = p.offensivePersonnel || '11';
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(p);
+  }
+
+  return Array.from(groups.entries())
+    .map(([key, subset]) => {
+      const stats = aggregateEPA(subset);
+      const totalYards = subset.reduce((s, p) => s + p.yardsGained, 0);
+      const motionPlays = subset.filter(p => p.motionType !== 'NONE').length;
+      const passes = subset.filter(p => ['PASS', 'PLAY_ACTION_BOOT', 'RPO', 'SCREEN'].includes(p.playType)).length;
+
+      return {
+        personnel: key,
+        personnelLabel: personnelLabels[key] || key,
+        plays: subset.length,
+        avgEpa: stats.avgEpa,
+        successRate: stats.successRate,
+        explosiveRate: stats.explosivePlayRate,
+        avgYards: Number((totalYards / subset.length).toFixed(1)),
+        motionRate: Number(((motionPlays / subset.length) * 100).toFixed(1)),
+        passRate: Number(((passes / subset.length) * 100).toFixed(1)),
+      };
+    })
+    .sort((a, b) => b.plays - a.plays);
+}
+
+export interface MotionLiftResult {
+  motionAvgEpa: number;
+  staticAvgEpa: number;
+  epaLift: number;
+  motionSuccessRate: number;
+  staticSuccessRate: number;
+  successRateLift: number;
+  motionPlays: number;
+  staticPlays: number;
+}
+
+/**
+ * Computes the dynamic EPA lift that pre-snap motion provides over static plays.
+ */
+export function computeMotionLift(plays: PlayAnalysis[]): MotionLiftResult {
+  const offPlays = plays.filter(p => p.unit === 'OFFENSE');
+  const motionPlays = offPlays.filter(p => p.motionType !== 'NONE');
+  const staticPlays = offPlays.filter(p => p.motionType === 'NONE');
+
+  const motionStats = aggregateEPA(motionPlays);
+  const staticStats = aggregateEPA(staticPlays);
+
+  return {
+    motionAvgEpa: motionStats.avgEpa,
+    staticAvgEpa: staticStats.avgEpa,
+    epaLift: Number((motionStats.avgEpa - staticStats.avgEpa).toFixed(2)),
+    motionSuccessRate: motionStats.successRate,
+    staticSuccessRate: staticStats.successRate,
+    successRateLift: Number((motionStats.successRate - staticStats.successRate).toFixed(1)),
+    motionPlays: motionPlays.length,
+    staticPlays: staticPlays.length,
+  };
+}

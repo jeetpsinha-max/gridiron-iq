@@ -20,7 +20,7 @@ export const TEAM_ROSTER: UserMention[] = [
   { id: 'coach-brooks', name: 'Deyvon Brooks', role: 'COACH', position: 'Assistant Coach' },
   { id: 'coach-gonzalez', name: 'Chris Gonzalez', role: 'COACH', position: 'Assistant Coach' },
   
-  // 2025–2026 Official NJ.com & Varsity Roster Athletes
+  // 2025–2026 Official NJ.com & Varsity Roster Athletes (38 Players)
   { id: 'player-2', name: 'Kadin Huling', role: 'PLAYER', jerseyNumber: 2, position: 'RB / LB (Jr, 2027)' },
   { id: 'player-3', name: 'Jeremiah Davis', role: 'PLAYER', jerseyNumber: 3, position: 'RB / DB (Sr, 2026)' },
   { id: 'player-4', name: 'Cooper Allen', role: 'PLAYER', jerseyNumber: 4, position: 'TE / DL (Sr, 2026)' },
@@ -34,13 +34,31 @@ export const TEAM_ROSTER: UserMention[] = [
   { id: 'player-15', name: 'Freddy Melton', role: 'PLAYER', jerseyNumber: 15, position: 'QB (Sr, 2026)' },
   { id: 'player-16', name: 'Griffin Suthammanont', role: 'PLAYER', jerseyNumber: 16, position: 'WR / DB (Jr, 2027)' },
   { id: 'player-18', name: 'Aarav Kumar', role: 'PLAYER', jerseyNumber: 18, position: 'WR / DB (Sr, 2026)' },
+  { id: 'player-19', name: 'Gennaro Sirrota', role: 'PLAYER', jerseyNumber: 19, position: 'WR / DB (Fr, 2029)' },
   { id: 'player-20', name: 'Bryce Layade', role: 'PLAYER', jerseyNumber: 20, position: 'RB / LB (So, 2028)' },
+  { id: 'player-21', name: 'Xzavier Torres', role: 'PLAYER', jerseyNumber: 21, position: 'WR / LB (Fr, 2029)' },
   { id: 'player-22', name: 'Benjamin Perkins', role: 'PLAYER', jerseyNumber: 22, position: 'WR / DB (So, 2028)' },
   { id: 'player-26', name: 'Ethan DeChant', role: 'PLAYER', jerseyNumber: 26, position: 'WR / DB (So, 2028)' },
   { id: 'player-30', name: 'Caleb Feinberg', role: 'PLAYER', jerseyNumber: 30, position: 'K / P (Jr, 2027)' },
+  { id: 'player-32', name: 'Ahaan Agrawal', role: 'PLAYER', jerseyNumber: 32, position: 'WR / DB (Fr, 2029)' },
+  { id: 'player-33', name: 'Aaron Motley', role: 'PLAYER', jerseyNumber: 33, position: 'RB / DB (Fr, 2029)' },
+  { id: 'player-34', name: 'David Adesola', role: 'PLAYER', jerseyNumber: 34, position: 'RB / LB (Fr, 2029)' },
+  { id: 'player-36', name: 'Caden Daniel', role: 'PLAYER', jerseyNumber: 36, position: 'WR / DL (Fr, 2029)' },
+  { id: 'player-40', name: 'Ari Feinberg', role: 'PLAYER', jerseyNumber: 40, position: 'OL / LB (So, 2028)' },
+  { id: 'player-42', name: 'Maverick Mullervy', role: 'PLAYER', jerseyNumber: 42, position: 'TE / LB (Fr, 2029)' },
+  { id: 'player-45', name: 'Finn Pedersen', role: 'PLAYER', jerseyNumber: 45, position: 'TE / DL (Jr, 2027)' },
+  { id: 'player-48', name: 'Jordan Bennet', role: 'PLAYER', jerseyNumber: 48, position: 'RB / LB (Fr, 2029)' },
+  { id: 'player-54', name: 'Rocco Annunziata', role: 'PLAYER', jerseyNumber: 54, position: 'OL / DL (Fr, 2029)' },
+  { id: 'player-56', name: 'Nathan Adler', role: 'PLAYER', jerseyNumber: 56, position: 'OL / DL (Fr, 2029)' },
+  { id: 'player-57', name: 'Colby Hartpence', role: 'PLAYER', jerseyNumber: 57, position: 'OL / DL (Fr, 2029)' },
+  { id: 'player-60', name: 'Adem Amar', role: 'PLAYER', jerseyNumber: 60, position: 'OL / DL (Jr, 2027)' },
+  { id: 'player-63', name: 'Julian Sandy', role: 'PLAYER', jerseyNumber: 63, position: 'OL / DL (Jr, 2027)' },
+  { id: 'player-68', name: 'Hawthorne Hughes-Pearsall', role: 'PLAYER', jerseyNumber: 68, position: 'OL / DL (Fr, 2029)' },
   { id: 'player-70', name: 'Reed Oliver', role: 'PLAYER', jerseyNumber: 70, position: 'OL / DL (Sr, 2026)' },
   { id: 'player-72', name: 'Christian Velardi', role: 'PLAYER', jerseyNumber: 72, position: 'OL (Sr, 2026)' },
+  { id: 'player-76', name: 'Rj Francois', role: 'PLAYER', jerseyNumber: 76, position: 'OL / DL (Fr, 2029)' },
   { id: 'player-77', name: 'Mason Kish', role: 'PLAYER', jerseyNumber: 77, position: 'OL / DL (So, 2028)' },
+  { id: 'player-80', name: 'Om Balchandani', role: 'PLAYER', jerseyNumber: 80, position: 'WR / DL (Fr, 2029)' },
 ];
 
 export const CURRENT_USER: UserMention = TEAM_ROSTER[0]; // Coach Mark Fabish

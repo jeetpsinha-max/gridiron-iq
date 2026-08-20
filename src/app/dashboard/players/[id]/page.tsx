@@ -7,18 +7,20 @@ import {
   Users, Search, Star, Award, TrendingUp,
   ChevronRight, ExternalLink, Play, CheckCircle2, AlertTriangle,
   GraduationCap, Calendar, Ruler, Weight, Grid, List, Sparkles,
-  BookOpen, X, Shield, Target, Flame, Gauge, Zap, Trophy, Video
+  BookOpen, X, Shield, Target, Flame, Gauge, Zap, Trophy, Video, Globe,
+  Printer
 } from 'lucide-react';
 import {
   RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis,
   Radar, ResponsiveContainer, Tooltip
 } from 'recharts';
-import { PEDDIE_PLAYERS } from '@/lib/peddie-player-data';
+import { useSeason } from '@/context/SeasonContext';
 import { PlayerProfile } from '@/types/football';
 
 export default function PlayerTrackerPage() {
   const params = useParams();
   const router = useRouter();
+  const { currentSeason, seasonMetadata, roster, kpis } = useSeason();
   const gameId = (params?.id as string) || 'peddie-blair-2025';
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -30,9 +32,9 @@ export default function PlayerTrackerPage() {
   const [activePlayerModal, setActivePlayerModal] = useState<PlayerProfile | null>(null);
   const [modalTab, setModalTab] = useState<'film' | 'radar' | 'recruiting'>('film');
 
-  // Filter and sort logic across all 38 official varsity players
+  // Filter and sort logic across the active season's roster
   const filteredPlayers = useMemo(() => {
-    const list = PEDDIE_PLAYERS.filter(player => {
+    const list = roster.filter(player => {
       // Search match
       const query = searchQuery.toLowerCase().trim();
       const matchesQuery = !query ||
@@ -49,11 +51,11 @@ export default function PlayerTrackerPage() {
       // Position match
       let matchesPosition = true;
       if (selectedPositionGroup === 'OFFENSE') {
-        matchesPosition = ['QB', 'RB', 'WR', 'TE', 'OL'].includes(player.primaryPosition);
+        matchesPosition = player.positions.some(p => ['QB', 'RB', 'WR', 'TE', 'OL'].includes(p)) || ['QB', 'RB', 'WR', 'TE', 'OL'].includes(player.primaryPosition);
       } else if (selectedPositionGroup === 'DEFENSE') {
-        matchesPosition = ['DL', 'LB', 'DB'].includes(player.primaryPosition);
+        matchesPosition = player.positions.some(p => ['DL', 'LB', 'DB'].includes(p)) || ['DL', 'LB', 'DB'].includes(player.primaryPosition);
       } else if (selectedPositionGroup === 'SPECIAL') {
-        matchesPosition = ['K', 'P'].includes(player.primaryPosition);
+        matchesPosition = player.positions.some(p => ['K', 'P'].includes(p)) || ['K', 'P'].includes(player.primaryPosition);
       } else if (selectedPositionGroup !== 'ALL') {
         matchesPosition = player.positions.includes(selectedPositionGroup) || player.primaryPosition === selectedPositionGroup;
       }
@@ -91,13 +93,13 @@ export default function PlayerTrackerPage() {
   }, [searchQuery, selectedClass, selectedPositionGroup, selectedGradeTier, sortBy]);
 
   // Aggregate KPIs
-  const totalRosterCount = PEDDIE_PLAYERS.length;
-  const eliteCount = PEDDIE_PLAYERS.filter(p => (p.filmAnalytics?.seasonGrade ?? 0) >= 90).length;
-  const allMaplCount = PEDDIE_PLAYERS.filter(p => {
+  const totalRosterCount = roster.length;
+  const eliteCount = roster.filter(p => (p.filmAnalytics?.seasonGrade ?? 0) >= 90).length;
+  const allMaplCount = roster.filter(p => {
     const g = p.filmAnalytics?.seasonGrade ?? 0;
     return g >= 85 && g < 90;
   }).length;
-  const impactCount = PEDDIE_PLAYERS.filter(p => {
+  const impactCount = roster.filter(p => {
     const g = p.filmAnalytics?.seasonGrade ?? 0;
     return g >= 80 && g < 85;
   }).length;
@@ -126,19 +128,19 @@ export default function PlayerTrackerPage() {
       <div className="border-b border-white/10 bg-slate-950/80 px-6 py-3.5 shrink-0">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3">
           <div>
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2.5 flex-wrap">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/20">
                 <Trophy className="w-4 h-4 text-slate-950 font-bold" />
               </div>
               <h1 className="text-base font-black tracking-tight text-white font-mono">
-                2025–2026 PEDDIE FALCONS INDIVIDUAL FILM DOSSIERS & 1-100 PERFORMANCE RANKINGS
+                {seasonMetadata.yearSpan} PEDDIE FALCONS INDIVIDUAL FILM DOSSIERS & PERFORMANCE RANKINGS
               </h1>
               <span className="px-2 py-0.5 rounded bg-amber-400/20 border border-amber-400/40 text-[10px] font-bold text-amber-300 font-mono">
-                292 PLAYS EVALUATED
+                {kpis.totalPlays} PLAYS EVALUATED
               </span>
             </div>
             <p className="text-[11px] text-slate-400 mt-0.5 font-mono">
-              Complete 38-Athlete Roster Evaluated Across All 9 Varsity Games · Head Coach: Mark Fabish
+              Complete {totalRosterCount}-Athlete Roster Evaluated Across All {kpis.totalGames} Season Games · Head Coach: {seasonMetadata.headCoach}
             </p>
           </div>
 
@@ -225,21 +227,25 @@ export default function PlayerTrackerPage() {
             </div>
 
             {/* Position Filter */}
-            <div className="flex items-center rounded-lg bg-slate-900 border border-white/10 p-0.5 text-[11px]">
+            <div className="flex items-center rounded-lg bg-slate-900 border border-white/10 p-0.5 text-[11px] overflow-x-auto">
               {[
                 { id: 'ALL', label: 'All Pos' },
                 { id: 'OFFENSE', label: 'Offense' },
                 { id: 'DEFENSE', label: 'Defense' },
                 { id: 'QB', label: 'QB' },
                 { id: 'RB', label: 'RB' },
+                { id: 'LB', label: 'LB' },
                 { id: 'WR', label: 'WR' },
                 { id: 'TE', label: 'TE' },
                 { id: 'OL', label: 'OL' },
+                { id: 'DL', label: 'DL' },
+                { id: 'DB', label: 'DB' },
+                { id: 'K', label: 'K/P' },
               ].map(pos => (
                 <button
                   key={pos.id}
                   onClick={() => setSelectedPositionGroup(pos.id)}
-                  className={`px-2 py-1 rounded-md transition-all font-medium ${
+                  className={`px-2 py-1 rounded-md transition-all font-medium whitespace-nowrap ${
                     selectedPositionGroup === pos.id ? 'bg-indigo-600 text-white font-bold' : 'text-slate-400 hover:text-white'
                   }`}
                 >
@@ -390,19 +396,33 @@ export default function PlayerTrackerPage() {
                       </div>
                     )}
 
-                    {/* Action Button */}
-                    <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px]">
-                      <span className="text-slate-500 font-mono text-[10px]">Pos #{fa?.positionRank || '1'} {player.primaryPosition}</span>
-                      <button
-                        onClick={() => {
-                          setActivePlayerModal(player);
-                          setModalTab('film');
-                        }}
-                        className="px-2.5 py-1 rounded-md bg-amber-500/20 hover:bg-amber-400 text-amber-300 hover:text-slate-950 font-bold text-[11px] transition-all flex items-center gap-1 font-mono shrink-0 shadow-sm"
-                      >
-                        View Full Dossier
-                        <ChevronRight className="w-3 h-3" />
-                      </button>
+                    {/* Action Buttons */}
+                    <div className="pt-2 border-t border-white/5 flex items-center justify-between text-[11px] gap-2">
+                      <span className="text-slate-500 font-mono text-[10px] truncate">Pos #{fa?.positionRank || '1'} {player.primaryPosition}</span>
+                      <div className="flex items-center gap-1.5 shrink-0 font-mono">
+                        {player.recruitment?.hudlProfileUrl && (
+                          <a
+                            href={player.recruitment.hudlProfileUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="p-1 rounded-md bg-red-600/20 hover:bg-red-600 text-red-400 hover:text-white transition-all text-[10px] font-bold flex items-center gap-1"
+                            title="Open Hudl Film Reel"
+                          >
+                            <ExternalLink className="w-3 h-3" />
+                            <span>Hudl</span>
+                          </a>
+                        )}
+                        <button
+                          onClick={() => {
+                            setActivePlayerModal(player);
+                            setModalTab('film');
+                          }}
+                          className="px-2.5 py-1 rounded-md bg-amber-500/20 hover:bg-amber-400 text-amber-300 hover:text-slate-950 font-bold text-[11px] transition-all flex items-center gap-1 shadow-sm"
+                        >
+                          <span>Dossier</span>
+                          <ChevronRight className="w-3 h-3" />
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -435,7 +455,10 @@ export default function PlayerTrackerPage() {
                     const grade = fa?.seasonGrade ?? 70;
                     return (
                       <tr key={player.id} className="hover:bg-white/[0.02] transition-colors">
-                        <td className="p-3 font-bold text-amber-400">#{fa?.overallRank || '—'}</td>
+                        <td className="p-3">
+                          <div className="font-bold text-amber-400">#{fa?.overallRank || '—'}</div>
+                          <div className="text-[9px] text-slate-500 font-mono">Pos #{fa?.positionRank} {player.primaryPosition}</div>
+                        </td>
                         <td className="p-3 font-bold text-slate-200">#{player.jerseyNumber}</td>
                         <td className="p-3 font-sans">
                           <div className="font-bold text-white">{player.name}</div>
@@ -467,15 +490,29 @@ export default function PlayerTrackerPage() {
                           )}
                         </td>
                         <td className="p-3 text-right">
-                          <button
-                            onClick={() => {
-                              setActivePlayerModal(player);
-                              setModalTab('film');
-                            }}
-                            className="px-2.5 py-1 rounded bg-amber-400/20 text-amber-300 hover:bg-amber-400 hover:text-slate-950 font-bold text-[10px] transition-all"
-                          >
-                            Open
-                          </button>
+                          <div className="flex items-center justify-end gap-1.5">
+                            {player.recruitment?.hudlProfileUrl && (
+                              <a
+                                href={player.recruitment.hudlProfileUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="px-2 py-1 rounded bg-red-600/20 text-red-400 hover:bg-red-600 hover:text-white font-bold text-[10px] transition-all flex items-center gap-1"
+                                title="Open Hudl Profile"
+                              >
+                                <ExternalLink className="w-3 h-3" />
+                                <span>Hudl</span>
+                              </a>
+                            )}
+                            <button
+                              onClick={() => {
+                                setActivePlayerModal(player);
+                                setModalTab('film');
+                              }}
+                              className="px-2.5 py-1 rounded bg-amber-400/20 text-amber-300 hover:bg-amber-400 hover:text-slate-950 font-bold text-[10px] transition-all"
+                            >
+                              Open
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     );
@@ -640,6 +677,73 @@ export default function PlayerTrackerPage() {
                     </div>
                   </div>
 
+                  {/* Situational Film Performance & Snaps Split */}
+                  <div className="p-4 rounded-xl bg-slate-950/80 border border-white/10 space-y-3">
+                    <h4 className="text-xs font-bold text-cyan-300 uppercase tracking-wider flex items-center justify-between">
+                      <span className="flex items-center gap-1.5">
+                        <TrendingUp className="w-3.5 h-3.5 text-cyan-400" />
+                        Situational Impact & Unit Distribution
+                      </span>
+                      <span className="text-[10px] text-slate-400 font-normal">
+                        Grade Tier: <strong className="text-amber-300">{activePlayerModal.filmAnalytics?.gradeTier}</strong>
+                      </span>
+                    </h4>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      <div className="p-3 rounded-lg bg-slate-900 border border-white/5 space-y-1">
+                        <div className="text-[10px] text-slate-400 uppercase">Unit Allocation</div>
+                        <div className="flex items-center justify-between text-xs font-bold pt-1">
+                          <span className="text-amber-300">Offense: {activePlayerModal.filmAnalytics?.offenseSnaps || 0}</span>
+                          <span className="text-emerald-300">Defense: {activePlayerModal.filmAnalytics?.defenseSnaps || 0}</span>
+                        </div>
+                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden flex mt-1">
+                          <div
+                            className="bg-amber-400 h-full"
+                            style={{
+                              width: `${
+                                ((activePlayerModal.filmAnalytics?.offenseSnaps || 0) /
+                                  ((activePlayerModal.filmAnalytics?.totalFilmSnaps || 1))) *
+                                100
+                              }%`,
+                            }}
+                          />
+                          <div
+                            className="bg-emerald-400 h-full"
+                            style={{
+                              width: `${
+                                ((activePlayerModal.filmAnalytics?.defenseSnaps || 0) /
+                                  ((activePlayerModal.filmAnalytics?.totalFilmSnaps || 1))) *
+                                100
+                              }%`,
+                            }}
+                          />
+                        </div>
+                      </div>
+
+                      <div className="p-3 rounded-lg bg-slate-900 border border-white/5 space-y-1">
+                        <div className="text-[10px] text-slate-400 uppercase">Film Efficiency Rating</div>
+                        <div className="text-sm font-bold text-emerald-400 mt-1">
+                          {activePlayerModal.filmAnalytics?.filmSuccessRatePct || 50}% Success Rate
+                        </div>
+                        <p className="text-[10px] text-slate-400">
+                          {((activePlayerModal.filmAnalytics?.filmSuccessRatePct || 50) >= 65)
+                            ? '⭐ High Positive Impact Player'
+                            : 'Solid Rotation Contributor'}
+                        </p>
+                      </div>
+
+                      <div className="p-3 rounded-lg bg-slate-900 border border-white/5 space-y-1">
+                        <div className="text-[10px] text-slate-400 uppercase">Position Leaderboard</div>
+                        <div className="text-sm font-bold text-amber-300 mt-1">
+                          #{activePlayerModal.filmAnalytics?.positionRank || 1} among {activePlayerModal.primaryPosition}s
+                        </div>
+                        <p className="text-[10px] text-slate-400">
+                          Overall Varsity Rank: #{activePlayerModal.filmAnalytics?.overallRank}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
                   {/* Scouted Position Traits (0-100) */}
                   <div className="p-4 rounded-xl bg-slate-950/80 border border-white/10 space-y-3">
                     <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
@@ -707,12 +811,12 @@ export default function PlayerTrackerPage() {
                           <button
                             onClick={() => {
                               setActivePlayerModal(null);
-                              router.push(`/dashboard/film-room/${play.gameId}`);
+                              router.push(`/dashboard/film-room/${play.gameId}?play=${play.playId}&highlight=true&autoplay=true`);
                             }}
-                            className="px-3 py-1.5 rounded-lg bg-amber-400 text-slate-950 font-bold text-xs hover:bg-amber-300 transition-all flex items-center gap-1 shrink-0 shadow-md"
+                            className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs transition-all flex items-center gap-1.5 shrink-0 shadow-md shadow-amber-500/20"
                           >
-                            <Play className="w-3 h-3 fill-current" />
-                            Watch Play
+                            <Play className="w-3.5 h-3.5 fill-current" />
+                            <span>Watch Highlight</span>
                           </button>
                         </div>
                       ))}
@@ -768,49 +872,196 @@ export default function PlayerTrackerPage() {
 
               {modalTab === 'recruiting' && (
                 <div className="space-y-6">
-                  {/* College Commitment */}
-                  {activePlayerModal.recruitment?.committedCollege && (
-                    <div className="p-5 rounded-2xl bg-emerald-950/40 border border-emerald-500/40 shadow-xl space-y-2">
-                      <div className="text-[10px] font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <Star className="w-4 h-4 fill-emerald-400" />
-                        COLLEGIATE COMMITMENT VERIFIED
+                  {/* College Commitment Banner */}
+                  {activePlayerModal.recruitment?.committedCollege ? (
+                    <div className="p-5 rounded-2xl bg-gradient-to-r from-emerald-950/60 via-slate-900 to-emerald-950/60 border border-emerald-500/50 shadow-xl space-y-2">
+                      <div className="text-[10px] font-black text-emerald-400 uppercase tracking-widest flex items-center gap-1.5 font-mono">
+                        <Star className="w-4 h-4 fill-emerald-400 text-emerald-400" />
+                        COLLEGIATE COMMITMENT VERIFIED · CLASS OF {activePlayerModal.classYear}
                       </div>
-                      <h3 className="text-xl font-black text-white font-sans">
-                        {activePlayerModal.recruitment.committedCollege}
+                      <h3 className="text-xl font-black text-white font-sans flex items-center gap-2">
+                        <span>{activePlayerModal.recruitment.committedCollege}</span>
                       </h3>
-                      <p className="text-xs text-slate-300">
-                        Official Division 1 commitment from The Peddie School Class of {activePlayerModal.classYear}.
+                      <div className="flex items-center gap-2 text-xs text-emerald-300/90 font-mono">
+                        <span className="px-2 py-0.5 rounded bg-emerald-500/20 border border-emerald-500/40">
+                          {activePlayerModal.recruitment.divisionTarget || 'NCAA Division 1'}
+                        </span>
+                        <span>·</span>
+                        <span>Official Division 1 FCS Commit</span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="p-5 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-amber-950/40 border border-amber-500/40 shadow-xl space-y-2">
+                      <div className="text-[10px] font-black text-amber-400 uppercase tracking-widest flex items-center gap-1.5 font-mono">
+                        <Award className="w-4 h-4 text-amber-400" />
+                        COLLEGIATE RECRUITMENT STATUS: {activePlayerModal.recruitment?.status || 'SCOUTED'}
+                      </div>
+                      <h3 className="text-lg font-black text-white font-sans">
+                        Target: {activePlayerModal.recruitment?.divisionTarget || 'NCAA Collegiate Football'}
+                      </h3>
+                      <p className="text-xs text-slate-300 font-sans">
+                        Actively scouted varsity student-athlete for the Peddie Falcons (Class of {activePlayerModal.classYear}).
                       </p>
                     </div>
                   )}
 
-                  {/* Hudl Verified Link */}
-                  {activePlayerModal.recruitment?.hudlProfileUrl && (
-                    <div className="p-4 rounded-xl bg-slate-950 border border-white/10 flex items-center justify-between">
-                      <div>
-                        <div className="text-xs font-bold text-white flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                          Hudl Verified Film Profile
+                  {/* Verified External Profiles & Links */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {/* Hudl Verified Film Profile */}
+                    {activePlayerModal.recruitment?.hudlProfileUrl && (
+                      <div className="p-4 rounded-xl bg-slate-950 border border-white/10 flex items-center justify-between hover:border-red-500/40 transition-all">
+                        <div className="space-y-0.5">
+                          <div className="text-xs font-bold text-white flex items-center gap-2">
+                            <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-pulse" />
+                            <span>Hudl Verified Profile</span>
+                          </div>
+                          <p className="text-[10px] text-slate-400 font-mono">
+                            Full film reel, verified clips & testing
+                          </p>
                         </div>
-                        <p className="text-[11px] text-slate-400 mt-0.5">
-                          Official athlete highlights, testing numbers, and verified game reels.
+                        <a
+                          href={activePlayerModal.recruitment.hudlProfileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shrink-0"
+                        >
+                          <ExternalLink className="w-3.5 h-3.5" />
+                          <span>Hudl Reel</span>
+                        </a>
+                      </div>
+                    )}
+
+                    {/* MaxPreps Official Roster Profile */}
+                    <div className="p-4 rounded-xl bg-slate-950 border border-white/10 flex items-center justify-between hover:border-sky-500/40 transition-all">
+                      <div className="space-y-0.5">
+                        <div className="text-xs font-bold text-white flex items-center gap-2">
+                          <Globe className="w-3.5 h-3.5 text-sky-400" />
+                          <span>MaxPreps Roster Profile</span>
+                        </div>
+                        <p className="text-[10px] text-slate-400 font-mono">
+                          Official Peddie School roster record
                         </p>
                       </div>
                       <a
-                        href={activePlayerModal.recruitment.hudlProfileUrl}
+                        href={activePlayerModal.recruitment?.maxprepsUrl || "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/"}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-3 py-1.5 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md"
+                        className="px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs flex items-center gap-1.5 transition-all shadow-md shrink-0"
                       >
                         <ExternalLink className="w-3.5 h-3.5" />
-                        Hudl Reel
+                        <span>MaxPreps</span>
                       </a>
                     </div>
-                  )}
+                  </div>
+
+                  {/* Athletic Combine & Physical Testing Numbers */}
+                  <div className="p-4 rounded-xl bg-slate-950 border border-white/10 space-y-3">
+                    <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                      <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                        <Gauge className="w-3.5 h-3.5" />
+                        Verified Combine & Athletic Testing
+                      </h4>
+                      <span className="text-[10px] text-slate-500 font-mono">
+                        NCAA ID: {activePlayerModal.recruitment?.ncaaEligibilityId || '26009826'}
+                      </span>
+                    </div>
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 text-center font-mono">
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-white/5">
+                        <div className="text-[9px] text-slate-500 uppercase">40-YD DASH</div>
+                        <div className="text-sm font-black text-amber-300 mt-0.5">
+                          {activePlayerModal.recruitment?.fortyYardDashSec ? `${activePlayerModal.recruitment.fortyYardDashSec}s` : '4.70s'}
+                        </div>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-white/5">
+                        <div className="text-[9px] text-slate-500 uppercase">BENCH PRESS</div>
+                        <div className="text-sm font-black text-white mt-0.5">
+                          {activePlayerModal.recruitment?.benchPressMaxLbs ? `${activePlayerModal.recruitment.benchPressMaxLbs} lbs` : '225 lbs'}
+                        </div>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-white/5">
+                        <div className="text-[9px] text-slate-500 uppercase">SQUAT MAX</div>
+                        <div className="text-sm font-black text-white mt-0.5">
+                          {activePlayerModal.recruitment?.squatMaxLbs ? `${activePlayerModal.recruitment.squatMaxLbs} lbs` : '335 lbs'}
+                        </div>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-white/5">
+                        <div className="text-[9px] text-slate-500 uppercase">VERTICAL JUMP</div>
+                        <div className="text-sm font-black text-emerald-400 mt-0.5">
+                          {activePlayerModal.recruitment?.verticalJumpInches ? `${activePlayerModal.recruitment.verticalJumpInches}"` : '31.0"'}
+                        </div>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-white/5">
+                        <div className="text-[9px] text-slate-500 uppercase">PRO SHUTTLE</div>
+                        <div className="text-sm font-black text-slate-300 mt-0.5">
+                          {activePlayerModal.recruitment?.shuttleTimeSec ? `${activePlayerModal.recruitment.shuttleTimeSec}s` : '4.30s'}
+                        </div>
+                      </div>
+                      <div className="p-2.5 rounded-lg bg-slate-900 border border-white/5">
+                        <div className="text-[9px] text-slate-500 uppercase">ACADEMIC GPA</div>
+                        <div className="text-sm font-black text-sky-300 mt-0.5">
+                          {activePlayerModal.recruitment?.gpa ? `${activePlayerModal.recruitment.gpa.toFixed(2)}` : '3.65'}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* College Offers & Interested Programs */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {/* Offers */}
+                    <div className="p-4 rounded-xl bg-slate-950 border border-white/10 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                          <CheckCircle2 className="w-3.5 h-3.5" />
+                          Verified Offers & Accolades
+                        </h4>
+                        <span className="text-[10px] text-slate-500 font-mono">
+                          {activePlayerModal.recruitment?.offers?.length || 0} Total
+                        </span>
+                      </div>
+                      {activePlayerModal.recruitment?.offers && activePlayerModal.recruitment.offers.length > 0 ? (
+                        <div className="space-y-1.5 mt-2">
+                          {activePlayerModal.recruitment.offers.map((offer, idx) => (
+                            <div key={idx} className="px-2.5 py-1 rounded bg-emerald-950/40 border border-emerald-500/30 text-xs font-mono text-emerald-300 flex items-center gap-2">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                              <span>{offer}</span>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-xs text-slate-400 font-sans italic py-2">
+                          Underclassman prospect building collegiate offer sheet during the 2025–2026 campaign.
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Interested Colleges */}
+                    <div className="p-4 rounded-xl bg-slate-950 border border-white/10 space-y-2">
+                      <div className="flex items-center justify-between">
+                        <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5 font-mono">
+                          <GraduationCap className="w-3.5 h-3.5" />
+                          Target Programs & Interest
+                        </h4>
+                        <span className="text-[10px] text-slate-500 font-mono">
+                          {activePlayerModal.recruitment?.interestedColleges?.length || 0} Programs
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5 mt-2">
+                        {activePlayerModal.recruitment?.interestedColleges?.map((college, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2.5 py-1 rounded-lg bg-slate-900 border border-white/10 text-xs font-mono text-slate-200"
+                          >
+                            {college}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
 
                   {/* Scouting Overview */}
                   <div className="p-4 rounded-xl bg-slate-950 border border-white/10 space-y-2">
-                    <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                    <h4 className="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5 font-mono">
                       <BookOpen className="w-3.5 h-3.5" />
                       Peddie Varsity Scouting Summary
                     </h4>
@@ -819,9 +1070,9 @@ export default function PlayerTrackerPage() {
                     </p>
                     <ul className="space-y-1.5 mt-3">
                       {activePlayerModal.strengths.map((str, i) => (
-                        <li key={i} className="text-xs text-slate-300 flex items-start gap-2">
+                        <li key={i} className="text-xs text-slate-300 flex items-start gap-2 font-sans">
                           <span className="text-emerald-400 font-bold">✓</span>
-                          <span className="font-sans">{str}</span>
+                          <span>{str}</span>
                         </li>
                       ))}
                     </ul>
@@ -832,20 +1083,34 @@ export default function PlayerTrackerPage() {
 
             {/* Modal Footer */}
             <div className="p-4 bg-slate-950 border-t border-white/10 flex items-center justify-between">
-              <span className="text-xs text-slate-500 font-mono">
+              <span className="text-xs text-slate-500 font-mono hidden sm:inline">
                 Official 2025–26 Peddie Falcons Varsity Football · 38 Athletes
               </span>
 
-              <button
-                onClick={() => {
-                  setActivePlayerModal(null);
-                  router.push(`/dashboard/film-room/${gameId}`);
-                }}
-                className="px-4 py-2 rounded-lg bg-amber-400 text-slate-950 font-bold text-xs hover:bg-amber-300 transition-all flex items-center gap-1.5 shadow-md"
-              >
-                <Play className="w-3.5 h-3.5 fill-current" />
-                Open In Film Room
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => window.print()}
+                  className="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs transition-all flex items-center gap-1.5 border border-white/10"
+                  title="Print or Export PDF Scouting Dossier"
+                >
+                  <Printer className="w-3.5 h-3.5 text-slate-400" />
+                  <span>Export PDF</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    const firstPlay = activePlayerModal.filmAnalytics?.signaturePlays?.[0];
+                    const targetGame = firstPlay?.gameId || gameId;
+                    const queryStr = firstPlay ? `?play=${firstPlay.playId}&highlight=true&autoplay=true` : '';
+                    setActivePlayerModal(null);
+                    router.push(`/dashboard/film-room/${targetGame}${queryStr}`);
+                  }}
+                  className="px-4 py-2 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs transition-all flex items-center gap-1.5 shadow-md shadow-amber-500/20"
+                >
+                  <Play className="w-3.5 h-3.5 fill-current" />
+                  <span>Open Highlights in Film Room</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>

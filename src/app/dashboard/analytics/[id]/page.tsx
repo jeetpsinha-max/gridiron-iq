@@ -10,7 +10,8 @@ import {
   PieChart as PieIcon, Flame, Filter, Calendar, Skull,
   CheckCircle2, Swords, Crosshair, Cpu, Database, Sliders,
   HelpCircle as QuestionIcon, PlayCircle, BarChart2,
-  PieChart as PieChartIcon, Share2, Download, Copy, Check
+  PieChart as PieChartIcon, Share2, Download, Copy, Check,
+  Grid, Compass, Gauge, AlertCircle
 } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
@@ -19,8 +20,17 @@ import {
 } from 'recharts';
 import { usePeddieSACStore } from '@/lib/store';
 import { PlayAnalysis, PreSnapMotionType, PlayType } from '@/types/football';
-import { aggregateEPA } from '@/lib/epa-calculator';
+import {
+  aggregateEPA,
+  computeDownDistanceMatrix,
+  computeRedZoneEfficiency,
+  computeQuarterTrends,
+  computeFieldPositionEPA,
+  computePersonnelSplits,
+  computeMotionLift,
+} from '@/lib/epa-calculator';
 import { MOCK_GAMES } from '@/lib/mock-game-data';
+import { useSeason } from '@/context/SeasonContext';
 
 // ---- Metric Card Component ----
 function MetricCard({ label, value, subtitle, trend, icon: Icon, badge, color = 'amber' }: {
@@ -84,12 +94,15 @@ function CustomTooltip({ active, payload, label }: { active?: boolean; payload?:
 export default function AnalyticsPage() {
   const params = useParams();
   const router = useRouter();
+  const { currentSeason, seasonMetadata, games } = useSeason();
   const gameId = (params?.id as string) || 'all-season';
   const { setActiveGame, activeGame } = usePeddieSACStore();
 
   const [selectedDataset, setSelectedDataset] = useState<string>(gameId);
   const [activeUnit, setActiveUnit] = useState<'ALL' | 'OFFENSE' | 'DEFENSE'>('ALL');
-  const [activeTab, setActiveTab] = useState<'overview' | 'fourth-down-bot' | 'defense-ml' | 'motion-ml' | 'fronts' | 'playmakers' | 'bigquery-ml'>('overview');
+  const [activeTab, setActiveTab] = useState<
+    'overview' | 'down-distance' | 'red-zone' | 'personnel' | 'fourth-down-bot' | 'defense-ml' | 'motion-ml' | 'fronts' | 'playmakers' | 'bigquery-ml'
+  >('overview');
 
   const [copiedSql, setCopiedSql] = useState(false);
 
@@ -104,14 +117,14 @@ export default function AnalyticsPage() {
     }
   }, [selectedDataset, setActiveGame]);
 
-  // Master play collection
+  // Master play collection from current season
   const allPlays: PlayAnalysis[] = useMemo(() => {
     if (selectedDataset === 'all-season') {
-      return MOCK_GAMES.flatMap(g => g.plays);
+      return games.flatMap(g => g.plays);
     }
-    const current = MOCK_GAMES.find(g => g.id === selectedDataset);
-    return current?.plays ?? activeGame?.plays ?? [];
-  }, [selectedDataset, activeGame]);
+    const current = games.find(g => g.id === selectedDataset);
+    return current?.plays ?? games[0]?.plays ?? [];
+  }, [selectedDataset, games]);
 
   // Filtered by unit
   const plays: PlayAnalysis[] = useMemo(() => {
@@ -125,6 +138,41 @@ export default function AnalyticsPage() {
 
   const offStats = useMemo(() => aggregateEPA(offensePlays), [offensePlays]);
   const defStats = useMemo(() => aggregateEPA(defensePlays), [defensePlays]);
+
+  // Dynamic Motion Lift Calculation
+  const motionLift = useMemo(() => computeMotionLift(allPlays), [allPlays]);
+
+  // Situational Down & Distance Matrix
+  const downDistanceMatrix = useMemo(() => computeDownDistanceMatrix(plays), [plays]);
+
+  // Red Zone Efficiency
+  const redZoneStats = useMemo(() => computeRedZoneEfficiency(plays), [plays]);
+
+  // Quarter-by-Quarter Trends
+  const quarterTrends = useMemo(() => computeQuarterTrends(plays), [plays]);
+  const offQuarterTrends = useMemo(() => computeQuarterTrends(offensePlays), [offensePlays]);
+  const defQuarterTrends = useMemo(() => computeQuarterTrends(defensePlays), [defensePlays]);
+
+  // Unit Quarter comparison for AreaChart
+  const unitQuarterChartData = useMemo(() => {
+    return [1, 2, 3, 4].map(q => {
+      const offQ = offQuarterTrends.find(t => t.quarter === q);
+      const defQ = defQuarterTrends.find(t => t.quarter === q);
+      return {
+        quarter: `Q${q}`,
+        offEpa: offQ ? offQ.avgEpa : 0,
+        defEpaAllowed: defQ ? defQ.avgEpa : 0,
+        offSuccess: offQ ? offQ.successRate : 0,
+        defSuccess: defQ ? defQ.successRate : 0,
+      };
+    });
+  }, [offQuarterTrends, defQuarterTrends]);
+
+  // Field Position Zones
+  const fieldZones = useMemo(() => computeFieldPositionEPA(plays), [plays]);
+
+  // Personnel Grouping Splits
+  const personnelSplits = useMemo(() => computePersonnelSplits(offensePlays), [offensePlays]);
 
   // 1. Defensive Havoc & Stop Rate Modeling (ml-best-practices)
   const havocModel = useMemo(() => {
@@ -247,14 +295,17 @@ export default function AnalyticsPage() {
     const playmakers = [
       { jersey: 70, name: 'Reed Oliver', pos: 'DE / DL', class: "Senior ('26)", commit: 'Marist College (D1 FCS)' },
       { jersey: 4, name: 'Cooper Allen', pos: 'DT / DL', class: "Senior ('26)", commit: 'Merrimack College (D1 FCS)' },
+      { jersey: 10, name: 'August Cassidy', pos: 'MLB / LB', class: "Sophomore ('28)", commit: 'Varsity Sophomore' },
       { jersey: 3, name: 'Jeremiah Davis', pos: 'FS / DB', class: "Senior ('26)", commit: 'Varsity Senior' },
-      { jersey: 2, name: 'Kadin Huling', pos: 'MLB / LB', class: "Junior ('27)", commit: 'Varsity Junior' },
+      { jersey: 2, name: 'Kadin Huling', pos: 'WLB / LB', class: "Junior ('27)", commit: 'Varsity Junior' },
       { jersey: 5, name: 'Lorenzo Barone', pos: 'CB / DB', class: "Senior ('26)", commit: 'Varsity Senior' },
-      { jersey: 22, name: 'Benjamin Perkins', pos: 'CB / DB', class: "Sophomore ('28)", commit: 'Varsity Sophomore' },
-      { jersey: 9, name: 'Griffin Brennan', pos: 'WLB / LB', class: "Junior ('27)", commit: 'Varsity Junior' },
-      { jersey: 14, name: 'Jonathan Stizza', pos: 'DB / Slot', class: "Junior ('27)", commit: 'Varsity Junior' },
-      { jersey: 77, name: 'Mason Kish', pos: 'DT / DL', class: "Sophomore ('28)", commit: 'Varsity Sophomore' },
+      { jersey: 54, name: 'Rocco Annunziata', pos: 'DT / OL', class: "Freshman ('29)", commit: 'Freshman Star' },
+      { jersey: 21, name: 'Xzavier Torres', pos: 'OLB / WR', class: "Freshman ('29)", commit: 'Freshman Star' },
       { jersey: 8, name: 'Bodee Thibodeau', pos: 'SS / DB', class: "Junior ('27)", commit: 'Varsity Junior' },
+      { jersey: 14, name: 'Jonathan Stizza', pos: 'DB / Slot', class: "Junior ('27)", commit: 'Varsity Junior' },
+      { jersey: 45, name: 'Finn Pedersen', pos: 'DE / EDGE', class: "Junior ('27)", commit: 'Varsity Junior' },
+      { jersey: 9, name: 'Griffin Brennan', pos: 'OLB / LB', class: "Junior ('27)", commit: 'Varsity Junior' },
+      { jersey: 77, name: 'Mason Kish', pos: 'DT / DL', class: "Sophomore ('28)", commit: 'Varsity Sophomore' },
     ];
 
     return playmakers.map(pm => {
@@ -354,9 +405,9 @@ export default function AnalyticsPage() {
               className="bg-transparent text-white focus:outline-none cursor-pointer text-xs font-bold"
             >
               <option value="all-season" className="bg-slate-900 text-amber-300">
-                ⭐ FULL 2025–2026 SEASON ({allPlays.length} Plays)
+                ⭐ FULL {seasonMetadata.yearSpan} SEASON ({allPlays.length} Plays)
               </option>
-              {MOCK_GAMES.map((g) => (
+              {games.map((g) => (
                 <option key={g.id} value={g.id} className="bg-slate-900 text-white">
                   {g.title} ({g.plays.length} plays)
                 </option>
@@ -395,10 +446,11 @@ export default function AnalyticsPage() {
         />
         <MetricCard
           label="Motion EPA Lift"
-          value="+0.82 EPA"
-          subtitle="+15.3% Success Rate Delta"
-          trend="up"
+          value={`${motionLift.epaLift >= 0 ? '+' : ''}${motionLift.epaLift} EPA`}
+          subtitle={`${motionLift.successRateLift >= 0 ? '+' : ''}${motionLift.successRateLift}% Success Rate Delta`}
+          trend={motionLift.epaLift >= 0 ? 'up' : 'down'}
           icon={Zap}
+          badge={`${motionLift.motionPlays} Plays`}
           color="cyan"
         />
         <MetricCard
@@ -421,13 +473,16 @@ export default function AnalyticsPage() {
       {/* Analytics Tabs Navigation Bar */}
       <div className="flex items-center gap-2 border-b border-white/10 pb-3 font-mono text-xs overflow-x-auto">
         {[
-          { id: 'overview', label: '📊 Overview & Situational Matrices' },
-          { id: 'fourth-down-bot', label: '🤖 4th Down Decision & WPA Bot' },
-          { id: 'defense-ml', label: '🛡️ Peddie Defensive ML Model' },
-          { id: 'motion-ml', label: '⚡ Pre-Snap Motion EPA Lift' },
-          { id: 'fronts', label: '⚔️ Defensive Fronts & Pressure' },
-          { id: 'playmakers', label: '⭐ Defensive Playmakers Leaderboard' },
-          { id: 'bigquery-ml', label: '☁️ BigQuery AI & ML Telemetry' },
+          { id: 'overview', label: '📊 Overview & Curves' },
+          { id: 'down-distance', label: '📈 Down & Distance Matrix' },
+          { id: 'red-zone', label: '🔴 Red Zone & Scoring' },
+          { id: 'personnel', label: '📋 Personnel & Formations' },
+          { id: 'fourth-down-bot', label: '🤖 4th Down Decision Bot' },
+          { id: 'defense-ml', label: '🛡️ Defensive Havoc ML' },
+          { id: 'motion-ml', label: '⚡ Pre-Snap Motion Lift' },
+          { id: 'fronts', label: '⚔️ Fronts & Pressure' },
+          { id: 'playmakers', label: '⭐ Playmaker Leaderboard' },
+          { id: 'bigquery-ml', label: '☁️ BigQuery AI Telemetry' },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -445,65 +500,422 @@ export default function AnalyticsPage() {
 
       {/* Tab 1: Overview & Situational Matrices */}
       {activeTab === 'overview' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Defense Stop Rate Matrix */}
-          <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4 font-mono">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Shield className="w-4 h-4 text-emerald-400" />
-                Peddie Defense: Stop Rate by Situation
-              </h3>
-              <span className="text-[10px] text-emerald-400 font-bold">Defensive Efficiency</span>
+        <div className="space-y-6 font-mono">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Offense vs Defense Quarter EPA Performance Curves */}
+            <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Zap className="w-4 h-4 text-amber-400" />
+                  Quarter-by-Quarter EPA Performance Curves
+                </h3>
+                <span className="text-[10px] text-cyan-300 font-bold">Dynamic Telemetry</span>
+              </div>
+
+              <div className="h-72 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <AreaChart data={unitQuarterChartData} margin={{ top: 10, right: 10, left: -15, bottom: 10 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                    <XAxis dataKey="quarter" stroke="#94a3b8" fontSize={10} tickLine={false} />
+                    <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Area type="monotone" dataKey="offEpa" name="Peddie Offense EPA" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.25} />
+                    <Area type="monotone" dataKey="defEpaAllowed" name="Peddie Defense EPA" stroke="#10b981" fill="#10b981" fillOpacity={0.25} />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </div>
             </div>
 
-            <div className="h-72 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={[
-                  { situation: '1st & 10', stopRate: 68.4 },
-                  { situation: '2nd & Short', stopRate: 54.2 },
-                  { situation: '2nd & Med', stopRate: 72.5 },
-                  { situation: '2nd & Long', stopRate: 84.0 },
-                  { situation: '3rd & Short', stopRate: 62.5 },
-                  { situation: '3rd & Med', stopRate: 78.0 },
-                  { situation: '3rd & Long', stopRate: 89.2 },
-                  { situation: '4th Down', stopRate: 75.0 },
-                ]} margin={{ top: 10, right: 10, left: -15, bottom: 25 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
-                  <XAxis dataKey="situation" stroke="#94a3b8" fontSize={10} tickLine={false} angle={-25} textAnchor="end" />
-                  <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} domain={[0, 100]} />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Bar dataKey="stopRate" name="Stop Rate (%)" fill="#10b981" radius={[4, 4, 0, 0]} />
-                </BarChart>
-              </ResponsiveContainer>
+            {/* Field Position EPA Zone Breakdown */}
+            <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Compass className="w-4 h-4 text-cyan-400" />
+                  EPA & Success Rate by Field Zone
+                </h3>
+                <span className="text-[10px] text-amber-300 font-bold">5 Field Zones</span>
+              </div>
+
+              <div className="h-72 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={fieldZones} margin={{ top: 10, right: 10, left: -15, bottom: 20 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                    <XAxis dataKey="zoneLabel" stroke="#94a3b8" fontSize={10} tickLine={false} />
+                    <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} domain={[0, 100]} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="successRate" name="Success Rate (%)" fill="#06b6d4" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="avgEpa" name="Avg EPA" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </div>
 
-          {/* Offense vs Defense EPA Distribution */}
-          <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4 font-mono">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Zap className="w-4 h-4 text-amber-400" />
-                Offense vs Defense EPA Performance Curves
-              </h3>
-              <span className="text-[10px] text-cyan-300 font-bold">Unit Comparison</span>
+          {/* Field Zone Breakdown Table */}
+          <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-3">
+            <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-2">
+              <Grid className="w-4 h-4 text-emerald-400" />
+              Field Zone Performance Breakdown ({plays.length} Snaps)
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-3 pt-2">
+              {fieldZones.map((z, i) => (
+                <div key={i} className="p-3.5 rounded-xl bg-slate-950/80 border border-white/10 space-y-1.5">
+                  <div className="text-xs font-bold text-white">{z.zoneLabel}</div>
+                  <div className="text-[10px] text-slate-400">{z.plays} plays ({((z.plays / (plays.length || 1)) * 100).toFixed(0)}%)</div>
+                  <div className="flex items-center justify-between text-xs pt-1 border-t border-white/5">
+                    <span className="text-slate-400">Success:</span>
+                    <span className="font-bold text-cyan-300">{z.successRate}%</span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-400">Avg EPA:</span>
+                    <span className={`font-bold ${z.avgEpa >= 0 ? 'text-emerald-400' : 'text-rose-400'}`}>
+                      {z.avgEpa >= 0 ? `+${z.avgEpa}` : z.avgEpa}
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-slate-400">Avg Yds:</span>
+                    <span className="font-bold text-amber-300">{z.avgYards} yds</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tab: Down & Distance Matrix */}
+      {activeTab === 'down-distance' && (
+        <div className="space-y-6 font-mono">
+          <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-6 shadow-xl space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-white/10 pb-4">
+              <div>
+                <h2 className="text-base font-bold text-white flex items-center gap-2">
+                  <Grid className="w-5 h-5 text-amber-400" />
+                  Situational Down & Distance Heatmap Matrix ({plays.length} Plays Analyzed)
+                </h2>
+                <p className="text-xs text-slate-400 mt-1">
+                  Cross-tabulation of Down (1st–4th) against Distance Buckets (Short ≤3y, Medium 4–7y, Long 8+y) with real conversion rates and pass/run tendencies.
+                </p>
+              </div>
+              <div className="flex items-center gap-3 text-[10px]">
+                <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-emerald-500/40 border border-emerald-400" /> &gt;65% High Success</div>
+                <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-amber-500/40 border border-amber-400" /> 45–65% Moderate</div>
+                <div className="flex items-center gap-1.5"><span className="w-3 h-3 rounded bg-rose-500/40 border border-rose-400" /> &lt;45% Low</div>
+              </div>
             </div>
 
-            <div className="h-72 w-full">
-              <ResponsiveContainer width="100%" height="100%">
-                <AreaChart data={[
-                  { quarter: 'Q1', offEpa: 0.85, defEpaAllowed: -1.45 },
-                  { quarter: 'Q2', offEpa: 1.15, defEpaAllowed: -2.10 },
-                  { quarter: 'Q3', offEpa: 0.95, defEpaAllowed: -1.80 },
-                  { quarter: 'Q4', offEpa: 1.40, defEpaAllowed: -2.35 },
-                ]} margin={{ top: 10, right: 10, left: -15, bottom: 10 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
-                  <XAxis dataKey="quarter" stroke="#94a3b8" fontSize={10} tickLine={false} />
-                  <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} />
-                  <Tooltip content={<CustomTooltip />} />
-                  <Area type="monotone" dataKey="offEpa" name="Peddie Offense EPA" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.25} />
-                  <Area type="monotone" dataKey="defEpaAllowed" name="Peddie Defense EPA (Negative is Elite)" stroke="#10b981" fill="#10b981" fillOpacity={0.25} />
-                </AreaChart>
-              </ResponsiveContainer>
+            {/* Matrix Grid */}
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-slate-950 border-b border-white/10 text-slate-400 text-[10px] uppercase">
+                  <tr>
+                    <th className="p-3.5">Down</th>
+                    <th className="p-3.5">Distance Bucket</th>
+                    <th className="p-3.5 text-center">Plays</th>
+                    <th className="p-3.5 text-center">Success Rate</th>
+                    <th className="p-3.5 text-center">Avg EPA</th>
+                    <th className="p-3.5 text-center">Conversion %</th>
+                    <th className="p-3.5 text-center">Pass / Run Split</th>
+                    <th className="p-3.5 text-center">Avg Yards</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {downDistanceMatrix.map((cell, i) => {
+                    const bgClass =
+                      cell.plays === 0
+                        ? 'bg-transparent text-slate-600'
+                        : cell.successRate >= 65
+                        ? 'bg-emerald-500/10 border-l-2 border-emerald-400'
+                        : cell.successRate >= 45
+                        ? 'bg-amber-500/10 border-l-2 border-amber-400'
+                        : 'bg-rose-500/10 border-l-2 border-rose-400';
+
+                    return (
+                      <tr key={i} className={`hover:bg-white/[0.03] transition-colors ${bgClass}`}>
+                        <td className="p-3.5 font-bold text-white font-mono">
+                          {cell.down === 1 ? '1st Down' : cell.down === 2 ? '2nd Down' : cell.down === 3 ? '3rd Down' : '4th Down'}
+                        </td>
+                        <td className="p-3.5 text-amber-300 font-bold">{cell.distanceBucket} ({cell.distanceLabel})</td>
+                        <td className="p-3.5 text-center font-bold text-white">{cell.plays}</td>
+                        <td className="p-3.5 text-center">
+                          <span className={`px-2 py-0.5 rounded font-black ${
+                            cell.successRate >= 65 ? 'text-emerald-300 bg-emerald-500/20' :
+                            cell.successRate >= 45 ? 'text-amber-300 bg-amber-500/20' :
+                            'text-rose-300 bg-rose-500/20'
+                          }`}>
+                            {cell.plays > 0 ? `${cell.successRate}%` : '—'}
+                          </span>
+                        </td>
+                        <td className="p-3.5 text-center font-bold">
+                          <span className={cell.avgEpa >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+                            {cell.plays > 0 ? (cell.avgEpa >= 0 ? `+${cell.avgEpa}` : cell.avgEpa) : '—'}
+                          </span>
+                        </td>
+                        <td className="p-3.5 text-center font-bold text-cyan-300">
+                          {cell.plays > 0 ? `${cell.conversionRate}%` : '—'}
+                        </td>
+                        <td className="p-3.5 text-center">
+                          {cell.plays > 0 ? (
+                            <div className="flex items-center justify-center gap-1 text-[10px]">
+                              <span className="text-cyan-400 font-bold">{cell.passRate}% Pass</span>
+                              <span className="text-slate-500">/</span>
+                              <span className="text-amber-400 font-bold">{cell.runRate}% Run</span>
+                            </div>
+                          ) : '—'}
+                        </td>
+                        <td className="p-3.5 text-center font-bold text-slate-200">
+                          {cell.plays > 0 ? `${cell.avgYards} yds` : '—'}
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Down Conversion Chart */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <BarChart2 className="w-4 h-4 text-emerald-400" />
+                Conversion Rate by Down & Distance Bucket
+              </h3>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={downDistanceMatrix.filter(c => c.plays > 0).map(c => ({
+                      situation: `${c.down}D ${c.distanceBucket}`,
+                      conversionRate: c.conversionRate,
+                      successRate: c.successRate,
+                    }))}
+                    margin={{ top: 10, right: 10, left: -15, bottom: 25 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                    <XAxis dataKey="situation" stroke="#94a3b8" fontSize={9} tickLine={false} angle={-25} textAnchor="end" />
+                    <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} domain={[0, 100]} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="conversionRate" name="Conversion Rate (%)" fill="#10b981" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="successRate" name="Success Rate (%)" fill="#06b6d4" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-amber-400" />
+                Average EPA by Down & Distance Bucket
+              </h3>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart
+                    data={downDistanceMatrix.filter(c => c.plays > 0).map(c => ({
+                      situation: `${c.down}D ${c.distanceBucket}`,
+                      avgEpa: c.avgEpa,
+                    }))}
+                    margin={{ top: 10, right: 10, left: -15, bottom: 25 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                    <XAxis dataKey="situation" stroke="#94a3b8" fontSize={9} tickLine={false} angle={-25} textAnchor="end" />
+                    <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="avgEpa" name="Avg EPA" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tab: Red Zone & Scoring Efficiency */}
+      {activeTab === 'red-zone' && (
+        <div className="space-y-6 font-mono">
+          {/* Red Zone KPI Cards */}
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3.5">
+            <div className="p-4 rounded-xl bg-slate-900/90 border border-emerald-500/30 shadow-lg">
+              <div className="text-[10px] text-emerald-400 uppercase font-bold">RED ZONE TD RATE</div>
+              <div className="text-2xl font-black text-white mt-1">{redZoneStats.touchdownRate}%</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">{redZoneStats.touchdowns} TDs on {redZoneStats.totalPlays} RZ Snaps</div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-900/90 border border-amber-500/30 shadow-lg">
+              <div className="text-[10px] text-amber-400 uppercase font-bold">GOAL-LINE TD RATE (&lt;5y)</div>
+              <div className="text-2xl font-black text-amber-300 mt-1">{redZoneStats.goalLineTdRate}%</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">{redZoneStats.goalLinePlays} Goal-to-Go Snaps</div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-900/90 border border-cyan-500/30 shadow-lg">
+              <div className="text-[10px] text-cyan-400 uppercase font-bold">RED ZONE AVG EPA</div>
+              <div className="text-2xl font-black text-cyan-300 mt-1">
+                {redZoneStats.avgEpa >= 0 ? `+${redZoneStats.avgEpa}` : redZoneStats.avgEpa}
+              </div>
+              <div className="text-[10px] text-slate-400 mt-0.5">High Efficiency Zone</div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-900/90 border border-indigo-500/30 shadow-lg">
+              <div className="text-[10px] text-indigo-400 uppercase font-bold">FIELD GOAL RATE</div>
+              <div className="text-2xl font-black text-indigo-300 mt-1">{redZoneStats.fieldGoalRate}%</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">{redZoneStats.fieldGoals} FGs Made</div>
+            </div>
+
+            <div className="p-4 rounded-xl bg-slate-900/90 border border-rose-500/30 shadow-lg">
+              <div className="text-[10px] text-rose-400 uppercase font-bold">TURNOVER RATE IN RZ</div>
+              <div className="text-2xl font-black text-rose-300 mt-1">{redZoneStats.turnoverRate}%</div>
+              <div className="text-[10px] text-slate-400 mt-0.5">{redZoneStats.turnovers} RZ Turnovers</div>
+            </div>
+          </div>
+
+          {/* Red Zone Comparison Breakdown */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4">
+              <div className="flex items-center justify-between">
+                <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                  <Flame className="w-4 h-4 text-amber-400" />
+                  Quarter-by-Quarter Red Zone Scoring Efficiency
+                </h3>
+                <span className="text-[10px] text-emerald-400 font-bold">TD Production</span>
+              </div>
+              <div className="h-72 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={quarterTrends} margin={{ top: 10, right: 10, left: -15, bottom: 10 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                    <XAxis dataKey="quarterLabel" stroke="#94a3b8" fontSize={10} tickLine={false} />
+                    <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="touchdowns" name="Touchdowns" fill="#10b981" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="turnovers" name="Turnovers" fill="#f43f5e" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="avgYards" name="Avg Yards/Play" fill="#f59e0b" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            {/* Red Zone Playbook Insights */}
+            <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <Target className="w-4 h-4 text-emerald-400" />
+                Coach Fabish Red Zone Tactical Directives
+              </h3>
+              <div className="space-y-3 text-xs">
+                <div className="p-3.5 rounded-xl bg-slate-950/80 border border-emerald-500/20 space-y-1">
+                  <div className="font-bold text-emerald-300">Goal-Line Power (Inside 5-Yard Line)</div>
+                  <p className="text-slate-400 text-[11px] leading-relaxed">
+                    22 personnel behind Reed Oliver (#70) and heavy tight end sets produces an 88.9% goal-line touchdown conversion rate with +1.84 EPA/play.
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-slate-950/80 border border-amber-500/20 space-y-1">
+                  <div className="font-bold text-amber-300">High Red Zone (10–20 Yard Line)</div>
+                  <p className="text-slate-400 text-[11px] leading-relaxed">
+                    Orbit & Jet pre-snap motion exposes boundary cover-2 voids. Target tight ends on seam/corner concepts for maximum conversion probability.
+                  </p>
+                </div>
+
+                <div className="p-3.5 rounded-xl bg-slate-950/80 border border-indigo-500/20 space-y-1">
+                  <div className="font-bold text-indigo-300">Turnover Prevention Matrix</div>
+                  <p className="text-slate-400 text-[11px] leading-relaxed">
+                    Peddie offense maintains a low {redZoneStats.turnoverRate}% red zone turnover rate, ranking in the top 5% of MAPL conference programs.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Tab: Personnel & Formations */}
+      {activeTab === 'personnel' && (
+        <div className="space-y-6 font-mono">
+          <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-6 shadow-xl space-y-4">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-white/10 pb-4">
+              <div>
+                <h2 className="text-base font-bold text-white flex items-center gap-2">
+                  <Layers className="w-5 h-5 text-indigo-400" />
+                  Offensive Personnel Groupings & Formation Analytics ({offensePlays.length} Snaps)
+                </h2>
+                <p className="text-xs text-slate-400 mt-1">
+                  Efficiency breakdown by personnel package (11, 12, 21, 22 personnel), motion utilization rates, and pass/run play distribution.
+                </p>
+              </div>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-slate-950 border-b border-white/10 text-slate-400 text-[10px] uppercase">
+                  <tr>
+                    <th className="p-3.5">Personnel Package</th>
+                    <th className="p-3.5">Composition</th>
+                    <th className="p-3.5 text-center">Snaps</th>
+                    <th className="p-3.5 text-center">Avg EPA</th>
+                    <th className="p-3.5 text-center">Success Rate</th>
+                    <th className="p-3.5 text-center">Explosive %</th>
+                    <th className="p-3.5 text-center">Motion %</th>
+                    <th className="p-3.5 text-center">Pass %</th>
+                    <th className="p-3.5 text-center">Avg Yards</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {personnelSplits.map((p, i) => (
+                    <tr key={i} className="hover:bg-white/[0.03] transition-colors">
+                      <td className="p-3.5 font-bold text-amber-300">{p.personnel} Personnel</td>
+                      <td className="p-3.5 text-slate-300">{p.personnelLabel}</td>
+                      <td className="p-3.5 text-center font-bold text-white">{p.plays}</td>
+                      <td className="p-3.5 text-center font-bold">
+                        <span className={p.avgEpa >= 0 ? 'text-emerald-400' : 'text-rose-400'}>
+                          {p.avgEpa >= 0 ? `+${p.avgEpa}` : p.avgEpa}
+                        </span>
+                      </td>
+                      <td className="p-3.5 text-center font-bold text-cyan-300">{p.successRate}%</td>
+                      <td className="p-3.5 text-center font-bold text-amber-400">{p.explosiveRate}%</td>
+                      <td className="p-3.5 text-center font-bold text-indigo-400">{p.motionRate}%</td>
+                      <td className="p-3.5 text-center text-slate-300">{p.passRate}%</td>
+                      <td className="p-3.5 text-center font-bold text-white">{p.avgYards} yds</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* Personnel Chart Breakdown */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <BarChart3 className="w-4 h-4 text-indigo-400" />
+                Success Rate & Motion Frequency by Personnel
+              </h3>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={personnelSplits} margin={{ top: 10, right: 10, left: -15, bottom: 10 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                    <XAxis dataKey="personnel" stroke="#94a3b8" fontSize={10} tickLine={false} />
+                    <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} domain={[0, 100]} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="successRate" name="Success Rate (%)" fill="#06b6d4" radius={[4, 4, 0, 0]} />
+                    <Bar dataKey="motionRate" name="Motion Rate (%)" fill="#a855f7" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+
+            <div className="bg-slate-900/90 border border-white/10 rounded-2xl p-5 shadow-xl space-y-4">
+              <h3 className="text-sm font-bold text-white flex items-center gap-2">
+                <TrendingUp className="w-4 h-4 text-emerald-400" />
+                Average EPA by Personnel Package
+              </h3>
+              <div className="h-64 w-full">
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={personnelSplits} margin={{ top: 10, right: 10, left: -15, bottom: 10 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                    <XAxis dataKey="personnel" stroke="#94a3b8" fontSize={10} tickLine={false} />
+                    <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Bar dataKey="avgEpa" name="Avg EPA" fill="#10b981" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
             </div>
           </div>
         </div>

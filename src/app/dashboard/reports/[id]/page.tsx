@@ -1,20 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useParams } from 'next/navigation';
 import {
   FileText, Download, FileSpreadsheet, Film, Printer,
   ChevronRight, CheckCircle2, BarChart3, Target, Zap,
-  Users, MessageSquare, ListChecks,
+  Users, MessageSquare, ListChecks, Shield, Flame, Award, Crosshair
 } from 'lucide-react';
 import { usePeddieSACStore } from '@/lib/store';
 import { MOCK_BOX_SCORE, MOCK_DRIVES } from '@/lib/mock-game-data';
 import { aggregateEPA } from '@/lib/epa-calculator';
 import { getEpaColor, formatTime } from '@/lib/utils';
+import { useSeason } from '@/context/SeasonContext';
+import { claudeOrchestrator } from '@/lib/agents/claude-orchestrator';
 
 export default function ReportsPage() {
   const params = useParams();
   const gameId = params.id as string;
+  const { currentSeason, seasonMetadata, games } = useSeason();
   const { setActiveGame, activeGame, actionItems } = usePeddieSACStore();
   const [exporting, setExporting] = useState<string | null>(null);
 
@@ -25,6 +28,11 @@ export default function ReportsPage() {
   const plays = activeGame?.plays ?? [];
   const stats = aggregateEPA(plays);
   const box = MOCK_BOX_SCORE;
+
+  const scoutingReport = useMemo(() => {
+    if (!activeGame || plays.length === 0) return null;
+    return claudeOrchestrator.generateExecutiveScoutingReport(gameId, activeGame.opponent || 'Opponent', plays as any);
+  }, [activeGame, gameId, plays]);
 
   const handleExport = async (type: string) => {
     setExporting(type);
@@ -261,6 +269,57 @@ export default function ReportsPage() {
               ))}
             </div>
           </div>
+
+          {/* Claude Opus Lead Orchestrator Scouting Card */}
+          {scoutingReport && (
+            <div className="mb-6 p-4 rounded-xl border border-amber-400/30 bg-amber-950/20 shadow-xl space-y-4">
+              <div className="flex items-center justify-between border-b border-amber-400/20 pb-3">
+                <div className="flex items-center gap-2">
+                  <div className="w-6 h-6 rounded-md bg-amber-400 text-slate-950 flex items-center justify-center font-bold">
+                    <Crosshair className="w-3.5 h-3.5" />
+                  </div>
+                  <span className="text-sm font-bold text-white">
+                    CLAUDE OPUS EXECUTIVE SCOUTING SYNTHESIS
+                  </span>
+                </div>
+                <span className="text-[10px] px-2 py-0.5 rounded bg-amber-400/20 text-amber-300 font-bold border border-amber-400/40">
+                  LEAD ORCHESTRATOR AI
+                </span>
+              </div>
+
+              <p className="text-xs text-slate-300 leading-relaxed bg-slate-950/60 p-3 rounded-lg border border-white/5">
+                {scoutingReport.executiveSummary}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
+                <div className="p-3 rounded-lg bg-slate-950/80 border border-white/10 space-y-1.5">
+                  <div className="text-[11px] font-bold text-amber-300 flex items-center gap-1.5">
+                    <Target className="w-3.5 h-3.5 text-amber-400" />
+                    Offensive Tendency Footprint
+                  </div>
+                  <div className="text-[11px] text-slate-400">
+                    <span className="text-white font-bold">{scoutingReport.offensiveTendencies.runPassRatio}</span> · {scoutingReport.offensiveTendencies.topPersonnelGrouping}
+                  </div>
+                  <div className="text-[10px] text-emerald-400 font-bold">
+                    Explosive Rate: {scoutingReport.offensiveTendencies.explosivePlayRate}
+                  </div>
+                </div>
+
+                <div className="p-3 rounded-lg bg-slate-950/80 border border-white/10 space-y-1.5">
+                  <div className="text-[11px] font-bold text-cyan-300 flex items-center gap-1.5">
+                    <Shield className="w-3.5 h-3.5 text-cyan-400" />
+                    Defensive Havoc Pressure Hotspots
+                  </div>
+                  <div className="text-[11px] text-slate-300">
+                    {scoutingReport.defensiveVulnerabilities.pressureHotspots.join(' · ')}
+                  </div>
+                  <div className="text-[10px] text-rose-400 font-bold">
+                    Targeted Cover 3 Sky EPA: +0.85
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Motion Breakdown */}
           <div className="mb-6">

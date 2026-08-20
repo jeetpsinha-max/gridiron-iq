@@ -111,19 +111,26 @@ export default function HomePage() {
 
         <div className="flex items-center gap-2.5">
           <button
+            onClick={() => router.push(`/dashboard/film-room/peddie-blair-2025?highlight=true&autoplay=true`)}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black text-xs transition-all shadow-lg shadow-amber-500/20"
+          >
+            <Sparkles className="w-3.5 h-3.5 fill-current" />
+            <span>Watch Film Highlights</span>
+          </button>
+          <button
             onClick={() => router.push(`/dashboard/players/peddie-blair-2025`)}
             className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-900 border border-white/15 text-slate-200 font-bold text-xs hover:border-amber-400 hover:text-amber-300 transition-all shadow-md"
           >
             <Users className="w-4 h-4 text-amber-400" />
-            2025–26 Player Tracker
+            Player Tracker
           </button>
           {games.length > 0 && (
             <button
               onClick={() => router.push(`/dashboard`)}
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs hover:bg-amber-400 transition-all shadow-md"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition-all shadow-md"
             >
-              <Film className="w-4 h-4" />
-              Go to Command Center
+              <Film className="w-4 h-4 text-cyan-400" />
+              Command Center
               <ChevronRight className="w-3.5 h-3.5" />
             </button>
           )}
@@ -172,17 +179,42 @@ export default function HomePage() {
         <div className="text-center mb-12 animate-fade-in-up">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-5 text-xs font-bold bg-amber-500/15 text-amber-300 border border-amber-500/30">
             <Award className="w-3.5 h-3.5" />
-            2025–2026 Peddie School Falcons Varsity Football · Hudl Film Engine
+            Peddie School Falcons Football · Multi-Season Analytics Engine (2024–2027)
           </div>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight text-white mb-4 leading-tight">
-            All-22 Film Breakdown with<br />
+            Multi-Season Film Breakdown &<br />
             <span className="bg-gradient-to-r from-amber-400 via-amber-300 to-cyan-400 bg-clip-text text-transparent">
               Dynamic 22-Man X's & O's Tracking
             </span>
           </h2>
-          <p className="text-sm md:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed">
-            Ingest Hudl reels, YouTube streams, or raw camera files. Automatically detect pre-snap motions, route concepts, and render every Offense player as <strong className="text-amber-400">'O'</strong> and Defense as <strong className="text-red-400">'X'</strong> with sub-second accuracy.
+          <p className="text-sm md:text-base text-slate-300 max-w-2xl mx-auto leading-relaxed mb-6">
+            Explore complete game schedules, 60fps All-22 highlights, and player progress across the <strong className="text-slate-300">2024–2025</strong>, <strong className="text-amber-400">2025–2026</strong>, and <strong className="text-purple-300">2026–2027</strong> seasons.
           </p>
+
+          {/* 3-Season Quick Launchers */}
+          <div className="flex items-center justify-center gap-3 flex-wrap">
+            <button
+              onClick={() => router.push('/dashboard?season=2024-2025')}
+              className="px-4 py-2 rounded-xl bg-slate-900 border border-white/10 hover:border-amber-400/40 text-xs font-bold text-slate-300 hover:text-white transition-all shadow-md flex items-center gap-2"
+            >
+              <span>📅</span>
+              <span>2024–2025 (Previous)</span>
+            </button>
+            <button
+              onClick={() => router.push('/dashboard?season=2025-2026')}
+              className="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 text-slate-950 font-bold text-xs transition-all shadow-lg shadow-amber-500/20 hover:scale-105 flex items-center gap-2"
+            >
+              <span>⭐</span>
+              <span>2025–2026 (Active Varsity)</span>
+            </button>
+            <button
+              onClick={() => router.push('/dashboard?season=2026-2027')}
+              className="px-4 py-2 rounded-xl bg-purple-950/60 border border-purple-500/40 hover:border-purple-400 text-xs font-bold text-purple-300 hover:text-white transition-all shadow-md flex items-center gap-2"
+            >
+              <span>🔮</span>
+              <span>2026–2027 (Projected)</span>
+            </button>
+          </div>
         </div>
 
         {/* Ingest Form Card */}

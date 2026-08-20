@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { TEAM_ROSTER, MOCK_GAMES } from '@/lib/mock-game-data';
 import { aggregateEPA } from '@/lib/epa-calculator';
+import { useSeason } from '@/context/SeasonContext';
 
 // --- Available Offensive Personnel Groupings ---
 interface PersonnelOption {
@@ -40,11 +41,11 @@ const PERSONNEL_GROUPINGS: PersonnelOption[] = [
     teCount: 1,
     wrCount: 3,
     preferredStarters: {
-      qb: '#15 Freddy Melton (Sr)',
+      qb: '#15 Freddy Melton (Sr) / #6 Joey Gaston (Sr)',
       rb: ['#3 Jeremiah Davis (Sr)'],
       te: ['#4 Cooper Allen (Sr - Merrimack commit)'],
-      wr: ['#5 Lorenzo Barone (Sr)', '#22 Benjamin Perkins (So)', '#14 Jonathan Stizza (Jr)'],
-      ol: ['#72 Christian Velardi (LT)', '#56 Nathan Adler (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)'],
+      wr: ['#5 Lorenzo Barone (Sr)', '#21 Xzavier Torres (Fr)', '#22 Benjamin Perkins (So)'],
+      ol: ['#72 Christian Velardi (LT)', '#54 Rocco Annunziata (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)'],
     },
   },
   {
@@ -59,8 +60,8 @@ const PERSONNEL_GROUPINGS: PersonnelOption[] = [
       qb: '#15 Freddy Melton (Sr)',
       rb: ['#3 Jeremiah Davis (Sr)'],
       te: ['#4 Cooper Allen (Sr)', '#45 Finn Pedersen (Jr)'],
-      wr: ['#5 Lorenzo Barone (Sr)', '#22 Benjamin Perkins (So)'],
-      ol: ['#72 Christian Velardi (LT)', '#56 Nathan Adler (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)'],
+      wr: ['#5 Lorenzo Barone (Sr)', '#21 Xzavier Torres (Fr)'],
+      ol: ['#72 Christian Velardi (LT)', '#54 Rocco Annunziata (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)'],
     },
   },
   {
@@ -76,7 +77,7 @@ const PERSONNEL_GROUPINGS: PersonnelOption[] = [
       rb: ['#3 Jeremiah Davis (Sr)', '#2 Kadin Huling (Jr)'],
       te: ['#4 Cooper Allen (Sr)'],
       wr: ['#5 Lorenzo Barone (Sr)', '#22 Benjamin Perkins (So)'],
-      ol: ['#72 Christian Velardi (LT)', '#56 Nathan Adler (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)'],
+      ol: ['#72 Christian Velardi (LT)', '#54 Rocco Annunziata (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)'],
     },
   },
   {
@@ -91,8 +92,8 @@ const PERSONNEL_GROUPINGS: PersonnelOption[] = [
       qb: '#6 Joey Gaston (Sr - Gardner-Webb commit)',
       rb: ['#3 Jeremiah Davis (Sr)', '#2 Kadin Huling (Jr)'],
       te: [],
-      wr: ['#5 Lorenzo Barone (Sr)', '#22 Benjamin Perkins (So)', '#11 JT Rulewich (So)'],
-      ol: ['#72 Christian Velardi (LT)', '#56 Nathan Adler (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)'],
+      wr: ['#5 Lorenzo Barone (Sr)', '#21 Xzavier Torres (Fr)', '#11 JT Rulewich (So)'],
+      ol: ['#72 Christian Velardi (LT)', '#54 Rocco Annunziata (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)'],
     },
   },
   {
@@ -107,15 +108,15 @@ const PERSONNEL_GROUPINGS: PersonnelOption[] = [
       qb: '#15 Freddy Melton (Sr)',
       rb: [],
       te: [],
-      wr: ['#5 Lorenzo Barone', '#22 Benjamin Perkins', '#14 Jonathan Stizza', '#11 JT Rulewich', '#16 Griffin Suthammanont'],
-      ol: ['#72 Christian Velardi (LT)', '#56 Nathan Adler (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)'],
+      wr: ['#5 Lorenzo Barone', '#21 Xzavier Torres', '#14 Jonathan Stizza', '#22 Benjamin Perkins', '#11 JT Rulewich'],
+      ol: ['#72 Christian Velardi (LT)', '#54 Rocco Annunziata (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)'],
     },
   },
   {
     id: 'heavy-jumbo',
     name: 'Heavy Goal Line / Short Yardage',
     code: '2 RB · 2 TE · 6 OL',
-    description: 'Reed Oliver (#70) & Mason Kish (#77) reporting eligible for power off-tackle behind Velardi (#72).',
+    description: 'Reed Oliver (#70), Rocco Annunziata (#54) & Mason Kish (#77) opening power lanes for Davis (#3).',
     rbCount: 2,
     teCount: 2,
     wrCount: 0,
@@ -124,7 +125,7 @@ const PERSONNEL_GROUPINGS: PersonnelOption[] = [
       rb: ['#3 Jeremiah Davis (Sr)', '#2 Kadin Huling (Jr)'],
       te: ['#4 Cooper Allen (Sr)', '#45 Finn Pedersen (Jr)'],
       wr: [],
-      ol: ['#72 Christian Velardi (LT)', '#56 Nathan Adler (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)', '#77 Mason Kish (Jumbo Tackle)'],
+      ol: ['#72 Christian Velardi (LT)', '#54 Rocco Annunziata (LG)', '#60 Adem Amar (C)', '#63 Julian Sandy (RG)', '#70 Reed Oliver (RT)', '#77 Mason Kish (Jumbo Tackle)'],
     },
   },
 ];
@@ -149,7 +150,8 @@ const DEFENSIVE_FRONTS = [
 export default function OffensiveCoachPage() {
   const params = useParams();
   const router = useRouter();
-  const gameId = (params?.id as string) || 'peddie-blair-2025';
+  const { currentSeason, seasonMetadata, games, roster } = useSeason();
+  const gameId = (params?.id as string) || games[0]?.id || 'peddie-blair-2025';
 
   // State
   const [selectedOpponent, setSelectedOpponent] = useState(gameId);
@@ -446,11 +448,11 @@ SELECT
                 value={selectedOpponent}
                 onChange={(e) => {
                   setSelectedOpponent(e.target.value);
-                  router.push(`/dashboard/offensive-coach/${e.target.value}`);
+                  router.push(`/dashboard/offensive-coach/${e.target.value}?season=${currentSeason}`);
                 }}
                 className="w-full px-3 py-2 rounded-xl bg-slate-950 border border-white/10 text-white text-xs font-bold focus:outline-none focus:border-amber-400 cursor-pointer"
               >
-                {MOCK_GAMES.map(g => (
+                {games.map(g => (
                   <option key={g.id} value={g.id} className="bg-slate-900 text-white">
                     {g.title}
                   </option>

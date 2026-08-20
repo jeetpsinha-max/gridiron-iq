@@ -2,6 +2,27 @@
 // Peddie Football Analytics / PitchVision — Core Football Analytics Type Definitions
 // ============================================================================
 
+// --- Season Types ---
+export type SeasonId = '2024-2025' | '2025-2026' | '2026-2027';
+
+export interface SeasonMetadata {
+  id: SeasonId;
+  label: string; // e.g. "2025–2026 (Active Varsity)"
+  shortLabel: string; // e.g. "25-26"
+  yearSpan: string; // e.g. "2025–2026"
+  type: 'HISTORICAL' | 'CURRENT' | 'PROJECTED';
+  record: string; // e.g. "5-4 (MAPL)"
+  headCoach: string; // "Mark Fabish"
+  totalGames: number;
+  totalPlays: number;
+  offensePlays: number;
+  defensePlays: number;
+  motionEpaLift: number;
+  successRatePct: number;
+  topPlaymakers: string[];
+  description: string;
+}
+
 // --- Play & Action Enums ---
 
 export type PlayType =
@@ -152,7 +173,9 @@ export interface RecruitmentProfile {
   committedCollege?: string | null;
   interestedColleges: string[];
   offers: string[];
+  divisionTarget?: string;
   hudlProfileUrl?: string | null;
+  maxprepsUrl?: string | null;
   ncaaEligibilityId?: string | null;
   gpa?: number | null;
   benchPressMaxLbs?: number | null;
@@ -210,8 +233,9 @@ export interface PlayerProfile {
   jerseyNumber: number;
   positions: string[];
   primaryPosition: string;
-  classYear: '2026' | '2027' | '2028' | '2029';
-  gradeLevel: 'Senior' | 'Junior' | 'Sophomore' | 'Freshman';
+  classYear: '2025' | '2026' | '2027' | '2028' | '2029' | '2030' | string;
+  gradeLevel: 'Senior' | 'Junior' | 'Sophomore' | 'Freshman' | string;
+  season?: SeasonId;
   age?: number;
   height?: string; // e.g. "6-3" or "6'0\""
   weight?: string;
@@ -331,6 +355,7 @@ export interface PlayAnalysis {
   distance: number;
   yardLine: number;
   hash: HashMark;
+  hashMark?: HashMark;
 
   // Offensive context
   offensiveFormation: string;
@@ -363,6 +388,7 @@ export interface PlayAnalysis {
 
   // Possession Unit & Defensive Playmaker
   unit?: 'OFFENSE' | 'DEFENSE';
+  possession?: string;
   defensivePlayMakerJersey?: number;
   defensivePlayMakerName?: string;
   defensivePlayType?: 'SACK' | 'TFL' | 'PBU' | 'INT' | 'FORCED_FUMBLE' | 'STOP' | 'PRESSURE' | 'GOAL_LINE_STAND';

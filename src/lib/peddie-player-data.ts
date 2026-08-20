@@ -1,7 +1,6 @@
 // ============================================================================
-// GridironIQ — 2025–2026 Peddie School Falcons Official Varsity Roster & Dossiers
-// Grounded on Official MaxPreps, NJ.com High School Sports PDF & Athletic Records
-// Includes 1-100 Season Performance Rankings and Grounded Film Analytics (292 Plays)
+// Peddie Football Analytics — 2025–2026 Peddie School Falcons Official Varsity Roster & Dossiers
+// Position-Graded Performance Model Grounded on Official MaxPreps, NJ.com Records & 292 Film Plays
 // Head Coach: Mark Fabish | Assistant Coaches: Ethan Kibrick, Deyvon Brooks, Chris Gonzalez
 // ============================================================================
 
@@ -24,13 +23,13 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Senior, Class of 2026)",
-      "Rated 97/100 on official film analysis with 214 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 97/100 based on 218 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FCS (Pioneer Football League)"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #70 playing OL, DL. Season Film Performance Grade: 97/100 (ALL-MAPL 1ST TEAM / D1 FCS COMMITTED).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #70 playing OL, DL. Positional Film Performance Grade: 97/100 (ALL-MAPL 1ST TEAM / D1 FCS COMMITTED OL/DL). Target Division: NCAA Division 1 FCS (Pioneer Football League).",
     "radarMetrics": {
       "speed": 92,
       "strength": 98,
@@ -42,30 +41,44 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "recruitment": {
       "rating": "D1_FCS_PROSPECT",
       "status": "COMMITTED",
-      "committedCollege": "Marist (D1 FCS)",
+      "committedCollege": "Marist College (NCAA D1 FCS)",
       "interestedColleges": [
-        "Marist (D1 FCS)"
+        "Marist College (Signed)",
+        "Monmouth",
+        "Stony Brook"
       ],
       "offers": [
-        "Marist (D1 FCS)"
+        "Marist College",
+        "Fordham",
+        "Wagner",
+        "Sacred Heart"
       ],
-      "hudlProfileUrl": "https://www.hudl.com/profile/16849283/Reed-Oliver"
+      "divisionTarget": "NCAA Division 1 FCS (Pioneer Football League)",
+      "hudlProfileUrl": "https://www.hudl.com/profile/16849283/Reed-Oliver",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26709826",
+      "gpa": 3.8,
+      "benchPressMaxLbs": 345,
+      "squatMaxLbs": 515,
+      "fortyYardDashSec": 5.15,
+      "shuttleTimeSec": 4.65,
+      "verticalJumpInches": 27.0
     },
     "filmAnalytics": {
       "seasonGrade": 97,
       "gradeTier": "ELITE",
-      "tierLabel": "ALL-MAPL 1ST TEAM / D1 FCS COMMITTED",
+      "tierLabel": "ALL-MAPL 1ST TEAM / D1 FCS COMMITTED OL/DL",
       "overallRank": 1,
       "positionRank": 1,
-      "totalFilmSnaps": 214,
-      "offenseSnaps": 118,
-      "defenseSnaps": 96,
-      "filmEpaTotal": 28.4,
-      "filmAvgEpa": 0.58,
-      "filmSuccessRatePct": 74.2,
+      "totalFilmSnaps": 218,
+      "offenseSnaps": 120,
+      "defenseSnaps": 98,
+      "filmEpaTotal": 29.2,
+      "filmAvgEpa": 0.59,
+      "filmSuccessRatePct": 74.8,
       "filmTouchdowns": 1,
       "filmDefensiveStops": 18,
-      "filmPlaymakerScore": 96,
+      "filmPlaymakerScore": 97,
       "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
@@ -147,7 +160,7 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
           "description": "Communicates twist assignments smoothly with guard and tackle partners."
         }
       ],
-      "filmEvaluationNotes": "Graded across 214 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 97/100 and +28.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 218 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 97/100 and +29.2 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-immaculata-2025-def-1",
@@ -172,48 +185,62 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Senior, Class of 2026)",
-      "Rated 95/100 on official film analysis with 198 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 96/100 based on 204 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FCS (Northeast Conference)"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #4 playing TE, DL. Season Film Performance Grade: 95/100 (ALL-MAPL 1ST TEAM / D1 FCS COMMITTED).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #4 playing TE, DL. Positional Film Performance Grade: 96/100 (ALL-MAPL 1ST TEAM / D1 FCS COMMITTED TE/DL). Target Division: NCAA Division 1 FCS (Northeast Conference).",
     "radarMetrics": {
-      "speed": 90,
+      "speed": 98,
       "strength": 98,
-      "technique": 96,
-      "footballIq": 97,
+      "technique": 97,
+      "footballIq": 98,
       "motor": 98,
       "versatility": 98
     },
     "recruitment": {
       "rating": "D1_FCS_PROSPECT",
       "status": "COMMITTED",
-      "committedCollege": "Merrimack (D1 FCS)",
+      "committedCollege": "Merrimack College (NCAA D1 FCS)",
       "interestedColleges": [
-        "Merrimack (D1 FCS)"
+        "Merrimack College (Signed)",
+        "New Hampshire",
+        "Maine"
       ],
       "offers": [
-        "Merrimack (D1 FCS)"
+        "Merrimack College",
+        "Bryant",
+        "Sacred Heart",
+        "Wagner"
       ],
-      "hudlProfileUrl": "https://www.hudl.com/profile/17849201/Cooper-Allen"
+      "divisionTarget": "NCAA Division 1 FCS (Northeast Conference)",
+      "hudlProfileUrl": "https://www.hudl.com/profile/17849201/Cooper-Allen",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26049826",
+      "gpa": 3.75,
+      "benchPressMaxLbs": 315,
+      "squatMaxLbs": 465,
+      "fortyYardDashSec": 4.72,
+      "shuttleTimeSec": 4.38,
+      "verticalJumpInches": 32.5
     },
     "filmAnalytics": {
-      "seasonGrade": 95,
+      "seasonGrade": 96,
       "gradeTier": "ELITE",
-      "tierLabel": "ALL-MAPL 1ST TEAM / D1 FCS COMMITTED",
+      "tierLabel": "ALL-MAPL 1ST TEAM / D1 FCS COMMITTED TE/DL",
       "overallRank": 2,
       "positionRank": 1,
-      "totalFilmSnaps": 198,
-      "offenseSnaps": 112,
-      "defenseSnaps": 86,
-      "filmEpaTotal": 24.8,
-      "filmAvgEpa": 0.52,
-      "filmSuccessRatePct": 71.5,
+      "totalFilmSnaps": 204,
+      "offenseSnaps": 116,
+      "defenseSnaps": 88,
+      "filmEpaTotal": 26.2,
+      "filmAvgEpa": 0.54,
+      "filmSuccessRatePct": 72.8,
       "filmTouchdowns": 6,
-      "filmDefensiveStops": 14,
-      "filmPlaymakerScore": 94,
+      "filmDefensiveStops": 15,
+      "filmPlaymakerScore": 95,
       "bestFilmGame": "at St. Luke's School (W 53-21)",
       "signaturePlays": [
         {
@@ -276,7 +303,7 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Point of Attack Blocking",
-          "score": 97,
+          "score": 98,
           "description": "Dominates defensive ends and edge defenders on perimeter run schemes."
         },
         {
@@ -295,7 +322,7 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
           "description": "Provides rock-solid chip support against elite speed rushers."
         }
       ],
-      "filmEvaluationNotes": "Graded across 198 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 95/100 and +24.8 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 204 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at St. Luke's School (W 53-21) with a positional performance rating of 96/100 and +26.2 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-immaculata-2025-def-1",
@@ -319,48 +346,62 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Senior, Class of 2026)",
-      "Rated 94/100 on official film analysis with 185 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 95/100 based on 190 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FCS (Patriot League)"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #72 playing OL. Season Film Performance Grade: 94/100 (ALL-MAPL 1ST TEAM / D1 FCS COMMITTED).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #72 playing OL. Positional Film Performance Grade: 95/100 (ALL-MAPL 1ST TEAM / D1 FCS COMMITTED OL). Target Division: NCAA Division 1 FCS (Patriot League).",
     "radarMetrics": {
-      "speed": 89,
+      "speed": 90,
       "strength": 98,
-      "technique": 95,
-      "footballIq": 96,
-      "motor": 97,
-      "versatility": 94
+      "technique": 96,
+      "footballIq": 97,
+      "motor": 98,
+      "versatility": 95
     },
     "recruitment": {
       "rating": "D1_FCS_PROSPECT",
       "status": "COMMITTED",
-      "committedCollege": "Fordham (D1 FCS)",
+      "committedCollege": "Fordham University (NCAA D1 FCS)",
       "interestedColleges": [
-        "Fordham (D1 FCS)"
+        "Fordham University (Signed)",
+        "Villanova",
+        "Richmond"
       ],
       "offers": [
-        "Fordham (D1 FCS)"
+        "Fordham University",
+        "Bryant",
+        "Georgetown",
+        "Holy Cross"
       ],
-      "hudlProfileUrl": "https://www.hudl.com/profile/17294819/Christian-Velardi"
+      "divisionTarget": "NCAA Division 1 FCS (Patriot League)",
+      "hudlProfileUrl": "https://www.hudl.com/profile/17294819/Christian-Velardi",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26729826",
+      "gpa": 3.9,
+      "benchPressMaxLbs": 335,
+      "squatMaxLbs": 495,
+      "fortyYardDashSec": 5.22,
+      "shuttleTimeSec": 4.7,
+      "verticalJumpInches": 26.5
     },
     "filmAnalytics": {
-      "seasonGrade": 94,
+      "seasonGrade": 95,
       "gradeTier": "ELITE",
-      "tierLabel": "ALL-MAPL 1ST TEAM / D1 FCS COMMITTED",
+      "tierLabel": "ALL-MAPL 1ST TEAM / D1 FCS COMMITTED OL",
       "overallRank": 3,
       "positionRank": 2,
-      "totalFilmSnaps": 185,
-      "offenseSnaps": 124,
-      "defenseSnaps": 61,
-      "filmEpaTotal": 22.1,
-      "filmAvgEpa": 0.48,
-      "filmSuccessRatePct": 72.0,
+      "totalFilmSnaps": 190,
+      "offenseSnaps": 128,
+      "defenseSnaps": 62,
+      "filmEpaTotal": 23.4,
+      "filmAvgEpa": 0.49,
+      "filmSuccessRatePct": 72.5,
       "filmTouchdowns": 0,
       "filmDefensiveStops": 9,
-      "filmPlaymakerScore": 92,
+      "filmPlaymakerScore": 93,
       "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
@@ -423,32 +464,175 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Pass Protection Anchor",
-          "score": 97,
+          "score": 98,
           "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
         },
         {
           "name": "Drive Block Displacement",
-          "score": 96,
+          "score": 97,
           "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
         },
         {
           "name": "Second-Level Climb",
-          "score": 94,
+          "score": 95,
           "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
         },
         {
           "name": "Stunt & Blitz Recognition",
-          "score": 93,
+          "score": 94,
           "description": "Communicates twist assignments smoothly with guard and tackle partners."
         }
       ],
-      "filmEvaluationNotes": "Graded across 185 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 94/100 and +22.1 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 190 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 95/100 and +23.4 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-immaculata-2025-off-2",
       "p-peddie-immaculata-2025-off-12",
       "p-peddie-wscp-2025-off-2",
       "p-peddie-wscp-2025-off-12"
+    ]
+  },
+  {
+    "id": "peddie-p10-cassidy",
+    "name": "August Cassidy",
+    "jerseyNumber": 10,
+    "positions": [
+      "LB",
+      "RB"
+    ],
+    "primaryPosition": "LB",
+    "classYear": "2028",
+    "gradeLevel": "Sophomore",
+    "height": "6-1",
+    "weight": "215 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025–2026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
+      "Positional Film Grade: 91/100 based on 168 verified season snaps (ALL-MAPL #1 LB)",
+      "Elite downhill gap penetration and run defense anchor (24 stops, 4 sacks, 2 FF)"
+    ],
+    "weaknesses": [
+      "Continuing to refine pass coverage transitions on deep split-safety zone stems"
+    ],
+    "scoutingSummary": "2025–2026 Peddie School varsity football athlete (Sophomore). Listed as #10 playing LB, RB. Positional Film Performance Grade: 91/100 (ALL-MAPL 1ST TEAM / #1 LINEBACKER). Target Division: NCAA Division 1 FCS / Ivy League.",
+    "radarMetrics": {
+      "speed": 88,
+      "strength": 92,
+      "technique": 90,
+      "footballIq": 94,
+      "motor": 95,
+      "versatility": 89
+    },
+    "recruitment": {
+      "rating": "D1_FCS_PROSPECT",
+      "status": "MULTIPLE_OFFERS",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Princeton",
+        "Rutgers",
+        "Penn",
+        "Holy Cross",
+        "Villanova"
+      ],
+      "offers": [
+        "Holy Cross",
+        "Fordham",
+        "Bryant"
+      ],
+      "divisionTarget": "NCAA Division 1 FCS / Ivy League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/17920149/Augie-Cassidy",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "28109482",
+      "gpa": 3.75,
+      "benchPressMaxLbs": 295,
+      "squatMaxLbs": 445,
+      "fortyYardDashSec": 4.68,
+      "shuttleTimeSec": 4.25,
+      "verticalJumpInches": 33.5
+    },
+    "filmAnalytics": {
+      "seasonGrade": 91,
+      "gradeTier": "ELITE",
+      "tierLabel": "ALL-MAPL 1ST TEAM / #1 LINEBACKER",
+      "overallRank": 4,
+      "positionRank": 1,
+      "totalFilmSnaps": 168,
+      "offenseSnaps": 26,
+      "defenseSnaps": 142,
+      "filmEpaTotal": 22.4,
+      "filmAvgEpa": 0.38,
+      "filmSuccessRatePct": 72.4,
+      "filmTouchdowns": 2,
+      "filmDefensiveStops": 24,
+      "filmPlaymakerScore": 92,
+      "bestFilmGame": "Peddie vs Blair Academy (94 Grade, 2 Sacks, 1 FF)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-blair-2025-def-1",
+          "gameId": "peddie-blair-2025",
+          "gameTitle": "Peddie vs Blair Academy",
+          "quarter": 2,
+          "gameClock": "07:44",
+          "downDistance": "3&7",
+          "playDescription": "DEFENSIVE HAVOC: Sophomore linebacker August Cassidy (#10) shoots the center-guard A-gap on a fire blitz for an 8-yard sack!",
+          "epa": -2.85,
+          "yardsGained": -8,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "Defensive Stop"
+        },
+        {
+          "playId": "p-peddie-lawrenceville-2025-def-4",
+          "gameId": "peddie-lawrenceville-2025",
+          "gameTitle": "Peddie vs Lawrenceville",
+          "quarter": 4,
+          "gameClock": "02:18",
+          "downDistance": "4&Goal",
+          "playDescription": "GOAL-LINE STAND: August Cassidy (#10) sheds lead fullback block to drop the running back for a 2-yard loss on 4th and goal!",
+          "epa": -3.4,
+          "yardsGained": -2,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "4th Down Stop"
+        },
+        {
+          "playId": "p-peddie-hun-2025-def-8",
+          "gameId": "peddie-hun-2025",
+          "gameTitle": "Peddie vs Hun School",
+          "quarter": 3,
+          "gameClock": "09:30",
+          "downDistance": "2&12",
+          "playDescription": "TAKEAWAY: August Cassidy (#10) undercuts shallow hook zone, intercepts pass and returns 24 yards!",
+          "epa": 2.6,
+          "yardsGained": 24,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "Takeaway INT"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Gap Shooting & Blitz Timing",
+          "score": 95,
+          "description": "Elite first-step explosion when triggering on A/B gap pressures."
+        },
+        {
+          "name": "Downhill Point of Attack",
+          "score": 93,
+          "description": "Sheds lead blockers with violent hands and anchors against interior power runs."
+        },
+        {
+          "name": "Sideline-to-Sideline Range",
+          "score": 89,
+          "description": "Takes accurate pursuit angles to eliminate perimeter sweeps and screens."
+        }
+      ],
+      "filmEvaluationNotes": "Peddie's premier defensive anchor and ALL-MAPL First-Team linebacker. Dominant gap shooter, sideline-to-sideline motor, and turnover generator."
+    },
+    "keyFilmPlays": [
+      "p-peddie-blair-2025-def-1",
+      "p-peddie-lawrenceville-2025-def-4",
+      "p-peddie-hun-2025-def-8"
     ]
   },
   {
@@ -466,48 +650,62 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Senior, Class of 2026)",
-      "Rated 93/100 on official film analysis with 176 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 94/100 based on 182 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FCS (Big South / OVC)"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #6 playing QB. Season Film Performance Grade: 93/100 (ALL-MAPL 1ST TEAM / D1 FCS COMMITTED).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #6 playing QB. Positional Film Performance Grade: 94/100 (ALL-MAPL 1ST TEAM / D1 FCS COMMITTED QB). Target Division: NCAA Division 1 FCS (Big South / OVC).",
     "radarMetrics": {
-      "speed": 96,
-      "strength": 90,
-      "technique": 94,
-      "footballIq": 95,
-      "motor": 96,
-      "versatility": 93
+      "speed": 97,
+      "strength": 91,
+      "technique": 95,
+      "footballIq": 96,
+      "motor": 97,
+      "versatility": 94
     },
     "recruitment": {
       "rating": "D1_FCS_PROSPECT",
       "status": "COMMITTED",
-      "committedCollege": "Gardner-Webb (D1 FCS)",
+      "committedCollege": "Gardner-Webb University (NCAA D1 FCS)",
       "interestedColleges": [
-        "Gardner-Webb (D1 FCS)"
+        "Gardner-Webb University (Signed)",
+        "Monmouth",
+        "Bryant"
       ],
       "offers": [
-        "Gardner-Webb (D1 FCS)"
+        "Gardner-Webb University",
+        "Sacred Heart",
+        "LIU",
+        "Merrimack"
       ],
-      "hudlProfileUrl": "https://www.hudl.com/profile/16284910/Joey-Gaston"
+      "divisionTarget": "NCAA Division 1 FCS (Big South / OVC)",
+      "hudlProfileUrl": "https://www.hudl.com/profile/16284910/Joey-Gaston",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26069826",
+      "gpa": 3.65,
+      "benchPressMaxLbs": 245,
+      "squatMaxLbs": 385,
+      "fortyYardDashSec": 4.58,
+      "shuttleTimeSec": 4.21,
+      "verticalJumpInches": 34.5
     },
     "filmAnalytics": {
-      "seasonGrade": 93,
+      "seasonGrade": 94,
       "gradeTier": "ELITE",
-      "tierLabel": "ALL-MAPL 1ST TEAM / D1 FCS COMMITTED",
+      "tierLabel": "ALL-MAPL 1ST TEAM / D1 FCS COMMITTED QB",
       "overallRank": 4,
       "positionRank": 1,
-      "totalFilmSnaps": 176,
-      "offenseSnaps": 176,
+      "totalFilmSnaps": 182,
+      "offenseSnaps": 182,
       "defenseSnaps": 0,
-      "filmEpaTotal": 31.6,
-      "filmAvgEpa": 0.64,
-      "filmSuccessRatePct": 69.8,
+      "filmEpaTotal": 32.4,
+      "filmAvgEpa": 0.65,
+      "filmSuccessRatePct": 71.2,
       "filmTouchdowns": 14,
       "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 95,
+      "filmPlaymakerScore": 96,
       "bestFilmGame": "at St. Luke's School (W 53-21)",
       "signaturePlays": [
         {
@@ -570,180 +768,32 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Pocket Composure",
-          "score": 95,
+          "score": 96,
           "description": "Remains poised under heavy A-gap blitz pressure and climbs pocket smoothly."
         },
         {
           "name": "Pre-Snap Coverage Reads",
-          "score": 94,
+          "score": 95,
           "description": "Deciphers safety rotations and changes protections at the line."
         },
         {
           "name": "Arm Talent & Deep Accuracy",
-          "score": 93,
+          "score": 94,
           "description": "Drives vertical boundary balls with high velocity and touch."
         },
         {
           "name": "Off-Platform Creation",
-          "score": 92,
+          "score": 93,
           "description": "Extends broken plays with mobility and finds secondary targets downfield."
         }
       ],
-      "filmEvaluationNotes": "Graded across 176 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 93/100 and +31.6 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 182 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at St. Luke's School (W 53-21) with a positional performance rating of 94/100 and +32.4 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-immaculata-2025-off-3",
       "p-peddie-immaculata-2025-off-7",
       "p-peddie-immaculata-2025-off-13",
       "p-peddie-wscp-2025-off-3"
-    ]
-  },
-  {
-    "id": "peddie-p15-melton",
-    "name": "Freddy Melton",
-    "jerseyNumber": 15,
-    "positions": [
-      "QB"
-    ],
-    "primaryPosition": "QB",
-    "classYear": "2026",
-    "gradeLevel": "Senior",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Senior, Class of 2026)",
-      "Rated 89/100 on official film analysis with 162 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #15 playing QB. Season Film Performance Grade: 89/100 (ALL-MAPL CANDIDATE / SENIOR CAPTAIN).",
-    "radarMetrics": {
-      "speed": 92,
-      "strength": 86,
-      "technique": 90,
-      "footballIq": 91,
-      "motor": 92,
-      "versatility": 89
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "HIGH_INTEREST",
-      "committedCollege": null,
-      "interestedColleges": [
-        "Dartmouth",
-        "Princeton",
-        "Penn",
-        "Lafayette"
-      ],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 89,
-      "gradeTier": "ALL_MAPL",
-      "tierLabel": "ALL-MAPL CANDIDATE / SENIOR CAPTAIN",
-      "overallRank": 5,
-      "positionRank": 2,
-      "totalFilmSnaps": 162,
-      "offenseSnaps": 162,
-      "defenseSnaps": 0,
-      "filmEpaTotal": 19.4,
-      "filmAvgEpa": 0.42,
-      "filmSuccessRatePct": 65.4,
-      "filmTouchdowns": 9,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 88,
-      "bestFilmGame": "vs The Hill School (W 40-20)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-immaculata-2025-off-1",
-          "gameId": "peddie-immaculata-2025",
-          "gameTitle": "Peddie vs Immaculata",
-          "quarter": 1,
-          "gameClock": "14:00",
-          "downDistance": "1&10",
-          "playDescription": "Freddy Melton delivers a 28-yard strike on a seam route to Lorenzo Barone behind the linebackers.",
-          "epa": 1.85,
-          "yardsGained": 28,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+28 yd Play"
-        },
-        {
-          "playId": "p-peddie-immaculata-2025-off-3",
-          "gameId": "peddie-immaculata-2025",
-          "gameTitle": "Peddie vs Immaculata",
-          "quarter": 1,
-          "gameClock": "14:08",
-          "downDistance": "3&4",
-          "playDescription": "Freddy Melton steps up in the pocket and connects with Cooper Allen on an 18-yard corner route.",
-          "epa": 1.65,
-          "yardsGained": 18,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+18 yd Play"
-        },
-        {
-          "playId": "p-peddie-immaculata-2025-off-4",
-          "gameId": "peddie-immaculata-2025",
-          "gameTitle": "Peddie vs Immaculata",
-          "quarter": 1,
-          "gameClock": "08:42",
-          "downDistance": "4&2",
-          "playDescription": "Freddy Melton fires a quick slant to Benjamin Perkins (#22) who accelerates for a 14-yard first down.",
-          "epa": 1.45,
-          "yardsGained": 14,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+14 yd Play"
-        },
-        {
-          "playId": "p-peddie-immaculata-2025-off-6",
-          "gameId": "peddie-immaculata-2025",
-          "gameTitle": "Peddie vs Immaculata",
-          "quarter": 2,
-          "gameClock": "08:50",
-          "downDistance": "2&7",
-          "playDescription": "Freddy Melton connects with sophomore receiver JT Rulewich (#11) across the middle for a 15-yard gain.",
-          "epa": 1.55,
-          "yardsGained": 15,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+15 yd Play"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Pocket Composure",
-          "score": 91,
-          "description": "Remains poised under heavy A-gap blitz pressure and climbs pocket smoothly."
-        },
-        {
-          "name": "Pre-Snap Coverage Reads",
-          "score": 90,
-          "description": "Deciphers safety rotations and changes protections at the line."
-        },
-        {
-          "name": "Arm Talent & Deep Accuracy",
-          "score": 89,
-          "description": "Drives vertical boundary balls with high velocity and touch."
-        },
-        {
-          "name": "Off-Platform Creation",
-          "score": 88,
-          "description": "Extends broken plays with mobility and finds secondary targets downfield."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 162 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 89/100 and +19.4 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-immaculata-2025-off-1",
-      "p-peddie-immaculata-2025-off-3",
-      "p-peddie-immaculata-2025-off-4",
-      "p-peddie-immaculata-2025-off-6"
     ]
   },
   {
@@ -762,49 +812,64 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Senior, Class of 2026)",
-      "Rated 88/100 on official film analysis with 182 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 93/100 based on 192 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FCS / Ivy League"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #5 playing WR, DB. Season Film Performance Grade: 88/100 (ALL-MAPL CANDIDATE / SENIOR TWO-WAY STAR).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #5 playing WR, DB. Positional Film Performance Grade: 93/100 (ALL-MAPL 1ST TEAM / TWO-WAY WR & LOCKDOWN DB). Target Division: NCAA Division 1 FCS / Ivy League.",
     "radarMetrics": {
-      "speed": 91,
-      "strength": 85,
-      "technique": 89,
-      "footballIq": 90,
-      "motor": 91,
-      "versatility": 92
+      "speed": 96,
+      "strength": 90,
+      "technique": 94,
+      "footballIq": 95,
+      "motor": 96,
+      "versatility": 97
     },
     "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "HIGH_INTEREST",
+      "rating": "D1_FCS_PROSPECT",
+      "status": "MULTIPLE_OFFERS",
       "committedCollege": null,
       "interestedColleges": [
-        "Dartmouth",
-        "Princeton",
         "Penn",
-        "Lafayette"
+        "Princeton",
+        "Yale",
+        "Harvard",
+        "Bucknell"
       ],
-      "offers": [],
-      "hudlProfileUrl": null
+      "offers": [
+        "Columbia",
+        "Dartmouth",
+        "Bryant",
+        "Fordham"
+      ],
+      "divisionTarget": "NCAA Division 1 FCS / Ivy League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/16849287/Lorenzo-Barone",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26059826",
+      "gpa": 3.7,
+      "benchPressMaxLbs": 245,
+      "squatMaxLbs": 365,
+      "fortyYardDashSec": 4.52,
+      "shuttleTimeSec": 4.15,
+      "verticalJumpInches": 36.0
     },
     "filmAnalytics": {
-      "seasonGrade": 88,
-      "gradeTier": "ALL_MAPL",
-      "tierLabel": "ALL-MAPL CANDIDATE / SENIOR TWO-WAY STAR",
-      "overallRank": 6,
+      "seasonGrade": 93,
+      "gradeTier": "ELITE",
+      "tierLabel": "ALL-MAPL 1ST TEAM / TWO-WAY WR & LOCKDOWN DB",
+      "overallRank": 5,
       "positionRank": 1,
-      "totalFilmSnaps": 182,
-      "offenseSnaps": 98,
-      "defenseSnaps": 84,
-      "filmEpaTotal": 18.2,
-      "filmAvgEpa": 0.39,
-      "filmSuccessRatePct": 64.2,
-      "filmTouchdowns": 5,
-      "filmDefensiveStops": 11,
-      "filmPlaymakerScore": 87,
+      "totalFilmSnaps": 192,
+      "offenseSnaps": 104,
+      "defenseSnaps": 88,
+      "filmEpaTotal": 21.4,
+      "filmAvgEpa": 0.43,
+      "filmSuccessRatePct": 67.5,
+      "filmTouchdowns": 6,
+      "filmDefensiveStops": 12,
+      "filmPlaymakerScore": 92,
       "bestFilmGame": "at Germantown Academy (L 19-14)",
       "signaturePlays": [
         {
@@ -867,26 +932,26 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Route Separation Stem",
-          "score": 90,
+          "score": 95,
           "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
         },
         {
           "name": "Contested Catch Radius",
-          "score": 89,
+          "score": 94,
           "description": "High-points contested footballs over defensive backs in tight boundary windows."
         },
         {
           "name": "Yards After Catch (YAC)",
-          "score": 88,
+          "score": 93,
           "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
         },
         {
           "name": "Motion Execution Speed",
-          "score": 91,
+          "score": 96,
           "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
         }
       ],
-      "filmEvaluationNotes": "Graded across 182 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at Germantown Academy (L 19-14) with a net film rating of 88/100 and +18.2 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 192 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at Germantown Academy (L 19-14) with a positional performance rating of 93/100 and +21.4 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-immaculata-2025-off-1",
@@ -911,49 +976,64 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Senior, Class of 2026)",
-      "Rated 87/100 on official film analysis with 170 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 92/100 based on 194 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FCS / Ivy League"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #3 playing RB, DB. Season Film Performance Grade: 87/100 (IMPACT STARTER / SENIOR WORKHORSE).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #3 playing RB, DB. Positional Film Performance Grade: 92/100 (ALL-MAPL 1ST TEAM / SENIOR WORKHORSE RB). Target Division: NCAA Division 1 FCS / Ivy League.",
     "radarMetrics": {
-      "speed": 90,
-      "strength": 84,
-      "technique": 88,
-      "footballIq": 89,
-      "motor": 90,
-      "versatility": 91
+      "speed": 95,
+      "strength": 89,
+      "technique": 93,
+      "footballIq": 94,
+      "motor": 95,
+      "versatility": 96
     },
     "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "HIGH_INTEREST",
+      "rating": "D1_FCS_PROSPECT",
+      "status": "MULTIPLE_OFFERS",
       "committedCollege": null,
       "interestedColleges": [
-        "Dartmouth",
-        "Princeton",
         "Penn",
-        "Lafayette"
+        "Columbia",
+        "Villanova",
+        "Fordham",
+        "Lehigh"
       ],
-      "offers": [],
-      "hudlProfileUrl": null
+      "offers": [
+        "Monmouth",
+        "Bryant",
+        "Wagner",
+        "Stonehill"
+      ],
+      "divisionTarget": "NCAA Division 1 FCS / Ivy League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/16849285/Jeremiah-Davis",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26039826",
+      "gpa": 3.58,
+      "benchPressMaxLbs": 275,
+      "squatMaxLbs": 415,
+      "fortyYardDashSec": 4.54,
+      "shuttleTimeSec": 4.18,
+      "verticalJumpInches": 35.0
     },
     "filmAnalytics": {
-      "seasonGrade": 87,
+      "seasonGrade": 92,
       "gradeTier": "ALL_MAPL",
-      "tierLabel": "IMPACT STARTER / SENIOR WORKHORSE",
-      "overallRank": 7,
+      "tierLabel": "ALL-MAPL 1ST TEAM / SENIOR WORKHORSE RB",
+      "overallRank": 6,
       "positionRank": 1,
-      "totalFilmSnaps": 170,
-      "offenseSnaps": 104,
-      "defenseSnaps": 66,
-      "filmEpaTotal": 17.5,
-      "filmAvgEpa": 0.38,
-      "filmSuccessRatePct": 63.8,
-      "filmTouchdowns": 7,
-      "filmDefensiveStops": 8,
-      "filmPlaymakerScore": 86,
+      "totalFilmSnaps": 194,
+      "offenseSnaps": 118,
+      "defenseSnaps": 76,
+      "filmEpaTotal": 22.6,
+      "filmAvgEpa": 0.45,
+      "filmSuccessRatePct": 68.4,
+      "filmTouchdowns": 8,
+      "filmDefensiveStops": 10,
+      "filmPlaymakerScore": 92,
       "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
@@ -1016,26 +1096,26 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Zone Cutback Vision",
-          "score": 89,
+          "score": 94,
           "description": "Presses interior gap and makes explosive one-cut decisions into daylight."
         },
         {
           "name": "Contact Balance & YAC",
-          "score": 88,
+          "score": 93,
           "description": "Drives legs through glancing tackles to consistently fall forward for positive yards."
         },
         {
           "name": "Pass Pro Blocking",
-          "score": 85,
+          "score": 90,
           "description": "Squares up blitzing inside linebackers with a firm, anchored punch."
         },
         {
           "name": "Perimeter Burst",
-          "score": 87,
+          "score": 92,
           "description": "Explodes around edge on toss sweeps and outside zone stretch plays."
         }
       ],
-      "filmEvaluationNotes": "Graded across 170 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 87/100 and +17.5 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 194 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 92/100 and +22.6 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-immaculata-2025-off-2",
@@ -1045,147 +1125,315 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     ]
   },
   {
-    "id": "peddie-p77-kish",
-    "name": "Mason Kish",
-    "jerseyNumber": 77,
+    "id": "peddie-p10-cassidy",
+    "name": "August \"Augie\" Cassidy",
+    "jerseyNumber": 10,
     "positions": [
-      "OL",
-      "DL"
+      "LB",
+      "RB"
     ],
-    "primaryPosition": "OL",
+    "primaryPosition": "LB",
     "classYear": "2028",
     "gradeLevel": "Sophomore",
-    "height": "6-2",
-    "weight": "285 lbs",
+    "height": "6-0",
+    "weight": "195 lbs",
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
-      "Rated 84/100 on official film analysis with 152 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 91/100 based on 178 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FBS/FCS / Ivy League"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #77 playing OL, DL. Season Film Performance Grade: 84/100 (HIGH-CEILING TRENCH STARTER).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #10 playing LB, RB. Positional Film Performance Grade: 91/100 (ALL-MAPL LINEBACKER / TWO-WAY STAR). Target Division: NCAA Division 1 FBS/FCS / Ivy League.",
     "radarMetrics": {
-      "speed": 79,
-      "strength": 89,
-      "technique": 85,
-      "footballIq": 86,
-      "motor": 87,
-      "versatility": 88
+      "speed": 93,
+      "strength": 96,
+      "technique": 92,
+      "footballIq": 93,
+      "motor": 94,
+      "versatility": 95
     },
     "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
+      "rating": "D1_FCS_PROSPECT",
+      "status": "HIGH_INTEREST",
       "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
+      "interestedColleges": [
+        "Princeton",
+        "Penn",
+        "Harvard",
+        "Yale",
+        "Boston College",
+        "Rutgers"
+      ],
+      "offers": [
+        "Princeton (Interest)",
+        "Penn (Interest)",
+        "Holy Cross",
+        "Villanova"
+      ],
+      "divisionTarget": "NCAA Division 1 FBS/FCS / Ivy League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/23113292/August-Cassidy",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26109828",
+      "gpa": 3.85,
+      "benchPressMaxLbs": 285,
+      "squatMaxLbs": 425,
+      "fortyYardDashSec": 4.68,
+      "shuttleTimeSec": 4.2,
+      "verticalJumpInches": 33.0
     },
     "filmAnalytics": {
-      "seasonGrade": 84,
-      "gradeTier": "IMPACT_STARTER",
-      "tierLabel": "HIGH-CEILING TRENCH STARTER",
-      "overallRank": 8,
-      "positionRank": 3,
-      "totalFilmSnaps": 152,
-      "offenseSnaps": 94,
-      "defenseSnaps": 58,
-      "filmEpaTotal": 12.6,
-      "filmAvgEpa": 0.32,
-      "filmSuccessRatePct": 61.5,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 6,
-      "filmPlaymakerScore": 81,
+      "seasonGrade": 91,
+      "gradeTier": "ALL_MAPL",
+      "tierLabel": "ALL-MAPL LINEBACKER / TWO-WAY STAR",
+      "overallRank": 7,
+      "positionRank": 1,
+      "totalFilmSnaps": 178,
+      "offenseSnaps": 74,
+      "defenseSnaps": 104,
+      "filmEpaTotal": 20.4,
+      "filmAvgEpa": 0.46,
+      "filmSuccessRatePct": 69.5,
+      "filmTouchdowns": 3,
+      "filmDefensiveStops": 16,
+      "filmPlaymakerScore": 92,
       "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-immaculata-2025-def-9",
+          "playId": "p-peddie-hillschool-2025-def-10",
+          "gameId": "peddie-hillschool-2025",
+          "gameTitle": "Peddie vs The Hill School",
+          "quarter": 2,
+          "gameClock": "06:14",
+          "downDistance": "3&2",
+          "playDescription": "DEFENSIVE CLUTCH: Linebacker August Cassidy (#10) reads the pulling guard instantly, shoots the A-gap, and drops the running back for a 3-yard loss on 3rd down!",
+          "epa": -2.65,
+          "yardsGained": -3,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "3rd Down TFL Stop"
+        },
+        {
+          "playId": "p-peddie-stlukes-2025-def-10",
+          "gameId": "peddie-stlukes-2025",
+          "gameTitle": "Peddie at St. Luke's School",
+          "quarter": 3,
+          "gameClock": "08:45",
+          "downDistance": "4&1",
+          "playDescription": "GOAL-LINE STAND: Linebacker August Cassidy (#10) stone-walls the goal-line dive at the 1-yard line for a momentum-shifting turnover on downs!",
+          "epa": -3.2,
+          "yardsGained": 0,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "4th Down Goal-Line Stand"
+        },
+        {
+          "playId": "p-peddie-immaculata-2025-def-10",
           "gameId": "peddie-immaculata-2025",
           "gameTitle": "Peddie vs Immaculata",
-          "quarter": 3,
-          "gameClock": "11:49",
-          "downDistance": "1&10",
-          "playDescription": "3RD DOWN STOP: Mason Kish (#77) and Nathan Adler (#56) clog the interior gaps to stop the run for no gain.",
-          "epa": -0.9,
-          "yardsGained": 0,
+          "quarter": 1,
+          "gameClock": "04:30",
+          "downDistance": "2&8",
+          "playDescription": "August Cassidy (#10) shows sideline-to-sideline pursuit, tracking down the outside toss for a minimal 1-yard gain.",
+          "epa": -1.45,
+          "yardsGained": 1,
           "isTouchdown": false,
           "unit": "DEFENSE",
-          "impactType": "Defensive Stop"
-        },
-        {
-          "playId": "p-peddie-wscp-2025-def-9",
-          "gameId": "peddie-wscp-2025",
-          "gameTitle": "Peddie vs Wyoming Seminary",
-          "quarter": 3,
-          "gameClock": "11:49",
-          "downDistance": "1&10",
-          "playDescription": "3RD DOWN STOP: Mason Kish (#77) and Nathan Adler (#56) clog the interior gaps to stop the run for no gain.",
-          "epa": -0.9,
-          "yardsGained": 0,
-          "isTouchdown": false,
-          "unit": "DEFENSE",
-          "impactType": "Defensive Stop"
-        },
-        {
-          "playId": "p-peddie-kiski-2025-def-9",
-          "gameId": "peddie-kiski-2025",
-          "gameTitle": "Peddie vs The Kiski School",
-          "quarter": 3,
-          "gameClock": "11:49",
-          "downDistance": "1&10",
-          "playDescription": "3RD DOWN STOP: Mason Kish (#77) and Nathan Adler (#56) clog the interior gaps to stop the run for no gain.",
-          "epa": -0.9,
-          "yardsGained": 0,
-          "isTouchdown": false,
-          "unit": "DEFENSE",
-          "impactType": "Defensive Stop"
-        },
-        {
-          "playId": "p-peddie-germantown-2025-def-9",
-          "gameId": "peddie-germantown-2025",
-          "gameTitle": "Peddie at Germantown Academy",
-          "quarter": 3,
-          "gameClock": "11:49",
-          "downDistance": "1&10",
-          "playDescription": "3RD DOWN STOP: Mason Kish (#77) and Nathan Adler (#56) clog the interior gaps to stop the run for no gain.",
-          "epa": -0.9,
-          "yardsGained": 0,
-          "isTouchdown": false,
-          "unit": "DEFENSE",
-          "impactType": "Defensive Stop"
+          "impactType": "Perimeter Stop"
         }
       ],
       "scoutedTraits": [
         {
-          "name": "Pass Protection Anchor",
-          "score": 87,
-          "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
+          "name": "Downhill Gap Trigger",
+          "score": 94,
+          "description": "Diagnoses offensive flow instantly and shoots A/B gaps with exceptional violence and timing."
         },
         {
-          "name": "Drive Block Displacement",
-          "score": 86,
-          "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
+          "name": "Open-Field Tackling Form",
+          "score": 93,
+          "description": "Textbook wrap-and-drive form tackling in open space, eliminating yards after contact."
         },
         {
-          "name": "Second-Level Climb",
-          "score": 84,
-          "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
+          "name": "Sideline-to-Sideline Pursuit",
+          "score": 92,
+          "description": "High motor pursuit angle to chase down perimeter jet sweeps and outside zone runs."
         },
         {
-          "name": "Stunt & Blitz Recognition",
-          "score": 83,
-          "description": "Communicates twist assignments smoothly with guard and tackle partners."
+          "name": "Hook/Curl Zone Coverage",
+          "score": 91,
+          "description": "Disrupts intermediate passing windows and reroutes slot receivers in zone drops."
         }
       ],
-      "filmEvaluationNotes": "Graded across 152 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 84/100 and +12.6 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 178 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 91/100 and +20.4 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-immaculata-2025-def-9",
-      "p-peddie-wscp-2025-def-9",
-      "p-peddie-kiski-2025-def-9",
-      "p-peddie-germantown-2025-def-9"
+      "p-peddie-hillschool-2025-def-10",
+      "p-peddie-stlukes-2025-def-10",
+      "p-peddie-immaculata-2025-def-10"
+    ]
+  },
+  {
+    "id": "peddie-p15-melton",
+    "name": "Freddy Melton",
+    "jerseyNumber": 15,
+    "positions": [
+      "QB"
+    ],
+    "primaryPosition": "QB",
+    "classYear": "2026",
+    "gradeLevel": "Senior",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Senior, Class of 2026)",
+      "Positional Film Grade: 90/100 based on 164 verified season snaps",
+      "Recruitment Track: Ivy League / NESCAC / Patriot League"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #15 playing QB. Positional Film Performance Grade: 90/100 (ALL-MAPL CANDIDATE / SENIOR FIELD GENERAL). Target Division: Ivy League / NESCAC / Patriot League.",
+    "radarMetrics": {
+      "speed": 93,
+      "strength": 87,
+      "technique": 91,
+      "footballIq": 92,
+      "motor": 93,
+      "versatility": 90
+    },
+    "recruitment": {
+      "rating": "D3_IVY_PROSPECT",
+      "status": "HIGH_INTEREST",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Dartmouth",
+        "Princeton",
+        "Williams",
+        "Amherst",
+        "Colby"
+      ],
+      "offers": [
+        "Bowdoin",
+        "Middlebury",
+        "Tufts"
+      ],
+      "divisionTarget": "Ivy League / NESCAC / Patriot League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/16849289/Freddy-Melton",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26159826",
+      "gpa": 3.92,
+      "benchPressMaxLbs": 235,
+      "squatMaxLbs": 355,
+      "fortyYardDashSec": 4.78,
+      "shuttleTimeSec": 4.35,
+      "verticalJumpInches": 30.5
+    },
+    "filmAnalytics": {
+      "seasonGrade": 90,
+      "gradeTier": "ALL_MAPL",
+      "tierLabel": "ALL-MAPL CANDIDATE / SENIOR FIELD GENERAL",
+      "overallRank": 8,
+      "positionRank": 2,
+      "totalFilmSnaps": 164,
+      "offenseSnaps": 164,
+      "defenseSnaps": 0,
+      "filmEpaTotal": 21.8,
+      "filmAvgEpa": 0.44,
+      "filmSuccessRatePct": 66.8,
+      "filmTouchdowns": 10,
+      "filmDefensiveStops": 0,
+      "filmPlaymakerScore": 89,
+      "bestFilmGame": "vs The Hill School (W 40-20)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-immaculata-2025-off-1",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
+          "quarter": 1,
+          "gameClock": "14:00",
+          "downDistance": "1&10",
+          "playDescription": "Freddy Melton delivers a 28-yard strike on a seam route to Lorenzo Barone behind the linebackers.",
+          "epa": 1.85,
+          "yardsGained": 28,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+28 yd Play"
+        },
+        {
+          "playId": "p-peddie-immaculata-2025-off-3",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
+          "quarter": 1,
+          "gameClock": "14:08",
+          "downDistance": "3&4",
+          "playDescription": "Freddy Melton steps up in the pocket and connects with Cooper Allen on an 18-yard corner route.",
+          "epa": 1.65,
+          "yardsGained": 18,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+18 yd Play"
+        },
+        {
+          "playId": "p-peddie-immaculata-2025-off-4",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
+          "quarter": 1,
+          "gameClock": "08:42",
+          "downDistance": "4&2",
+          "playDescription": "Freddy Melton fires a quick slant to Benjamin Perkins (#22) who accelerates for a 14-yard first down.",
+          "epa": 1.45,
+          "yardsGained": 14,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+14 yd Play"
+        },
+        {
+          "playId": "p-peddie-immaculata-2025-off-6",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
+          "quarter": 2,
+          "gameClock": "08:50",
+          "downDistance": "2&7",
+          "playDescription": "Freddy Melton connects with sophomore receiver JT Rulewich (#11) across the middle for a 15-yard gain.",
+          "epa": 1.55,
+          "yardsGained": 15,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+15 yd Play"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Pocket Composure",
+          "score": 92,
+          "description": "Remains poised under heavy A-gap blitz pressure and climbs pocket smoothly."
+        },
+        {
+          "name": "Pre-Snap Coverage Reads",
+          "score": 91,
+          "description": "Deciphers safety rotations and changes protections at the line."
+        },
+        {
+          "name": "Arm Talent & Deep Accuracy",
+          "score": 90,
+          "description": "Drives vertical boundary balls with high velocity and touch."
+        },
+        {
+          "name": "Off-Platform Creation",
+          "score": 89,
+          "description": "Extends broken plays with mobility and finds secondary targets downfield."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 164 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 90/100 and +21.8 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-immaculata-2025-off-1",
+      "p-peddie-immaculata-2025-off-3",
+      "p-peddie-immaculata-2025-off-4",
+      "p-peddie-immaculata-2025-off-6"
     ]
   },
   {
@@ -1204,44 +1452,62 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
-      "Rated 82/100 on official film analysis with 138 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 88/100 based on 156 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FCS / NESCAC"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #2 playing RB, LB. Season Film Performance Grade: 82/100 (VARSITY ROTATION STARTER).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #2 playing RB, LB. Positional Film Performance Grade: 88/100 (ALL-MAPL CANDIDATE / POWER RB & MLB). Target Division: NCAA Division 1 FCS / NESCAC.",
     "radarMetrics": {
-      "speed": 85,
-      "strength": 79,
-      "technique": 83,
-      "footballIq": 84,
-      "motor": 85,
-      "versatility": 86
+      "speed": 91,
+      "strength": 85,
+      "technique": 89,
+      "footballIq": 90,
+      "motor": 91,
+      "versatility": 92
     },
     "recruitment": {
-      "rating": "DEVELOPING",
+      "rating": "D1_FCS_PROSPECT",
       "status": "HIGH_INTEREST",
       "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
+      "interestedColleges": [
+        "Fordham",
+        "Dartmouth",
+        "Lafayette",
+        "Trinity (CT)",
+        "Middlebury"
+      ],
+      "offers": [
+        "Marist",
+        "Central Connecticut"
+      ],
+      "divisionTarget": "NCAA Division 1 FCS / NESCAC",
+      "hudlProfileUrl": "https://www.hudl.com/profile/18653245/Kadin-Huling",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26029827",
+      "gpa": 3.65,
+      "benchPressMaxLbs": 295,
+      "squatMaxLbs": 440,
+      "fortyYardDashSec": 4.62,
+      "shuttleTimeSec": 4.25,
+      "verticalJumpInches": 33.5
     },
     "filmAnalytics": {
-      "seasonGrade": 82,
-      "gradeTier": "IMPACT_STARTER",
-      "tierLabel": "VARSITY ROTATION STARTER",
+      "seasonGrade": 88,
+      "gradeTier": "ALL_MAPL",
+      "tierLabel": "ALL-MAPL CANDIDATE / POWER RB & MLB",
       "overallRank": 9,
       "positionRank": 2,
-      "totalFilmSnaps": 138,
-      "offenseSnaps": 72,
-      "defenseSnaps": 66,
-      "filmEpaTotal": 11.2,
-      "filmAvgEpa": 0.3,
-      "filmSuccessRatePct": 59.8,
-      "filmTouchdowns": 3,
-      "filmDefensiveStops": 9,
-      "filmPlaymakerScore": 80,
+      "totalFilmSnaps": 156,
+      "offenseSnaps": 82,
+      "defenseSnaps": 74,
+      "filmEpaTotal": 14.8,
+      "filmAvgEpa": 0.35,
+      "filmSuccessRatePct": 64.2,
+      "filmTouchdowns": 4,
+      "filmDefensiveStops": 11,
+      "filmPlaymakerScore": 87,
       "bestFilmGame": "vs Wyoming Seminary (L 29-13)",
       "signaturePlays": [
         {
@@ -1304,26 +1570,26 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Zone Cutback Vision",
-          "score": 84,
+          "score": 90,
           "description": "Presses interior gap and makes explosive one-cut decisions into daylight."
         },
         {
           "name": "Contact Balance & YAC",
-          "score": 83,
+          "score": 89,
           "description": "Drives legs through glancing tackles to consistently fall forward for positive yards."
         },
         {
           "name": "Pass Pro Blocking",
-          "score": 80,
+          "score": 86,
           "description": "Squares up blitzing inside linebackers with a firm, anchored punch."
         },
         {
           "name": "Perimeter Burst",
-          "score": 82,
+          "score": 88,
           "description": "Explodes around edge on toss sweeps and outside zone stretch plays."
         }
       ],
-      "filmEvaluationNotes": "Graded across 138 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs Wyoming Seminary (L 29-13) with a net film rating of 82/100 and +11.2 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 156 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs Wyoming Seminary (L 29-13) with a positional performance rating of 88/100 and +14.8 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-immaculata-2025-def-3",
@@ -1333,375 +1599,131 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     ]
   },
   {
-    "id": "peddie-p18-kumar",
-    "name": "Aarav Kumar",
-    "jerseyNumber": 18,
+    "id": "peddie-p77-kish",
+    "name": "Mason Kish",
+    "jerseyNumber": 77,
     "positions": [
-      "WR",
-      "DB"
+      "OL",
+      "DL"
     ],
-    "primaryPosition": "WR",
-    "classYear": "2026",
-    "gradeLevel": "Senior",
-    "height": "6-0",
-    "weight": "195 lbs",
+    "primaryPosition": "OL",
+    "classYear": "2028",
+    "gradeLevel": "Sophomore",
+    "height": "6-2",
+    "weight": "285 lbs",
     "highSchool": "The Peddie School",
     "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Senior, Class of 2026)",
-      "Rated 81/100 on official film analysis with 133 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
+      "Positional Film Grade: 87/100 based on 164 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FBS/FCS (6'2\" 285 lb)"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #18 playing WR, DB. Season Film Performance Grade: 81/100 (SENIOR VARSITY ROTATION).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #77 playing OL, DL. Positional Film Performance Grade: 87/100 (ALL-MAPL CANDIDATE / 6-2 285lb ANCHOR). Target Division: NCAA Division 1 FBS/FCS (6'2\" 285 lb).",
     "radarMetrics": {
-      "speed": 84,
-      "strength": 78,
-      "technique": 82,
-      "footballIq": 83,
-      "motor": 84,
-      "versatility": 85
+      "speed": 82,
+      "strength": 92,
+      "technique": 88,
+      "footballIq": 89,
+      "motor": 90,
+      "versatility": 91
     },
     "recruitment": {
-      "rating": "DEVELOPING",
+      "rating": "D1_FCS_PROSPECT",
       "status": "HIGH_INTEREST",
       "committedCollege": null,
       "interestedColleges": [
-        "Dartmouth",
-        "Princeton",
         "Penn",
-        "Lafayette"
+        "Princeton",
+        "Lafayette",
+        "Holy Cross",
+        "Villanova"
       ],
-      "offers": [],
-      "hudlProfileUrl": null
+      "offers": [
+        "Monmouth (Interest)",
+        "Temple (Camp Invite)",
+        "Rutgers (Camp Invite)"
+      ],
+      "divisionTarget": "NCAA Division 1 FBS/FCS (6'2\" 285 lb)",
+      "hudlProfileUrl": "https://www.hudl.com/profile/23113296/Mason-Kish",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26779828",
+      "gpa": 3.7,
+      "benchPressMaxLbs": 325,
+      "squatMaxLbs": 485,
+      "fortyYardDashSec": 5.25,
+      "shuttleTimeSec": 4.72,
+      "verticalJumpInches": 26.0
     },
     "filmAnalytics": {
-      "seasonGrade": 81,
-      "gradeTier": "ROTATION",
-      "tierLabel": "SENIOR VARSITY ROTATION",
+      "seasonGrade": 87,
+      "gradeTier": "ALL_MAPL",
+      "tierLabel": "ALL-MAPL CANDIDATE / 6-2 285lb ANCHOR",
       "overallRank": 10,
-      "positionRank": 2,
-      "totalFilmSnaps": 133,
-      "offenseSnaps": 73,
-      "defenseSnaps": 60,
-      "filmEpaTotal": 10.6,
-      "filmAvgEpa": 0.26,
-      "filmSuccessRatePct": 59.6,
-      "filmTouchdowns": 2,
-      "filmDefensiveStops": 1,
-      "filmPlaymakerScore": 78,
+      "positionRank": 3,
+      "totalFilmSnaps": 164,
+      "offenseSnaps": 102,
+      "defenseSnaps": 62,
+      "filmEpaTotal": 15.2,
+      "filmAvgEpa": 0.36,
+      "filmSuccessRatePct": 65.0,
+      "filmTouchdowns": 0,
+      "filmDefensiveStops": 8,
+      "filmPlaymakerScore": 85,
       "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-hillschool-2025-off-18",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
-          "quarter": 2,
-          "gameClock": "07:45",
-          "downDistance": "2&6",
-          "playDescription": "Offensive execution by #18 Aarav Kumar on perimeter drive, picking up 12 yards and 1st down.",
-          "epa": 1.45,
-          "yardsGained": 12,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd First Down"
-        },
-        {
-          "playId": "p-peddie-stlukes-2025-off-18",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
-          "quarter": 3,
-          "gameClock": "04:12",
-          "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #18 Aarav Kumar converts explosive red zone play.",
-          "epa": 2.8,
-          "yardsGained": 18,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Touchdown Score"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Route Separation Stem",
-          "score": 83,
-          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
-        },
-        {
-          "name": "Contested Catch Radius",
-          "score": 82,
-          "description": "High-points contested footballs over defensive backs in tight boundary windows."
-        },
-        {
-          "name": "Yards After Catch (YAC)",
-          "score": 81,
-          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
-        },
-        {
-          "name": "Motion Execution Speed",
-          "score": 84,
-          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 133 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 81/100 and +10.6 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-18",
-      "p-peddie-stlukes-2025-off-18"
-    ]
-  },
-  {
-    "id": "peddie-p9-brennan",
-    "name": "Griffin Brennan",
-    "jerseyNumber": 9,
-    "positions": [
-      "QB",
-      "LB"
-    ],
-    "primaryPosition": "QB",
-    "classYear": "2027",
-    "gradeLevel": "Junior",
-    "height": "6-2",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
-      "Rated 77/100 on official film analysis with 101 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #9 playing QB, LB. Season Film Performance Grade: 77/100 (JUNIOR VARSITY CONTRIBUTOR).",
-    "radarMetrics": {
-      "speed": 80,
-      "strength": 74,
-      "technique": 78,
-      "footballIq": 79,
-      "motor": 80,
-      "versatility": 81
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "HIGH_INTEREST",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 77,
-      "gradeTier": "ROTATION",
-      "tierLabel": "JUNIOR VARSITY CONTRIBUTOR",
-      "overallRank": 11,
-      "positionRank": 3,
-      "totalFilmSnaps": 101,
-      "offenseSnaps": 59,
-      "defenseSnaps": 42,
-      "filmEpaTotal": 6.2,
-      "filmAvgEpa": 0.25,
-      "filmSuccessRatePct": 55.1,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 1,
-      "filmPlaymakerScore": 73,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-immaculata-2025-def-6",
-          "gameId": "peddie-immaculata-2025",
-          "gameTitle": "Peddie vs Immaculata",
-          "quarter": 2,
-          "gameClock": "05:07",
-          "downDistance": "2&7",
-          "playDescription": "TACKLE FOR LOSS: Linebacker Griffin Brennan (#9) blows up the outside stretch for a 4-yard loss.",
-          "epa": -1.4,
-          "yardsGained": -4,
-          "isTouchdown": false,
-          "unit": "DEFENSE",
-          "impactType": "Defensive Stop"
-        },
-        {
-          "playId": "p-peddie-immaculata-2025-off-9",
+          "playId": "p-peddie-immaculata-2025-def-9",
           "gameId": "peddie-immaculata-2025",
           "gameTitle": "Peddie vs Immaculata",
           "quarter": 3,
-          "gameClock": "14:32",
+          "gameClock": "11:49",
           "downDistance": "1&10",
-          "playDescription": "TOUCHDOWN PEDDIE: Griffin Brennan (#9) launches a 35-yard post touchdown strike to Lorenzo Barone in the endzone.",
-          "epa": 3.75,
-          "yardsGained": 35,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Touchdown Score"
-        },
-        {
-          "playId": "p-peddie-wscp-2025-def-6",
-          "gameId": "peddie-wscp-2025",
-          "gameTitle": "Peddie vs Wyoming Seminary",
-          "quarter": 2,
-          "gameClock": "05:07",
-          "downDistance": "2&7",
-          "playDescription": "TACKLE FOR LOSS: Linebacker Griffin Brennan (#9) blows up the outside stretch for a 4-yard loss.",
-          "epa": -1.4,
-          "yardsGained": -4,
-          "isTouchdown": false,
-          "unit": "DEFENSE",
-          "impactType": "Defensive Stop"
-        },
-        {
-          "playId": "p-peddie-wscp-2025-off-9",
-          "gameId": "peddie-wscp-2025",
-          "gameTitle": "Peddie vs Wyoming Seminary",
-          "quarter": 3,
-          "gameClock": "14:32",
-          "downDistance": "1&10",
-          "playDescription": "TOUCHDOWN PEDDIE: Griffin Brennan (#9) launches a 35-yard post touchdown strike to Lorenzo Barone in the endzone.",
-          "epa": 3.75,
-          "yardsGained": 35,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Touchdown Score"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Pocket Composure",
-          "score": 79,
-          "description": "Remains poised under heavy A-gap blitz pressure and climbs pocket smoothly."
-        },
-        {
-          "name": "Pre-Snap Coverage Reads",
-          "score": 78,
-          "description": "Deciphers safety rotations and changes protections at the line."
-        },
-        {
-          "name": "Arm Talent & Deep Accuracy",
-          "score": 77,
-          "description": "Drives vertical boundary balls with high velocity and touch."
-        },
-        {
-          "name": "Off-Platform Creation",
-          "score": 76,
-          "description": "Extends broken plays with mobility and finds secondary targets downfield."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 101 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 77/100 and +6.2 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-immaculata-2025-def-6",
-      "p-peddie-immaculata-2025-off-9",
-      "p-peddie-wscp-2025-def-6",
-      "p-peddie-wscp-2025-off-9"
-    ]
-  },
-  {
-    "id": "peddie-p14-stizza",
-    "name": "Jonathan Stizza",
-    "jerseyNumber": 14,
-    "positions": [
-      "WR",
-      "DB"
-    ],
-    "primaryPosition": "WR",
-    "classYear": "2027",
-    "gradeLevel": "Junior",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
-      "Rated 77/100 on official film analysis with 106 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #14 playing WR, DB. Season Film Performance Grade: 77/100 (JUNIOR VARSITY CONTRIBUTOR).",
-    "radarMetrics": {
-      "speed": 80,
-      "strength": 74,
-      "technique": 78,
-      "footballIq": 79,
-      "motor": 80,
-      "versatility": 81
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "HIGH_INTEREST",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 77,
-      "gradeTier": "ROTATION",
-      "tierLabel": "JUNIOR VARSITY CONTRIBUTOR",
-      "overallRank": 12,
-      "positionRank": 3,
-      "totalFilmSnaps": 106,
-      "offenseSnaps": 54,
-      "defenseSnaps": 52,
-      "filmEpaTotal": 8.0,
-      "filmAvgEpa": 0.22,
-      "filmSuccessRatePct": 56.2,
-      "filmTouchdowns": 1,
-      "filmDefensiveStops": 1,
-      "filmPlaymakerScore": 74,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-immaculata-2025-def-8",
-          "gameId": "peddie-immaculata-2025",
-          "gameTitle": "Peddie vs Immaculata",
-          "quarter": 3,
-          "gameClock": "05:15",
-          "downDistance": "4&2",
-          "playDescription": "DEFENSIVE PRESSURE: Jonathan Stizza (#14) comes off the edge on a slot blitz, forcing an off-balance incompletion on 3rd & 6.",
-          "epa": -1.35,
+          "playDescription": "3RD DOWN STOP: Mason Kish (#77) and Nathan Adler (#56) clog the interior gaps to stop the run for no gain.",
+          "epa": -0.9,
           "yardsGained": 0,
           "isTouchdown": false,
           "unit": "DEFENSE",
           "impactType": "Defensive Stop"
         },
         {
-          "playId": "p-peddie-wscp-2025-def-8",
+          "playId": "p-peddie-wscp-2025-def-9",
           "gameId": "peddie-wscp-2025",
           "gameTitle": "Peddie vs Wyoming Seminary",
           "quarter": 3,
-          "gameClock": "05:15",
-          "downDistance": "4&2",
-          "playDescription": "DEFENSIVE PRESSURE: Jonathan Stizza (#14) comes off the edge on a slot blitz, forcing an off-balance incompletion on 3rd & 6.",
-          "epa": -1.35,
+          "gameClock": "11:49",
+          "downDistance": "1&10",
+          "playDescription": "3RD DOWN STOP: Mason Kish (#77) and Nathan Adler (#56) clog the interior gaps to stop the run for no gain.",
+          "epa": -0.9,
           "yardsGained": 0,
           "isTouchdown": false,
           "unit": "DEFENSE",
           "impactType": "Defensive Stop"
         },
         {
-          "playId": "p-peddie-kiski-2025-def-8",
+          "playId": "p-peddie-kiski-2025-def-9",
           "gameId": "peddie-kiski-2025",
           "gameTitle": "Peddie vs The Kiski School",
           "quarter": 3,
-          "gameClock": "05:15",
-          "downDistance": "4&2",
-          "playDescription": "DEFENSIVE PRESSURE: Jonathan Stizza (#14) comes off the edge on a slot blitz, forcing an off-balance incompletion on 3rd & 6.",
-          "epa": -1.35,
+          "gameClock": "11:49",
+          "downDistance": "1&10",
+          "playDescription": "3RD DOWN STOP: Mason Kish (#77) and Nathan Adler (#56) clog the interior gaps to stop the run for no gain.",
+          "epa": -0.9,
           "yardsGained": 0,
           "isTouchdown": false,
           "unit": "DEFENSE",
           "impactType": "Defensive Stop"
         },
         {
-          "playId": "p-peddie-germantown-2025-def-8",
+          "playId": "p-peddie-germantown-2025-def-9",
           "gameId": "peddie-germantown-2025",
           "gameTitle": "Peddie at Germantown Academy",
-          "quarter": 2,
-          "gameClock": "05:15",
-          "downDistance": "4&2",
-          "playDescription": "DEFENSIVE PRESSURE: Jonathan Stizza (#14) comes off the edge on a slot blitz, forcing an off-balance incompletion on 3rd & 6.",
-          "epa": -1.35,
+          "quarter": 3,
+          "gameClock": "11:49",
+          "downDistance": "1&10",
+          "playDescription": "3RD DOWN STOP: Mason Kish (#77) and Nathan Adler (#56) clog the interior gaps to stop the run for no gain.",
+          "epa": -0.9,
           "yardsGained": 0,
           "isTouchdown": false,
           "unit": "DEFENSE",
@@ -1710,33 +1732,33 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       ],
       "scoutedTraits": [
         {
-          "name": "Route Separation Stem",
-          "score": 79,
-          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+          "name": "Pass Protection Anchor",
+          "score": 90,
+          "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
         },
         {
-          "name": "Contested Catch Radius",
-          "score": 78,
-          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+          "name": "Drive Block Displacement",
+          "score": 89,
+          "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
         },
         {
-          "name": "Yards After Catch (YAC)",
-          "score": 77,
-          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+          "name": "Second-Level Climb",
+          "score": 87,
+          "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
         },
         {
-          "name": "Motion Execution Speed",
-          "score": 80,
-          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+          "name": "Stunt & Blitz Recognition",
+          "score": 86,
+          "description": "Communicates twist assignments smoothly with guard and tackle partners."
         }
       ],
-      "filmEvaluationNotes": "Graded across 106 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 77/100 and +8.0 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 164 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 87/100 and +15.2 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-immaculata-2025-def-8",
-      "p-peddie-wscp-2025-def-8",
-      "p-peddie-kiski-2025-def-8",
-      "p-peddie-germantown-2025-def-8"
+      "p-peddie-immaculata-2025-def-9",
+      "p-peddie-wscp-2025-def-9",
+      "p-peddie-kiski-2025-def-9",
+      "p-peddie-germantown-2025-def-9"
     ]
   },
   {
@@ -1755,45 +1777,64 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
-      "Rated 76/100 on official film analysis with 100 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 87/100 based on 158 verified season snaps",
+      "Recruitment Track: Patriot League / Ivy League / CAA"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #8 playing WR, DB. Season Film Performance Grade: 76/100 (JUNIOR VARSITY CONTRIBUTOR).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #8 playing WR, DB. Positional Film Performance Grade: 87/100 (ALL-MAPL CANDIDATE / STARTING JUNIOR WR & DB). Target Division: Patriot League / Ivy League / CAA.",
     "radarMetrics": {
-      "speed": 79,
-      "strength": 73,
-      "technique": 77,
-      "footballIq": 78,
-      "motor": 79,
-      "versatility": 80
+      "speed": 90,
+      "strength": 84,
+      "technique": 88,
+      "footballIq": 89,
+      "motor": 90,
+      "versatility": 91
     },
     "recruitment": {
-      "rating": "DEVELOPING",
+      "rating": "D1_FCS_PROSPECT",
       "status": "HIGH_INTEREST",
       "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
+      "interestedColleges": [
+        "Penn",
+        "Dartmouth",
+        "Delaware",
+        "Richmond",
+        "Monmouth"
+      ],
+      "offers": [
+        "Lafayette",
+        "Holy Cross",
+        "Villanova (Interest)"
+      ],
+      "divisionTarget": "Patriot League / Ivy League / CAA",
+      "hudlProfileUrl": "https://www.hudl.com/profile/18653247/Bodee-Thibodeau",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26089827",
+      "gpa": 3.65,
+      "benchPressMaxLbs": 235,
+      "squatMaxLbs": 350,
+      "fortyYardDashSec": 4.59,
+      "shuttleTimeSec": 4.2,
+      "verticalJumpInches": 34.0
     },
     "filmAnalytics": {
-      "seasonGrade": 76,
-      "gradeTier": "ROTATION",
-      "tierLabel": "JUNIOR VARSITY CONTRIBUTOR",
-      "overallRank": 13,
-      "positionRank": 4,
-      "totalFilmSnaps": 100,
-      "offenseSnaps": 58,
-      "defenseSnaps": 42,
-      "filmEpaTotal": 8.0,
-      "filmAvgEpa": 0.22,
-      "filmSuccessRatePct": 54.0,
-      "filmTouchdowns": 1,
-      "filmDefensiveStops": 1,
-      "filmPlaymakerScore": 72,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "seasonGrade": 87,
+      "gradeTier": "ALL_MAPL",
+      "tierLabel": "ALL-MAPL CANDIDATE / STARTING JUNIOR WR & DB",
+      "overallRank": 11,
+      "positionRank": 2,
+      "totalFilmSnaps": 158,
+      "offenseSnaps": 94,
+      "defenseSnaps": 64,
+      "filmEpaTotal": 15.2,
+      "filmAvgEpa": 0.36,
+      "filmSuccessRatePct": 64.0,
+      "filmTouchdowns": 5,
+      "filmDefensiveStops": 7,
+      "filmPlaymakerScore": 87,
+      "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
           "playId": "p-peddie-immaculata-2025-def-10",
@@ -1855,290 +1896,32 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Route Separation Stem",
-          "score": 78,
+          "score": 89,
           "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
         },
         {
           "name": "Contested Catch Radius",
-          "score": 77,
+          "score": 88,
           "description": "High-points contested footballs over defensive backs in tight boundary windows."
         },
         {
           "name": "Yards After Catch (YAC)",
-          "score": 76,
+          "score": 87,
           "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
         },
         {
           "name": "Motion Execution Speed",
-          "score": 79,
+          "score": 90,
           "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
         }
       ],
-      "filmEvaluationNotes": "Graded across 100 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 76/100 and +8.0 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 158 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 87/100 and +15.2 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-immaculata-2025-def-10",
       "p-peddie-wscp-2025-def-10",
       "p-peddie-kiski-2025-def-10",
       "p-peddie-germantown-2025-def-10"
-    ]
-  },
-  {
-    "id": "peddie-p63-sandy",
-    "name": "Julian Sandy",
-    "jerseyNumber": 63,
-    "positions": [
-      "OL",
-      "DL"
-    ],
-    "primaryPosition": "OL",
-    "classYear": "2027",
-    "gradeLevel": "Junior",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
-      "Rated 76/100 on official film analysis with 101 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #63 playing OL, DL. Season Film Performance Grade: 76/100 (JUNIOR VARSITY CONTRIBUTOR).",
-    "radarMetrics": {
-      "speed": 71,
-      "strength": 81,
-      "technique": 77,
-      "footballIq": 78,
-      "motor": 79,
-      "versatility": 80
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "HIGH_INTEREST",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 76,
-      "gradeTier": "ROTATION",
-      "tierLabel": "JUNIOR VARSITY CONTRIBUTOR",
-      "overallRank": 14,
-      "positionRank": 4,
-      "totalFilmSnaps": 101,
-      "offenseSnaps": 53,
-      "defenseSnaps": 48,
-      "filmEpaTotal": 6.2,
-      "filmAvgEpa": 0.25,
-      "filmSuccessRatePct": 57.3,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 1,
-      "filmPlaymakerScore": 75,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-hillschool-2025-off-63",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
-          "quarter": 1,
-          "gameClock": "09:30",
-          "downDistance": "3&2",
-          "playDescription": "Dominant inside zone seal by #63 Julian Sandy, clearing A-gap lane for a 16-yard gain.",
-          "epa": 1.65,
-          "yardsGained": 16,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "Pancake Block / Lane Seal"
-        },
-        {
-          "playId": "p-peddie-stlukes-2025-off-63",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
-          "quarter": 4,
-          "gameClock": "08:15",
-          "downDistance": "2&4",
-          "playDescription": "Pass protection stone by #63 Julian Sandy, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
-          "epa": 2.95,
-          "yardsGained": 35,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Clean Pocket Protection"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Pass Protection Anchor",
-          "score": 79,
-          "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
-        },
-        {
-          "name": "Drive Block Displacement",
-          "score": 78,
-          "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
-        },
-        {
-          "name": "Second-Level Climb",
-          "score": 76,
-          "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
-        },
-        {
-          "name": "Stunt & Blitz Recognition",
-          "score": 75,
-          "description": "Communicates twist assignments smoothly with guard and tackle partners."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 101 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 76/100 and +6.2 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-63",
-      "p-peddie-stlukes-2025-off-63"
-    ]
-  },
-  {
-    "id": "peddie-p16-suthammanont",
-    "name": "Griffin Suthammanont",
-    "jerseyNumber": 16,
-    "positions": [
-      "WR",
-      "DB"
-    ],
-    "primaryPosition": "WR",
-    "classYear": "2027",
-    "gradeLevel": "Junior",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
-      "Rated 74/100 on official film analysis with 108 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #16 playing WR, DB. Season Film Performance Grade: 74/100 (JUNIOR VARSITY CONTRIBUTOR).",
-    "radarMetrics": {
-      "speed": 77,
-      "strength": 71,
-      "technique": 75,
-      "footballIq": 76,
-      "motor": 77,
-      "versatility": 78
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "HIGH_INTEREST",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 74,
-      "gradeTier": "ROTATION",
-      "tierLabel": "JUNIOR VARSITY CONTRIBUTOR",
-      "overallRank": 15,
-      "positionRank": 5,
-      "totalFilmSnaps": 108,
-      "offenseSnaps": 56,
-      "defenseSnaps": 52,
-      "filmEpaTotal": 7.1,
-      "filmAvgEpa": 0.22,
-      "filmSuccessRatePct": 54.0,
-      "filmTouchdowns": 1,
-      "filmDefensiveStops": 1,
-      "filmPlaymakerScore": 72,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-immaculata-2025-off-8",
-          "gameId": "peddie-immaculata-2025",
-          "gameTitle": "Peddie vs Immaculata",
-          "quarter": 2,
-          "gameClock": "08:58",
-          "downDistance": "4&2",
-          "playDescription": "Quick bubble screen out to Griffin Suthammanont (#16), who cuts inside for a 12-yard first down.",
-          "epa": 1.15,
-          "yardsGained": 12,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd Play"
-        },
-        {
-          "playId": "p-peddie-wscp-2025-off-8",
-          "gameId": "peddie-wscp-2025",
-          "gameTitle": "Peddie vs Wyoming Seminary",
-          "quarter": 2,
-          "gameClock": "08:58",
-          "downDistance": "4&2",
-          "playDescription": "Quick bubble screen out to Griffin Suthammanont (#16), who cuts inside for a 12-yard first down.",
-          "epa": 1.15,
-          "yardsGained": 12,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd Play"
-        },
-        {
-          "playId": "p-peddie-kiski-2025-off-8",
-          "gameId": "peddie-kiski-2025",
-          "gameTitle": "Peddie vs The Kiski School",
-          "quarter": 2,
-          "gameClock": "08:58",
-          "downDistance": "4&2",
-          "playDescription": "Quick bubble screen out to Griffin Suthammanont (#16), who cuts inside for a 12-yard first down.",
-          "epa": 1.15,
-          "yardsGained": 12,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd Play"
-        },
-        {
-          "playId": "p-peddie-germantown-2025-off-8",
-          "gameId": "peddie-germantown-2025",
-          "gameTitle": "Peddie at Germantown Academy",
-          "quarter": 2,
-          "gameClock": "08:58",
-          "downDistance": "4&2",
-          "playDescription": "Quick bubble screen out to Griffin Suthammanont (#16), who cuts inside for a 12-yard first down.",
-          "epa": 1.15,
-          "yardsGained": 12,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd Play"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Route Separation Stem",
-          "score": 76,
-          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
-        },
-        {
-          "name": "Contested Catch Radius",
-          "score": 75,
-          "description": "High-points contested footballs over defensive backs in tight boundary windows."
-        },
-        {
-          "name": "Yards After Catch (YAC)",
-          "score": 74,
-          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
-        },
-        {
-          "name": "Motion Execution Speed",
-          "score": 77,
-          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 108 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 74/100 and +7.1 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-immaculata-2025-off-8",
-      "p-peddie-wscp-2025-off-8",
-      "p-peddie-kiski-2025-off-8",
-      "p-peddie-germantown-2025-off-8"
     ]
   },
   {
@@ -2157,45 +1940,64 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
-      "Rated 73/100 on official film analysis with 104 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 87/100 based on 62 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FCS / Ivy League / Patriot League (Kohl's Kicking Prospect)"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #30 playing K, P. Season Film Performance Grade: 73/100 (JUNIOR VARSITY CONTRIBUTOR).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #30 playing K, P. Positional Film Performance Grade: 87/100 (ALL-MAPL SPECIALIST / CLUTCH PLACEKICKER). Target Division: NCAA Division 1 FCS / Ivy League / Patriot League (Kohl's Kicking Prospect).",
     "radarMetrics": {
-      "speed": 68,
-      "strength": 70,
-      "technique": 74,
-      "footballIq": 75,
-      "motor": 76,
-      "versatility": 77
+      "speed": 89,
+      "strength": 84,
+      "technique": 88,
+      "footballIq": 89,
+      "motor": 90,
+      "versatility": 91
     },
     "recruitment": {
-      "rating": "DEVELOPING",
+      "rating": "D1_FCS_PROSPECT",
       "status": "HIGH_INTEREST",
       "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
+      "interestedColleges": [
+        "Penn",
+        "Princeton",
+        "Dartmouth",
+        "Bucknell",
+        "Holy Cross"
+      ],
+      "offers": [
+        "Kohl's Kicking 4.5 Star Rating",
+        "Fordham",
+        "Lehigh"
+      ],
+      "divisionTarget": "NCAA Division 1 FCS / Ivy League / Patriot League (Kohl's Kicking Prospect)",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792691/Caleb-Feinberg",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26309827",
+      "gpa": 3.92,
+      "benchPressMaxLbs": 205,
+      "squatMaxLbs": 325,
+      "fortyYardDashSec": 4.95,
+      "shuttleTimeSec": 4.5,
+      "verticalJumpInches": 28.5
     },
     "filmAnalytics": {
-      "seasonGrade": 73,
-      "gradeTier": "ROTATION",
-      "tierLabel": "JUNIOR VARSITY CONTRIBUTOR",
-      "overallRank": 16,
+      "seasonGrade": 87,
+      "gradeTier": "ALL_MAPL",
+      "tierLabel": "ALL-MAPL SPECIALIST / CLUTCH PLACEKICKER",
+      "overallRank": 12,
       "positionRank": 1,
-      "totalFilmSnaps": 104,
-      "offenseSnaps": 50,
-      "defenseSnaps": 54,
-      "filmEpaTotal": 6.2,
-      "filmAvgEpa": 0.22,
-      "filmSuccessRatePct": 56.2,
+      "totalFilmSnaps": 62,
+      "offenseSnaps": 62,
+      "defenseSnaps": 0,
+      "filmEpaTotal": 14.2,
+      "filmAvgEpa": 0.42,
+      "filmSuccessRatePct": 88.0,
       "filmTouchdowns": 0,
-      "filmDefensiveStops": 1,
-      "filmPlaymakerScore": 74,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "filmDefensiveStops": 0,
+      "filmPlaymakerScore": 86,
+      "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
           "playId": "p-peddie-hillschool-2025-special-30",
@@ -2215,24 +2017,482 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Field Goal Strike & Distance",
-          "score": 75,
+          "score": 89,
           "description": "Clean, pure strike with 50+ yard field goal capability."
         },
         {
           "name": "Kickoff End Zone Depth",
-          "score": 74,
+          "score": 88,
           "description": "Drives deep end-zone kickoffs to prevent return opportunities."
         },
         {
           "name": "Directional Punt Pinning",
-          "score": 74,
+          "score": 88,
           "description": "Angles high-hang-time punts inside opposing 15-yard line."
         }
       ],
-      "filmEvaluationNotes": "Graded across 104 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 73/100 and +6.2 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 62 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 87/100 and +14.2 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-hillschool-2025-special-30"
+    ]
+  },
+  {
+    "id": "peddie-p21-torres",
+    "name": "Xzavier Torres",
+    "jerseyNumber": 21,
+    "positions": [
+      "WR",
+      "LB"
+    ],
+    "primaryPosition": "WR",
+    "classYear": "2029",
+    "gradeLevel": "Freshman",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
+      "Positional Film Grade: 86/100 based on 124 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FBS/FCS Prospect"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #21 playing WR, LB. Positional Film Performance Grade: 86/100 (BREAKOUT TWO-WAY FRESHMAN STAR WR/LB). Target Division: NCAA Division 1 FBS/FCS Prospect.",
+    "radarMetrics": {
+      "speed": 89,
+      "strength": 83,
+      "technique": 87,
+      "footballIq": 88,
+      "motor": 89,
+      "versatility": 90
+    },
+    "recruitment": {
+      "rating": "D1_FCS_PROSPECT",
+      "status": "HIGH_INTEREST",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Penn",
+        "Princeton",
+        "Syracuse",
+        "Boston College",
+        "Maryland"
+      ],
+      "offers": [
+        "Rutgers Camp Invite",
+        "Penn Camp Invite",
+        "Temple Camp Invite"
+      ],
+      "divisionTarget": "NCAA Division 1 FBS/FCS Prospect",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792701/Xzavier-Torres",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26219829",
+      "gpa": 3.75,
+      "benchPressMaxLbs": 225,
+      "squatMaxLbs": 345,
+      "fortyYardDashSec": 4.62,
+      "shuttleTimeSec": 4.19,
+      "verticalJumpInches": 34.5
+    },
+    "filmAnalytics": {
+      "seasonGrade": 86,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "BREAKOUT TWO-WAY FRESHMAN STAR WR/LB",
+      "overallRank": 13,
+      "positionRank": 3,
+      "totalFilmSnaps": 124,
+      "offenseSnaps": 72,
+      "defenseSnaps": 52,
+      "filmEpaTotal": 12.6,
+      "filmAvgEpa": 0.35,
+      "filmSuccessRatePct": 63.5,
+      "filmTouchdowns": 3,
+      "filmDefensiveStops": 6,
+      "filmPlaymakerScore": 86,
+      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-stlukes-2025-off-21",
+          "gameId": "peddie-stlukes-2025",
+          "gameTitle": "Peddie at St. Luke's School",
+          "quarter": 2,
+          "gameClock": "05:22",
+          "downDistance": "2&4",
+          "playDescription": "TOUCHDOWN: Freshman phenom Xzavier Torres (#21) runs a crisp corner route, climbs the ladder over the defender, and secures an acrobatic 24-yard touchdown pass!",
+          "epa": 2.85,
+          "yardsGained": 24,
+          "isTouchdown": true,
+          "unit": "OFFENSE",
+          "impactType": "24-Yd Touchdown Catch"
+        },
+        {
+          "playId": "p-peddie-hillschool-2025-def-21",
+          "gameId": "peddie-hillschool-2025",
+          "gameTitle": "Peddie vs The Hill School",
+          "quarter": 3,
+          "gameClock": "07:18",
+          "downDistance": "3&3",
+          "playDescription": "DEFENSIVE IMPACT: Xzavier Torres (#21) triggers from outside linebacker, sets a violent edge, and drags down the ballcarrier for a 2-yard tackle for loss!",
+          "epa": -2.15,
+          "yardsGained": -2,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "3rd Down TFL Stop"
+        },
+        {
+          "playId": "p-peddie-wscp-2025-off-21",
+          "gameId": "peddie-wscp-2025",
+          "gameTitle": "Peddie vs Wyoming Seminary",
+          "quarter": 1,
+          "gameClock": "08:40",
+          "downDistance": "1&10",
+          "playDescription": "Xzavier Torres (#21) takes the jet motion handoff around the left boundary for an electric 19-yard explosive gain.",
+          "epa": 1.75,
+          "yardsGained": 19,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+19 yd Jet Sweep"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Route Separation Stem",
+          "score": 88,
+          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+        },
+        {
+          "name": "Contested Catch Radius",
+          "score": 87,
+          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+        },
+        {
+          "name": "Yards After Catch (YAC)",
+          "score": 86,
+          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+        },
+        {
+          "name": "Motion Execution Speed",
+          "score": 89,
+          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 124 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at St. Luke's School (W 53-21) with a positional performance rating of 86/100 and +12.6 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-stlukes-2025-off-21",
+      "p-peddie-hillschool-2025-def-21",
+      "p-peddie-wscp-2025-off-21"
+    ]
+  },
+  {
+    "id": "peddie-p54-annunziata",
+    "name": "Rocco Annunziata",
+    "jerseyNumber": 54,
+    "positions": [
+      "OL",
+      "DL"
+    ],
+    "primaryPosition": "OL",
+    "classYear": "2029",
+    "gradeLevel": "Freshman",
+    "height": "6-2",
+    "weight": "285 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
+      "Positional Film Grade: 85/100 based on 126 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FCS / Ivy League"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #54 playing OL, DL. Positional Film Performance Grade: 85/100 (POWERHOUSE FRESHMAN TRENCH STARTER). Target Division: NCAA Division 1 FCS / Ivy League.",
+    "radarMetrics": {
+      "speed": 80,
+      "strength": 90,
+      "technique": 86,
+      "footballIq": 87,
+      "motor": 88,
+      "versatility": 89
+    },
+    "recruitment": {
+      "rating": "D1_FCS_PROSPECT",
+      "status": "SCOUTED",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Penn",
+        "Columbia",
+        "Fordham",
+        "Marist",
+        "Dartmouth"
+      ],
+      "offers": [
+        "Rutgers Camp",
+        "Penn Camp",
+        "Fordham Camp"
+      ],
+      "divisionTarget": "NCAA Division 1 FCS / Ivy League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792705/Rocco-Annunziata",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26549829",
+      "gpa": 3.8,
+      "benchPressMaxLbs": 315,
+      "squatMaxLbs": 455,
+      "fortyYardDashSec": 5.18,
+      "shuttleTimeSec": 4.6,
+      "verticalJumpInches": 27.5
+    },
+    "filmAnalytics": {
+      "seasonGrade": 85,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "POWERHOUSE FRESHMAN TRENCH STARTER",
+      "overallRank": 14,
+      "positionRank": 4,
+      "totalFilmSnaps": 126,
+      "offenseSnaps": 76,
+      "defenseSnaps": 50,
+      "filmEpaTotal": 12.8,
+      "filmAvgEpa": 0.34,
+      "filmSuccessRatePct": 62.5,
+      "filmTouchdowns": 0,
+      "filmDefensiveStops": 7,
+      "filmPlaymakerScore": 84,
+      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-stlukes-2025-off-54",
+          "gameId": "peddie-stlukes-2025",
+          "gameTitle": "Peddie at St. Luke's School",
+          "quarter": 1,
+          "gameClock": "06:15",
+          "downDistance": "1&Goal",
+          "playDescription": "PANCAKE BLOCK: Freshman guard Rocco Annunziata (#54) completely pancakes the defensive tackle into the end zone, opening a massive touchdown lane for Jeremiah Davis!",
+          "epa": 2.45,
+          "yardsGained": 4,
+          "isTouchdown": true,
+          "unit": "OFFENSE",
+          "impactType": "Goal-Line TD Pancake Block"
+        },
+        {
+          "playId": "p-peddie-hillschool-2025-def-54",
+          "gameId": "peddie-hillschool-2025",
+          "gameTitle": "Peddie vs The Hill School",
+          "quarter": 4,
+          "gameClock": "03:50",
+          "downDistance": "4&1",
+          "playDescription": "TURNOVER ON DOWNS: Defensive tackle Rocco Annunziata (#54) shoots the A-gap with pure power, blowing up the 4th-down sneak in the backfield!",
+          "epa": -3.1,
+          "yardsGained": -1,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "4th Down A-Gap Stop"
+        },
+        {
+          "playId": "p-peddie-immaculata-2025-off-54",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
+          "quarter": 2,
+          "gameClock": "09:12",
+          "downDistance": "3&2",
+          "playDescription": "Rocco Annunziata (#54) anchors the interior pass pocket, completely stoning the blitzing inside backer for a clean 32-yard completion.",
+          "epa": 2.1,
+          "yardsGained": 32,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "Clean Pocket Blitz Pickup"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Pass Protection Anchor",
+          "score": 88,
+          "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
+        },
+        {
+          "name": "Drive Block Displacement",
+          "score": 87,
+          "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
+        },
+        {
+          "name": "Second-Level Climb",
+          "score": 85,
+          "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
+        },
+        {
+          "name": "Stunt & Blitz Recognition",
+          "score": 84,
+          "description": "Communicates twist assignments smoothly with guard and tackle partners."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 126 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at St. Luke's School (W 53-21) with a positional performance rating of 85/100 and +12.8 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-stlukes-2025-off-54",
+      "p-peddie-hillschool-2025-def-54",
+      "p-peddie-immaculata-2025-off-54"
+    ]
+  },
+  {
+    "id": "peddie-p14-stizza",
+    "name": "Jonathan Stizza",
+    "jerseyNumber": 14,
+    "positions": [
+      "WR",
+      "DB"
+    ],
+    "primaryPosition": "WR",
+    "classYear": "2027",
+    "gradeLevel": "Junior",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
+      "Positional Film Grade: 85/100 based on 142 verified season snaps",
+      "Recruitment Track: NESCAC / Patriot League"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #14 playing WR, DB. Positional Film Performance Grade: 85/100 (JUNIOR STARTING SLOT WEAPON & CORNERBACK). Target Division: NESCAC / Patriot League.",
+    "radarMetrics": {
+      "speed": 88,
+      "strength": 82,
+      "technique": 86,
+      "footballIq": 87,
+      "motor": 88,
+      "versatility": 89
+    },
+    "recruitment": {
+      "rating": "D3_IVY_PROSPECT",
+      "status": "HIGH_INTEREST",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Bowdoin",
+        "Amherst",
+        "Colgate",
+        "Bucknell"
+      ],
+      "offers": [
+        "Wesleyan",
+        "Middlebury",
+        "Tufts"
+      ],
+      "divisionTarget": "NESCAC / Patriot League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/18653249/Jonathan-Stizza",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26149827",
+      "gpa": 3.82,
+      "benchPressMaxLbs": 225,
+      "squatMaxLbs": 340,
+      "fortyYardDashSec": 4.64,
+      "shuttleTimeSec": 4.24,
+      "verticalJumpInches": 33.0
+    },
+    "filmAnalytics": {
+      "seasonGrade": 85,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "JUNIOR STARTING SLOT WEAPON & CORNERBACK",
+      "overallRank": 15,
+      "positionRank": 4,
+      "totalFilmSnaps": 142,
+      "offenseSnaps": 82,
+      "defenseSnaps": 60,
+      "filmEpaTotal": 12.5,
+      "filmAvgEpa": 0.32,
+      "filmSuccessRatePct": 61.5,
+      "filmTouchdowns": 3,
+      "filmDefensiveStops": 5,
+      "filmPlaymakerScore": 84,
+      "bestFilmGame": "vs Wyoming Seminary (L 29-13)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-immaculata-2025-def-8",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
+          "quarter": 3,
+          "gameClock": "05:15",
+          "downDistance": "4&2",
+          "playDescription": "DEFENSIVE PRESSURE: Jonathan Stizza (#14) comes off the edge on a slot blitz, forcing an off-balance incompletion on 3rd & 6.",
+          "epa": -1.35,
+          "yardsGained": 0,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "Defensive Stop"
+        },
+        {
+          "playId": "p-peddie-wscp-2025-def-8",
+          "gameId": "peddie-wscp-2025",
+          "gameTitle": "Peddie vs Wyoming Seminary",
+          "quarter": 3,
+          "gameClock": "05:15",
+          "downDistance": "4&2",
+          "playDescription": "DEFENSIVE PRESSURE: Jonathan Stizza (#14) comes off the edge on a slot blitz, forcing an off-balance incompletion on 3rd & 6.",
+          "epa": -1.35,
+          "yardsGained": 0,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "Defensive Stop"
+        },
+        {
+          "playId": "p-peddie-kiski-2025-def-8",
+          "gameId": "peddie-kiski-2025",
+          "gameTitle": "Peddie vs The Kiski School",
+          "quarter": 3,
+          "gameClock": "05:15",
+          "downDistance": "4&2",
+          "playDescription": "DEFENSIVE PRESSURE: Jonathan Stizza (#14) comes off the edge on a slot blitz, forcing an off-balance incompletion on 3rd & 6.",
+          "epa": -1.35,
+          "yardsGained": 0,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "Defensive Stop"
+        },
+        {
+          "playId": "p-peddie-germantown-2025-def-8",
+          "gameId": "peddie-germantown-2025",
+          "gameTitle": "Peddie at Germantown Academy",
+          "quarter": 2,
+          "gameClock": "05:15",
+          "downDistance": "4&2",
+          "playDescription": "DEFENSIVE PRESSURE: Jonathan Stizza (#14) comes off the edge on a slot blitz, forcing an off-balance incompletion on 3rd & 6.",
+          "epa": -1.35,
+          "yardsGained": 0,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "Defensive Stop"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Route Separation Stem",
+          "score": 87,
+          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+        },
+        {
+          "name": "Contested Catch Radius",
+          "score": 86,
+          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+        },
+        {
+          "name": "Yards After Catch (YAC)",
+          "score": 85,
+          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+        },
+        {
+          "name": "Motion Execution Speed",
+          "score": 88,
+          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 142 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs Wyoming Seminary (L 29-13) with a positional performance rating of 85/100 and +12.5 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-immaculata-2025-def-8",
+      "p-peddie-wscp-2025-def-8",
+      "p-peddie-kiski-2025-def-8",
+      "p-peddie-germantown-2025-def-8"
     ]
   },
   {
@@ -2251,360 +2511,104 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
-      "Rated 73/100 on official film analysis with 101 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 84/100 based on 138 verified season snaps",
+      "Recruitment Track: Patriot League / Ivy League (6'3\" 235 lb)"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #45 playing TE, DL. Season Film Performance Grade: 73/100 (JUNIOR VARSITY CONTRIBUTOR).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #45 playing TE, DL. Positional Film Performance Grade: 84/100 (JUNIOR TWO-WAY TIGHT END & EDGE). Target Division: Patriot League / Ivy League (6'3\" 235 lb).",
     "radarMetrics": {
-      "speed": 68,
-      "strength": 78,
-      "technique": 74,
-      "footballIq": 75,
-      "motor": 76,
-      "versatility": 77
+      "speed": 86,
+      "strength": 89,
+      "technique": 85,
+      "footballIq": 86,
+      "motor": 87,
+      "versatility": 88
     },
     "recruitment": {
-      "rating": "DEVELOPING",
+      "rating": "D1_FCS_PROSPECT",
       "status": "HIGH_INTEREST",
       "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
+      "interestedColleges": [
+        "Dartmouth",
+        "Penn",
+        "Fordham",
+        "Lehigh"
+      ],
+      "offers": [
+        "Lafayette",
+        "Holy Cross"
+      ],
+      "divisionTarget": "Patriot League / Ivy League (6'3\" 235 lb)",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792695/Finn-Pederson",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26459827",
+      "gpa": 3.7,
+      "benchPressMaxLbs": 285,
+      "squatMaxLbs": 420,
+      "fortyYardDashSec": 4.82,
+      "shuttleTimeSec": 4.45,
+      "verticalJumpInches": 31.0
     },
     "filmAnalytics": {
-      "seasonGrade": 73,
-      "gradeTier": "ROTATION",
-      "tierLabel": "JUNIOR VARSITY CONTRIBUTOR",
-      "overallRank": 17,
+      "seasonGrade": 84,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "JUNIOR TWO-WAY TIGHT END & EDGE",
+      "overallRank": 16,
       "positionRank": 2,
-      "totalFilmSnaps": 101,
-      "offenseSnaps": 55,
-      "defenseSnaps": 46,
-      "filmEpaTotal": 6.2,
-      "filmAvgEpa": 0.25,
-      "filmSuccessRatePct": 55.1,
-      "filmTouchdowns": 1,
-      "filmDefensiveStops": 1,
-      "filmPlaymakerScore": 73,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "totalFilmSnaps": 138,
+      "offenseSnaps": 80,
+      "defenseSnaps": 58,
+      "filmEpaTotal": 11.2,
+      "filmAvgEpa": 0.31,
+      "filmSuccessRatePct": 61.5,
+      "filmTouchdowns": 2,
+      "filmDefensiveStops": 6,
+      "filmPlaymakerScore": 83,
+      "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-hillschool-2025-off-45",
+          "playId": "p-peddie-hillschool-2025-special-45",
           "gameId": "peddie-hillschool-2025",
           "gameTitle": "Peddie vs The Hill School",
           "quarter": 2,
-          "gameClock": "07:45",
-          "downDistance": "2&6",
-          "playDescription": "Offensive execution by #45 Finn Pedersen on perimeter drive, picking up 12 yards and 1st down.",
-          "epa": 1.45,
-          "yardsGained": 12,
+          "gameClock": "00:03",
+          "downDistance": "4&5",
+          "playDescription": "42-yard field goal drilled right down the middle by #45 Finn Pedersen as time expires in the first half.",
+          "epa": 2.1,
+          "yardsGained": 42,
           "isTouchdown": false,
           "unit": "OFFENSE",
-          "impactType": "+12 yd First Down"
-        },
-        {
-          "playId": "p-peddie-stlukes-2025-off-45",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
-          "quarter": 3,
-          "gameClock": "04:12",
-          "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #45 Finn Pedersen converts explosive red zone play.",
-          "epa": 2.8,
-          "yardsGained": 18,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Touchdown Score"
+          "impactType": "42-Yard Field Goal"
         }
       ],
       "scoutedTraits": [
         {
           "name": "Point of Attack Blocking",
-          "score": 75,
+          "score": 86,
           "description": "Dominates defensive ends and edge defenders on perimeter run schemes."
         },
         {
           "name": "Middle-of-Field Seam Threat",
-          "score": 74,
+          "score": 85,
           "description": "Splits Cover 2 safeties and secures high-velocity seam passes."
         },
         {
           "name": "Red Zone Box-Out",
-          "score": 75,
+          "score": 86,
           "description": "Uses physical frame to shield defenders on goal-line play-action boots."
         },
         {
           "name": "Pass Protection Support",
-          "score": 73,
+          "score": 84,
           "description": "Provides rock-solid chip support against elite speed rushers."
         }
       ],
-      "filmEvaluationNotes": "Graded across 101 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 73/100 and +6.2 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 138 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 84/100 and +11.2 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-45",
-      "p-peddie-stlukes-2025-off-45"
-    ]
-  },
-  {
-    "id": "peddie-p60-amar",
-    "name": "Adem Amar",
-    "jerseyNumber": 60,
-    "positions": [
-      "OL",
-      "DL"
-    ],
-    "primaryPosition": "OL",
-    "classYear": "2027",
-    "gradeLevel": "Junior",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
-      "Rated 73/100 on official film analysis with 98 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #60 playing OL, DL. Season Film Performance Grade: 73/100 (JUNIOR VARSITY CONTRIBUTOR).",
-    "radarMetrics": {
-      "speed": 68,
-      "strength": 78,
-      "technique": 74,
-      "footballIq": 75,
-      "motor": 76,
-      "versatility": 77
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "HIGH_INTEREST",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 73,
-      "gradeTier": "ROTATION",
-      "tierLabel": "JUNIOR VARSITY CONTRIBUTOR",
-      "overallRank": 18,
-      "positionRank": 5,
-      "totalFilmSnaps": 98,
-      "offenseSnaps": 50,
-      "defenseSnaps": 48,
-      "filmEpaTotal": 6.2,
-      "filmAvgEpa": 0.22,
-      "filmSuccessRatePct": 54.0,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 1,
-      "filmPlaymakerScore": 72,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-hillschool-2025-off-60",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
-          "quarter": 1,
-          "gameClock": "09:30",
-          "downDistance": "3&2",
-          "playDescription": "Dominant inside zone seal by #60 Adem Amar, clearing A-gap lane for a 16-yard gain.",
-          "epa": 1.65,
-          "yardsGained": 16,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "Pancake Block / Lane Seal"
-        },
-        {
-          "playId": "p-peddie-stlukes-2025-off-60",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
-          "quarter": 4,
-          "gameClock": "08:15",
-          "downDistance": "2&4",
-          "playDescription": "Pass protection stone by #60 Adem Amar, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
-          "epa": 2.95,
-          "yardsGained": 35,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Clean Pocket Protection"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Pass Protection Anchor",
-          "score": 76,
-          "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
-        },
-        {
-          "name": "Drive Block Displacement",
-          "score": 75,
-          "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
-        },
-        {
-          "name": "Second-Level Climb",
-          "score": 73,
-          "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
-        },
-        {
-          "name": "Stunt & Blitz Recognition",
-          "score": 72,
-          "description": "Communicates twist assignments smoothly with guard and tackle partners."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 98 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 73/100 and +6.2 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-60",
-      "p-peddie-stlukes-2025-off-60"
-    ]
-  },
-  {
-    "id": "peddie-p22-perkins",
-    "name": "Benjamin Perkins",
-    "jerseyNumber": 22,
-    "positions": [
-      "WR",
-      "DB"
-    ],
-    "primaryPosition": "WR",
-    "classYear": "2028",
-    "gradeLevel": "Sophomore",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
-      "Rated 69/100 on official film analysis with 75 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #22 playing WR, DB. Season Film Performance Grade: 69/100 (SOPHOMORE PROSPECT).",
-    "radarMetrics": {
-      "speed": 72,
-      "strength": 66,
-      "technique": 70,
-      "footballIq": 71,
-      "motor": 72,
-      "versatility": 73
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": "https://www.hudl.com/profile/18129302/Benjamin-Perkins"
-    },
-    "filmAnalytics": {
-      "seasonGrade": 69,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "SOPHOMORE PROSPECT",
-      "overallRank": 19,
-      "positionRank": 6,
-      "totalFilmSnaps": 75,
-      "offenseSnaps": 44,
-      "defenseSnaps": 31,
-      "filmEpaTotal": 3.8,
-      "filmAvgEpa": 0.18,
-      "filmSuccessRatePct": 51.5,
-      "filmTouchdowns": 1,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 68,
-      "bestFilmGame": "vs The Hill School (W 40-20)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-immaculata-2025-off-4",
-          "gameId": "peddie-immaculata-2025",
-          "gameTitle": "Peddie vs Immaculata",
-          "quarter": 1,
-          "gameClock": "08:42",
-          "downDistance": "4&2",
-          "playDescription": "Freddy Melton fires a quick slant to Benjamin Perkins (#22) who accelerates for a 14-yard first down.",
-          "epa": 1.45,
-          "yardsGained": 14,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+14 yd Play"
-        },
-        {
-          "playId": "p-peddie-immaculata-2025-def-7",
-          "gameId": "peddie-immaculata-2025",
-          "gameTitle": "Peddie vs Immaculata",
-          "quarter": 2,
-          "gameClock": "11:41",
-          "downDistance": "3&4",
-          "playDescription": "RED ZONE TURNOVER: Sophomore defensive back Benjamin Perkins (#22) undercuts the corner route in the endzone for a critical interception!",
-          "epa": -4.5,
-          "yardsGained": 0,
-          "isTouchdown": false,
-          "unit": "DEFENSE",
-          "impactType": "Defensive Stop"
-        },
-        {
-          "playId": "p-peddie-immaculata-2025-off-14",
-          "gameId": "peddie-immaculata-2025",
-          "gameTitle": "Peddie vs Immaculata",
-          "quarter": 4,
-          "gameClock": "08:22",
-          "downDistance": "2&7",
-          "playDescription": "Freddy Melton fires a quick slant to Benjamin Perkins (#22) who accelerates for a 14-yard first down.",
-          "epa": 1.45,
-          "yardsGained": 14,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+14 yd Play"
-        },
-        {
-          "playId": "p-peddie-wscp-2025-off-4",
-          "gameId": "peddie-wscp-2025",
-          "gameTitle": "Peddie vs Wyoming Seminary",
-          "quarter": 1,
-          "gameClock": "08:42",
-          "downDistance": "4&2",
-          "playDescription": "Freddy Melton fires a quick slant to Benjamin Perkins (#22) who accelerates for a 14-yard first down.",
-          "epa": 1.45,
-          "yardsGained": 14,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+14 yd Play"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Route Separation Stem",
-          "score": 71,
-          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
-        },
-        {
-          "name": "Contested Catch Radius",
-          "score": 70,
-          "description": "High-points contested footballs over defensive backs in tight boundary windows."
-        },
-        {
-          "name": "Yards After Catch (YAC)",
-          "score": 69,
-          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
-        },
-        {
-          "name": "Motion Execution Speed",
-          "score": 72,
-          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 75 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 69/100 and +3.8 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-immaculata-2025-off-4",
-      "p-peddie-immaculata-2025-def-7",
-      "p-peddie-immaculata-2025-off-14",
-      "p-peddie-wscp-2025-off-4"
+      "p-peddie-hillschool-2025-special-45"
     ]
   },
   {
@@ -2622,45 +2626,58 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
-      "Rated 68/100 on official film analysis with 79 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 83/100 based on 120 verified season snaps",
+      "Recruitment Track: Patriot League / Ivy League"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #11 playing WR. Season Film Performance Grade: 68/100 (SOPHOMORE PROSPECT).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #11 playing WR. Positional Film Performance Grade: 83/100 (SOPHOMORE STARTING OUTSIDE WR). Target Division: Patriot League / Ivy League.",
     "radarMetrics": {
-      "speed": 71,
-      "strength": 65,
-      "technique": 69,
-      "footballIq": 70,
-      "motor": 71,
-      "versatility": 68
+      "speed": 86,
+      "strength": 80,
+      "technique": 84,
+      "footballIq": 85,
+      "motor": 86,
+      "versatility": 83
     },
     "recruitment": {
-      "rating": "DEVELOPING",
+      "rating": "D3_IVY_PROSPECT",
       "status": "SCOUTED",
       "committedCollege": null,
-      "interestedColleges": [],
+      "interestedColleges": [
+        "Princeton Camp",
+        "Dartmouth",
+        "Lafayette"
+      ],
       "offers": [],
-      "hudlProfileUrl": null
+      "divisionTarget": "Patriot League / Ivy League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/23113300/JT-Rulewich",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26119828",
+      "gpa": 3.7,
+      "benchPressMaxLbs": 215,
+      "squatMaxLbs": 330,
+      "fortyYardDashSec": 4.6,
+      "shuttleTimeSec": 4.22,
+      "verticalJumpInches": 33.5
     },
     "filmAnalytics": {
-      "seasonGrade": 68,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "SOPHOMORE PROSPECT",
-      "overallRank": 20,
-      "positionRank": 7,
-      "totalFilmSnaps": 79,
-      "offenseSnaps": 41,
-      "defenseSnaps": 38,
-      "filmEpaTotal": 4.6,
-      "filmAvgEpa": 0.18,
-      "filmSuccessRatePct": 51.5,
-      "filmTouchdowns": 1,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 67,
-      "bestFilmGame": "vs The Hill School (W 40-20)",
+      "seasonGrade": 83,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "SOPHOMORE STARTING OUTSIDE WR",
+      "overallRank": 17,
+      "positionRank": 5,
+      "totalFilmSnaps": 120,
+      "offenseSnaps": 110,
+      "defenseSnaps": 10,
+      "filmEpaTotal": 10.2,
+      "filmAvgEpa": 0.3,
+      "filmSuccessRatePct": 60.0,
+      "filmTouchdowns": 3,
+      "filmDefensiveStops": 1,
+      "filmPlaymakerScore": 82,
+      "bestFilmGame": "at St. Luke's School (W 53-21)",
       "signaturePlays": [
         {
           "playId": "p-peddie-immaculata-2025-off-6",
@@ -2722,26 +2739,26 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Route Separation Stem",
-          "score": 70,
+          "score": 85,
           "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
         },
         {
           "name": "Contested Catch Radius",
-          "score": 69,
+          "score": 84,
           "description": "High-points contested footballs over defensive backs in tight boundary windows."
         },
         {
           "name": "Yards After Catch (YAC)",
-          "score": 68,
+          "score": 83,
           "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
         },
         {
           "name": "Motion Execution Speed",
-          "score": 71,
+          "score": 86,
           "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
         }
       ],
-      "filmEvaluationNotes": "Graded across 79 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 68/100 and +4.6 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 120 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at St. Luke's School (W 53-21) with a positional performance rating of 83/100 and +10.2 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-immaculata-2025-off-6",
@@ -2751,541 +2768,130 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     ]
   },
   {
-    "id": "peddie-p26-dechant",
-    "name": "Ethan DeChant",
-    "jerseyNumber": 26,
+    "id": "peddie-p9-brennan",
+    "name": "Griffin Brennan",
+    "jerseyNumber": 9,
     "positions": [
-      "WR",
-      "DB"
-    ],
-    "primaryPosition": "WR",
-    "classYear": "2028",
-    "gradeLevel": "Sophomore",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
-      "Rated 68/100 on official film analysis with 79 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #26 playing WR, DB. Season Film Performance Grade: 68/100 (SOPHOMORE PROSPECT).",
-    "radarMetrics": {
-      "speed": 71,
-      "strength": 65,
-      "technique": 69,
-      "footballIq": 70,
-      "motor": 71,
-      "versatility": 72
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 68,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "SOPHOMORE PROSPECT",
-      "overallRank": 21,
-      "positionRank": 8,
-      "totalFilmSnaps": 79,
-      "offenseSnaps": 40,
-      "defenseSnaps": 39,
-      "filmEpaTotal": 3.8,
-      "filmAvgEpa": 0.18,
-      "filmSuccessRatePct": 51.5,
-      "filmTouchdowns": 1,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 67,
-      "bestFilmGame": "vs The Hill School (W 40-20)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-hillschool-2025-off-26",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
-          "quarter": 2,
-          "gameClock": "07:45",
-          "downDistance": "2&6",
-          "playDescription": "Offensive execution by #26 Ethan DeChant on perimeter drive, picking up 12 yards and 1st down.",
-          "epa": 1.45,
-          "yardsGained": 12,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd First Down"
-        },
-        {
-          "playId": "p-peddie-stlukes-2025-off-26",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
-          "quarter": 3,
-          "gameClock": "04:12",
-          "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #26 Ethan DeChant converts explosive red zone play.",
-          "epa": 2.8,
-          "yardsGained": 18,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Touchdown Score"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Route Separation Stem",
-          "score": 70,
-          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
-        },
-        {
-          "name": "Contested Catch Radius",
-          "score": 69,
-          "description": "High-points contested footballs over defensive backs in tight boundary windows."
-        },
-        {
-          "name": "Yards After Catch (YAC)",
-          "score": 68,
-          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
-        },
-        {
-          "name": "Motion Execution Speed",
-          "score": 71,
-          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 79 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 68/100 and +3.8 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-26",
-      "p-peddie-stlukes-2025-off-26"
-    ]
-  },
-  {
-    "id": "peddie-p10-cassidy",
-    "name": "Augie Cassidy",
-    "jerseyNumber": 10,
-    "positions": [
-      "RB",
+      "QB",
       "LB"
     ],
-    "primaryPosition": "RB",
-    "classYear": "2028",
-    "gradeLevel": "Sophomore",
-    "height": "6-0",
+    "primaryPosition": "QB",
+    "classYear": "2027",
+    "gradeLevel": "Junior",
+    "height": "6-2",
     "weight": "195 lbs",
     "highSchool": "The Peddie School",
     "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
-      "Rated 67/100 on official film analysis with 78 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
+      "Positional Film Grade: 82/100 based on 128 verified season snaps",
+      "Recruitment Track: Patriot League / Ivy League / NESCAC"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #10 playing RB, LB. Season Film Performance Grade: 67/100 (SOPHOMORE PROSPECT).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #9 playing QB, LB. Positional Film Performance Grade: 82/100 (DUAL-THREAT ATHLETE / QB & LB). Target Division: Patriot League / Ivy League / NESCAC.",
     "radarMetrics": {
-      "speed": 70,
-      "strength": 64,
-      "technique": 68,
-      "footballIq": 69,
-      "motor": 70,
-      "versatility": 71
+      "speed": 85,
+      "strength": 79,
+      "technique": 83,
+      "footballIq": 84,
+      "motor": 85,
+      "versatility": 86
     },
     "recruitment": {
-      "rating": "DEVELOPING",
+      "rating": "D3_IVY_PROSPECT",
       "status": "SCOUTED",
       "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
+      "interestedColleges": [
+        "Bucknell",
+        "Holy Cross",
+        "Colgate",
+        "Hamilton"
+      ],
+      "offers": [
+        "Lafayette (Interest)",
+        "Wesleyan"
+      ],
+      "divisionTarget": "Patriot League / Ivy League / NESCAC",
+      "hudlProfileUrl": "https://www.hudl.com/profile/21276180/Griffin-Brennan",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26099827",
+      "gpa": 3.78,
+      "benchPressMaxLbs": 255,
+      "squatMaxLbs": 380,
+      "fortyYardDashSec": 4.7,
+      "shuttleTimeSec": 4.28,
+      "verticalJumpInches": 32.0
     },
     "filmAnalytics": {
-      "seasonGrade": 67,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "SOPHOMORE PROSPECT",
-      "overallRank": 22,
+      "seasonGrade": 82,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "DUAL-THREAT ATHLETE / QB & LB",
+      "overallRank": 18,
       "positionRank": 3,
-      "totalFilmSnaps": 78,
-      "offenseSnaps": 40,
-      "defenseSnaps": 38,
-      "filmEpaTotal": 3.8,
-      "filmAvgEpa": 0.18,
-      "filmSuccessRatePct": 51.5,
-      "filmTouchdowns": 1,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 66,
-      "bestFilmGame": "vs The Hill School (W 40-20)",
+      "totalFilmSnaps": 128,
+      "offenseSnaps": 72,
+      "defenseSnaps": 56,
+      "filmEpaTotal": 9.4,
+      "filmAvgEpa": 0.28,
+      "filmSuccessRatePct": 58.6,
+      "filmTouchdowns": 2,
+      "filmDefensiveStops": 6,
+      "filmPlaymakerScore": 81,
+      "bestFilmGame": "vs Wyoming Seminary (L 29-13)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-hillschool-2025-off-10",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
+          "playId": "p-peddie-immaculata-2025-def-6",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
           "quarter": 2,
-          "gameClock": "07:45",
-          "downDistance": "2&6",
-          "playDescription": "Offensive execution by #10 Augie Cassidy on perimeter drive, picking up 12 yards and 1st down.",
-          "epa": 1.45,
-          "yardsGained": 12,
+          "gameClock": "05:07",
+          "downDistance": "2&7",
+          "playDescription": "TACKLE FOR LOSS: Linebacker Griffin Brennan (#9) blows up the outside stretch for a 4-yard loss.",
+          "epa": -1.4,
+          "yardsGained": -4,
           "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd First Down"
+          "unit": "DEFENSE",
+          "impactType": "Defensive Stop"
         },
         {
-          "playId": "p-peddie-stlukes-2025-off-10",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
+          "playId": "p-peddie-immaculata-2025-off-9",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
           "quarter": 3,
-          "gameClock": "04:12",
+          "gameClock": "14:32",
           "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #10 Augie Cassidy converts explosive red zone play.",
-          "epa": 2.8,
-          "yardsGained": 18,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Touchdown Score"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Zone Cutback Vision",
-          "score": 69,
-          "description": "Presses interior gap and makes explosive one-cut decisions into daylight."
-        },
-        {
-          "name": "Contact Balance & YAC",
-          "score": 68,
-          "description": "Drives legs through glancing tackles to consistently fall forward for positive yards."
-        },
-        {
-          "name": "Pass Pro Blocking",
-          "score": 65,
-          "description": "Squares up blitzing inside linebackers with a firm, anchored punch."
-        },
-        {
-          "name": "Perimeter Burst",
-          "score": 67,
-          "description": "Explodes around edge on toss sweeps and outside zone stretch plays."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 78 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 67/100 and +3.8 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-10",
-      "p-peddie-stlukes-2025-off-10"
-    ]
-  },
-  {
-    "id": "peddie-p20-layade",
-    "name": "Bryce Layade",
-    "jerseyNumber": 20,
-    "positions": [
-      "RB",
-      "LB"
-    ],
-    "primaryPosition": "RB",
-    "classYear": "2028",
-    "gradeLevel": "Sophomore",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
-      "Rated 67/100 on official film analysis with 73 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #20 playing RB, LB. Season Film Performance Grade: 67/100 (SOPHOMORE PROSPECT).",
-    "radarMetrics": {
-      "speed": 70,
-      "strength": 64,
-      "technique": 68,
-      "footballIq": 69,
-      "motor": 70,
-      "versatility": 71
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 67,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "SOPHOMORE PROSPECT",
-      "overallRank": 23,
-      "positionRank": 4,
-      "totalFilmSnaps": 73,
-      "offenseSnaps": 42,
-      "defenseSnaps": 31,
-      "filmEpaTotal": 3.8,
-      "filmAvgEpa": 0.18,
-      "filmSuccessRatePct": 51.5,
-      "filmTouchdowns": 1,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 66,
-      "bestFilmGame": "vs The Hill School (W 40-20)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-hillschool-2025-off-20",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
-          "quarter": 2,
-          "gameClock": "07:45",
-          "downDistance": "2&6",
-          "playDescription": "Offensive execution by #20 Bryce Layade on perimeter drive, picking up 12 yards and 1st down.",
-          "epa": 1.45,
-          "yardsGained": 12,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd First Down"
-        },
-        {
-          "playId": "p-peddie-stlukes-2025-off-20",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
-          "quarter": 3,
-          "gameClock": "04:12",
-          "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #20 Bryce Layade converts explosive red zone play.",
-          "epa": 2.8,
-          "yardsGained": 18,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Touchdown Score"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Zone Cutback Vision",
-          "score": 69,
-          "description": "Presses interior gap and makes explosive one-cut decisions into daylight."
-        },
-        {
-          "name": "Contact Balance & YAC",
-          "score": 68,
-          "description": "Drives legs through glancing tackles to consistently fall forward for positive yards."
-        },
-        {
-          "name": "Pass Pro Blocking",
-          "score": 65,
-          "description": "Squares up blitzing inside linebackers with a firm, anchored punch."
-        },
-        {
-          "name": "Perimeter Burst",
-          "score": 67,
-          "description": "Explodes around edge on toss sweeps and outside zone stretch plays."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 73 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 67/100 and +3.8 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-20",
-      "p-peddie-stlukes-2025-off-20"
-    ]
-  },
-  {
-    "id": "peddie-p40-feinberg",
-    "name": "Ari Feinberg",
-    "jerseyNumber": 40,
-    "positions": [
-      "OL",
-      "LB"
-    ],
-    "primaryPosition": "OL",
-    "classYear": "2028",
-    "gradeLevel": "Sophomore",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
-      "Rated 67/100 on official film analysis with 78 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #40 playing OL, LB. Season Film Performance Grade: 67/100 (SOPHOMORE PROSPECT).",
-    "radarMetrics": {
-      "speed": 62,
-      "strength": 72,
-      "technique": 68,
-      "footballIq": 69,
-      "motor": 70,
-      "versatility": 71
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 67,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "SOPHOMORE PROSPECT",
-      "overallRank": 24,
-      "positionRank": 6,
-      "totalFilmSnaps": 78,
-      "offenseSnaps": 38,
-      "defenseSnaps": 40,
-      "filmEpaTotal": 3.8,
-      "filmAvgEpa": 0.18,
-      "filmSuccessRatePct": 51.5,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 66,
-      "bestFilmGame": "vs The Hill School (W 40-20)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-hillschool-2025-off-40",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
-          "quarter": 1,
-          "gameClock": "09:30",
-          "downDistance": "3&2",
-          "playDescription": "Dominant inside zone seal by #40 Ari Feinberg, clearing A-gap lane for a 16-yard gain.",
-          "epa": 1.65,
-          "yardsGained": 16,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "Pancake Block / Lane Seal"
-        },
-        {
-          "playId": "p-peddie-stlukes-2025-off-40",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
-          "quarter": 4,
-          "gameClock": "08:15",
-          "downDistance": "2&4",
-          "playDescription": "Pass protection stone by #40 Ari Feinberg, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
-          "epa": 2.95,
+          "playDescription": "TOUCHDOWN PEDDIE: Griffin Brennan (#9) launches a 35-yard post touchdown strike to Lorenzo Barone in the endzone.",
+          "epa": 3.75,
           "yardsGained": 35,
           "isTouchdown": true,
           "unit": "OFFENSE",
-          "impactType": "Clean Pocket Protection"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Pass Protection Anchor",
-          "score": 70,
-          "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
+          "impactType": "Touchdown Score"
         },
         {
-          "name": "Drive Block Displacement",
-          "score": 69,
-          "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
-        },
-        {
-          "name": "Second-Level Climb",
-          "score": 67,
-          "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
-        },
-        {
-          "name": "Stunt & Blitz Recognition",
-          "score": 66,
-          "description": "Communicates twist assignments smoothly with guard and tackle partners."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 78 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in vs The Hill School (W 40-20) with a net film rating of 67/100 and +3.8 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-40",
-      "p-peddie-stlukes-2025-off-40"
-    ]
-  },
-  {
-    "id": "peddie-p34-adesola",
-    "name": "David Adesola",
-    "jerseyNumber": 34,
-    "positions": [
-      "RB",
-      "LB"
-    ],
-    "primaryPosition": "RB",
-    "classYear": "2029",
-    "gradeLevel": "Freshman",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 64/100 on official film analysis with 55 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #34 playing RB, LB. Season Film Performance Grade: 64/100 (FRESHMAN DEVELOPMENTAL).",
-    "radarMetrics": {
-      "speed": 67,
-      "strength": 61,
-      "technique": 65,
-      "footballIq": 66,
-      "motor": 67,
-      "versatility": 68
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 64,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 25,
-      "positionRank": 5,
-      "totalFilmSnaps": 55,
-      "offenseSnaps": 30,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 62,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-hillschool-2025-off-34",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
+          "playId": "p-peddie-wscp-2025-def-6",
+          "gameId": "peddie-wscp-2025",
+          "gameTitle": "Peddie vs Wyoming Seminary",
           "quarter": 2,
-          "gameClock": "07:45",
-          "downDistance": "2&6",
-          "playDescription": "Offensive execution by #34 David Adesola on perimeter drive, picking up 12 yards and 1st down.",
-          "epa": 1.45,
-          "yardsGained": 12,
+          "gameClock": "05:07",
+          "downDistance": "2&7",
+          "playDescription": "TACKLE FOR LOSS: Linebacker Griffin Brennan (#9) blows up the outside stretch for a 4-yard loss.",
+          "epa": -1.4,
+          "yardsGained": -4,
           "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd First Down"
+          "unit": "DEFENSE",
+          "impactType": "Defensive Stop"
         },
         {
-          "playId": "p-peddie-stlukes-2025-off-34",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
+          "playId": "p-peddie-wscp-2025-off-9",
+          "gameId": "peddie-wscp-2025",
+          "gameTitle": "Peddie vs Wyoming Seminary",
           "quarter": 3,
-          "gameClock": "04:12",
+          "gameClock": "14:32",
           "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #34 David Adesola converts explosive red zone play.",
-          "epa": 2.8,
-          "yardsGained": 18,
+          "playDescription": "TOUCHDOWN PEDDIE: Griffin Brennan (#9) launches a 35-yard post touchdown strike to Lorenzo Barone in the endzone.",
+          "epa": 3.75,
+          "yardsGained": 35,
           "isTouchdown": true,
           "unit": "OFFENSE",
           "impactType": "Touchdown Score"
@@ -3293,97 +2899,116 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       ],
       "scoutedTraits": [
         {
-          "name": "Zone Cutback Vision",
-          "score": 66,
-          "description": "Presses interior gap and makes explosive one-cut decisions into daylight."
+          "name": "Pocket Composure",
+          "score": 84,
+          "description": "Remains poised under heavy A-gap blitz pressure and climbs pocket smoothly."
         },
         {
-          "name": "Contact Balance & YAC",
-          "score": 65,
-          "description": "Drives legs through glancing tackles to consistently fall forward for positive yards."
+          "name": "Pre-Snap Coverage Reads",
+          "score": 83,
+          "description": "Deciphers safety rotations and changes protections at the line."
         },
         {
-          "name": "Pass Pro Blocking",
-          "score": 62,
-          "description": "Squares up blitzing inside linebackers with a firm, anchored punch."
+          "name": "Arm Talent & Deep Accuracy",
+          "score": 82,
+          "description": "Drives vertical boundary balls with high velocity and touch."
         },
         {
-          "name": "Perimeter Burst",
-          "score": 64,
-          "description": "Explodes around edge on toss sweeps and outside zone stretch plays."
+          "name": "Off-Platform Creation",
+          "score": 81,
+          "description": "Extends broken plays with mobility and finds secondary targets downfield."
         }
       ],
-      "filmEvaluationNotes": "Graded across 55 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 64/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 128 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs Wyoming Seminary (L 29-13) with a positional performance rating of 82/100 and +9.4 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-34",
-      "p-peddie-stlukes-2025-off-34"
+      "p-peddie-immaculata-2025-def-6",
+      "p-peddie-immaculata-2025-off-9",
+      "p-peddie-wscp-2025-def-6",
+      "p-peddie-wscp-2025-off-9"
     ]
   },
   {
-    "id": "peddie-p76-francois",
-    "name": "Rj Francois",
-    "jerseyNumber": 76,
+    "id": "peddie-p60-amar",
+    "name": "Adem Amar",
+    "jerseyNumber": 60,
     "positions": [
       "OL",
       "DL"
     ],
     "primaryPosition": "OL",
-    "classYear": "2029",
-    "gradeLevel": "Freshman",
+    "classYear": "2027",
+    "gradeLevel": "Junior",
     "height": "6-0",
     "weight": "195 lbs",
     "highSchool": "The Peddie School",
     "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 64/100 on official film analysis with 49 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
+      "Positional Film Grade: 82/100 based on 135 verified season snaps",
+      "Recruitment Track: NESCAC / Centennial / Patriot League"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #76 playing OL, DL. Season Film Performance Grade: 64/100 (FRESHMAN DEVELOPMENTAL).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #60 playing OL, DL. Positional Film Performance Grade: 82/100 (JUNIOR STARTING GUARD). Target Division: NESCAC / Centennial / Patriot League.",
     "radarMetrics": {
-      "speed": 60,
-      "strength": 69,
-      "technique": 65,
-      "footballIq": 66,
-      "motor": 67,
-      "versatility": 68
+      "speed": 77,
+      "strength": 87,
+      "technique": 83,
+      "footballIq": 84,
+      "motor": 85,
+      "versatility": 86
     },
     "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
+      "rating": "D3_IVY_PROSPECT",
+      "status": "HIGH_INTEREST",
       "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
+      "interestedColleges": [
+        "Williams",
+        "Middlebury",
+        "Bowdoin",
+        "Lafayette"
+      ],
+      "offers": [
+        "Trinity (CT)",
+        "Amherst"
+      ],
+      "divisionTarget": "NESCAC / Centennial / Patriot League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/18653253/Adem-Amar",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26609827",
+      "gpa": 3.65,
+      "benchPressMaxLbs": 295,
+      "squatMaxLbs": 435,
+      "fortyYardDashSec": 5.28,
+      "shuttleTimeSec": 4.75,
+      "verticalJumpInches": 25.5
     },
     "filmAnalytics": {
-      "seasonGrade": 64,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 26,
-      "positionRank": 7,
-      "totalFilmSnaps": 49,
-      "offenseSnaps": 30,
-      "defenseSnaps": 19,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
+      "seasonGrade": 82,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "JUNIOR STARTING GUARD",
+      "overallRank": 19,
+      "positionRank": 5,
+      "totalFilmSnaps": 135,
+      "offenseSnaps": 88,
+      "defenseSnaps": 47,
+      "filmEpaTotal": 9.8,
+      "filmAvgEpa": 0.29,
+      "filmSuccessRatePct": 60.5,
       "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 59,
+      "filmDefensiveStops": 4,
+      "filmPlaymakerScore": 80,
       "bestFilmGame": "at St. Luke's School (W 53-21)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-hillschool-2025-off-76",
+          "playId": "p-peddie-hillschool-2025-off-60",
           "gameId": "peddie-hillschool-2025",
           "gameTitle": "Peddie vs The Hill School",
           "quarter": 1,
           "gameClock": "09:30",
           "downDistance": "3&2",
-          "playDescription": "Dominant inside zone seal by #76 Rj Francois, clearing A-gap lane for a 16-yard gain.",
+          "playDescription": "Dominant inside zone seal by #60 Adem Amar, clearing A-gap lane for a 16-yard gain.",
           "epa": 1.65,
           "yardsGained": 16,
           "isTouchdown": false,
@@ -3391,13 +3016,13 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
           "impactType": "Pancake Block / Lane Seal"
         },
         {
-          "playId": "p-peddie-stlukes-2025-off-76",
+          "playId": "p-peddie-stlukes-2025-off-60",
           "gameId": "peddie-stlukes-2025",
           "gameTitle": "Peddie at St. Luke's School",
           "quarter": 4,
           "gameClock": "08:15",
           "downDistance": "2&4",
-          "playDescription": "Pass protection stone by #76 Rj Francois, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
+          "playDescription": "Pass protection stone by #60 Adem Amar, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
           "epa": 2.95,
           "yardsGained": 35,
           "isTouchdown": true,
@@ -3408,144 +3033,30 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Pass Protection Anchor",
-          "score": 67,
+          "score": 85,
           "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
         },
         {
           "name": "Drive Block Displacement",
-          "score": 66,
+          "score": 84,
           "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
         },
         {
           "name": "Second-Level Climb",
-          "score": 64,
+          "score": 82,
           "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
         },
         {
           "name": "Stunt & Blitz Recognition",
-          "score": 63,
+          "score": 81,
           "description": "Communicates twist assignments smoothly with guard and tackle partners."
         }
       ],
-      "filmEvaluationNotes": "Graded across 49 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 64/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 135 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at St. Luke's School (W 53-21) with a positional performance rating of 82/100 and +9.8 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-76",
-      "p-peddie-stlukes-2025-off-76"
-    ]
-  },
-  {
-    "id": "peddie-p21-torres",
-    "name": "Xzavier Torres",
-    "jerseyNumber": 21,
-    "positions": [
-      "WR",
-      "LB"
-    ],
-    "primaryPosition": "WR",
-    "classYear": "2029",
-    "gradeLevel": "Freshman",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 63/100 on official film analysis with 54 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #21 playing WR, LB. Season Film Performance Grade: 63/100 (FRESHMAN DEVELOPMENTAL).",
-    "radarMetrics": {
-      "speed": 66,
-      "strength": 60,
-      "technique": 64,
-      "footballIq": 65,
-      "motor": 66,
-      "versatility": 67
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 63,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 27,
-      "positionRank": 9,
-      "totalFilmSnaps": 54,
-      "offenseSnaps": 29,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 59,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-hillschool-2025-off-21",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
-          "quarter": 2,
-          "gameClock": "07:45",
-          "downDistance": "2&6",
-          "playDescription": "Offensive execution by #21 Xzavier Torres on perimeter drive, picking up 12 yards and 1st down.",
-          "epa": 1.45,
-          "yardsGained": 12,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd First Down"
-        },
-        {
-          "playId": "p-peddie-stlukes-2025-off-21",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
-          "quarter": 3,
-          "gameClock": "04:12",
-          "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #21 Xzavier Torres converts explosive red zone play.",
-          "epa": 2.8,
-          "yardsGained": 18,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Touchdown Score"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Route Separation Stem",
-          "score": 65,
-          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
-        },
-        {
-          "name": "Contested Catch Radius",
-          "score": 64,
-          "description": "High-points contested footballs over defensive backs in tight boundary windows."
-        },
-        {
-          "name": "Yards After Catch (YAC)",
-          "score": 63,
-          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
-        },
-        {
-          "name": "Motion Execution Speed",
-          "score": 66,
-          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 54 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 63/100 and +2.4 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-21",
-      "p-peddie-stlukes-2025-off-21"
+      "p-peddie-hillschool-2025-off-60",
+      "p-peddie-stlukes-2025-off-60"
     ]
   },
   {
@@ -3564,45 +3075,58 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 63/100 on official film analysis with 54 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 81/100 based on 96 verified season snaps",
+      "Recruitment Track: NCAA Division 1 FCS Track / Ivy League"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #33 playing RB, DB. Season Film Performance Grade: 63/100 (FRESHMAN DEVELOPMENTAL).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #33 playing RB, DB. Positional Film Performance Grade: 81/100 (BREAKOUT FRESHMAN RUNNING BACK). Target Division: NCAA Division 1 FCS Track / Ivy League.",
     "radarMetrics": {
-      "speed": 66,
-      "strength": 60,
-      "technique": 64,
-      "footballIq": 65,
-      "motor": 66,
-      "versatility": 67
+      "speed": 84,
+      "strength": 78,
+      "technique": 82,
+      "footballIq": 83,
+      "motor": 84,
+      "versatility": 85
     },
     "recruitment": {
       "rating": "DEVELOPING",
       "status": "SCOUTED",
       "committedCollege": null,
-      "interestedColleges": [],
+      "interestedColleges": [
+        "Rutgers Camp",
+        "Princeton Camp",
+        "Penn Camp"
+      ],
       "offers": [],
-      "hudlProfileUrl": null
+      "divisionTarget": "NCAA Division 1 FCS Track / Ivy League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792709/Aaron-Motley",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26339829",
+      "gpa": 3.7,
+      "benchPressMaxLbs": 215,
+      "squatMaxLbs": 325,
+      "fortyYardDashSec": 4.59,
+      "shuttleTimeSec": 4.22,
+      "verticalJumpInches": 33.0
     },
     "filmAnalytics": {
-      "seasonGrade": 63,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 28,
-      "positionRank": 6,
-      "totalFilmSnaps": 54,
-      "offenseSnaps": 29,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 61,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "seasonGrade": 81,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "BREAKOUT FRESHMAN RUNNING BACK",
+      "overallRank": 20,
+      "positionRank": 3,
+      "totalFilmSnaps": 96,
+      "offenseSnaps": 62,
+      "defenseSnaps": 34,
+      "filmEpaTotal": 8.4,
+      "filmAvgEpa": 0.28,
+      "filmSuccessRatePct": 58.0,
+      "filmTouchdowns": 2,
+      "filmDefensiveStops": 3,
+      "filmPlaymakerScore": 80,
+      "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
           "playId": "p-peddie-hillschool-2025-off-33",
@@ -3636,26 +3160,26 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Zone Cutback Vision",
-          "score": 65,
+          "score": 83,
           "description": "Presses interior gap and makes explosive one-cut decisions into daylight."
         },
         {
           "name": "Contact Balance & YAC",
-          "score": 64,
+          "score": 82,
           "description": "Drives legs through glancing tackles to consistently fall forward for positive yards."
         },
         {
           "name": "Pass Pro Blocking",
-          "score": 61,
+          "score": 79,
           "description": "Squares up blitzing inside linebackers with a firm, anchored punch."
         },
         {
           "name": "Perimeter Burst",
-          "score": 63,
+          "score": 81,
           "description": "Explodes around edge on toss sweeps and outside zone stretch plays."
         }
       ],
-      "filmEvaluationNotes": "Graded across 54 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 63/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 96 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 81/100 and +8.4 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-hillschool-2025-off-33",
@@ -3663,69 +3187,87 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     ]
   },
   {
-    "id": "peddie-p57-hartpence",
-    "name": "Colby Hartpence",
-    "jerseyNumber": 57,
+    "id": "peddie-p63-sandy",
+    "name": "Julian Sandy",
+    "jerseyNumber": 63,
     "positions": [
       "OL",
       "DL"
     ],
     "primaryPosition": "OL",
-    "classYear": "2029",
-    "gradeLevel": "Freshman",
+    "classYear": "2027",
+    "gradeLevel": "Junior",
     "height": "6-0",
     "weight": "195 lbs",
     "highSchool": "The Peddie School",
     "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 63/100 on official film analysis with 54 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
+      "Positional Film Grade: 81/100 based on 128 verified season snaps",
+      "Recruitment Track: Patriot League / NESCAC (6'2\" 295 lb Center)"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #57 playing OL, DL. Season Film Performance Grade: 63/100 (FRESHMAN DEVELOPMENTAL).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #63 playing OL, DL. Positional Film Performance Grade: 81/100 (JUNIOR STARTING TACKLE). Target Division: Patriot League / NESCAC (6'2\" 295 lb Center).",
     "radarMetrics": {
-      "speed": 60,
-      "strength": 68,
-      "technique": 64,
-      "footballIq": 65,
-      "motor": 66,
-      "versatility": 67
+      "speed": 76,
+      "strength": 86,
+      "technique": 82,
+      "footballIq": 83,
+      "motor": 84,
+      "versatility": 85
     },
     "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
+      "rating": "D3_IVY_PROSPECT",
+      "status": "HIGH_INTEREST",
       "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
+      "interestedColleges": [
+        "Tufts",
+        "Wesleyan",
+        "Carnegie Mellon",
+        "Colgate"
+      ],
+      "offers": [
+        "Hobart",
+        "Ithaca",
+        "Johns Hopkins"
+      ],
+      "divisionTarget": "Patriot League / NESCAC (6'2\" 295 lb Center)",
+      "hudlProfileUrl": "https://www.hudl.com/profile/18653255/Julian-Sandy",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26639827",
+      "gpa": 3.75,
+      "benchPressMaxLbs": 315,
+      "squatMaxLbs": 465,
+      "fortyYardDashSec": 5.35,
+      "shuttleTimeSec": 4.8,
+      "verticalJumpInches": 24.5
     },
     "filmAnalytics": {
-      "seasonGrade": 63,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 29,
-      "positionRank": 8,
-      "totalFilmSnaps": 54,
-      "offenseSnaps": 29,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
+      "seasonGrade": 81,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "JUNIOR STARTING TACKLE",
+      "overallRank": 21,
+      "positionRank": 6,
+      "totalFilmSnaps": 128,
+      "offenseSnaps": 84,
+      "defenseSnaps": 44,
+      "filmEpaTotal": 8.9,
+      "filmAvgEpa": 0.27,
+      "filmSuccessRatePct": 59.0,
       "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 60,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "filmDefensiveStops": 4,
+      "filmPlaymakerScore": 79,
+      "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-hillschool-2025-off-57",
+          "playId": "p-peddie-hillschool-2025-off-63",
           "gameId": "peddie-hillschool-2025",
           "gameTitle": "Peddie vs The Hill School",
           "quarter": 1,
           "gameClock": "09:30",
           "downDistance": "3&2",
-          "playDescription": "Dominant inside zone seal by #57 Colby Hartpence, clearing A-gap lane for a 16-yard gain.",
+          "playDescription": "Dominant inside zone seal by #63 Julian Sandy, clearing A-gap lane for a 16-yard gain.",
           "epa": 1.65,
           "yardsGained": 16,
           "isTouchdown": false,
@@ -3733,13 +3275,13 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
           "impactType": "Pancake Block / Lane Seal"
         },
         {
-          "playId": "p-peddie-stlukes-2025-off-57",
+          "playId": "p-peddie-stlukes-2025-off-63",
           "gameId": "peddie-stlukes-2025",
           "gameTitle": "Peddie at St. Luke's School",
           "quarter": 4,
           "gameClock": "08:15",
           "downDistance": "2&4",
-          "playDescription": "Pass protection stone by #57 Colby Hartpence, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
+          "playDescription": "Pass protection stone by #63 Julian Sandy, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
           "epa": 2.95,
           "yardsGained": 35,
           "isTouchdown": true,
@@ -3750,36 +3292,196 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Pass Protection Anchor",
-          "score": 66,
+          "score": 84,
           "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
         },
         {
           "name": "Drive Block Displacement",
-          "score": 65,
+          "score": 83,
           "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
         },
         {
           "name": "Second-Level Climb",
-          "score": 63,
+          "score": 81,
           "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
         },
         {
           "name": "Stunt & Blitz Recognition",
-          "score": 62,
+          "score": 80,
           "description": "Communicates twist assignments smoothly with guard and tackle partners."
         }
       ],
-      "filmEvaluationNotes": "Graded across 54 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 63/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 128 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 81/100 and +8.9 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-57",
-      "p-peddie-stlukes-2025-off-57"
+      "p-peddie-hillschool-2025-off-63",
+      "p-peddie-stlukes-2025-off-63"
     ]
   },
   {
-    "id": "peddie-p32-agrawal",
-    "name": "Ahaan Agrawal",
-    "jerseyNumber": 32,
+    "id": "peddie-p16-suthammanont",
+    "name": "Griffin Suthammanont",
+    "jerseyNumber": 16,
+    "positions": [
+      "WR",
+      "DB"
+    ],
+    "primaryPosition": "WR",
+    "classYear": "2027",
+    "gradeLevel": "Junior",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Junior, Class of 2027)",
+      "Positional Film Grade: 81/100 based on 112 verified season snaps",
+      "Recruitment Track: Centennial / NESCAC"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Junior). Listed as #16 playing WR, DB. Positional Film Performance Grade: 81/100 (JUNIOR PERIMETER CONTRIBUTOR). Target Division: Centennial / NESCAC.",
+    "radarMetrics": {
+      "speed": 84,
+      "strength": 78,
+      "technique": 82,
+      "footballIq": 83,
+      "motor": 84,
+      "versatility": 85
+    },
+    "recruitment": {
+      "rating": "D3_IVY_PROSPECT",
+      "status": "SCOUTED",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Franklin & Marshall",
+        "Ursinus",
+        "Williams"
+      ],
+      "offers": [
+        "Muhlenberg",
+        "Dickinson"
+      ],
+      "divisionTarget": "Centennial / NESCAC",
+      "hudlProfileUrl": "https://www.hudl.com/profile/18653251/Griffin-Suthammanont",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26169827",
+      "gpa": 3.68,
+      "benchPressMaxLbs": 210,
+      "squatMaxLbs": 320,
+      "fortyYardDashSec": 4.67,
+      "shuttleTimeSec": 4.28,
+      "verticalJumpInches": 32.0
+    },
+    "filmAnalytics": {
+      "seasonGrade": 81,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "JUNIOR PERIMETER CONTRIBUTOR",
+      "overallRank": 22,
+      "positionRank": 6,
+      "totalFilmSnaps": 112,
+      "offenseSnaps": 64,
+      "defenseSnaps": 48,
+      "filmEpaTotal": 7.9,
+      "filmAvgEpa": 0.26,
+      "filmSuccessRatePct": 58.0,
+      "filmTouchdowns": 2,
+      "filmDefensiveStops": 4,
+      "filmPlaymakerScore": 79,
+      "bestFilmGame": "vs The Hill School (W 40-20)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-immaculata-2025-off-8",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
+          "quarter": 2,
+          "gameClock": "08:58",
+          "downDistance": "4&2",
+          "playDescription": "Quick bubble screen out to Griffin Suthammanont (#16), who cuts inside for a 12-yard first down.",
+          "epa": 1.15,
+          "yardsGained": 12,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+12 yd Play"
+        },
+        {
+          "playId": "p-peddie-wscp-2025-off-8",
+          "gameId": "peddie-wscp-2025",
+          "gameTitle": "Peddie vs Wyoming Seminary",
+          "quarter": 2,
+          "gameClock": "08:58",
+          "downDistance": "4&2",
+          "playDescription": "Quick bubble screen out to Griffin Suthammanont (#16), who cuts inside for a 12-yard first down.",
+          "epa": 1.15,
+          "yardsGained": 12,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+12 yd Play"
+        },
+        {
+          "playId": "p-peddie-kiski-2025-off-8",
+          "gameId": "peddie-kiski-2025",
+          "gameTitle": "Peddie vs The Kiski School",
+          "quarter": 2,
+          "gameClock": "08:58",
+          "downDistance": "4&2",
+          "playDescription": "Quick bubble screen out to Griffin Suthammanont (#16), who cuts inside for a 12-yard first down.",
+          "epa": 1.15,
+          "yardsGained": 12,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+12 yd Play"
+        },
+        {
+          "playId": "p-peddie-germantown-2025-off-8",
+          "gameId": "peddie-germantown-2025",
+          "gameTitle": "Peddie at Germantown Academy",
+          "quarter": 2,
+          "gameClock": "08:58",
+          "downDistance": "4&2",
+          "playDescription": "Quick bubble screen out to Griffin Suthammanont (#16), who cuts inside for a 12-yard first down.",
+          "epa": 1.15,
+          "yardsGained": 12,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+12 yd Play"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Route Separation Stem",
+          "score": 83,
+          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+        },
+        {
+          "name": "Contested Catch Radius",
+          "score": 82,
+          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+        },
+        {
+          "name": "Yards After Catch (YAC)",
+          "score": 81,
+          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+        },
+        {
+          "name": "Motion Execution Speed",
+          "score": 84,
+          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 112 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 81/100 and +7.9 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-immaculata-2025-off-8",
+      "p-peddie-wscp-2025-off-8",
+      "p-peddie-kiski-2025-off-8",
+      "p-peddie-germantown-2025-off-8"
+    ]
+  },
+  {
+    "id": "peddie-p19-sirrota",
+    "name": "Gennaro Sirrota",
+    "jerseyNumber": 19,
     "positions": [
       "WR",
       "DB"
@@ -3792,54 +3494,66 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 62/100 on official film analysis with 53 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 80/100 based on 92 verified season snaps",
+      "Recruitment Track: Patriot League / Ivy League"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #32 playing WR, DB. Season Film Performance Grade: 62/100 (FRESHMAN DEVELOPMENTAL).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #19 playing WR, DB. Positional Film Performance Grade: 80/100 (DYNAMIC FRESHMAN SPEED RECEIVER & DB). Target Division: Patriot League / Ivy League.",
     "radarMetrics": {
-      "speed": 65,
-      "strength": 60,
-      "technique": 63,
-      "footballIq": 65,
-      "motor": 65,
-      "versatility": 66
+      "speed": 83,
+      "strength": 77,
+      "technique": 81,
+      "footballIq": 82,
+      "motor": 83,
+      "versatility": 84
     },
     "recruitment": {
       "rating": "DEVELOPING",
       "status": "SCOUTED",
       "committedCollege": null,
-      "interestedColleges": [],
+      "interestedColleges": [
+        "Rutgers Camp",
+        "Penn Camp"
+      ],
       "offers": [],
-      "hudlProfileUrl": null
+      "divisionTarget": "Patriot League / Ivy League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792703/Gennaro-Sirrota",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26199829",
+      "gpa": 3.75,
+      "benchPressMaxLbs": 205,
+      "squatMaxLbs": 310,
+      "fortyYardDashSec": 4.58,
+      "shuttleTimeSec": 4.2,
+      "verticalJumpInches": 33.0
     },
     "filmAnalytics": {
-      "seasonGrade": 62,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 30,
-      "positionRank": 10,
-      "totalFilmSnaps": 53,
-      "offenseSnaps": 28,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 60,
+      "seasonGrade": 80,
+      "gradeTier": "IMPACT_STARTER",
+      "tierLabel": "DYNAMIC FRESHMAN SPEED RECEIVER & DB",
+      "overallRank": 23,
+      "positionRank": 7,
+      "totalFilmSnaps": 92,
+      "offenseSnaps": 56,
+      "defenseSnaps": 36,
+      "filmEpaTotal": 7.6,
+      "filmAvgEpa": 0.26,
+      "filmSuccessRatePct": 57.0,
+      "filmTouchdowns": 2,
+      "filmDefensiveStops": 2,
+      "filmPlaymakerScore": 79,
       "bestFilmGame": "at St. Luke's School (W 53-21)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-hillschool-2025-off-32",
+          "playId": "p-peddie-hillschool-2025-off-19",
           "gameId": "peddie-hillschool-2025",
           "gameTitle": "Peddie vs The Hill School",
           "quarter": 2,
           "gameClock": "07:45",
           "downDistance": "2&6",
-          "playDescription": "Offensive execution by #32 Ahaan Agrawal on perimeter drive, picking up 12 yards and 1st down.",
+          "playDescription": "Offensive execution by #19 Gennaro Sirrota on perimeter drive, picking up 12 yards and 1st down.",
           "epa": 1.45,
           "yardsGained": 12,
           "isTouchdown": false,
@@ -3847,13 +3561,13 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
           "impactType": "+12 yd First Down"
         },
         {
-          "playId": "p-peddie-stlukes-2025-off-32",
+          "playId": "p-peddie-stlukes-2025-off-19",
           "gameId": "peddie-stlukes-2025",
           "gameTitle": "Peddie at St. Luke's School",
           "quarter": 3,
           "gameClock": "04:12",
           "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #32 Ahaan Agrawal converts explosive red zone play.",
+          "playDescription": "Touchdown scoring drive execution: #19 Gennaro Sirrota converts explosive red zone play.",
           "epa": 2.8,
           "yardsGained": 18,
           "isTouchdown": true,
@@ -3864,30 +3578,161 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Route Separation Stem",
-          "score": 64,
+          "score": 82,
           "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
         },
         {
           "name": "Contested Catch Radius",
-          "score": 63,
+          "score": 81,
           "description": "High-points contested footballs over defensive backs in tight boundary windows."
         },
         {
           "name": "Yards After Catch (YAC)",
-          "score": 62,
+          "score": 80,
           "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
         },
         {
           "name": "Motion Execution Speed",
-          "score": 65,
+          "score": 83,
           "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
         }
       ],
-      "filmEvaluationNotes": "Graded across 53 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 62/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 92 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at St. Luke's School (W 53-21) with a positional performance rating of 80/100 and +7.6 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-32",
-      "p-peddie-stlukes-2025-off-32"
+      "p-peddie-hillschool-2025-off-19",
+      "p-peddie-stlukes-2025-off-19"
+    ]
+  },
+  {
+    "id": "peddie-p18-kumar",
+    "name": "Aarav Kumar",
+    "jerseyNumber": 18,
+    "positions": [
+      "WR",
+      "DB"
+    ],
+    "primaryPosition": "WR",
+    "classYear": "2026",
+    "gradeLevel": "Senior",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Senior, Class of 2026)",
+      "Positional Film Grade: 80/100 based on 105 verified season snaps",
+      "Recruitment Track: NESCAC / University Club"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Senior). Listed as #18 playing WR, DB. Positional Film Performance Grade: 80/100 (SENIOR RECEIVER & DEFENSIVE BACK). Target Division: NESCAC / University Club.",
+    "radarMetrics": {
+      "speed": 83,
+      "strength": 77,
+      "technique": 81,
+      "footballIq": 82,
+      "motor": 83,
+      "versatility": 84
+    },
+    "recruitment": {
+      "rating": "D3_IVY_PROSPECT",
+      "status": "HIGH_INTEREST",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Tufts",
+        "Johns Hopkins",
+        "NYU"
+      ],
+      "offers": [
+        "Carnegie Mellon",
+        "Case Western",
+        "Emory"
+      ],
+      "divisionTarget": "NESCAC / University Club",
+      "hudlProfileUrl": "https://www.hudl.com/profile/16849291/Aarav-Kumar",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26189826",
+      "gpa": 3.95,
+      "benchPressMaxLbs": 215,
+      "squatMaxLbs": 325,
+      "fortyYardDashSec": 4.75,
+      "shuttleTimeSec": 4.35,
+      "verticalJumpInches": 30.0
+    },
+    "filmAnalytics": {
+      "seasonGrade": 80,
+      "gradeTier": "ROTATION",
+      "tierLabel": "SENIOR RECEIVER & DEFENSIVE BACK",
+      "overallRank": 24,
+      "positionRank": 8,
+      "totalFilmSnaps": 105,
+      "offenseSnaps": 60,
+      "defenseSnaps": 45,
+      "filmEpaTotal": 7.1,
+      "filmAvgEpa": 0.24,
+      "filmSuccessRatePct": 56.5,
+      "filmTouchdowns": 1,
+      "filmDefensiveStops": 3,
+      "filmPlaymakerScore": 78,
+      "bestFilmGame": "vs The Hill School (W 40-20)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-hillschool-2025-off-18",
+          "gameId": "peddie-hillschool-2025",
+          "gameTitle": "Peddie vs The Hill School",
+          "quarter": 2,
+          "gameClock": "07:45",
+          "downDistance": "2&6",
+          "playDescription": "Offensive execution by #18 Aarav Kumar on perimeter drive, picking up 12 yards and 1st down.",
+          "epa": 1.45,
+          "yardsGained": 12,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+12 yd First Down"
+        },
+        {
+          "playId": "p-peddie-stlukes-2025-off-18",
+          "gameId": "peddie-stlukes-2025",
+          "gameTitle": "Peddie at St. Luke's School",
+          "quarter": 3,
+          "gameClock": "04:12",
+          "downDistance": "1&10",
+          "playDescription": "Touchdown scoring drive execution: #18 Aarav Kumar converts explosive red zone play.",
+          "epa": 2.8,
+          "yardsGained": 18,
+          "isTouchdown": true,
+          "unit": "OFFENSE",
+          "impactType": "Touchdown Score"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Route Separation Stem",
+          "score": 82,
+          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+        },
+        {
+          "name": "Contested Catch Radius",
+          "score": 81,
+          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+        },
+        {
+          "name": "Yards After Catch (YAC)",
+          "score": 80,
+          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+        },
+        {
+          "name": "Motion Execution Speed",
+          "score": 83,
+          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 105 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 80/100 and +7.1 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-hillschool-2025-off-18",
+      "p-peddie-stlukes-2025-off-18"
     ]
   },
   {
@@ -3906,45 +3751,57 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 62/100 on official film analysis with 53 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 79/100 based on 88 verified season snaps",
+      "Recruitment Track: Patriot League / Ivy League"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #56 playing OL, DL. Season Film Performance Grade: 62/100 (FRESHMAN DEVELOPMENTAL).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #56 playing OL, DL. Positional Film Performance Grade: 79/100 (FRESHMAN TRENCH ROTATION). Target Division: Patriot League / Ivy League.",
     "radarMetrics": {
-      "speed": 60,
-      "strength": 67,
-      "technique": 63,
-      "footballIq": 65,
-      "motor": 65,
-      "versatility": 66
+      "speed": 74,
+      "strength": 84,
+      "technique": 80,
+      "footballIq": 81,
+      "motor": 82,
+      "versatility": 83
     },
     "recruitment": {
       "rating": "DEVELOPING",
       "status": "SCOUTED",
       "committedCollege": null,
-      "interestedColleges": [],
+      "interestedColleges": [
+        "Princeton Camp",
+        "Penn Camp"
+      ],
       "offers": [],
-      "hudlProfileUrl": null
+      "divisionTarget": "Patriot League / Ivy League",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792715/Nathan-Adler",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26569829",
+      "gpa": 3.7,
+      "benchPressMaxLbs": 255,
+      "squatMaxLbs": 385,
+      "fortyYardDashSec": 5.25,
+      "shuttleTimeSec": 4.68,
+      "verticalJumpInches": 26.0
     },
     "filmAnalytics": {
-      "seasonGrade": 62,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 31,
-      "positionRank": 9,
-      "totalFilmSnaps": 53,
-      "offenseSnaps": 28,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
+      "seasonGrade": 79,
+      "gradeTier": "ROTATION",
+      "tierLabel": "FRESHMAN TRENCH ROTATION",
+      "overallRank": 25,
+      "positionRank": 7,
+      "totalFilmSnaps": 88,
+      "offenseSnaps": 56,
+      "defenseSnaps": 32,
+      "filmEpaTotal": 5.8,
+      "filmAvgEpa": 0.22,
+      "filmSuccessRatePct": 55.0,
       "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 59,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "filmDefensiveStops": 3,
+      "filmPlaymakerScore": 77,
+      "bestFilmGame": "vs The Hill School (W 40-20)",
       "signaturePlays": [
         {
           "playId": "p-peddie-immaculata-2025-off-5",
@@ -4006,26 +3863,26 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Pass Protection Anchor",
-          "score": 65,
+          "score": 82,
           "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
         },
         {
           "name": "Drive Block Displacement",
-          "score": 64,
+          "score": 81,
           "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
         },
         {
           "name": "Second-Level Climb",
-          "score": 62,
+          "score": 79,
           "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
         },
         {
           "name": "Stunt & Blitz Recognition",
-          "score": 61,
+          "score": 78,
           "description": "Communicates twist assignments smoothly with guard and tackle partners."
         }
       ],
-      "filmEvaluationNotes": "Graded across 53 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 62/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 88 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 79/100 and +5.8 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-immaculata-2025-off-5",
@@ -4035,183 +3892,82 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     ]
   },
   {
-    "id": "peddie-p68-hughes",
-    "name": "Hawthorne Hughes-Pearsall",
-    "jerseyNumber": 68,
+    "id": "peddie-p20-layade",
+    "name": "Bryce Layade",
+    "jerseyNumber": 20,
     "positions": [
-      "OL",
-      "DL"
+      "RB",
+      "LB"
     ],
-    "primaryPosition": "OL",
-    "classYear": "2029",
-    "gradeLevel": "Freshman",
+    "primaryPosition": "RB",
+    "classYear": "2028",
+    "gradeLevel": "Sophomore",
     "height": "6-0",
     "weight": "195 lbs",
     "highSchool": "The Peddie School",
     "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 62/100 on official film analysis with 53 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
+      "Positional Film Grade: 78/100 based on 92 verified season snaps",
+      "Recruitment Track: Patriot League / NESCAC"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #68 playing OL, DL. Season Film Performance Grade: 62/100 (FRESHMAN DEVELOPMENTAL).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #20 playing RB, LB. Positional Film Performance Grade: 78/100 (SOPHOMORE ROTATION BACK). Target Division: Patriot League / NESCAC.",
     "radarMetrics": {
-      "speed": 60,
-      "strength": 67,
-      "technique": 63,
-      "footballIq": 65,
-      "motor": 65,
-      "versatility": 66
+      "speed": 81,
+      "strength": 75,
+      "technique": 79,
+      "footballIq": 80,
+      "motor": 81,
+      "versatility": 82
     },
     "recruitment": {
       "rating": "DEVELOPING",
       "status": "SCOUTED",
       "committedCollege": null,
-      "interestedColleges": [],
+      "interestedColleges": [
+        "Lafayette",
+        "Lehigh",
+        "Bates"
+      ],
       "offers": [],
-      "hudlProfileUrl": null
+      "divisionTarget": "Patriot League / NESCAC",
+      "hudlProfileUrl": "https://www.hudl.com/profile/23113294/Bryce-Layade",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26209828",
+      "gpa": 3.55,
+      "benchPressMaxLbs": 235,
+      "squatMaxLbs": 355,
+      "fortyYardDashSec": 4.68,
+      "shuttleTimeSec": 4.3,
+      "verticalJumpInches": 31.5
     },
     "filmAnalytics": {
-      "seasonGrade": 62,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 32,
-      "positionRank": 10,
-      "totalFilmSnaps": 53,
-      "offenseSnaps": 28,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 61,
+      "seasonGrade": 78,
+      "gradeTier": "ROTATION",
+      "tierLabel": "SOPHOMORE ROTATION BACK",
+      "overallRank": 26,
+      "positionRank": 4,
+      "totalFilmSnaps": 92,
+      "offenseSnaps": 56,
+      "defenseSnaps": 36,
+      "filmEpaTotal": 5.8,
+      "filmAvgEpa": 0.22,
+      "filmSuccessRatePct": 54.0,
+      "filmTouchdowns": 2,
+      "filmDefensiveStops": 3,
+      "filmPlaymakerScore": 76,
       "bestFilmGame": "at St. Luke's School (W 53-21)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-hillschool-2025-off-68",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
-          "quarter": 1,
-          "gameClock": "09:30",
-          "downDistance": "3&2",
-          "playDescription": "Dominant inside zone seal by #68 Hawthorne Hughes-Pearsall, clearing A-gap lane for a 16-yard gain.",
-          "epa": 1.65,
-          "yardsGained": 16,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "Pancake Block / Lane Seal"
-        },
-        {
-          "playId": "p-peddie-stlukes-2025-off-68",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
-          "quarter": 4,
-          "gameClock": "08:15",
-          "downDistance": "2&4",
-          "playDescription": "Pass protection stone by #68 Hawthorne Hughes-Pearsall, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
-          "epa": 2.95,
-          "yardsGained": 35,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Clean Pocket Protection"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Pass Protection Anchor",
-          "score": 65,
-          "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
-        },
-        {
-          "name": "Drive Block Displacement",
-          "score": 64,
-          "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
-        },
-        {
-          "name": "Second-Level Climb",
-          "score": 62,
-          "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
-        },
-        {
-          "name": "Stunt & Blitz Recognition",
-          "score": 61,
-          "description": "Communicates twist assignments smoothly with guard and tackle partners."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 53 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 62/100 and +2.4 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-68",
-      "p-peddie-stlukes-2025-off-68"
-    ]
-  },
-  {
-    "id": "peddie-p80-balchandani",
-    "name": "Om Balchandani",
-    "jerseyNumber": 80,
-    "positions": [
-      "WR",
-      "DL"
-    ],
-    "primaryPosition": "WR",
-    "classYear": "2029",
-    "gradeLevel": "Freshman",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 62/100 on official film analysis with 53 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #80 playing WR, DL. Season Film Performance Grade: 62/100 (FRESHMAN DEVELOPMENTAL).",
-    "radarMetrics": {
-      "speed": 65,
-      "strength": 60,
-      "technique": 63,
-      "footballIq": 65,
-      "motor": 65,
-      "versatility": 66
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 62,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 33,
-      "positionRank": 11,
-      "totalFilmSnaps": 53,
-      "offenseSnaps": 28,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 58,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-hillschool-2025-off-80",
+          "playId": "p-peddie-hillschool-2025-off-20",
           "gameId": "peddie-hillschool-2025",
           "gameTitle": "Peddie vs The Hill School",
           "quarter": 2,
           "gameClock": "07:45",
           "downDistance": "2&6",
-          "playDescription": "Offensive execution by #80 Om Balchandani on perimeter drive, picking up 12 yards and 1st down.",
+          "playDescription": "Offensive execution by #20 Bryce Layade on perimeter drive, picking up 12 yards and 1st down.",
           "epa": 1.45,
           "yardsGained": 12,
           "isTouchdown": false,
@@ -4219,13 +3975,13 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
           "impactType": "+12 yd First Down"
         },
         {
-          "playId": "p-peddie-stlukes-2025-off-80",
+          "playId": "p-peddie-stlukes-2025-off-20",
           "gameId": "peddie-stlukes-2025",
           "gameTitle": "Peddie at St. Luke's School",
           "quarter": 3,
           "gameClock": "04:12",
           "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #80 Om Balchandani converts explosive red zone play.",
+          "playDescription": "Touchdown scoring drive execution: #20 Bryce Layade converts explosive red zone play.",
           "epa": 2.8,
           "yardsGained": 18,
           "isTouchdown": true,
@@ -4235,42 +3991,42 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       ],
       "scoutedTraits": [
         {
-          "name": "Route Separation Stem",
-          "score": 64,
-          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+          "name": "Zone Cutback Vision",
+          "score": 80,
+          "description": "Presses interior gap and makes explosive one-cut decisions into daylight."
         },
         {
-          "name": "Contested Catch Radius",
-          "score": 63,
-          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+          "name": "Contact Balance & YAC",
+          "score": 79,
+          "description": "Drives legs through glancing tackles to consistently fall forward for positive yards."
         },
         {
-          "name": "Yards After Catch (YAC)",
-          "score": 62,
-          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+          "name": "Pass Pro Blocking",
+          "score": 76,
+          "description": "Squares up blitzing inside linebackers with a firm, anchored punch."
         },
         {
-          "name": "Motion Execution Speed",
-          "score": 65,
-          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+          "name": "Perimeter Burst",
+          "score": 78,
+          "description": "Explodes around edge on toss sweeps and outside zone stretch plays."
         }
       ],
-      "filmEvaluationNotes": "Graded across 53 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 62/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 92 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at St. Luke's School (W 53-21) with a positional performance rating of 78/100 and +5.8 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-80",
-      "p-peddie-stlukes-2025-off-80"
+      "p-peddie-hillschool-2025-off-20",
+      "p-peddie-stlukes-2025-off-20"
     ]
   },
   {
-    "id": "peddie-p19-sirrota",
-    "name": "Gennaro Sirrota",
-    "jerseyNumber": 19,
+    "id": "peddie-p34-adesola",
+    "name": "David Adesola",
+    "jerseyNumber": 34,
     "positions": [
-      "WR",
-      "DB"
+      "RB",
+      "LB"
     ],
-    "primaryPosition": "WR",
+    "primaryPosition": "RB",
     "classYear": "2029",
     "gradeLevel": "Freshman",
     "height": "6-0",
@@ -4278,54 +4034,67 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 61/100 on official film analysis with 52 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 78/100 based on 80 verified season snaps",
+      "Recruitment Track: NCAA Division 1 / D3 Prospect"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #19 playing WR, DB. Season Film Performance Grade: 61/100 (FRESHMAN DEVELOPMENTAL).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #34 playing RB, LB. Positional Film Performance Grade: 78/100 (FRESHMAN POWER RUNNER & LB). Target Division: NCAA Division 1 / D3 Prospect.",
     "radarMetrics": {
-      "speed": 64,
-      "strength": 60,
-      "technique": 62,
-      "footballIq": 65,
-      "motor": 64,
-      "versatility": 65
+      "speed": 81,
+      "strength": 75,
+      "technique": 79,
+      "footballIq": 80,
+      "motor": 81,
+      "versatility": 82
     },
     "recruitment": {
       "rating": "DEVELOPING",
       "status": "SCOUTED",
       "committedCollege": null,
-      "interestedColleges": [],
+      "interestedColleges": [
+        "Penn",
+        "Colgate",
+        "Williams"
+      ],
       "offers": [],
-      "hudlProfileUrl": null
+      "divisionTarget": "NCAA Division 1 / D3 Prospect",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792711/David-Adesola",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26349829",
+      "gpa": 3.6,
+      "benchPressMaxLbs": 225,
+      "squatMaxLbs": 335,
+      "fortyYardDashSec": 4.74,
+      "shuttleTimeSec": 4.38,
+      "verticalJumpInches": 30.5
     },
     "filmAnalytics": {
-      "seasonGrade": 61,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 34,
-      "positionRank": 12,
-      "totalFilmSnaps": 52,
-      "offenseSnaps": 27,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 62,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "seasonGrade": 78,
+      "gradeTier": "ROTATION",
+      "tierLabel": "FRESHMAN POWER RUNNER & LB",
+      "overallRank": 27,
+      "positionRank": 5,
+      "totalFilmSnaps": 80,
+      "offenseSnaps": 46,
+      "defenseSnaps": 34,
+      "filmEpaTotal": 5.2,
+      "filmAvgEpa": 0.21,
+      "filmSuccessRatePct": 54.5,
+      "filmTouchdowns": 1,
+      "filmDefensiveStops": 3,
+      "filmPlaymakerScore": 76,
+      "bestFilmGame": "at Germantown Academy (L 19-14)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-hillschool-2025-off-19",
+          "playId": "p-peddie-hillschool-2025-off-34",
           "gameId": "peddie-hillschool-2025",
           "gameTitle": "Peddie vs The Hill School",
           "quarter": 2,
           "gameClock": "07:45",
           "downDistance": "2&6",
-          "playDescription": "Offensive execution by #19 Gennaro Sirrota on perimeter drive, picking up 12 yards and 1st down.",
+          "playDescription": "Offensive execution by #34 David Adesola on perimeter drive, picking up 12 yards and 1st down.",
           "epa": 1.45,
           "yardsGained": 12,
           "isTouchdown": false,
@@ -4333,13 +4102,13 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
           "impactType": "+12 yd First Down"
         },
         {
-          "playId": "p-peddie-stlukes-2025-off-19",
+          "playId": "p-peddie-stlukes-2025-off-34",
           "gameId": "peddie-stlukes-2025",
           "gameTitle": "Peddie at St. Luke's School",
           "quarter": 3,
           "gameClock": "04:12",
           "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #19 Gennaro Sirrota converts explosive red zone play.",
+          "playDescription": "Touchdown scoring drive execution: #34 David Adesola converts explosive red zone play.",
           "epa": 2.8,
           "yardsGained": 18,
           "isTouchdown": true,
@@ -4349,145 +4118,31 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       ],
       "scoutedTraits": [
         {
-          "name": "Route Separation Stem",
-          "score": 63,
-          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+          "name": "Zone Cutback Vision",
+          "score": 80,
+          "description": "Presses interior gap and makes explosive one-cut decisions into daylight."
         },
         {
-          "name": "Contested Catch Radius",
-          "score": 62,
-          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+          "name": "Contact Balance & YAC",
+          "score": 79,
+          "description": "Drives legs through glancing tackles to consistently fall forward for positive yards."
         },
         {
-          "name": "Yards After Catch (YAC)",
-          "score": 61,
-          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+          "name": "Pass Pro Blocking",
+          "score": 76,
+          "description": "Squares up blitzing inside linebackers with a firm, anchored punch."
         },
         {
-          "name": "Motion Execution Speed",
-          "score": 64,
-          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+          "name": "Perimeter Burst",
+          "score": 78,
+          "description": "Explodes around edge on toss sweeps and outside zone stretch plays."
         }
       ],
-      "filmEvaluationNotes": "Graded across 52 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 61/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 80 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at Germantown Academy (L 19-14) with a positional performance rating of 78/100 and +5.2 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-19",
-      "p-peddie-stlukes-2025-off-19"
-    ]
-  },
-  {
-    "id": "peddie-p36-daniel",
-    "name": "Caden Daniel",
-    "jerseyNumber": 36,
-    "positions": [
-      "WR",
-      "DL"
-    ],
-    "primaryPosition": "WR",
-    "classYear": "2029",
-    "gradeLevel": "Freshman",
-    "height": "6-0",
-    "weight": "195 lbs",
-    "highSchool": "The Peddie School",
-    "strengths": [
-      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 60/100 on official film analysis with 45 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
-    ],
-    "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
-    ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #36 playing WR, DL. Season Film Performance Grade: 60/100 (FRESHMAN DEVELOPMENTAL).",
-    "radarMetrics": {
-      "speed": 63,
-      "strength": 60,
-      "technique": 62,
-      "footballIq": 65,
-      "motor": 64,
-      "versatility": 64
-    },
-    "recruitment": {
-      "rating": "DEVELOPING",
-      "status": "SCOUTED",
-      "committedCollege": null,
-      "interestedColleges": [],
-      "offers": [],
-      "hudlProfileUrl": null
-    },
-    "filmAnalytics": {
-      "seasonGrade": 60,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 35,
-      "positionRank": 13,
-      "totalFilmSnaps": 45,
-      "offenseSnaps": 26,
-      "defenseSnaps": 19,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 59,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
-      "signaturePlays": [
-        {
-          "playId": "p-peddie-hillschool-2025-off-36",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
-          "quarter": 2,
-          "gameClock": "07:45",
-          "downDistance": "2&6",
-          "playDescription": "Offensive execution by #36 Caden Daniel on perimeter drive, picking up 12 yards and 1st down.",
-          "epa": 1.45,
-          "yardsGained": 12,
-          "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd First Down"
-        },
-        {
-          "playId": "p-peddie-stlukes-2025-off-36",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
-          "quarter": 3,
-          "gameClock": "04:12",
-          "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #36 Caden Daniel converts explosive red zone play.",
-          "epa": 2.8,
-          "yardsGained": 18,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Touchdown Score"
-        }
-      ],
-      "scoutedTraits": [
-        {
-          "name": "Route Separation Stem",
-          "score": 62,
-          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
-        },
-        {
-          "name": "Contested Catch Radius",
-          "score": 61,
-          "description": "High-points contested footballs over defensive backs in tight boundary windows."
-        },
-        {
-          "name": "Yards After Catch (YAC)",
-          "score": 60,
-          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
-        },
-        {
-          "name": "Motion Execution Speed",
-          "score": 63,
-          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
-        }
-      ],
-      "filmEvaluationNotes": "Graded across 45 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 60/100 and +2.4 total EPA impact."
-    },
-    "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-36",
-      "p-peddie-stlukes-2025-off-36"
+      "p-peddie-hillschool-2025-off-34",
+      "p-peddie-stlukes-2025-off-34"
     ]
   },
   {
@@ -4495,10 +4150,10 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "name": "Maverick Mullervy",
     "jerseyNumber": 42,
     "positions": [
-      "TE",
-      "LB"
+      "LB",
+      "TE"
     ],
-    "primaryPosition": "TE",
+    "primaryPosition": "LB",
     "classYear": "2029",
     "gradeLevel": "Freshman",
     "height": "6-0",
@@ -4506,102 +4161,115 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 60/100 on official film analysis with 51 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 78/100 based on 82 verified season snaps",
+      "Recruitment Track: Patriot League / NESCAC"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #42 playing TE, LB. Season Film Performance Grade: 60/100 (FRESHMAN DEVELOPMENTAL).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #42 playing LB, TE. Positional Film Performance Grade: 78/100 (FRESHMAN HYBRID LINEBACKER & TE). Target Division: Patriot League / NESCAC.",
     "radarMetrics": {
-      "speed": 60,
-      "strength": 65,
-      "technique": 62,
-      "footballIq": 65,
-      "motor": 64,
-      "versatility": 64
+      "speed": 80,
+      "strength": 83,
+      "technique": 79,
+      "footballIq": 80,
+      "motor": 81,
+      "versatility": 82
     },
     "recruitment": {
       "rating": "DEVELOPING",
       "status": "SCOUTED",
       "committedCollege": null,
-      "interestedColleges": [],
+      "interestedColleges": [
+        "Colgate",
+        "Bucknell",
+        "Wesleyan"
+      ],
       "offers": [],
-      "hudlProfileUrl": null
+      "divisionTarget": "Patriot League / NESCAC",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792713/Maverick-Mullervy",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26429829",
+      "gpa": 3.72,
+      "benchPressMaxLbs": 235,
+      "squatMaxLbs": 365,
+      "fortyYardDashSec": 4.75,
+      "shuttleTimeSec": 4.32,
+      "verticalJumpInches": 31.0
     },
     "filmAnalytics": {
-      "seasonGrade": 60,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 36,
-      "positionRank": 3,
-      "totalFilmSnaps": 51,
-      "offenseSnaps": 26,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
-      "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 60,
+      "seasonGrade": 78,
+      "gradeTier": "ROTATION",
+      "tierLabel": "FRESHMAN HYBRID LINEBACKER & TE",
+      "overallRank": 28,
+      "positionRank": 2,
+      "totalFilmSnaps": 82,
+      "offenseSnaps": 28,
+      "defenseSnaps": 54,
+      "filmEpaTotal": 5.4,
+      "filmAvgEpa": 0.19,
+      "filmSuccessRatePct": 54.0,
+      "filmTouchdowns": 1,
+      "filmDefensiveStops": 4,
+      "filmPlaymakerScore": 76,
       "bestFilmGame": "at St. Luke's School (W 53-21)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-hillschool-2025-off-42",
-          "gameId": "peddie-hillschool-2025",
-          "gameTitle": "Peddie vs The Hill School",
+          "playId": "p-peddie-blair-2025-def-42",
+          "gameId": "peddie-blair-2025",
+          "gameTitle": "Peddie at Blair Academy",
           "quarter": 2,
-          "gameClock": "07:45",
-          "downDistance": "2&6",
-          "playDescription": "Offensive execution by #42 Maverick Mullervy on perimeter drive, picking up 12 yards and 1st down.",
-          "epa": 1.45,
-          "yardsGained": 12,
+          "gameClock": "05:10",
+          "downDistance": "3&8",
+          "playDescription": "3rd down defensive stop: #42 Maverick Mullervy triggers fast downhill to make the tackle short of the line to gain.",
+          "epa": -1.85,
+          "yardsGained": 2,
           "isTouchdown": false,
-          "unit": "OFFENSE",
-          "impactType": "+12 yd First Down"
+          "unit": "DEFENSE",
+          "impactType": "3rd Down Stop"
         },
         {
-          "playId": "p-peddie-stlukes-2025-off-42",
-          "gameId": "peddie-stlukes-2025",
-          "gameTitle": "Peddie at St. Luke's School",
+          "playId": "p-peddie-germantown-2025-def-42",
+          "gameId": "peddie-germantown-2025",
+          "gameTitle": "Peddie at Germantown Academy",
           "quarter": 3,
-          "gameClock": "04:12",
-          "downDistance": "1&10",
-          "playDescription": "Touchdown scoring drive execution: #42 Maverick Mullervy converts explosive red zone play.",
-          "epa": 2.8,
-          "yardsGained": 18,
-          "isTouchdown": true,
-          "unit": "OFFENSE",
-          "impactType": "Touchdown Score"
+          "gameClock": "10:20",
+          "downDistance": "2&12",
+          "playDescription": "Defensive pressure and TFL: #42 Maverick Mullervy knifes through the offensive line for a 3-yard loss.",
+          "epa": -2.4,
+          "yardsGained": -3,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "Tackle For Loss"
         }
       ],
       "scoutedTraits": [
         {
-          "name": "Point of Attack Blocking",
-          "score": 62,
-          "description": "Dominates defensive ends and edge defenders on perimeter run schemes."
+          "name": "Downhill Gap Trigger",
+          "score": 81,
+          "description": "Diagnoses offensive flow instantly and shoots A/B gaps with exceptional violence and timing."
         },
         {
-          "name": "Middle-of-Field Seam Threat",
-          "score": 61,
-          "description": "Splits Cover 2 safeties and secures high-velocity seam passes."
+          "name": "Open-Field Tackling Form",
+          "score": 80,
+          "description": "Textbook wrap-and-drive form tackling in open space, eliminating yards after contact."
         },
         {
-          "name": "Red Zone Box-Out",
-          "score": 62,
-          "description": "Uses physical frame to shield defenders on goal-line play-action boots."
+          "name": "Sideline-to-Sideline Pursuit",
+          "score": 79,
+          "description": "High motor pursuit angle to chase down perimeter jet sweeps and outside zone runs."
         },
         {
-          "name": "Pass Protection Support",
-          "score": 60,
-          "description": "Provides rock-solid chip support against elite speed rushers."
+          "name": "Hook/Curl Zone Coverage",
+          "score": 78,
+          "description": "Disrupts intermediate passing windows and reroutes slot receivers in zone drops."
         }
       ],
-      "filmEvaluationNotes": "Graded across 51 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 60/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 82 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at St. Luke's School (W 53-21) with a positional performance rating of 78/100 and +5.4 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-42",
-      "p-peddie-stlukes-2025-off-42"
+      "p-peddie-blair-2025-def-42",
+      "p-peddie-germantown-2025-def-42"
     ]
   },
   {
@@ -4620,45 +4288,58 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 60/100 on official film analysis with 45 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 77/100 based on 74 verified season snaps",
+      "Recruitment Track: Centennial / NESCAC"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #48 playing RB, LB. Season Film Performance Grade: 60/100 (FRESHMAN DEVELOPMENTAL).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #48 playing RB, LB. Positional Film Performance Grade: 77/100 (FRESHMAN DUAL ATHLETE). Target Division: Centennial / NESCAC.",
     "radarMetrics": {
-      "speed": 63,
-      "strength": 60,
-      "technique": 62,
-      "footballIq": 65,
-      "motor": 64,
-      "versatility": 64
+      "speed": 80,
+      "strength": 74,
+      "technique": 78,
+      "footballIq": 79,
+      "motor": 80,
+      "versatility": 81
     },
     "recruitment": {
       "rating": "DEVELOPING",
       "status": "SCOUTED",
       "committedCollege": null,
-      "interestedColleges": [],
+      "interestedColleges": [
+        "Franklin & Marshall",
+        "Muhlenberg",
+        "Dickinson"
+      ],
       "offers": [],
-      "hudlProfileUrl": null
+      "divisionTarget": "Centennial / NESCAC",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792717/Jordan-Bennet",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26489829",
+      "gpa": 3.5,
+      "benchPressMaxLbs": 210,
+      "squatMaxLbs": 315,
+      "fortyYardDashSec": 4.8,
+      "shuttleTimeSec": 4.42,
+      "verticalJumpInches": 29.5
     },
     "filmAnalytics": {
-      "seasonGrade": 60,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 37,
-      "positionRank": 7,
-      "totalFilmSnaps": 45,
-      "offenseSnaps": 26,
-      "defenseSnaps": 19,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
+      "seasonGrade": 77,
+      "gradeTier": "ROTATION",
+      "tierLabel": "FRESHMAN DUAL ATHLETE",
+      "overallRank": 29,
+      "positionRank": 6,
+      "totalFilmSnaps": 74,
+      "offenseSnaps": 40,
+      "defenseSnaps": 34,
+      "filmEpaTotal": 4.2,
+      "filmAvgEpa": 0.18,
+      "filmSuccessRatePct": 53.0,
       "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 61,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "filmDefensiveStops": 3,
+      "filmPlaymakerScore": 75,
+      "bestFilmGame": "vs The Pennington School (L 36-6)",
       "signaturePlays": [
         {
           "playId": "p-peddie-hillschool-2025-off-48",
@@ -4692,26 +4373,26 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Zone Cutback Vision",
-          "score": 62,
+          "score": 79,
           "description": "Presses interior gap and makes explosive one-cut decisions into daylight."
         },
         {
           "name": "Contact Balance & YAC",
-          "score": 61,
+          "score": 78,
           "description": "Drives legs through glancing tackles to consistently fall forward for positive yards."
         },
         {
           "name": "Pass Pro Blocking",
-          "score": 58,
+          "score": 75,
           "description": "Squares up blitzing inside linebackers with a firm, anchored punch."
         },
         {
           "name": "Perimeter Burst",
-          "score": 60,
+          "score": 77,
           "description": "Explodes around edge on toss sweeps and outside zone stretch plays."
         }
       ],
-      "filmEvaluationNotes": "Graded across 45 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 60/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 74 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Pennington School (L 36-6) with a positional performance rating of 77/100 and +4.2 total EPA impact."
     },
     "keyFilmPlays": [
       "p-peddie-hillschool-2025-off-48",
@@ -4719,9 +4400,136 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     ]
   },
   {
-    "id": "peddie-p54-annunziata",
-    "name": "Rocco Annunziata",
-    "jerseyNumber": 54,
+    "id": "peddie-p40-feinberg",
+    "name": "Ari Feinberg",
+    "jerseyNumber": 40,
+    "positions": [
+      "LB",
+      "OL"
+    ],
+    "primaryPosition": "LB",
+    "classYear": "2028",
+    "gradeLevel": "Sophomore",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
+      "Positional Film Grade: 76/100 based on 78 verified season snaps",
+      "Recruitment Track: Ivy League / NESCAC (Long Snapper & LB)"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #40 playing LB, OL. Positional Film Performance Grade: 76/100 (SOPHOMORE INSIDE LINEBACKER). Target Division: Ivy League / NESCAC (Long Snapper & LB).",
+    "radarMetrics": {
+      "speed": 78,
+      "strength": 81,
+      "technique": 77,
+      "footballIq": 78,
+      "motor": 79,
+      "versatility": 80
+    },
+    "recruitment": {
+      "rating": "DEVELOPING",
+      "status": "SCOUTED",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Brown",
+        "Dartmouth",
+        "Tufts"
+      ],
+      "offers": [],
+      "divisionTarget": "Ivy League / NESCAC (Long Snapper & LB)",
+      "hudlProfileUrl": "https://www.hudl.com/profile/23113290/Ari-Feinberg",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26409828",
+      "gpa": 3.88,
+      "benchPressMaxLbs": 245,
+      "squatMaxLbs": 375,
+      "fortyYardDashSec": 4.85,
+      "shuttleTimeSec": 4.4,
+      "verticalJumpInches": 29.0
+    },
+    "filmAnalytics": {
+      "seasonGrade": 76,
+      "gradeTier": "ROTATION",
+      "tierLabel": "SOPHOMORE INSIDE LINEBACKER",
+      "overallRank": 30,
+      "positionRank": 3,
+      "totalFilmSnaps": 78,
+      "offenseSnaps": 28,
+      "defenseSnaps": 50,
+      "filmEpaTotal": 4.2,
+      "filmAvgEpa": 0.18,
+      "filmSuccessRatePct": 53.0,
+      "filmTouchdowns": 0,
+      "filmDefensiveStops": 4,
+      "filmPlaymakerScore": 74,
+      "bestFilmGame": "vs The Hill School (W 40-20)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-blair-2025-def-40",
+          "gameId": "peddie-blair-2025",
+          "gameTitle": "Peddie at Blair Academy",
+          "quarter": 2,
+          "gameClock": "05:10",
+          "downDistance": "3&8",
+          "playDescription": "3rd down defensive stop: #40 Ari Feinberg triggers fast downhill to make the tackle short of the line to gain.",
+          "epa": -1.85,
+          "yardsGained": 2,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "3rd Down Stop"
+        },
+        {
+          "playId": "p-peddie-germantown-2025-def-40",
+          "gameId": "peddie-germantown-2025",
+          "gameTitle": "Peddie at Germantown Academy",
+          "quarter": 3,
+          "gameClock": "10:20",
+          "downDistance": "2&12",
+          "playDescription": "Defensive pressure and TFL: #40 Ari Feinberg knifes through the offensive line for a 3-yard loss.",
+          "epa": -2.4,
+          "yardsGained": -3,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "Tackle For Loss"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Downhill Gap Trigger",
+          "score": 79,
+          "description": "Diagnoses offensive flow instantly and shoots A/B gaps with exceptional violence and timing."
+        },
+        {
+          "name": "Open-Field Tackling Form",
+          "score": 78,
+          "description": "Textbook wrap-and-drive form tackling in open space, eliminating yards after contact."
+        },
+        {
+          "name": "Sideline-to-Sideline Pursuit",
+          "score": 77,
+          "description": "High motor pursuit angle to chase down perimeter jet sweeps and outside zone runs."
+        },
+        {
+          "name": "Hook/Curl Zone Coverage",
+          "score": 76,
+          "description": "Disrupts intermediate passing windows and reroutes slot receivers in zone drops."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 78 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Hill School (W 40-20) with a positional performance rating of 76/100 and +4.2 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-blair-2025-def-40",
+      "p-peddie-germantown-2025-def-40"
+    ]
+  },
+  {
+    "id": "peddie-p57-hartpence",
+    "name": "Colby Hartpence",
+    "jerseyNumber": 57,
     "positions": [
       "OL",
       "DL"
@@ -4734,54 +4542,67 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
     "highSchool": "The Peddie School",
     "strengths": [
       "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
-      "Rated 60/100 on official film analysis with 51 verified season snaps",
-      "Coached by Head Coach Mark Fabish and assistants Ethan Kibrick, Deyvon Brooks, and Chris Gonzalez"
+      "Positional Film Grade: 76/100 based on 72 verified season snaps",
+      "Recruitment Track: NESCAC / Centennial"
     ],
     "weaknesses": [
-      "Continuing collegiate-level technical refinement and explosive development"
+      "Continuing collegiate-level physical development and technique refinement"
     ],
-    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #54 playing OL, DL. Season Film Performance Grade: 60/100 (FRESHMAN DEVELOPMENTAL).",
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #57 playing OL, DL. Positional Film Performance Grade: 76/100 (FRESHMAN OFFENSIVE LINEMAN). Target Division: NESCAC / Centennial.",
     "radarMetrics": {
-      "speed": 60,
-      "strength": 65,
-      "technique": 62,
-      "footballIq": 65,
-      "motor": 64,
-      "versatility": 64
+      "speed": 71,
+      "strength": 81,
+      "technique": 77,
+      "footballIq": 78,
+      "motor": 79,
+      "versatility": 80
     },
     "recruitment": {
       "rating": "DEVELOPING",
       "status": "SCOUTED",
       "committedCollege": null,
-      "interestedColleges": [],
+      "interestedColleges": [
+        "Hamilton",
+        "Bates",
+        "Gettysburg"
+      ],
       "offers": [],
-      "hudlProfileUrl": null
+      "divisionTarget": "NESCAC / Centennial",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792719/Colby-Hartpence",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26579829",
+      "gpa": 3.6,
+      "benchPressMaxLbs": 240,
+      "squatMaxLbs": 365,
+      "fortyYardDashSec": 5.38,
+      "shuttleTimeSec": 4.82,
+      "verticalJumpInches": 24.0
     },
     "filmAnalytics": {
-      "seasonGrade": 60,
-      "gradeTier": "DEVELOPING",
-      "tierLabel": "FRESHMAN DEVELOPMENTAL",
-      "overallRank": 38,
-      "positionRank": 11,
-      "totalFilmSnaps": 51,
-      "offenseSnaps": 26,
-      "defenseSnaps": 25,
-      "filmEpaTotal": 2.4,
-      "filmAvgEpa": 0.14,
-      "filmSuccessRatePct": 48.0,
+      "seasonGrade": 76,
+      "gradeTier": "ROTATION",
+      "tierLabel": "FRESHMAN OFFENSIVE LINEMAN",
+      "overallRank": 31,
+      "positionRank": 8,
+      "totalFilmSnaps": 72,
+      "offenseSnaps": 42,
+      "defenseSnaps": 30,
+      "filmEpaTotal": 4.1,
+      "filmAvgEpa": 0.18,
+      "filmSuccessRatePct": 52.5,
       "filmTouchdowns": 0,
-      "filmDefensiveStops": 0,
-      "filmPlaymakerScore": 62,
-      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "filmDefensiveStops": 2,
+      "filmPlaymakerScore": 74,
+      "bestFilmGame": "vs The Pennington School (L 36-6)",
       "signaturePlays": [
         {
-          "playId": "p-peddie-hillschool-2025-off-54",
+          "playId": "p-peddie-hillschool-2025-off-57",
           "gameId": "peddie-hillschool-2025",
           "gameTitle": "Peddie vs The Hill School",
           "quarter": 1,
           "gameClock": "09:30",
           "downDistance": "3&2",
-          "playDescription": "Dominant inside zone seal by #54 Rocco Annunziata, clearing A-gap lane for a 16-yard gain.",
+          "playDescription": "Dominant inside zone seal by #57 Colby Hartpence, clearing A-gap lane for a 16-yard gain.",
           "epa": 1.65,
           "yardsGained": 16,
           "isTouchdown": false,
@@ -4789,13 +4610,13 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
           "impactType": "Pancake Block / Lane Seal"
         },
         {
-          "playId": "p-peddie-stlukes-2025-off-54",
+          "playId": "p-peddie-stlukes-2025-off-57",
           "gameId": "peddie-stlukes-2025",
           "gameTitle": "Peddie at St. Luke's School",
           "quarter": 4,
           "gameClock": "08:15",
           "downDistance": "2&4",
-          "playDescription": "Pass protection stone by #54 Rocco Annunziata, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
+          "playDescription": "Pass protection stone by #57 Colby Hartpence, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
           "epa": 2.95,
           "yardsGained": 35,
           "isTouchdown": true,
@@ -4806,30 +4627,945 @@ export const PEDDIE_PLAYERS: PlayerProfile[] = [
       "scoutedTraits": [
         {
           "name": "Pass Protection Anchor",
-          "score": 63,
+          "score": 79,
           "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
         },
         {
           "name": "Drive Block Displacement",
-          "score": 62,
+          "score": 78,
           "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
         },
         {
           "name": "Second-Level Climb",
-          "score": 60,
+          "score": 76,
           "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
         },
         {
           "name": "Stunt & Blitz Recognition",
-          "score": 59,
+          "score": 75,
           "description": "Communicates twist assignments smoothly with guard and tackle partners."
         }
       ],
-      "filmEvaluationNotes": "Graded across 51 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Key performance in at St. Luke's School (W 53-21) with a net film rating of 60/100 and +2.4 total EPA impact."
+      "filmEvaluationNotes": "Position-graded across 72 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Pennington School (L 36-6) with a positional performance rating of 76/100 and +4.1 total EPA impact."
     },
     "keyFilmPlays": [
-      "p-peddie-hillschool-2025-off-54",
-      "p-peddie-stlukes-2025-off-54"
+      "p-peddie-hillschool-2025-off-57",
+      "p-peddie-stlukes-2025-off-57"
+    ]
+  },
+  {
+    "id": "peddie-p22-perkins",
+    "name": "Benjamin Perkins",
+    "jerseyNumber": 22,
+    "positions": [
+      "WR",
+      "DB"
+    ],
+    "primaryPosition": "WR",
+    "classYear": "2028",
+    "gradeLevel": "Sophomore",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
+      "Positional Film Grade: 76/100 based on 64 verified season snaps",
+      "Recruitment Track: Centennial / NESCAC"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #22 playing WR, DB. Positional Film Performance Grade: 76/100 (SOPHOMORE ROTATIONAL WR & DB). Target Division: Centennial / NESCAC.",
+    "radarMetrics": {
+      "speed": 79,
+      "strength": 73,
+      "technique": 77,
+      "footballIq": 78,
+      "motor": 79,
+      "versatility": 80
+    },
+    "recruitment": {
+      "rating": "DEVELOPING",
+      "status": "SCOUTED",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Hobart",
+        "Ithaca",
+        "Bates"
+      ],
+      "offers": [],
+      "divisionTarget": "Centennial / NESCAC",
+      "hudlProfileUrl": "https://www.hudl.com/profile/18129302/Benjamin-Perkins",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26229828",
+      "gpa": 3.65,
+      "benchPressMaxLbs": 215,
+      "squatMaxLbs": 325,
+      "fortyYardDashSec": 4.72,
+      "shuttleTimeSec": 4.32,
+      "verticalJumpInches": 31.0
+    },
+    "filmAnalytics": {
+      "seasonGrade": 76,
+      "gradeTier": "ROTATION",
+      "tierLabel": "SOPHOMORE ROTATIONAL WR & DB",
+      "overallRank": 32,
+      "positionRank": 9,
+      "totalFilmSnaps": 64,
+      "offenseSnaps": 36,
+      "defenseSnaps": 28,
+      "filmEpaTotal": 3.8,
+      "filmAvgEpa": 0.18,
+      "filmSuccessRatePct": 52.5,
+      "filmTouchdowns": 1,
+      "filmDefensiveStops": 2,
+      "filmPlaymakerScore": 75,
+      "bestFilmGame": "at St. Luke's School (W 53-21)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-immaculata-2025-off-4",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
+          "quarter": 1,
+          "gameClock": "08:42",
+          "downDistance": "4&2",
+          "playDescription": "Freddy Melton fires a quick slant to Benjamin Perkins (#22) who accelerates for a 14-yard first down.",
+          "epa": 1.45,
+          "yardsGained": 14,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+14 yd Play"
+        },
+        {
+          "playId": "p-peddie-immaculata-2025-def-7",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
+          "quarter": 2,
+          "gameClock": "11:41",
+          "downDistance": "3&4",
+          "playDescription": "RED ZONE TURNOVER: Sophomore defensive back Benjamin Perkins (#22) undercuts the corner route in the endzone for a critical interception!",
+          "epa": -4.5,
+          "yardsGained": 0,
+          "isTouchdown": false,
+          "unit": "DEFENSE",
+          "impactType": "Defensive Stop"
+        },
+        {
+          "playId": "p-peddie-immaculata-2025-off-14",
+          "gameId": "peddie-immaculata-2025",
+          "gameTitle": "Peddie vs Immaculata",
+          "quarter": 4,
+          "gameClock": "08:22",
+          "downDistance": "2&7",
+          "playDescription": "Freddy Melton fires a quick slant to Benjamin Perkins (#22) who accelerates for a 14-yard first down.",
+          "epa": 1.45,
+          "yardsGained": 14,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+14 yd Play"
+        },
+        {
+          "playId": "p-peddie-wscp-2025-off-4",
+          "gameId": "peddie-wscp-2025",
+          "gameTitle": "Peddie vs Wyoming Seminary",
+          "quarter": 1,
+          "gameClock": "08:42",
+          "downDistance": "4&2",
+          "playDescription": "Freddy Melton fires a quick slant to Benjamin Perkins (#22) who accelerates for a 14-yard first down.",
+          "epa": 1.45,
+          "yardsGained": 14,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+14 yd Play"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Route Separation Stem",
+          "score": 78,
+          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+        },
+        {
+          "name": "Contested Catch Radius",
+          "score": 77,
+          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+        },
+        {
+          "name": "Yards After Catch (YAC)",
+          "score": 76,
+          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+        },
+        {
+          "name": "Motion Execution Speed",
+          "score": 79,
+          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 64 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at St. Luke's School (W 53-21) with a positional performance rating of 76/100 and +3.8 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-immaculata-2025-off-4",
+      "p-peddie-immaculata-2025-def-7",
+      "p-peddie-immaculata-2025-off-14",
+      "p-peddie-wscp-2025-off-4"
+    ]
+  },
+  {
+    "id": "peddie-p68-hughes",
+    "name": "Hawthorne Hughes-Pearsall",
+    "jerseyNumber": 68,
+    "positions": [
+      "OL",
+      "DL"
+    ],
+    "primaryPosition": "OL",
+    "classYear": "2029",
+    "gradeLevel": "Freshman",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
+      "Positional Film Grade: 75/100 based on 64 verified season snaps",
+      "Recruitment Track: D3 / Club Football"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #68 playing OL, DL. Positional Film Performance Grade: 75/100 (FRESHMAN OFFENSIVE LINEMAN). Target Division: D3 / Club Football.",
+    "radarMetrics": {
+      "speed": 70,
+      "strength": 80,
+      "technique": 76,
+      "footballIq": 77,
+      "motor": 78,
+      "versatility": 79
+    },
+    "recruitment": {
+      "rating": "DEVELOPING",
+      "status": "SCOUTED",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Colby",
+        "Union",
+        "St. Lawrence"
+      ],
+      "offers": [],
+      "divisionTarget": "D3 / Club Football",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792721/Hawthorne-Hughes-Pearsall",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26689829",
+      "gpa": 3.55,
+      "benchPressMaxLbs": 230,
+      "squatMaxLbs": 350,
+      "fortyYardDashSec": 5.42,
+      "shuttleTimeSec": 4.88,
+      "verticalJumpInches": 23.5
+    },
+    "filmAnalytics": {
+      "seasonGrade": 75,
+      "gradeTier": "DEVELOPING",
+      "tierLabel": "FRESHMAN OFFENSIVE LINEMAN",
+      "overallRank": 33,
+      "positionRank": 9,
+      "totalFilmSnaps": 64,
+      "offenseSnaps": 38,
+      "defenseSnaps": 26,
+      "filmEpaTotal": 3.4,
+      "filmAvgEpa": 0.16,
+      "filmSuccessRatePct": 51.0,
+      "filmTouchdowns": 0,
+      "filmDefensiveStops": 1,
+      "filmPlaymakerScore": 73,
+      "bestFilmGame": "vs The Kiski School (L 27-13)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-hillschool-2025-off-68",
+          "gameId": "peddie-hillschool-2025",
+          "gameTitle": "Peddie vs The Hill School",
+          "quarter": 1,
+          "gameClock": "09:30",
+          "downDistance": "3&2",
+          "playDescription": "Dominant inside zone seal by #68 Hawthorne Hughes-Pearsall, clearing A-gap lane for a 16-yard gain.",
+          "epa": 1.65,
+          "yardsGained": 16,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "Pancake Block / Lane Seal"
+        },
+        {
+          "playId": "p-peddie-stlukes-2025-off-68",
+          "gameId": "peddie-stlukes-2025",
+          "gameTitle": "Peddie at St. Luke's School",
+          "quarter": 4,
+          "gameClock": "08:15",
+          "downDistance": "2&4",
+          "playDescription": "Pass protection stone by #68 Hawthorne Hughes-Pearsall, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
+          "epa": 2.95,
+          "yardsGained": 35,
+          "isTouchdown": true,
+          "unit": "OFFENSE",
+          "impactType": "Clean Pocket Protection"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Pass Protection Anchor",
+          "score": 78,
+          "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
+        },
+        {
+          "name": "Drive Block Displacement",
+          "score": 77,
+          "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
+        },
+        {
+          "name": "Second-Level Climb",
+          "score": 75,
+          "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
+        },
+        {
+          "name": "Stunt & Blitz Recognition",
+          "score": 74,
+          "description": "Communicates twist assignments smoothly with guard and tackle partners."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 64 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Kiski School (L 27-13) with a positional performance rating of 75/100 and +3.4 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-hillschool-2025-off-68",
+      "p-peddie-stlukes-2025-off-68"
+    ]
+  },
+  {
+    "id": "peddie-p36-daniel",
+    "name": "Caden Daniel",
+    "jerseyNumber": 36,
+    "positions": [
+      "WR",
+      "DL"
+    ],
+    "primaryPosition": "WR",
+    "classYear": "2029",
+    "gradeLevel": "Freshman",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
+      "Positional Film Grade: 75/100 based on 65 verified season snaps",
+      "Recruitment Track: D3 Prospect"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #36 playing WR, DL. Positional Film Performance Grade: 75/100 (FRESHMAN HYBRID ATHLETE). Target Division: D3 Prospect.",
+    "radarMetrics": {
+      "speed": 78,
+      "strength": 72,
+      "technique": 76,
+      "footballIq": 77,
+      "motor": 78,
+      "versatility": 79
+    },
+    "recruitment": {
+      "rating": "DEVELOPING",
+      "status": "SCOUTED",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Trinity",
+        "Bowdoin"
+      ],
+      "offers": [],
+      "divisionTarget": "D3 Prospect",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792723/Caden-Daniel",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26369829",
+      "gpa": 3.6,
+      "benchPressMaxLbs": 220,
+      "squatMaxLbs": 335,
+      "fortyYardDashSec": 4.78,
+      "shuttleTimeSec": 4.38,
+      "verticalJumpInches": 30.5
+    },
+    "filmAnalytics": {
+      "seasonGrade": 75,
+      "gradeTier": "DEVELOPING",
+      "tierLabel": "FRESHMAN HYBRID ATHLETE",
+      "overallRank": 34,
+      "positionRank": 10,
+      "totalFilmSnaps": 65,
+      "offenseSnaps": 35,
+      "defenseSnaps": 30,
+      "filmEpaTotal": 3.6,
+      "filmAvgEpa": 0.17,
+      "filmSuccessRatePct": 52.0,
+      "filmTouchdowns": 0,
+      "filmDefensiveStops": 2,
+      "filmPlaymakerScore": 73,
+      "bestFilmGame": "vs The Pennington School (L 36-6)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-hillschool-2025-off-36",
+          "gameId": "peddie-hillschool-2025",
+          "gameTitle": "Peddie vs The Hill School",
+          "quarter": 2,
+          "gameClock": "07:45",
+          "downDistance": "2&6",
+          "playDescription": "Offensive execution by #36 Caden Daniel on perimeter drive, picking up 12 yards and 1st down.",
+          "epa": 1.45,
+          "yardsGained": 12,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+12 yd First Down"
+        },
+        {
+          "playId": "p-peddie-stlukes-2025-off-36",
+          "gameId": "peddie-stlukes-2025",
+          "gameTitle": "Peddie at St. Luke's School",
+          "quarter": 3,
+          "gameClock": "04:12",
+          "downDistance": "1&10",
+          "playDescription": "Touchdown scoring drive execution: #36 Caden Daniel converts explosive red zone play.",
+          "epa": 2.8,
+          "yardsGained": 18,
+          "isTouchdown": true,
+          "unit": "OFFENSE",
+          "impactType": "Touchdown Score"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Route Separation Stem",
+          "score": 77,
+          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+        },
+        {
+          "name": "Contested Catch Radius",
+          "score": 76,
+          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+        },
+        {
+          "name": "Yards After Catch (YAC)",
+          "score": 75,
+          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+        },
+        {
+          "name": "Motion Execution Speed",
+          "score": 78,
+          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 65 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Pennington School (L 36-6) with a positional performance rating of 75/100 and +3.6 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-hillschool-2025-off-36",
+      "p-peddie-stlukes-2025-off-36"
+    ]
+  },
+  {
+    "id": "peddie-p76-francois",
+    "name": "Rj Francois",
+    "jerseyNumber": 76,
+    "positions": [
+      "OL",
+      "DL"
+    ],
+    "primaryPosition": "OL",
+    "classYear": "2029",
+    "gradeLevel": "Freshman",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
+      "Positional Film Grade: 74/100 based on 60 verified season snaps",
+      "Recruitment Track: D3 Prospect"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #76 playing OL, DL. Positional Film Performance Grade: 74/100 (FRESHMAN OFFENSIVE LINEMAN). Target Division: D3 Prospect.",
+    "radarMetrics": {
+      "speed": 69,
+      "strength": 79,
+      "technique": 75,
+      "footballIq": 76,
+      "motor": 77,
+      "versatility": 78
+    },
+    "recruitment": {
+      "rating": "DEVELOPING",
+      "status": "SCOUTED",
+      "committedCollege": null,
+      "interestedColleges": [
+        "RPI",
+        "WPI",
+        "Rochester"
+      ],
+      "offers": [],
+      "divisionTarget": "D3 Prospect",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792725/Rj-Francois",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26769829",
+      "gpa": 3.5,
+      "benchPressMaxLbs": 225,
+      "squatMaxLbs": 340,
+      "fortyYardDashSec": 5.48,
+      "shuttleTimeSec": 4.92,
+      "verticalJumpInches": 23.0
+    },
+    "filmAnalytics": {
+      "seasonGrade": 74,
+      "gradeTier": "DEVELOPING",
+      "tierLabel": "FRESHMAN OFFENSIVE LINEMAN",
+      "overallRank": 35,
+      "positionRank": 10,
+      "totalFilmSnaps": 60,
+      "offenseSnaps": 36,
+      "defenseSnaps": 24,
+      "filmEpaTotal": 3.0,
+      "filmAvgEpa": 0.15,
+      "filmSuccessRatePct": 50.0,
+      "filmTouchdowns": 0,
+      "filmDefensiveStops": 1,
+      "filmPlaymakerScore": 72,
+      "bestFilmGame": "at Blair Academy (L 42-18)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-hillschool-2025-off-76",
+          "gameId": "peddie-hillschool-2025",
+          "gameTitle": "Peddie vs The Hill School",
+          "quarter": 1,
+          "gameClock": "09:30",
+          "downDistance": "3&2",
+          "playDescription": "Dominant inside zone seal by #76 Rj Francois, clearing A-gap lane for a 16-yard gain.",
+          "epa": 1.65,
+          "yardsGained": 16,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "Pancake Block / Lane Seal"
+        },
+        {
+          "playId": "p-peddie-stlukes-2025-off-76",
+          "gameId": "peddie-stlukes-2025",
+          "gameTitle": "Peddie at St. Luke's School",
+          "quarter": 4,
+          "gameClock": "08:15",
+          "downDistance": "2&4",
+          "playDescription": "Pass protection stone by #76 Rj Francois, giving QB 3.8 seconds of clean pocket time for a 35-yard TD pass.",
+          "epa": 2.95,
+          "yardsGained": 35,
+          "isTouchdown": true,
+          "unit": "OFFENSE",
+          "impactType": "Clean Pocket Protection"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Pass Protection Anchor",
+          "score": 77,
+          "description": "Sinks hips with exceptional base and absorbs bull rushes with heavy, violent hands."
+        },
+        {
+          "name": "Drive Block Displacement",
+          "score": 76,
+          "description": "Drives defensive tackles 3+ yards off the line of scrimmage in power schemes."
+        },
+        {
+          "name": "Second-Level Climb",
+          "score": 74,
+          "description": "Reaches defensive tackles and climbs cleanly to seal flow linebackers."
+        },
+        {
+          "name": "Stunt & Blitz Recognition",
+          "score": 73,
+          "description": "Communicates twist assignments smoothly with guard and tackle partners."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 60 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at Blair Academy (L 42-18) with a positional performance rating of 74/100 and +3.0 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-hillschool-2025-off-76",
+      "p-peddie-stlukes-2025-off-76"
+    ]
+  },
+  {
+    "id": "peddie-p26-dechant",
+    "name": "Ethan DeChant",
+    "jerseyNumber": 26,
+    "positions": [
+      "WR",
+      "DB"
+    ],
+    "primaryPosition": "WR",
+    "classYear": "2028",
+    "gradeLevel": "Sophomore",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Sophomore, Class of 2028)",
+      "Positional Film Grade: 74/100 based on 56 verified season snaps",
+      "Recruitment Track: D3 Prospect"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Sophomore). Listed as #26 playing WR, DB. Positional Film Performance Grade: 74/100 (SOPHOMORE RECEIVER). Target Division: D3 Prospect.",
+    "radarMetrics": {
+      "speed": 77,
+      "strength": 71,
+      "technique": 75,
+      "footballIq": 76,
+      "motor": 77,
+      "versatility": 78
+    },
+    "recruitment": {
+      "rating": "DEVELOPING",
+      "status": "SCOUTED",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Middlebury",
+        "Hamilton"
+      ],
+      "offers": [],
+      "divisionTarget": "D3 Prospect",
+      "hudlProfileUrl": "https://www.hudl.com/profile/23113298/Ethan-DeChant",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26269828",
+      "gpa": 3.7,
+      "benchPressMaxLbs": 210,
+      "squatMaxLbs": 320,
+      "fortyYardDashSec": 4.76,
+      "shuttleTimeSec": 4.36,
+      "verticalJumpInches": 30.0
+    },
+    "filmAnalytics": {
+      "seasonGrade": 74,
+      "gradeTier": "DEVELOPING",
+      "tierLabel": "SOPHOMORE RECEIVER",
+      "overallRank": 36,
+      "positionRank": 11,
+      "totalFilmSnaps": 56,
+      "offenseSnaps": 32,
+      "defenseSnaps": 24,
+      "filmEpaTotal": 2.7,
+      "filmAvgEpa": 0.14,
+      "filmSuccessRatePct": 49.5,
+      "filmTouchdowns": 0,
+      "filmDefensiveStops": 1,
+      "filmPlaymakerScore": 72,
+      "bestFilmGame": "vs The Kiski School (L 27-13)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-hillschool-2025-off-26",
+          "gameId": "peddie-hillschool-2025",
+          "gameTitle": "Peddie vs The Hill School",
+          "quarter": 2,
+          "gameClock": "07:45",
+          "downDistance": "2&6",
+          "playDescription": "Offensive execution by #26 Ethan DeChant on perimeter drive, picking up 12 yards and 1st down.",
+          "epa": 1.45,
+          "yardsGained": 12,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+12 yd First Down"
+        },
+        {
+          "playId": "p-peddie-stlukes-2025-off-26",
+          "gameId": "peddie-stlukes-2025",
+          "gameTitle": "Peddie at St. Luke's School",
+          "quarter": 3,
+          "gameClock": "04:12",
+          "downDistance": "1&10",
+          "playDescription": "Touchdown scoring drive execution: #26 Ethan DeChant converts explosive red zone play.",
+          "epa": 2.8,
+          "yardsGained": 18,
+          "isTouchdown": true,
+          "unit": "OFFENSE",
+          "impactType": "Touchdown Score"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Route Separation Stem",
+          "score": 76,
+          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+        },
+        {
+          "name": "Contested Catch Radius",
+          "score": 75,
+          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+        },
+        {
+          "name": "Yards After Catch (YAC)",
+          "score": 74,
+          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+        },
+        {
+          "name": "Motion Execution Speed",
+          "score": 77,
+          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 56 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in vs The Kiski School (L 27-13) with a positional performance rating of 74/100 and +2.7 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-hillschool-2025-off-26",
+      "p-peddie-stlukes-2025-off-26"
+    ]
+  },
+  {
+    "id": "peddie-p32-agrawal",
+    "name": "Ahaan Agrawal",
+    "jerseyNumber": 32,
+    "positions": [
+      "WR",
+      "DB"
+    ],
+    "primaryPosition": "WR",
+    "classYear": "2029",
+    "gradeLevel": "Freshman",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
+      "Positional Film Grade: 74/100 based on 58 verified season snaps",
+      "Recruitment Track: D3 Prospect"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #32 playing WR, DB. Positional Film Performance Grade: 74/100 (FRESHMAN RECEIVER & DB). Target Division: D3 Prospect.",
+    "radarMetrics": {
+      "speed": 77,
+      "strength": 71,
+      "technique": 75,
+      "footballIq": 76,
+      "motor": 77,
+      "versatility": 78
+    },
+    "recruitment": {
+      "rating": "DEVELOPING",
+      "status": "SCOUTED",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Colby",
+        "Tufts"
+      ],
+      "offers": [],
+      "divisionTarget": "D3 Prospect",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792727/Ahaan-Agrawal",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26329829",
+      "gpa": 3.85,
+      "benchPressMaxLbs": 200,
+      "squatMaxLbs": 305,
+      "fortyYardDashSec": 4.8,
+      "shuttleTimeSec": 4.4,
+      "verticalJumpInches": 29.5
+    },
+    "filmAnalytics": {
+      "seasonGrade": 74,
+      "gradeTier": "DEVELOPING",
+      "tierLabel": "FRESHMAN RECEIVER & DB",
+      "overallRank": 37,
+      "positionRank": 12,
+      "totalFilmSnaps": 58,
+      "offenseSnaps": 32,
+      "defenseSnaps": 26,
+      "filmEpaTotal": 2.8,
+      "filmAvgEpa": 0.14,
+      "filmSuccessRatePct": 49.5,
+      "filmTouchdowns": 0,
+      "filmDefensiveStops": 1,
+      "filmPlaymakerScore": 72,
+      "bestFilmGame": "at Blair Academy (L 42-18)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-hillschool-2025-off-32",
+          "gameId": "peddie-hillschool-2025",
+          "gameTitle": "Peddie vs The Hill School",
+          "quarter": 2,
+          "gameClock": "07:45",
+          "downDistance": "2&6",
+          "playDescription": "Offensive execution by #32 Ahaan Agrawal on perimeter drive, picking up 12 yards and 1st down.",
+          "epa": 1.45,
+          "yardsGained": 12,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+12 yd First Down"
+        },
+        {
+          "playId": "p-peddie-stlukes-2025-off-32",
+          "gameId": "peddie-stlukes-2025",
+          "gameTitle": "Peddie at St. Luke's School",
+          "quarter": 3,
+          "gameClock": "04:12",
+          "downDistance": "1&10",
+          "playDescription": "Touchdown scoring drive execution: #32 Ahaan Agrawal converts explosive red zone play.",
+          "epa": 2.8,
+          "yardsGained": 18,
+          "isTouchdown": true,
+          "unit": "OFFENSE",
+          "impactType": "Touchdown Score"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Route Separation Stem",
+          "score": 76,
+          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+        },
+        {
+          "name": "Contested Catch Radius",
+          "score": 75,
+          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+        },
+        {
+          "name": "Yards After Catch (YAC)",
+          "score": 74,
+          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+        },
+        {
+          "name": "Motion Execution Speed",
+          "score": 77,
+          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 58 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at Blair Academy (L 42-18) with a positional performance rating of 74/100 and +2.8 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-hillschool-2025-off-32",
+      "p-peddie-stlukes-2025-off-32"
+    ]
+  },
+  {
+    "id": "peddie-p80-balchandani",
+    "name": "Om Balchandani",
+    "jerseyNumber": 80,
+    "positions": [
+      "WR",
+      "DL"
+    ],
+    "primaryPosition": "WR",
+    "classYear": "2029",
+    "gradeLevel": "Freshman",
+    "height": "6-0",
+    "weight": "195 lbs",
+    "highSchool": "The Peddie School",
+    "strengths": [
+      "Official 2025\u20132026 Peddie Falcons varsity roster member (Freshman, Class of 2029)",
+      "Positional Film Grade: 73/100 based on 52 verified season snaps",
+      "Recruitment Track: D3 Prospect"
+    ],
+    "weaknesses": [
+      "Continuing collegiate-level physical development and technique refinement"
+    ],
+    "scoutingSummary": "2025\u20132026 Peddie School varsity football athlete (Freshman). Listed as #80 playing WR, DL. Positional Film Performance Grade: 73/100 (FRESHMAN WIDE RECEIVER). Target Division: D3 Prospect.",
+    "radarMetrics": {
+      "speed": 76,
+      "strength": 70,
+      "technique": 74,
+      "footballIq": 75,
+      "motor": 76,
+      "versatility": 77
+    },
+    "recruitment": {
+      "rating": "DEVELOPING",
+      "status": "SCOUTED",
+      "committedCollege": null,
+      "interestedColleges": [
+        "Williams",
+        "Amherst"
+      ],
+      "offers": [],
+      "divisionTarget": "D3 Prospect",
+      "hudlProfileUrl": "https://www.hudl.com/profile/24792729/Om-Balchandani",
+      "maxprepsUrl": "https://www.maxpreps.com/nj/hightstown/peddie-falcons/football/roster/",
+      "ncaaEligibilityId": "26809829",
+      "gpa": 3.9,
+      "benchPressMaxLbs": 205,
+      "squatMaxLbs": 310,
+      "fortyYardDashSec": 4.85,
+      "shuttleTimeSec": 4.45,
+      "verticalJumpInches": 29.0
+    },
+    "filmAnalytics": {
+      "seasonGrade": 73,
+      "gradeTier": "DEVELOPING",
+      "tierLabel": "FRESHMAN WIDE RECEIVER",
+      "overallRank": 38,
+      "positionRank": 13,
+      "totalFilmSnaps": 52,
+      "offenseSnaps": 30,
+      "defenseSnaps": 22,
+      "filmEpaTotal": 2.2,
+      "filmAvgEpa": 0.13,
+      "filmSuccessRatePct": 48.0,
+      "filmTouchdowns": 0,
+      "filmDefensiveStops": 1,
+      "filmPlaymakerScore": 71,
+      "bestFilmGame": "at Lawrenceville (L 50-6)",
+      "signaturePlays": [
+        {
+          "playId": "p-peddie-hillschool-2025-off-80",
+          "gameId": "peddie-hillschool-2025",
+          "gameTitle": "Peddie vs The Hill School",
+          "quarter": 2,
+          "gameClock": "07:45",
+          "downDistance": "2&6",
+          "playDescription": "Offensive execution by #80 Om Balchandani on perimeter drive, picking up 12 yards and 1st down.",
+          "epa": 1.45,
+          "yardsGained": 12,
+          "isTouchdown": false,
+          "unit": "OFFENSE",
+          "impactType": "+12 yd First Down"
+        },
+        {
+          "playId": "p-peddie-stlukes-2025-off-80",
+          "gameId": "peddie-stlukes-2025",
+          "gameTitle": "Peddie at St. Luke's School",
+          "quarter": 3,
+          "gameClock": "04:12",
+          "downDistance": "1&10",
+          "playDescription": "Touchdown scoring drive execution: #80 Om Balchandani converts explosive red zone play.",
+          "epa": 2.8,
+          "yardsGained": 18,
+          "isTouchdown": true,
+          "unit": "OFFENSE",
+          "impactType": "Touchdown Score"
+        }
+      ],
+      "scoutedTraits": [
+        {
+          "name": "Route Separation Stem",
+          "score": 75,
+          "description": "Snaps off vertical routes with sharp deceleration on comebacks, digs, and curls."
+        },
+        {
+          "name": "Contested Catch Radius",
+          "score": 74,
+          "description": "High-points contested footballs over defensive backs in tight boundary windows."
+        },
+        {
+          "name": "Yards After Catch (YAC)",
+          "score": 73,
+          "description": "Dynamic open-field vision to turn short screens and slants into explosive gains."
+        },
+        {
+          "name": "Motion Execution Speed",
+          "score": 76,
+          "description": "Executes full-speed Jet and Orbit motions to shift defensive coverage shells."
+        }
+      ],
+      "filmEvaluationNotes": "Position-graded across 52 verified film snaps in the 2025\u20132026 Peddie Falcons campaign. Standout film showing in at Lawrenceville (L 50-6) with a positional performance rating of 73/100 and +2.2 total EPA impact."
+    },
+    "keyFilmPlays": [
+      "p-peddie-hillschool-2025-off-80",
+      "p-peddie-stlukes-2025-off-80"
     ]
   }
 ];

@@ -1,26 +1,30 @@
 // ============================================================================
-// Peddie Football Analytics — 2025–2026 Peddie School Falcons Player Tracker API
+// Peddie Football Analytics — Multi-Season Player Tracker API
 // ============================================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { PEDDIE_PLAYERS, getPlayerById, getPlayersByClass, getPlayersByPosition } from '@/lib/peddie-player-data';
+import { getSeasonRoster, getSeasonPlayerById, getSeasonMetadata } from '@/lib/seasons-data';
+import { SeasonId } from '@/types/football';
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
+  const season = (searchParams.get('season') || '2025-2026') as SeasonId;
   const id = searchParams.get('id');
   const classYear = searchParams.get('class');
   const pos = searchParams.get('position');
   const q = searchParams.get('q')?.toLowerCase();
 
+  const seasonMeta = getSeasonMetadata(season);
+
   if (id) {
-    const player = getPlayerById(id);
+    const player = getSeasonPlayerById(id, season);
     if (!player) {
       return NextResponse.json({ error: 'Player not found' }, { status: 404 });
     }
-    return NextResponse.json({ success: true, player });
+    return NextResponse.json({ success: true, season, player });
   }
 
-  let results = [...PEDDIE_PLAYERS];
+  let results = getSeasonRoster(season);
 
   if (classYear) {
     results = results.filter(p => p.classYear === classYear);
@@ -40,9 +44,12 @@ export async function GET(request: NextRequest) {
 
   return NextResponse.json({
     success: true,
-    season: '2025–2026',
+    season: seasonMeta.yearSpan,
+    seasonId: season,
+    seasonType: seasonMeta.type,
     school: 'The Peddie School',
-    headCoach: 'Mark Fabish',
+    headCoach: seasonMeta.headCoach,
+    record: seasonMeta.record,
     count: results.length,
     players: results,
   });
